@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Home from '../pages/Home/Home'
 import Login from '../pages/Login/Login'
 import Cadastro from '../pages/Cadastro/Cadastro'
+import Estabelecimento from '../pages/Estabelecimento/Estabelecimento'
 
 const Stack = createStackNavigator();
 
@@ -12,7 +13,7 @@ const route = () => {
         <Stack.Navigator
             headerMode={'screen'}
             screenOptions={{
-                headerStyle: { backgroundColor: '#FF7223' },
+                headerStyle: { backgroundColor: '#B32728' },
                 headerTintColor: '#fff',
                 headerTitleStyle: {
                     fontWeight: 'bold',
@@ -28,12 +29,16 @@ const route = () => {
             <Stack.Screen
                 name='Login'
                 component={Login}
-                /* options={{ headerShown: false }} */
+                options={{ headerStyle: { backgroundColor: '#FF7223' } }}
             />
             <Stack.Screen
                 name='Cadastro'
                 component={Cadastro}
-                options={{ headerStyle: { backgroundColor: '#F23132' } }}
+            />
+             <Stack.Screen
+                name='Estabelecimento'
+                component={Estabelecimento}
+                /* options={{ headerStyle: { backgroundColor: '#B32728' } }} */
             />
         </Stack.Navigator>
     )
