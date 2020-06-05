@@ -5,12 +5,23 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "column",
     },
-    image: {
+    container2: {
         flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    },
+    image_back: {
+        flex: 1,
+        height: 500,
         resizeMode: "cover",
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'flex-end'
+    },
+    image_logo:{
+        width: 300,
+        height: 300
     },
     btn:{
         backgroundColor: "#B32728",

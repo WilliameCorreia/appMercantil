@@ -33,7 +33,7 @@ const route = () => {
             <Stack.Screen
                 name='Cadastro'
                 component={Cadastro}
-                options={{ headerShown: false }}
+                options={{ headerStyle: { backgroundColor: '#F23132' } }}
             />
         </Stack.Navigator>
     )
