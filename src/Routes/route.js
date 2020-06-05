@@ -1,17 +1,15 @@
 import React from 'react'
-
 import { createStackNavigator } from '@react-navigation/stack'
-import { View, Text } from 'react-native';
+
+import Home from '../pages/Home/Home'
+import Login from '../pages/Login/Login'
+import Cadastro from '../pages/Cadastro/Cadastro'
 
 const Stack = createStackNavigator();
 
 const route = () => {
     return (
-
-        <View>
-            <Text>Route</Text>
-        </View>
-       /*  <Stack.Navigator
+        <Stack.Navigator
             screenOptions={{
                 headerStyle: { backgroundColor: '#f23132' },
                 headerTintColor: '#fff',
@@ -19,33 +17,23 @@ const route = () => {
                     fontWeight: 'bold',
                 },
                 headerTitleAlign: 'center'
-            }}
-        >
+            }}>
             <Stack.Screen
                 name='Home'
-                component={}
-                options={{ title: '' }}
+                component={Home}
+                options={{ headerShown: false }}
             />
-
             <Stack.Screen
                 name='Login'
-                component={}
-                options={{ title: '' }}
+                component={Login}
+                options={{ headerShown: false }}
             />
-
             <Stack.Screen
                 name='Cadastro'
-                component={}
-                options={{ title: '' }}
+                component={Cadastro}
+                options={{ headerShown: false }}
             />
-
-            <Stack.Screen
-                name='Home'
-                component={}
-                options={{ title: '' }}
-            />
-
-        </Stack.Navigator> */
+        </Stack.Navigator>
     )
 }
 
