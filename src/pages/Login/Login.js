@@ -1,12 +1,25 @@
-import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import React from 'react'
+import { Text, View, TextInput, TouchableOpacity } from 'react-native'
 
-export default class login extends Component {
-    render() {
-        return (
-            <View>
-                <Text> login </Text>
-            </View>
-        )
-    }
+import styles from './style'
+
+export default function login(){
+    return (
+        <View style={styles.container}>
+           <TextInput
+                style={styles.input}
+                placeholder={'USUÁRIO'}
+                placeholderTextColor={'#ffff'}    
+           />
+             <TextInput
+                style={styles.input}
+                placeholder={'********'} 
+                placeholderTextColor={'#ffff'}
+                secureTextEntry
+           />
+           <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Login')}>
+                <Text style={styles.text}>Entrar</Text>
+            </TouchableOpacity>
+        </View>
+    )
 }

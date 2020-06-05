@@ -10,11 +10,13 @@ const Stack = createStackNavigator();
 const route = () => {
     return (
         <Stack.Navigator
+            headerMode={'screen'}
             screenOptions={{
-                headerStyle: { backgroundColor: '#f23132' },
+                headerStyle: { backgroundColor: '#FF7223' },
                 headerTintColor: '#fff',
                 headerTitleStyle: {
                     fontWeight: 'bold',
+                    letterSpacing: 3
                 },
                 headerTitleAlign: 'center'
             }}>
@@ -26,7 +28,7 @@ const route = () => {
             <Stack.Screen
                 name='Login'
                 component={Login}
-                options={{ headerShown: false }}
+                /* options={{ headerShown: false }} */
             />
             <Stack.Screen
                 name='Cadastro'
