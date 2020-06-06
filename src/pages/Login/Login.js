@@ -39,7 +39,7 @@ export default function login({ navigation }) {
                     secureTextEntry
                 />
             </View>
-            <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Login')}>
+            <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('MeusProdutos')}>
                 <Text style={styles.text}>Entrar</Text>
             </TouchableOpacity>
         </View>

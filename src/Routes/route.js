@@ -5,6 +5,7 @@ import Home from '../pages/Home/Home'
 import Login from '../pages/Login/Login'
 import Cadastro from '../pages/Cadastro/Cadastro'
 import Estabelecimento from '../pages/Estabelecimento/Estabelecimento'
+import routeBottom from '../Routes/routeBottom'
 
 const Stack = createStackNavigator();
 
@@ -13,7 +14,7 @@ const route = () => {
         <Stack.Navigator
             headerMode={'screen'}
             screenOptions={{
-                headerStyle: { backgroundColor: '#9C3F3A' },
+                headerStyle: { backgroundColor: '#B32728' },
                 headerTintColor: '#fff',
                 headerTitleStyle: {
                     fontWeight: 'bold',
@@ -39,6 +40,13 @@ const route = () => {
              <Stack.Screen
                 name='Estabelecimento'
                 component={Estabelecimento}
+            />
+             <Stack.Screen
+                name='MeusProdutos'
+                options={{
+                    title: 'Meus Produtos',
+                  }}
+                component={routeBottom}
             />
         </Stack.Navigator>
     )
