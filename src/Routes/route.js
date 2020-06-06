@@ -13,7 +13,7 @@ const route = () => {
         <Stack.Navigator
             headerMode={'screen'}
             screenOptions={{
-                headerStyle: { backgroundColor: '#B32728' },
+                headerStyle: { backgroundColor: '#9C3F3A' },
                 headerTintColor: '#fff',
                 headerTitleStyle: {
                     fontWeight: 'bold',
@@ -34,11 +34,11 @@ const route = () => {
             <Stack.Screen
                 name='Cadastro'
                 component={Cadastro}
+                options={{ headerStyle: { backgroundColor: '#B32728' } }}
             />
              <Stack.Screen
                 name='Estabelecimento'
                 component={Estabelecimento}
-                /* options={{ headerStyle: { backgroundColor: '#B32728' } }} */
             />
         </Stack.Navigator>
     )
