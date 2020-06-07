@@ -43,6 +43,5 @@ export default function login({ navigation }) {
                 <Text style={styles.text}>Entrar</Text>
             </TouchableOpacity>
         </View>
-        
     )
 }

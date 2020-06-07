@@ -17,13 +17,13 @@ export default function Estabelecimento( { navigation } ) {
             <View style={styles.container2}>
                 <View style={styles.box2}>
                     <Text style={styles.label}>RAZÃO SOCIAL</Text>
-                    <TextInput style={styles.input} />
+                    <TextInput style={styles.input} placeholder='Razão social do estabelecimento' />
                 </View>
             </View>
             <View style={styles.container2}>
                 <View style={styles.box2}>
                     <Text style={styles.label}>NOME DO ESTABELECIMENTO</Text>
-                    <TextInput style={styles.input} />
+                    <TextInput  style={styles.input} />
                 </View>
             </View>
             <View style={styles.container2}>
