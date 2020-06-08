@@ -7,9 +7,6 @@ import Cadastro from '../pages/Cadastro/Cadastro'
 import Estabelecimento from '../pages/Estabelecimento/Estabelecimento'
 import routeBottom from '../Routes/routeBottom'
 import MyGetOutButton from '../Componentes/MyGetOutButton'
-import Teste from '../pages/teste/teste'
-import MyBackButton from '../Componentes/MyBackButton'
-import MyHeader from '../Componentes/MyHeader'
 
 const Stack = createStackNavigator();
 
@@ -58,43 +55,8 @@ function Route() {
                 }}
                 component={routeBottom}
             />
-            <Stack.Screen
-                name='Teste'
-                options={{
-                    title: 'Teste',
-                }}
-                component={Teste}
-            />
         </Stack.Navigator>
     )
 }
 
 export default Route
-
-/* function sair() {
-      auth()
-          .signOut()
-          .then(() => Alert.alert('User signed out!'));
-  }
-
-  if (initializing) return null;
-
-  if (!user) {
-      return (
-          <View>
-              <Text>Login</Text>
-          </View>
-      );
-  }
-
-  if(user){
-      return (
-          <View>
-              <Text>Welcome {user.email}</Text>
-              <TouchableHighlight onPress={() => sair()}>
-                  <Text>sair</Text>
-              </TouchableHighlight>
-          </View>
-      );
-  }
-   */
