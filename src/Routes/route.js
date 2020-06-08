@@ -6,14 +6,23 @@ import Login from '../pages/Login/Login'
 import Cadastro from '../pages/Cadastro/Cadastro'
 import Estabelecimento from '../pages/Estabelecimento/Estabelecimento'
 import routeBottom from '../Routes/routeBottom'
+import MyGetOutButton from '../Componentes/MyGetOutButton'
+import Teste from '../pages/teste/teste'
+import MyBackButton from '../Componentes/MyBackButton'
+import MyHeader from '../Componentes/MyHeader'
 
 const Stack = createStackNavigator();
 
-const route = () => {
+function Route() {
+
     return (
         <Stack.Navigator
+            initialRouteName={'Home'}
             headerMode={'screen'}
             screenOptions={{
+                headerRight: ({ }) => {
+                    return <MyGetOutButton />
+                },
                 headerStyle: { backgroundColor: '#B32728' },
                 headerTintColor: '#fff',
                 headerTitleStyle: {
@@ -30,26 +39,62 @@ const route = () => {
             <Stack.Screen
                 name='Login'
                 component={Login}
-                options={{ headerStyle: { backgroundColor: '#FF7223' } }}
+                options={{ headerStyle: { backgroundColor: '#FF7223' }, headerRight:(() =>{})}}
             />
             <Stack.Screen
                 name='Cadastro'
                 component={Cadastro}
-                options={{ headerStyle: { backgroundColor: '#B32728' } }}
+                    options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight:(() =>{})}}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name='Estabelecimento'
                 component={Estabelecimento}
+                options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight:(() =>{})}}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name='MeusProdutos'
                 options={{
                     title: 'Meus Produtos',
-                  }}
+                }}
                 component={routeBottom}
+            />
+            <Stack.Screen
+                name='Teste'
+                options={{
+                    title: 'Teste',
+                }}
+                component={Teste}
             />
         </Stack.Navigator>
     )
 }
 
-export default route
+export default Route
+
+/* function sair() {
+      auth()
+          .signOut()
+          .then(() => Alert.alert('User signed out!'));
+  }
+
+  if (initializing) return null;
+
+  if (!user) {
+      return (
+          <View>
+              <Text>Login</Text>
+          </View>
+      );
+  }
+
+  if(user){
+      return (
+          <View>
+              <Text>Welcome {user.email}</Text>
+              <TouchableHighlight onPress={() => sair()}>
+                  <Text>sair</Text>
+              </TouchableHighlight>
+          </View>
+      );
+  }
+   */

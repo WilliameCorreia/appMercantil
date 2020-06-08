@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'center'
     },
+    load:{
+        justifyContent: 'center'
+    },
     image_back: {
         flex: 1,
         height: 500,
