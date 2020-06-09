@@ -12,7 +12,6 @@ export default function login({ navigation }) {
     const [usuario, setUsuario ] = useState();
     const [password, setPassword ] = useState();
 
-
     autenticar = user => {
         setLogar(true)
          if( usuario && password ){
@@ -65,6 +64,7 @@ export default function login({ navigation }) {
                     secureTextEntry
                     onChangeText={texto => setPassword(texto)}
                 />
+                <TextInput />
             </View>
             <TouchableOpacity style={styles.btn} onPress={() => autenticar()}>
                 <Text style={styles.text}>Entrar</Text>

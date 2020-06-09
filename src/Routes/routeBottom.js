@@ -6,7 +6,7 @@ import { Image } from 'react-native'
 import MeusProdutos from '../pages/MeusProdutos/MeusProdutos'
 import MeusPedidos from '../pages/MeusPedidos/MeusPedidos'
 import NewOferta from '../pages/NewOferta/NewOferta'
-import NewProduto from '../pages/MeusProdutos/MeusProdutos'
+import NewProduto from '../pages/NewProduto/NewProduto'
 
 const Tab = createBottomTabNavigator();
 

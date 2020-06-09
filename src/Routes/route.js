@@ -7,6 +7,7 @@ import Cadastro from '../pages/Cadastro/Cadastro'
 import Estabelecimento from '../pages/Estabelecimento/Estabelecimento'
 import routeBottom from '../Routes/routeBottom'
 import MyGetOutButton from '../Componentes/MyGetOutButton'
+import Produto from '../pages/Produto/Produto'
 
 const Stack = createStackNavigator();
 
@@ -54,6 +55,13 @@ function Route() {
                     title: 'Meus Produtos',
                 }}
                 component={routeBottom}
+            />
+            <Stack.Screen
+                name='Produto'
+                options={{
+                    title: 'Produto',
+                }}
+                component={Produto}
             />
         </Stack.Navigator>
     )
