@@ -1,40 +1,82 @@
 import React, { useState } from 'react'
-import { Text, View, FlatList, TouchableHighlight, SafeAreaView} from 'react-native'
+import { 
+    Text, 
+    View, 
+    Image, 
+    TouchableHighlight, 
+    SafeAreaView, 
+    VirtualizedList, 
+    StyleSheet,
+    ActivityIndicator
+ } from 'react-native'
 
 import database from '@react-native-firebase/database';
 import styles from './style'
-import { ActivityIndicator } from 'react-native';
-import { Image } from 'react-native-elements';
+
 
 export default function MeusProdutos({ navigation }) {
 
     const reference = database().ref('/produtos');
 
-    const [teste, setTeste] = useState();
+    const [listProdutos, setListProdutos] = useState();
 
     reference
-        .limitToFirst(10)
         .once('value')
         .then(snapshot => {
-            let teste = snapshot.val()
-            setTeste(teste);
+            let lista_produtos = snapshot.val()
+            setListProdutos(lista_produtos);
         })
 
-    const _renderItem = ({ item }) => (
+    const getItem = (data, index) => {
+        if (data) {
+            return {
+                key: index,
+                produto: data[index].produto,
+                categoria: data[index].categoria,
+                marca: data[index].marca,
+                preco_medio: data[index].preco_medio
+            }
+        } else {
+            return {
+                key: index,
+                produto: '',
+                categoria: '',
+                marca: '',
+                preco_medio: ''
+            }
+        }
+    }
+
+    const getItemCount = (data) => {
+        let valor;
+        data ? valor = data.length : valor = 0
+        /* console.log(x) */
+        return valor;
+    }
+
+    const Item = ({ title }) => {
+        return (
+            <View style={styles.item}>
+                <Text style={styles.title}>{title.teste1}</Text>
+            </View>
+        );
+    }
+
+    const _renderItem = ({ title }) => (
         <TouchableHighlight
             activeOpacity={0.6}
             underlayColor="#DDDDDD"
-            onPress={() => navigation.navigate('Produto', item)}
+            onPress={() => navigation.navigate('Produto', title)}
         >
             <View style={styles.cards}>
                 <View style={styles.box1}>
-                    <Text style={[styles.texto, styles.nomeProduto]}>{item.produto}</Text>
-                    <Text style={styles.texto}>Categoria: {item.categoria}</Text>
-                    <Text style={styles.texto}>Marca: {item.marca}</Text>
-                    <Text style={styles.texto}>Preço {item.preco_medio}</Text>
+                    <Text style={[styles.texto, styles.nomeProduto]}>{title.produto}</Text>
+                    <Text style={styles.texto}>Categoria: {title.categoria}</Text>
+                    <Text style={styles.texto}>Marca: {title.marca}</Text>
+                    <Text style={styles.texto}>Preço {title.preco_medio}</Text>
                 </View>
                 <View style={styles.box2}>
-                    <Image 
+                    <Image
                         style={styles.prodImg} source={require('../../Assets/bombril.jpg')}
                         PlaceholderContent={<ActivityIndicator />}
                     />
@@ -46,10 +88,14 @@ export default function MeusProdutos({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <FlatList
-                data={teste}
-                renderItem={_renderItem}
-                keyExtractor={item => item.codbar}
+            <VirtualizedList
+                data={listProdutos}
+                initialNumToRender={4}
+                renderItem={({ item }) => <_renderItem title={item} />}
+                keyExtractor={item => item.key}
+                getItemCount={getItemCount}
+                getItem={getItem}
+                windowSize={10}
             />
         </SafeAreaView>
     )
