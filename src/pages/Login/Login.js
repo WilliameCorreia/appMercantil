@@ -8,31 +8,33 @@ import styles from './style'
 
 export default function login({ navigation }) {
 
-    const [logar, setLogar] = useState(false);
+    const [loading, setloading] = useState(false);
     const [usuario, setUsuario ] = useState();
     const [password, setPassword ] = useState();
 
     autenticar = user => {
-        setLogar(true)
+        setloading(true)
          if( usuario && password ){
             auth()
             .signInWithEmailAndPassword(usuario, password)
             .then(() => {
                 navigation.navigate('MeusProdutos', {usuario: 'teste', teste: 'teste'});
-                setLogar(false)
+                setloading(false)
             })
             .catch(error => {
+                setloading(false)
                 Alert.alert('Login', error.code);
             });
          }else{
             Alert.alert('Login', 'Dados inválidos');
+            setloading(false)
          }
      }
 
     return (
         <View style={styles.container}>
             <Image source={require('../../Assets/logo.png')} style={styles.image_logo}/>
-            {logar ? <ActivityIndicator size={"large"} color={'#ffff'}></ActivityIndicator> : <Text></Text>}
+            {loading ? <ActivityIndicator size={"large"} color={'#ffff'}></ActivityIndicator> : <Text></Text>}
             <View style={styles.SectionStyle}>
                 <Icon
                     style={styles.icon}
