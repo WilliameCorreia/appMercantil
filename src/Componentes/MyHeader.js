@@ -1,17 +1,26 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 
-export default function MyHeader({ title, leftButton, style }) {
+import { Header } from 'react-native-elements'
+import MyBackButton from '../Componentes/MyBackButton'
+
+export default function MyHeader({ title, leftButton, style, color}) {
     return (
-        <View {...style}>
-            <Text>{title}</Text>
-            {leftButton}
-        </View>
+        <Header
+        statusBarProps={{ barStyle: 'light-content', backgroundColor: color }}
+            barStyle="light-content"
+            leftComponent={<MyBackButton/>}
+            containerStyle={{
+                backgroundColor: color,
+                justifyContent: 'space-around',
+                borderBottomWidth: 0
+            }}
+        />
     )
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         backgroundColor: '#fff',
         height: 50
     }

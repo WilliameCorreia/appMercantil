@@ -7,7 +7,7 @@ import Route from './Routes/route'
 const index = () => {
     return (
         <NavigationContainer>
-            <StatusBar barStyle='danger'/>
+            <StatusBar backgroundColor={'#fff'} barStyle='dark-content' translucent={true}/>
             <Route />
         </NavigationContainer>
     )

@@ -6,21 +6,21 @@ import auth from '@react-native-firebase/auth';
 
 export default function Cadastro( { navigation } ) {
 
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
-    const [confPassword, setConfPassword] = useState('');
+    const [login, setLogin] = useState();
+    const [password, setPassword] = useState();
+    const [confPassword, setConfPassword] = useState();
     const [loading, setloading] = useState(false);
 
     const cadastrar = () => {
         setloading(true)
-        if(login == '' || password == '' ){
+        if(!login || !password){
             Alert.alert('Cadastro', 'Insira valores válidos');
             setloading(false)
         }if(password != confPassword){
             Alert.alert('Cadastro', 'Senhas digitadas estão diferentes');
             setloading(false)
         }
-        else{
+        if(login && password && password == confPassword){
             auth()
          .createUserWithEmailAndPassword(login, password)
          .then(() =>{
@@ -59,6 +59,7 @@ export default function Cadastro( { navigation } ) {
                 onChangeText={text => setLogin(text)}
             />
             <TextInput
+                keyboardType={'numeric'}
                 style={styles.input}
                 placeholder={'Senha'}
                 placeholderTextColor={'#ffff'}
@@ -66,6 +67,7 @@ export default function Cadastro( { navigation } ) {
                 onChangeText={text => setPassword(text)}
             />
             <TextInput
+                keyboardType={'numeric'}
                 style={styles.input}
                 placeholder={'Confirmar Senha'}
                 placeholderTextColor={'#ffff'}

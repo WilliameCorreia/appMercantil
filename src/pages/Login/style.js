@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FF7223',
-        justifyContent: "center",
+        justifyContent: 'center',
         alignItems: 'center'
     },
     input: {
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     SectionStyle: {
-        width: 350,
+        width: 320,
         height: 60,
         margin: 10,
         borderWidth: 4,
@@ -23,16 +23,16 @@ const styles = StyleSheet.create({
         borderColor: '#9C3F3A',
         textAlign: "center",
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: 'transparent',
     },
     icon:{
-        padding: 5,
+        padding: 0,
     },
     btn: {
         backgroundColor: "#ffff",
-        width: 350,
+        width: 250,
         height: 60,
         borderRadius: 30,
         margin: 10
@@ -44,9 +44,18 @@ const styles = StyleSheet.create({
         letterSpacing: 3,
     },
     image_logo:{
-        width: 300,
-        height: 300
+        width: 280,
+        height: 280
     },
+    textBtn:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 10,
+    },
+    text2:{
+        color: '#fff',
+        fontSize: 18
+    }
     
 })
 

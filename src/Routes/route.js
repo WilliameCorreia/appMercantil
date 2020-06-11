@@ -6,8 +6,8 @@ import Login from '../pages/Login/Login'
 import Cadastro from '../pages/Cadastro/Cadastro'
 import Estabelecimento from '../pages/Estabelecimento/Estabelecimento'
 import routeBottom from '../Routes/routeBottom'
-import MyGetOutButton from '../Componentes/MyGetOutButton'
-import Produto from '../pages/Produto/Produto'
+import MyHeader from '../Componentes/MyHeader'
+import { Header } from 'react-native-elements'
 
 const Stack = createStackNavigator();
 
@@ -18,16 +18,26 @@ function Route() {
             initialRouteName={'Home'}
             headerMode={'screen'}
             screenOptions={{
-                headerRight: ({ }) => {
-                    return <MyGetOutButton />
-                },
-                headerStyle: { backgroundColor: '#B32728' },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                    letterSpacing: 3
-                },
-                headerTitleAlign: 'center'
+                header: ({ scene, previous, navigation }) => {
+                    const { options } = scene.descriptor;
+                    const title = options.headerTitle !== undefined ? options.headerTitle : options.title !== undefined
+                        ? options.title : scene.route.name;
+                    const backColor = options.headerStyle.backgroundColor
+                    console.log(title)
+                    if (title === 'dashBoard') {
+                        return (
+                            <Header
+                                leftComponent={{ icon: 'menu', color: '#fff' }}
+                                centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+                                rightComponent={{ icon: 'home', color: '#fff' }}
+                            />
+                        )
+                    } else {
+                        return (
+                            <MyHeader title={title} color={backColor} />
+                        );
+                    }
+                }
             }}>
             <Stack.Screen
                 name='Home'
@@ -37,31 +47,25 @@ function Route() {
             <Stack.Screen
                 name='Login'
                 component={Login}
-                options={{ headerStyle: { backgroundColor: '#FF7223' }, headerRight:(() =>{})}}
+                options={{ headerStyle: { backgroundColor: '#FF7223' }, headerRight: (() => { }) }}
             />
             <Stack.Screen
                 name='Cadastro'
                 component={Cadastro}
-                    options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight:(() =>{})}}
+                options={{ headerStyle: { backgroundColor: '#F23132' }, headerRight: (() => { }) }}
             />
             <Stack.Screen
                 name='Estabelecimento'
                 component={Estabelecimento}
-                options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight:(() =>{})}}
+                options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight: (() => { }) }}
             />
             <Stack.Screen
                 name='MeusProdutos'
                 options={{
-                    title: 'Meus Produtos',
+                    title: 'dashBoard',
+                    headerStyle: { backgroundColor: '#B32728' }
                 }}
                 component={routeBottom}
-            />
-            <Stack.Screen
-                name='Produto'
-                options={{
-                    title: 'Produto',
-                }}
-                component={Produto}
             />
         </Stack.Navigator>
     )
