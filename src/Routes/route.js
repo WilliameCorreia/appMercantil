@@ -7,7 +7,8 @@ import Cadastro from '../pages/Cadastro/Cadastro'
 import Estabelecimento from '../pages/Estabelecimento/Estabelecimento'
 import routeBottom from '../Routes/routeBottom'
 import MyHeader from '../Componentes/MyHeader'
-import { Header } from 'react-native-elements'
+import HeaderDashBoard from '../Componentes/HeaderDashBoard'
+import MeusPedidos from '../pages/MeusPedidos/MeusPedidos'
 
 const Stack = createStackNavigator();
 
@@ -23,14 +24,9 @@ function Route() {
                     const title = options.headerTitle !== undefined ? options.headerTitle : options.title !== undefined
                         ? options.title : scene.route.name;
                     const backColor = options.headerStyle.backgroundColor
-                    console.log(title)
-                    if (title === 'dashBoard') {
+                    if (title === 'Universo Entregas') {
                         return (
-                            <Header
-                                leftComponent={{ icon: 'menu', color: '#fff' }}
-                                centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
-                                rightComponent={{ icon: 'home', color: '#fff' }}
-                            />
+                            <HeaderDashBoard title={title} color={backColor} />
                         )
                     } else {
                         return (
@@ -60,13 +56,18 @@ function Route() {
                 options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight: (() => { }) }}
             />
             <Stack.Screen
-                name='MeusProdutos'
+                name='DashBoard'
                 options={{
-                    title: 'dashBoard',
+                    title: 'Universo Entregas',
                     headerStyle: { backgroundColor: '#B32728' }
                 }}
                 component={routeBottom}
             />
+            <Stack.Screen
+                name={'MeusPedidos'}
+                component={MeusPedidos}
+                options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight: (() => { }) }}
+           />
         </Stack.Navigator>
     )
 }

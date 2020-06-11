@@ -18,7 +18,7 @@ export default function login({ navigation }) {
             auth()
                 .signInWithEmailAndPassword(usuario, password)
                 .then(() => {
-                    navigation.navigate('MeusProdutos', { usuario: 'teste', teste: 'teste' });
+                    navigation.navigate('DashBoard', { usuario: 'teste', teste: 'teste' });
                     setloading(false)
                 })
                 .catch(error => {

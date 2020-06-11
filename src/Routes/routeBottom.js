@@ -1,12 +1,12 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Icon } from 'react-native-elements'
 import { Image } from 'react-native'
 
 import MeusProdutos from '../pages/MeusProdutos/MeusProdutos'
 import MeusPedidos from '../pages/MeusPedidos/MeusPedidos'
 import NewOferta from '../pages/NewOferta/NewOferta'
 import NewProduto from '../pages/NewProduto/NewProduto'
+import DashBoard from '../pages/DashBoard/DashBoard'
 
 const Tab = createBottomTabNavigator();
 
@@ -17,17 +17,17 @@ function routeBottom() {
                 tabBarIcon: ({ color, size}) => {
                     size = 50
                     switch (route.name) {
-                        case 'Produtos':
-                            return <Image source={require('../Assets/meusProdutos.png')} style={{ width: size, height: size, }}/> 
-                            break;
-                        case 'Pedidos':
-                            return <Image source={require('../Assets/meusPedidos.png')} style={{ width: size, height: size }}/> 
+                        case 'DashBoard':
+                            return <Image resizeMethod={'scale'} source={require('../Assets/home.png')} 
+                                style={{ width: 70, height: 70, borderRadius: 10,  }}/> 
                             break;
                         case 'Nova Oferta':
-                            return <Image source={require('../Assets/Ofertas.png')} style={{ width: size, height: size }}/> 
+                            return <Image source={require('../Assets/opcoes.png')} 
+                                style={{ width: 70, height: 70, borderRadius: 10,  }}/> 
                             break;
                         case 'Novo Produto':
-                            return <Image source={require('../Assets/novoProduto.png')} style={{ width: size, height: size }}/> 
+                            return <Image source={require('../Assets/user.png')} 
+                                style={{ width: 70, height: 70, borderRadius: 10,  }}/> 
                             break;
                         default:
                             //return <Image source={require('../Assets/7.png')} style={{ width: size, height: size }}/>
@@ -35,7 +35,7 @@ function routeBottom() {
                     }
                 }
             })}
-            initialRouteName='MeusProdutos'
+            initialRouteName='DashBoard'
             tabBarOptions={{
                 activeTintColor: '#ffff',
                 inactiveTintColor: 'black',
@@ -56,21 +56,19 @@ function routeBottom() {
             }}
         >
             <Tab.Screen
-                name="Produtos"
-                component={MeusProdutos}
-            />
-            <Tab.Screen
-                name="Pedidos"
-                component={MeusPedidos}
-            />
-            <Tab.Screen
-                name="Nova Oferta"
-                component={NewOferta}
+                name="DashBoard"
+                component={DashBoard}
             />
             <Tab.Screen
                 name="Novo Produto"
                 component={NewProduto}
             />
+            <Tab.Screen
+                name="Nova Oferta"
+                component={NewOferta}
+            />
+           
+           
         </Tab.Navigator>
     )
 }

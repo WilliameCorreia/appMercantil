@@ -44,8 +44,9 @@ const styles = StyleSheet.create({
         letterSpacing: 3,
     },
     image_logo:{
-        width: 280,
-        height: 280
+        width: 250,
+        height: 250,
+
     },
     textBtn:{
         justifyContent: 'center',

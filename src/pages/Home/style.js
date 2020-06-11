@@ -24,8 +24,9 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     image_logo:{
-        width: 300,
-        height: 300
+        width: 250,
+        height: 250,
+        marginBottom: 20
     },
     btn:{
         backgroundColor: "#B32728",

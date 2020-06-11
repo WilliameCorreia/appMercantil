@@ -16,7 +16,7 @@ export default function Home({ navigation }) {
             setUser(user);
             if (initializing) setInitializing(false);
             if(user){
-                navigation.navigate('MeusProdutos');
+                navigation.navigate('DashBoard');
             }else{
                 navigation.navigate('Home');
             }
