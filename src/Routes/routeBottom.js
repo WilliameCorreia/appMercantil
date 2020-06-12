@@ -14,20 +14,20 @@ function routeBottom() {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
-                tabBarIcon: ({ color, size}) => {
+                tabBarIcon: ({ color, size }) => {
                     size = 50
                     switch (route.name) {
-                        case 'DashBoard':
-                            return <Image resizeMethod={'scale'} source={require('../Assets/home.png')} 
-                                style={{ width: 70, height: 70, borderRadius: 10,  }}/> 
+                        case 'Inicio':
+                            return <Image resizeMethod={'scale'} source={require('../Assets/home.png')}
+                                style={{ width: 50, height: 50, borderRadius: 10, }} />
                             break;
-                        case 'Nova Oferta':
-                            return <Image source={require('../Assets/opcoes.png')} 
-                                style={{ width: 70, height: 70, borderRadius: 10,  }}/> 
+                        case 'Conta':
+                            return <Image source={require('../Assets/user.png')}
+                                style={{ width: 50, height: 50, borderRadius: 10, }} />
                             break;
-                        case 'Novo Produto':
-                            return <Image source={require('../Assets/user.png')} 
-                                style={{ width: 70, height: 70, borderRadius: 10,  }}/> 
+                        case 'Mais':
+                            return <Image source={require('../Assets/opcoes.png')}
+                                style={{ width: 50, height: 50, borderRadius: 10, }} />
                             break;
                         default:
                             //return <Image source={require('../Assets/7.png')} style={{ width: size, height: size }}/>
@@ -41,12 +41,12 @@ function routeBottom() {
                 inactiveTintColor: 'black',
                 activeBackgroundColor: '#F23132',
                 inactiveBackgroundColor: '#B32728',
-                showLabel: false,
+                //showLabel: false,
                 labelStyle: {
                     fontSize: 15,
                     fontWeight: 'bold'
                 },
-                style:{
+                style: {
                     height: 70
                 },
                 tabStyle: {
@@ -56,19 +56,19 @@ function routeBottom() {
             }}
         >
             <Tab.Screen
-                name="DashBoard"
+                name="Inicio"
                 component={DashBoard}
             />
             <Tab.Screen
-                name="Novo Produto"
+                name="Conta"
                 component={NewProduto}
             />
             <Tab.Screen
-                name="Nova Oferta"
+                name="Mais"
                 component={NewOferta}
             />
-           
-           
+
+
         </Tab.Navigator>
     )
 }

@@ -6,7 +6,6 @@ import {
     TouchableHighlight, 
     SafeAreaView, 
     VirtualizedList, 
-    StyleSheet,
     ActivityIndicator
  } from 'react-native'
 

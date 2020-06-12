@@ -2,18 +2,18 @@ import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { Icon } from 'react-native-elements'
-import { useNavigation } from '@react-navigation/native';
+import { DrawerActions } from '@react-navigation/native';
 
-export default function MyBackButton() {
-    const navigation = useNavigation();
+export default function MyDrawerOpen( { navigation } ) {
+    console.log(navigation)
     return (
         <View style={styles.container}>
-            <TouchableOpacity  onPress={() => {navigation.goBack();}}>
+            <TouchableOpacity  onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
                 <Icon
                     style={styles.icon}
                     raised
                     reverse={true}
-                    name='md-arrow-round-back'
+                    name='md-menu'
                     type='ionicon'
                     color='transparent'
                     size={20}

@@ -32,6 +32,7 @@ export default function DashBoard( { navigation } ) {
                     raised
                     containerStyle={styles.cont_btn}
                     buttonStyle={styles.btn}
+                    onPress={() => navigation.navigate('Ofertas')}
                 />
             </View>
             <View style={styles.box2}>
@@ -45,6 +46,7 @@ export default function DashBoard( { navigation } ) {
                     raised
                     containerStyle={styles.cont_btn}
                     buttonStyle={styles.btn}
+                    onPress={() => navigation.navigate('MeusProdutos')}
                 />
                 
                 <Button
@@ -57,6 +59,7 @@ export default function DashBoard( { navigation } ) {
                     raised
                     containerStyle={styles.cont_btn}
                     buttonStyle={styles.btn}
+                    onPress={() => navigation.navigate('NovoProduto')}
                 />
             </View>
         </View>
