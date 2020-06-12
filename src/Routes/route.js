@@ -30,7 +30,7 @@ function Route() {
                     const backColor = options.headerStyle.backgroundColor
                     if (title === 'Universo Entregas') {
                         return (
-                            <HeaderDashBoard title={title} color={backColor} navigation={navigation}/>
+                            null
                         )
                     } else {
                         return (

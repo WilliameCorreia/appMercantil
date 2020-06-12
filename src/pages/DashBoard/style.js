@@ -1,40 +1,41 @@
 import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
-        flexDirection: 'row',
+        backgroundColor: "#fff",
         justifyContent: 'center',
+    },
+    box1: {
+        flex: 1,
+    },
+    box2: {
+        flex: 7,
+        flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: "#fff"
+        justifyContent: 'center'
     },
-    box1:{
-       
-    },
-    box2:{
-       
-    },
-    btn:{
+    btn: {
         width: 150,
         height: 150,
         backgroundColor: '#cccccc'
     },
-    cont_btn:{
+    cont_btn: {
         margin: 10,
         backgroundColor: '#cccccc',
     },
-    text:{
+    text: {
         color: '#B32728',
     },
-    icone:{
+    icone: {
         width: 100,
         height: 100,
         margin: 10,
     },
-    cont_icons:{
+    cont_icons: {
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
 })
 
 export default styles

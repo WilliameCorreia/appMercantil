@@ -1,20 +1,26 @@
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import Ofertas from '../pages/MinhasOfertas/MinhasOfertas'
 import DashBoard from '../pages/DashBoard/DashBoard'
+import Usuario from '../pages/Usuario/usuario'
+import DrawerContent from '../Componentes/DrawerContent'
 
 const Drawer = createDrawerNavigator();
 
 export default function RouteDrawer() {
     return (
         <Drawer.Navigator
-            drawerStyle={{backgroundColor: '#B32728', height:900}}
-            openByDefault
+            drawerStyle={{backgroundColor: '#B32728'}}
+            drawerContent={({navigation}) => <DrawerContent navigation={navigation}/>}
+            
         >
             <Drawer.Screen 
-                name="Feed" 
+                name="Inicio" 
                 component={DashBoard}
+            />
+            <Drawer.Screen 
+                name="Usuario" 
+                component={Usuario}
             />
         </Drawer.Navigator>
     );
