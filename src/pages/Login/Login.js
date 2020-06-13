@@ -47,7 +47,7 @@ export default function login({ navigation }) {
             setloading(false)
         }
     }
-
+    console.log("login")
     return (
         <View style={styles.container}>
             <Image source={require('../../Assets/logo.png')} style={styles.image_logo} />

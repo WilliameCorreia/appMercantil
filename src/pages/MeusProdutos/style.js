@@ -41,6 +41,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#469b19',
         padding: 10,
         borderRadius: 30
+    },
+    active:{
+        justifyContent: 'center',
+        marginTop: 250
     }
 
 })

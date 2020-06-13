@@ -6,7 +6,7 @@ import HeaderDashBoard from '../../Componentes/HeaderDashBoard'
 import styles from './style'
 
 export default function DashBoard({ navigation, title, backColor }) {
-
+    console.log("testando")
     return (
         <View style={styles.container}>
             <View style={styles.box1}>
