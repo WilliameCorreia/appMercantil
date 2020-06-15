@@ -6,7 +6,10 @@ import MeusProdutos from '../pages/MeusProdutos/MeusProdutos'
 import MeusPedidos from '../pages/MeusPedidos/MeusPedidos'
 import NewOferta from '../pages/NewOferta/NewOferta'
 import NewProduto from '../pages/NewProduto/NewProduto'
+<<<<<<< HEAD
+=======
 import DashBoard from '../pages/DashBoard/DashBoard'
+>>>>>>> 1c68070e365709deebc0debe4bbcbe8176e48968
 
 const Tab = createBottomTabNavigator();
 
