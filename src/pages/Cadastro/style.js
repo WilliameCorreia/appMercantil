@@ -8,12 +8,11 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     image_person:{
-        width: 180,
-        height: 180,
-        margin: 20
+        width: 130,
+        height: 130,
     },
     input: {
-        width: 350,
+        width: 320,
         height: 60,
         margin: 15,
         borderWidth: 4,

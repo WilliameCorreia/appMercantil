@@ -4,7 +4,6 @@ import { Text, View, ImageBackground, TouchableOpacity, Image, ActivityIndicator
 import styles from './style'
 import auth from '@react-native-firebase/auth'
 
-
 export default function Home({ navigation }) {
 
     // Set an initializing state whilst Firebase connects
@@ -17,7 +16,7 @@ export default function Home({ navigation }) {
             setUser(user);
             if (initializing) setInitializing(false);
             if(user){
-                navigation.navigate('MeusProdutos');
+                navigation.navigate('DashBoard');
             }else{
                 navigation.navigate('Home');
             }
@@ -36,14 +35,15 @@ export default function Home({ navigation }) {
             </ImageBackground>
             {initializing ? <ActivityIndicator style={[styles.container2, styles.load]} size={"large", 100} color={'#000'}></ActivityIndicator> : 
                 <View style={styles.container2}>
-                <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Login')}>
-                    <Text style={styles.text}>Entrar</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.btn2} onPress={() => navigation.navigate('Cadastro')}>
-                    <Text style={styles.text2}>Cadastrar Estabelecimento</Text>
-                </TouchableOpacity>
-            </View>
+                    <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Login')}>
+                        <Text style={styles.text}>Entrar</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.btn2} onPress={() => navigation.navigate('Cadastro')}>
+                        <Text style={styles.text2}>Cadastrar Estabelecimento</Text>
+                    </TouchableOpacity>
+                </View>
             }
         </View>
     )
 }
+

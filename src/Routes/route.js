@@ -6,7 +6,13 @@ import Login from '../pages/Login/Login'
 import Cadastro from '../pages/Cadastro/Cadastro'
 import Estabelecimento from '../pages/Estabelecimento/Estabelecimento'
 import routeBottom from '../Routes/routeBottom'
-import MyGetOutButton from '../Componentes/MyGetOutButton'
+import MyHeader from '../Componentes/MyHeader'
+import HeaderDashBoard from '../Componentes/HeaderDashBoard'
+import MeusPedidos from '../pages/MeusPedidos/MeusPedidos'
+import MeusProdutos from '../pages/MeusProdutos/MeusProdutos'
+import Ofertas from '../pages/MinhasOfertas/MinhasOfertas'
+import NewProduto from '../pages/NewProduto/NewProduto'
+import RouteDrawer from '../Routes/routeDrawer'
 
 const Stack = createStackNavigator();
 
@@ -17,16 +23,21 @@ function Route() {
             initialRouteName={'Home'}
             headerMode={'screen'}
             screenOptions={{
-                headerRight: ({ }) => {
-                    return <MyGetOutButton />
-                },
-                headerStyle: { backgroundColor: '#B32728' },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                    letterSpacing: 3
-                },
-                headerTitleAlign: 'center'
+                header: ({ scene, previous, navigation }) => {
+                    const { options } = scene.descriptor;
+                    const title = options.headerTitle !== undefined ? options.headerTitle : options.title !== undefined
+                        ? options.title : scene.route.name;
+                    const backColor = options.headerStyle.backgroundColor
+                    if (title === 'Universo Entregas') {
+                        return (
+                            null
+                        )
+                    } else {
+                        return (
+                            <MyHeader title={title} color={backColor} />
+                        );
+                    }
+                }
             }}>
             <Stack.Screen
                 name='Home'
@@ -36,25 +47,46 @@ function Route() {
             <Stack.Screen
                 name='Login'
                 component={Login}
-                options={{ headerStyle: { backgroundColor: '#FF7223' }, headerRight:(() =>{})}}
+                options={{ headerStyle: { backgroundColor: '#FF7223' }, headerRight: (() => { }) }}
             />
             <Stack.Screen
                 name='Cadastro'
                 component={Cadastro}
-                    options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight:(() =>{})}}
+                options={{ headerStyle: { backgroundColor: '#F23132' }, headerRight: (() => { }) }}
             />
             <Stack.Screen
                 name='Estabelecimento'
                 component={Estabelecimento}
-                options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight:(() =>{})}}
+                options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight: (() => { }) }}
             />
             <Stack.Screen
-                name='MeusProdutos'
+                name='DashBoard'
                 options={{
-                    title: 'Meus Produtos',
+                    title: 'Universo Entregas',
+                    headerStyle: { backgroundColor: '#B32728' }
                 }}
-                component={routeBottom}
+                component={RouteDrawer}
             />
+            <Stack.Screen
+                name={'MeusPedidos'}
+                component={MeusPedidos}
+                options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight: (() => { }) }}
+           />
+           <Stack.Screen
+                name={'MeusProdutos'}
+                component={MeusProdutos}
+                options={{ title:'MEUS PRODUTOS', headerStyle: { backgroundColor: '#B32728' }, headerRight: (() => { }) }}
+           />
+           <Stack.Screen
+                name={'Ofertas'}
+                component={Ofertas}
+                options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight: (() => { }) }}
+           />
+           <Stack.Screen
+                name={'NovoProduto'}
+                component={NewProduto}
+                options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight: (() => { }) }}
+           />
         </Stack.Navigator>
     )
 }

@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import React, { PureComponent } from 'react';
 
-export default class MeusProdutos extends Component {
-    render() {
-        return (
-            <View>
-                <Text> Meus produtos </Text>
-            </View>
+import ListaProdutos from '../../Services/ListaProdutos'
+
+export default class extends PureComponent{
+
+    render(){
+        return(
+            <ListaProdutos/>
         )
     }
 }
