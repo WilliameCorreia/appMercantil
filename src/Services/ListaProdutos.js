@@ -7,12 +7,16 @@ import {
     SafeAreaView,
     VirtualizedList,
     ActivityIndicator,
-    StyleSheet
+    StyleSheet,
 } from 'react-native'
 
 import database from '@react-native-firebase/database';
 
-export default props => {
+import { useNavigation } from '@react-navigation/native';
+
+export default () => {
+
+    const navigation = useNavigation();
 
     const reference = database().ref('/produtos');
 
@@ -28,8 +32,6 @@ export default props => {
                 setLoading(false)
             })
     }, [loading])
-
-   
 
     const getItem = (data, index) => {
         if (data) {
@@ -88,8 +90,6 @@ export default props => {
             </View>
         </TouchableHighlight>
     )
-    console.log('produto')
-
 
     return (
         <SafeAreaView style={styles.container}>

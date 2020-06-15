@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 
 const styles = StyleSheet.create({
     container: {
@@ -17,28 +17,28 @@ const styles = StyleSheet.create({
     },
     image_back: {
         flex: 1,
-        height: 400,
+        height: (Dimensions.get('window').height / 12 * 8),
         resizeMode: "cover",
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'flex-end'
     },
     image_logo:{
-        width: 250,
-        height: 250,
+        width: (Dimensions.get('window').width / 10 * 5 ),
+        height: (Dimensions.get('window').height / 10 * 3),
         marginBottom: 20
     },
     btn:{
         backgroundColor: "#B32728",
-        width: 250,
-        height: 60,
+        width: (Dimensions.get('window').width / 2),
+        height: (Dimensions.get('window').height / 12),
         borderRadius: 30,
         margin: 10
     },
     btn2:{
         backgroundColor: 'transparent',
-        width: 350,
-        height: 60,
+        width: (Dimensions.get('window').width / 2),
+        height: (Dimensions.get('window').height / 12),
         borderRadius: 30,
         margin: 10,
     },
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         letterSpacing: 3,
     },
     text2:{
-        fontSize: 25,
+        fontSize: 20,
         color: '#B32728',
         textAlign: 'center',
         fontWeight: "bold"

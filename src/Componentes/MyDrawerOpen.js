@@ -5,7 +5,6 @@ import { Icon } from 'react-native-elements'
 import { DrawerActions } from '@react-navigation/native';
 
 export default function MyDrawerOpen( { navigation } ) {
-    console.log(navigation)
     return (
         <View style={styles.container}>
             <TouchableOpacity  onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>

@@ -1,27 +1,27 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, useState, Component } from 'react'
 import { Text, View, TouchableOpacity, Alert } from 'react-native'
-import database from '@react-native-firebase/database';
-
-import Button from '../../Services/Button'
-import ListaProdutos from '../../Services/ListaProdutos'
+import { TextInput } from 'react-native-gesture-handler'
 
 
-export default class MeusPedidos extends PureComponent {
-    constructor(props){
-        super(props);
-        this.state = {
-            count: 0
-        }
+export const Filho = props =>{
+    return(
+        <TextInput value={props.nome} onChangeText={props.testando}/>
+    )
+}
+
+export default teste => {
+
+    const [valor, setValor] = useState();
+
+    const _teste = nome => {
+        setValor(nome);
+        console.log(nome)
     }
 
-    teste = () => {
-        Alert.alert('deu certo!!!')
-    }
-
-    render() {
-        console.log('meus pedidos')
-        return (
-            <ListaProdutos/>
-        )
-    }
+    return(
+        <View>
+            <Text>{valor}</Text>
+            <Filho nome={valor} testando={_teste}/>
+        </View>
+    )
 }

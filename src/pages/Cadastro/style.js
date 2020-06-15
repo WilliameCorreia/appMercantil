@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 
 const styles = StyleSheet.create({
     container:{
@@ -8,22 +8,23 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     image_person:{
-        width: 130,
-        height: 130,
+        width: (Dimensions.get('window').width / 4),
+        height: (Dimensions.get('window').width / 4),
     },
     input: {
-        width: 320,
-        height: 60,
+        width: (Dimensions.get('window').width / 4 * 3),
+        height: (Dimensions.get('window').width / 7),
         margin: 15,
         borderWidth: 4,
         borderRadius: 30,
         borderColor: '#9C3F3A',
         backgroundColor: 'transparent',
-        padding: 20
+        padding: 20,
+        fontSize: 18
     },
     img:{
-        width: 80,
-        height: 80
+        width: (Dimensions.get('window').width / 6),
+        height: (Dimensions.get('window').height / 10),
     }
 })
 

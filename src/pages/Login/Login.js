@@ -18,7 +18,7 @@ export default function login({ navigation }) {
             auth()
                 .signInWithEmailAndPassword(usuario, password)
                 .then(() => {
-                    navigation.navigate('DashBoard', { usuario: 'teste', teste: 'teste' });
+                    navigation.navigate('DashBoard');
                     setloading(false)
                 })
                 .catch(error => {
@@ -35,7 +35,6 @@ export default function login({ navigation }) {
                         case 'auth/weak-password':
                             Alert.alert('Login', 'A senha não for forte o suficiente!');
                             break;
-
                         default:
                             break;
                     }
@@ -47,7 +46,6 @@ export default function login({ navigation }) {
             setloading(false)
         }
     }
-    console.log("login")
     return (
         <View style={styles.container}>
             <Image source={require('../../Assets/logo.png')} style={styles.image_logo} />
@@ -91,7 +89,7 @@ export default function login({ navigation }) {
                 <Text style={styles.text}>Entrar</Text>
             </TouchableOpacity>
             <StatusBar backgroundColor={'#FF7223'} barStyle='dark-content'/>
-            <TouchableOpacity style={styles.textBtn}>
+            <TouchableOpacity onPress={()=> {navigation.navigate('Cadastro')}} style={styles.textBtn}>
                 <Text style={styles.text2}>Ainda não possui conta ?</Text>
                 <Text style={styles.text2}>Cadastre-se</Text>
             </TouchableOpacity>

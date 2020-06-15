@@ -5,14 +5,13 @@ import Home from '../pages/Home/Home'
 import Login from '../pages/Login/Login'
 import Cadastro from '../pages/Cadastro/Cadastro'
 import Estabelecimento from '../pages/Estabelecimento/Estabelecimento'
-import routeBottom from '../Routes/routeBottom'
 import MyHeader from '../Componentes/MyHeader'
-import HeaderDashBoard from '../Componentes/HeaderDashBoard'
 import MeusPedidos from '../pages/MeusPedidos/MeusPedidos'
 import MeusProdutos from '../pages/MeusProdutos/MeusProdutos'
 import Ofertas from '../pages/MinhasOfertas/MinhasOfertas'
 import NewProduto from '../pages/NewProduto/NewProduto'
 import RouteDrawer from '../Routes/routeDrawer'
+import Produto from '../pages/Produto/Produto'
 
 const Stack = createStackNavigator();
 
@@ -85,6 +84,11 @@ function Route() {
            <Stack.Screen
                 name={'NovoProduto'}
                 component={NewProduto}
+                options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight: (() => { }) }}
+           />
+           <Stack.Screen
+                name={'Produto'}
+                component={Produto}
                 options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight: (() => { }) }}
            />
         </Stack.Navigator>

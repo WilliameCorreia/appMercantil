@@ -11,6 +11,8 @@ export default function Cadastro( { navigation } ) {
     const [confPassword, setConfPassword] = useState();
     const [loading, setloading] = useState(false);
 
+    
+
     const cadastrar = () => {
         setloading(true)
         if(!login || !password){
@@ -49,17 +51,11 @@ export default function Cadastro( { navigation } ) {
             {loading ? <ActivityIndicator size={"large"} color={'#ffff'}></ActivityIndicator> : <Text></Text>}
             <TextInput
                 style={styles.input}
-                placeholder={'Nome'}
-                placeholderTextColor={'#ffff'}
-            />
-            <TextInput
-                style={styles.input}
                 placeholder={'E-mail'}
                 placeholderTextColor={'#ffff'}
                 onChangeText={text => setLogin(text)}
             />
             <TextInput
-                keyboardType={'numeric'}
                 style={styles.input}
                 placeholder={'Senha'}
                 placeholderTextColor={'#ffff'}
@@ -67,7 +63,6 @@ export default function Cadastro( { navigation } ) {
                 onChangeText={text => setPassword(text)}
             />
             <TextInput
-                keyboardType={'numeric'}
                 style={styles.input}
                 placeholder={'Confirmar Senha'}
                 placeholderTextColor={'#ffff'}
