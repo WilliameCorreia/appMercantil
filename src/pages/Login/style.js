@@ -45,10 +45,9 @@ const styles = StyleSheet.create({
         letterSpacing: 3,
     },
     image_logo:{
-        width: (Dimensions.get('window').width / 10 * 5 ),
+        width: (Dimensions.get('window').width / 10 * 6),
         height: (Dimensions.get('window').height / 10 * 3),
-        marginBottom: 20
-
+        resizeMode: 'stretch'
     },
     textBtn:{
         justifyContent: 'center',

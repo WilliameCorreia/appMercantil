@@ -15,7 +15,7 @@ export default function MyGetOutButton( { navigation } ) {
             { 
                 text: "OK", 
                 onPress: () => auth().signOut().then(() =>{
-                    navigation.navigate('login');
+                    /* navigation.navigate('login'); */
                 }).catch(error => {
                     Alert.alert('Erro', toString(error.code))
                 })},

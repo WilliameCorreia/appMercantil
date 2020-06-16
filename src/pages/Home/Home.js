@@ -3,6 +3,7 @@ import { Text, View, ImageBackground, TouchableOpacity, Image, ActivityIndicator
 
 import styles from './style'
 import auth from '@react-native-firebase/auth'
+import database from '@react-native-firebase/database';
 
 export default function Home({ navigation }) {
 
@@ -12,30 +13,45 @@ export default function Home({ navigation }) {
 
     // Handle user state changes
     async function onAuthStateChanged(user) {
-        setTimeout(function(){
-            setUser(user);
+        setTimeout(function () {
             if (initializing) setInitializing(false);
-            if(user){
-                console.log(user)
-                navigation.navigate('Estabelecimento', user);
-            }else{
+            if (user) {
+                setUser(user);
+                let { uid } = user._user
+                database()
+                    .ref('/Estabelecimento/' + uid)
+                    .once('value')
+                    .then(snapshot => {
+                        console.log(snapshot.exists())
+                        if (snapshot.exists()) {
+                            navigation.navigate('DashBoard')
+                        } else {
+                            navigation.navigate('Estabelecimento', { token: uid })
+                        }
+                    })
+            } else {
                 navigation.navigate('Home');
             }
         }, 2000)
     }
 
     useEffect(() => {
-        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        const subscriber = auth().onUserChanged(onAuthStateChanged);
         return subscriber; // unsubscribe on unmount
     }, []);
 
-    return(
-        <View style={styles.container}>
-            <ImageBackground source={require('../../Assets/backHome.png')} style={styles.image_back}>
-                <Image source={require('../../Assets/logo.png')} style={styles.image_logo} />
-            </ImageBackground>
-            {initializing ? <ActivityIndicator style={[styles.container2, styles.load]} size={"large", 100} color={'#000'}></ActivityIndicator> : 
-                <View style={styles.container2}>
+    return (
+        <ImageBackground source={require('../../Assets/backHome.jpeg')} style={styles.container}>
+            <View style={styles.box1}>
+                <Image source={require('../../Assets/logo32.png')} style={styles.image_logo} />
+                <Image source={require('../../Assets/nomeLogo.png')} style={styles.image_logoNome} />
+            </View>
+            {initializing ?
+                <View style={[styles.box2, styles.boxLoad]}>
+                    <ActivityIndicator style={[styles.load]} size={"large", 100} color={'#000'} />
+                </View>
+                :
+                <View style={styles.box2}>
                     <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Login')}>
                         <Text style={styles.text}>Entrar</Text>
                     </TouchableOpacity>
@@ -44,7 +60,7 @@ export default function Home({ navigation }) {
                     </TouchableOpacity>
                 </View>
             }
-        </View>
+        </ImageBackground>
     )
 }
 
