@@ -1,15 +1,15 @@
 import React, { useState, isValidElement } from 'react'
-import { 
-    Text, 
-    View, 
-    TextInput, 
-    TouchableOpacity, 
-    Image, 
-    Alert, 
-    ActivityIndicator, 
+import {
+    Text,
+    View,
+    TextInput,
+    TouchableOpacity,
+    Image,
+    Alert,
+    ActivityIndicator,
     StatusBar,
     KeyboardAvoidingView
- } from 'react-native'
+} from 'react-native'
 
 import { Icon } from 'react-native-elements'
 import auth from '@react-native-firebase/auth'
@@ -36,28 +36,36 @@ export default function login({ navigation }) {
                 })
                 .catch(error => {
                     switch (error.code) {
-                        case 'auth/email-already-in-use':
-                            Alert.alert('Login', 'Esse Email já está em uso!');
-                            break;
                         case 'auth/invalid-email':
-                            Alert.alert('Login', 'E-mail Inválido');
+                            setMsnModal('Formato Inválido de E-mail ')
+                            setModalActive(true)
                             break;
                         case 'auth/operation-not-allowed':
-                            Alert.alert('Login', 'Sua conta não foi ativada, Verifique seu Email!');
+                            setMsnModal('Sua conta não foi ativada, Verifique seu Email!')
+                            setModalActive(true)
                             break;
                         case 'auth/weak-password':
-                            Alert.alert('Login', 'A senha não for forte o suficiente!');
+                            setMsnModal('Sua senha precisa ter pelo menos 8 caracteres')
+                            setModalActive(true)
+                            break;
+                        case 'auth/user-not-found':
+                            setMsnModal('Usuário não encontrado !')
+                            setModalActive(true)
+                            break;
+                        case 'auth/wrong-password':
+                            setMsnModal('Senha Inválida !')
+                            setModalActive(true)
                             break;
                         default:
+                            setMsnModal(error.code)
+                            setModalActive(true)
                             break;
                     }
                     setloading(false)
-                    Alert.alert('Login', error.code);
                 });
         } else {
-            setMsnModal('Dados Inválidos')
+            setMsnModal('Informe Usuario/Senha valídos')
             setModalActive(true)
-            //Alert.alert('Login', 'Dados inválidos');
             setloading(false)
         }
     }
@@ -101,12 +109,12 @@ export default function login({ navigation }) {
             <TouchableOpacity style={styles.btn} onPress={() => autenticar()}>
                 <Text style={styles.text}>Entrar</Text>
             </TouchableOpacity>
-            <StatusBar backgroundColor={'#FF7223'} barStyle='dark-content'/>
-            <TouchableOpacity onPress={()=> {navigation.navigate('Cadastro')}} style={styles.textBtn}>
+            <StatusBar backgroundColor={'#FF7223'} barStyle='dark-content' />
+            <TouchableOpacity onPress={() => { navigation.navigate('Cadastro') }} style={styles.textBtn}>
                 <Text style={styles.text2}>Ainda não possui conta ?</Text>
                 <Text style={styles.text2}>Cadastre-se</Text>
             </TouchableOpacity>
-            <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive}/>
+            <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} />
         </KeyboardAvoidingView>
     )
 }

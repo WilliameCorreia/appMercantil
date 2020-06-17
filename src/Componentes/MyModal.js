@@ -6,20 +6,15 @@ import {
     View,
     Modal,
     Alert,
-    TouchableHighlight
+    TouchableOpacity,
 } from 'react-native'
 
-
 export default function MyModal({ activeModal, mensagem, mudarEstado }) {
-
-    console.log("modal " + activeModal)
-    console.log("modal " + mensagem)
-    
 
     return (
         <View style={styles.centeredView}>
             <Modal
-                animationType="fade"
+                animationType="slide"
                 transparent={true}
                 visible={activeModal}
                 onRequestClose={() => {
@@ -30,12 +25,12 @@ export default function MyModal({ activeModal, mensagem, mudarEstado }) {
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>{mensagem}</Text>
 
-                        <TouchableHighlight
-                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                            onPress={()=>mudarEstado(!activeModal) }
+                        <TouchableOpacity
+                            style={{ ...styles.openButton }}
+                            onPress={() => mudarEstado(!activeModal)}
                         >
-                            <Text style={styles.textStyle}>Hide Modal</Text>
-                        </TouchableHighlight>
+                            <Text style={styles.textStyle}>OK</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
@@ -48,14 +43,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22
     },
     modalView: {
-        margin: 20,
-        backgroundColor: "white",
+        backgroundColor: "#FFF",
         borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
+        padding: 10,
+        paddingBottom: 0,
+        alignItems: 'center',
+        justifyContent: 'space-between',
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -66,12 +61,22 @@ const styles = StyleSheet.create({
         elevation: 5
     },
     modalText: {
-        marginBottom: 15,
-        textAlign: "center"
+        textAlign: "center",
+        fontSize: 20,
+        margin: 10,
+        padding: 10
     },
     textStyle: {
         color: "white",
         fontWeight: "bold",
-        textAlign: "center"
+        textAlign: "center",
+        fontSize: 16
+    },
+    openButton: {
+        backgroundColor: "#FF7223",
+        borderRadius: 10,
+        elevation: 5,
+        marginBottom:20,
+        padding: 10
     },
 })
