@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         borderColor: '#9C3F3A',
         backgroundColor: 'transparent',
-        padding: 20,
-        fontSize: 18
+        paddingLeft: 20,
+        fontSize: 16
     },
     img:{
         width: (Dimensions.get('window').width / 6),

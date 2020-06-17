@@ -12,8 +12,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'transparent',
-        fontSize: 18
+        fontSize: 16
     },
     SectionStyle: {
         width: (Dimensions.get('window').width / 4 * 3),
@@ -29,7 +28,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     icon:{
-        padding: 0,
+        margin: 15,
     },
     btn: {
         backgroundColor: "#ffff",

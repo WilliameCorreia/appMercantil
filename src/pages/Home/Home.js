@@ -3,7 +3,6 @@ import { Text, View, ImageBackground, TouchableOpacity, Image, ActivityIndicator
 
 import styles from './style'
 import auth from '@react-native-firebase/auth'
-import database from '@react-native-firebase/database';
 
 export default function Home({ navigation }) {
 
@@ -17,18 +16,7 @@ export default function Home({ navigation }) {
             if (initializing) setInitializing(false);
             if (user) {
                 setUser(user);
-                let { uid } = user._user
-                database()
-                    .ref('/Estabelecimento/' + uid)
-                    .once('value')
-                    .then(snapshot => {
-                        console.log(snapshot.exists())
-                        if (snapshot.exists()) {
-                            navigation.navigate('DashBoard')
-                        } else {
-                            navigation.navigate('Estabelecimento', { token: uid })
-                        }
-                    })
+                navigation.navigate('DashBoard')
             } else {
                 navigation.navigate('Home');
             }

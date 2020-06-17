@@ -1,8 +1,19 @@
 import React, { useState, isValidElement } from 'react'
-import { Text, View, TextInput, TouchableOpacity, Image, Alert, ActivityIndicator, StatusBar } from 'react-native'
+import { 
+    Text, 
+    View, 
+    TextInput, 
+    TouchableOpacity, 
+    Image, 
+    Alert, 
+    ActivityIndicator, 
+    StatusBar,
+    KeyboardAvoidingView
+ } from 'react-native'
 
 import { Icon } from 'react-native-elements'
-import auth from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth'
+import MyModal from '../../Componentes/MyModal'
 
 import styles from './style'
 
@@ -11,6 +22,8 @@ export default function login({ navigation }) {
     const [loading, setloading] = useState(false);
     const [usuario, setUsuario] = useState();
     const [password, setPassword] = useState();
+    const [modalActive, setModalActive] = useState(false);
+    const [msnModal, setMsnModal] = useState('primeira passada');
 
     autenticar = () => {
         setloading(true)
@@ -18,7 +31,7 @@ export default function login({ navigation }) {
             auth()
                 .signInWithEmailAndPassword(usuario, password)
                 .then(() => {
-                    //navigation.navigate('DashBoard');
+                    navigation.navigate('DashBoard');
                     setloading(false)
                 })
                 .catch(error => {
@@ -42,22 +55,23 @@ export default function login({ navigation }) {
                     Alert.alert('Login', error.code);
                 });
         } else {
-            Alert.alert('Login', 'Dados inválidos');
+            setMsnModal('Dados Inválidos')
+            setModalActive(true)
+            //Alert.alert('Login', 'Dados inválidos');
             setloading(false)
         }
     }
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
             <Image source={require('../../Assets/logo.png')} style={styles.image_logo} />
             {loading ? <ActivityIndicator size={"large"} color={'#ffff'}></ActivityIndicator> : <Text></Text>}
             <View style={styles.SectionStyle}>
                 <Icon
                     style={styles.icon}
-                    reverse
                     name='ios-contact'
                     type='ionicon'
-                    color='transparent'
                     size={40}
+                    color={'#fff'}
                 />
                 <TextInput
                     dataDetectorTypes={'address'}
@@ -70,11 +84,10 @@ export default function login({ navigation }) {
             <View style={styles.SectionStyle}>
                 <Icon
                     style={styles.icon}
-                    reverse
                     name='ios-lock'
                     type='ionicon'
-                    color='transparent'
                     size={40}
+                    color={'#fff'}
                 />
                 <TextInput
                     style={styles.input}
@@ -93,6 +106,7 @@ export default function login({ navigation }) {
                 <Text style={styles.text2}>Ainda não possui conta ?</Text>
                 <Text style={styles.text2}>Cadastre-se</Text>
             </TouchableOpacity>
-        </View>
+            <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive}/>
+        </KeyboardAvoidingView>
     )
 }

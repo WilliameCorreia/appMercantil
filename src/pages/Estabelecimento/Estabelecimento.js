@@ -7,7 +7,7 @@ import database from '@react-native-firebase/database';
 
 export default function Estabelecimento({ navigation, route }) {
 
-    const {token} = route.params
+    /* const {token} = route.params
 
     const newReference = database().ref('/Estabelecimento').child(token);
 
@@ -42,7 +42,7 @@ export default function Estabelecimento({ navigation, route }) {
             console.log(error)
         })
     }
-    console.log('Estabelecimento');
+    console.log('Estabelecimento'); */
     return (
         <ScrollView style={styles.container}>
             <View style={styles.box}>

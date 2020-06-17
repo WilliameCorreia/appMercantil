@@ -1,5 +1,14 @@
 import React, { useState } from 'react'
-import { Text, View, Image, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
+import { 
+    Text, 
+    View, 
+    Image, 
+    TextInput, 
+    TouchableOpacity, 
+    Alert, 
+    ActivityIndicator,
+    KeyboardAvoidingView 
+} from 'react-native'
 
 import styles from './style'
 import auth from '@react-native-firebase/auth';
@@ -46,7 +55,7 @@ export default function Cadastro( { navigation } ) {
      }
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
             <Image source={require('../../Assets/person.png')} style={styles.image_person} />
             {loading ? <ActivityIndicator size={"large"} color={'#ffff'}></ActivityIndicator> : <Text></Text>}
             <TextInput
@@ -72,6 +81,6 @@ export default function Cadastro( { navigation } ) {
             <TouchableOpacity onPress={cadastrar}>
                 <Image style={styles.img} source={require('../../Assets/next.png')} />
             </TouchableOpacity>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
