@@ -4,8 +4,16 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         backgroundColor: '#F23132',
+    },
+    box1:{
+        flex: 2,
         justifyContent: 'center',
-        alignItems: "center"
+        alignItems: 'center'
+    },
+    box2:{
+        flex: 2,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     image_person:{
         width: (Dimensions.get('window').width / 4),

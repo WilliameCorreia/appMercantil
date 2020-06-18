@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 import {
     StyleSheet,
@@ -9,11 +9,20 @@ import {
     TouchableOpacity,
 } from 'react-native'
 
+import { useNavigation } from '@react-navigation/native';
+
 export default function MyModal({ activeModal, mensagem, mudarEstado }) {
+
+    const navigation = useNavigation();
+
+    const teste = () =>{
+        mudarEstado(!activeModal)
+    }
 
     return (
         <View style={styles.centeredView}>
             <Modal
+                onDismiss={() => navigation.navigate('Home')}
                 animationType="slide"
                 transparent={true}
                 visible={activeModal}
@@ -27,7 +36,7 @@ export default function MyModal({ activeModal, mensagem, mudarEstado }) {
 
                         <TouchableOpacity
                             style={{ ...styles.openButton }}
-                            onPress={() => mudarEstado(!activeModal)}
+                            onPress={() => teste()}
                         >
                             <Text style={styles.textStyle}>OK</Text>
                         </TouchableOpacity>

@@ -37,7 +37,7 @@ export default function login({ navigation }) {
                 .catch(error => {
                     switch (error.code) {
                         case 'auth/invalid-email':
-                            setMsnModal('Formato Inválido de E-mail ')
+                            setMsnModal('Formato Inválido de E-mail')
                             setModalActive(true)
                             break;
                         case 'auth/operation-not-allowed':
