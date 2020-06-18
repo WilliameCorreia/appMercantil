@@ -1,29 +1,28 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    container2:{
-        paddingTop: 30,
-        alignItems: 'center'
-    },
-    box: {
+    box1: {
         backgroundColor: '#B32728',
         alignItems: 'center'
     },
     box2:{
-        width: 400
+        margin: 5,
+        padding: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     img_stb:{
-        width: 150,
-        height: 150,
-        margin: 10
+        width: (Dimensions.get('window').width /10 * 4),
+        height: (Dimensions.get('window').height/10 * 2),
+        resizeMode: 'center'
     },
     text:{
         fontSize: 30,
         color: '#ffff',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     text_underline:{
         textDecorationLine: 'underline',
@@ -33,28 +32,27 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     input:{
-        height: 60,
-        margin: 10,
+        width: (Dimensions.get('window').width / 4 * 3),
+        height: (Dimensions.get('window').width / 7),
+        padding: 20,
         borderWidth: 4,
         borderRadius: 30,
         borderColor: '#b3b3b3',
         backgroundColor: 'transparent',
-        padding: 20
     },
     label:{
-        paddingLeft: 10,
+        alignSelf: 'flex-start',
+        paddingLeft: 50,
         fontSize: 20,
         fontWeight: 'bold'
     },
     btn:{
-        width: 250,
-        height:60,
+        width: (Dimensions.get('window').width / 2),
+        height: (Dimensions.get('window').height / 12),
         backgroundColor: '#F23132',
         borderRadius: 30,
-        marginBottom: 20,
         alignItems: 'center',
         justifyContent: 'center'
     }
 })
-
 export default styles

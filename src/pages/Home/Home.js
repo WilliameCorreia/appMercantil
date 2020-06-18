@@ -14,18 +14,20 @@ export default function Home({ navigation }) {
     // Handle user state changes
     async function onAuthStateChanged(user) {
         setTimeout(function () {
-            if (initializing) setInitializing(false);
             if (user) {
                 let { uid } = user
                 database().ref('/Estabelecimento/' + uid).once('value').then(snapshot => {
                     console.log(snapshot.exists())
                     if(snapshot.exists()){
                         navigation.navigate('DashBoard')
+                        if (initializing) setInitializing(false);
                     }else{
-                        navigation.navigate('Estabelecimento')
+                        navigation.navigate('Estabelecimento', token={uid})
+                        if (initializing) setInitializing(false);
                     }
                 })
             } else {
+                if (initializing) setInitializing(false);
                 navigation.navigate('Home');
             }
         }, 2000)
