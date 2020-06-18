@@ -9,6 +9,7 @@ import MyHeader from '../Componentes/MyHeader'
 import MeusPedidos from '../pages/MeusPedidos/MeusPedidos'
 import MeusProdutos from '../pages/MeusProdutos/MeusProdutos'
 import Ofertas from '../pages/MinhasOfertas/MinhasOfertas'
+import NewOfertas from '../pages/NewOferta/NewOferta'
 import NewProduto from '../pages/NewProduto/NewProduto'
 import RouteDrawer from '../Routes/routeDrawer'
 import Produto from '../pages/Produto/Produto'
@@ -79,6 +80,11 @@ function Route() {
            <Stack.Screen
                 name={'Ofertas'}
                 component={Ofertas}
+                options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight: (() => { }) }}
+           />
+           <Stack.Screen
+                name={'NewOfertas'}
+                component={NewOfertas}
                 options={{ headerStyle: { backgroundColor: '#B32728' }, headerRight: (() => { }) }}
            />
            <Stack.Screen
