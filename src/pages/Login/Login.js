@@ -31,7 +31,7 @@ export default function login({ navigation }) {
             auth()
                 .signInWithEmailAndPassword(usuario, password)
                 .then(() => {
-                    navigation.navigate('DashBoard');
+                    //navigation.navigate('DashBoard');
                     setloading(false)
                 })
                 .catch(error => {
