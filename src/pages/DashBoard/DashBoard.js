@@ -1,15 +1,19 @@
-import React from 'react'
-import { View, Text, Image, _View } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, Image, _View, ActivityIndicator } from 'react-native'
+
+import database from '@react-native-firebase/database';
+import auth from '@react-native-firebase/auth'
 
 import { Button } from 'react-native-elements'
 import HeaderDashBoard from '../../Componentes/HeaderDashBoard'
 import styles from './style'
 
-export default function DashBoard({ navigation, title, backColor }) {
+export default function DashBoard({ navigation }) {
+
     return (
         <View style={styles.container}>
             <View style={styles.box1}>
-                <HeaderDashBoard title={'UNIVERSO ENTREGAS'} color={'#B32728'} navigation={navigation} />
+                <HeaderDashBoard title={'PLANETA ENTREGAS'} color={'#B32728'} navigation={navigation} />
             </View>
             <View style={styles.box2}>
                 <View>

@@ -28,9 +28,10 @@ const styles = StyleSheet.create({
         color: '#B32728',
     },
     icone: {
+        resizeMode: 'stretch',
         width: 100,
         height: 100,
-        margin: 10,
+        margin: 10
     },
     cont_icons: {
         justifyContent: 'center',

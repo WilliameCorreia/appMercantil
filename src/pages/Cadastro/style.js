@@ -4,8 +4,16 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         backgroundColor: '#F23132',
+    },
+    box1:{
+        flex: 2,
         justifyContent: 'center',
-        alignItems: "center"
+        alignItems: 'center'
+    },
+    box2:{
+        flex: 2,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     image_person:{
         width: (Dimensions.get('window').width / 4),
@@ -19,8 +27,8 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         borderColor: '#9C3F3A',
         backgroundColor: 'transparent',
-        padding: 20,
-        fontSize: 18
+        paddingLeft: 20,
+        fontSize: 16
     },
     img:{
         width: (Dimensions.get('window').width / 6),

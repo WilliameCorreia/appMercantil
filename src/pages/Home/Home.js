@@ -9,26 +9,22 @@ export default function Home({ navigation }) {
 
     // Set an initializing state whilst Firebase connects
     const [initializing, setInitializing] = useState(true);
-    const [user, setUser] = useState();
+    //const [user, setUser] = useState();
 
     // Handle user state changes
     async function onAuthStateChanged(user) {
         setTimeout(function () {
             if (initializing) setInitializing(false);
             if (user) {
-                setUser(user);
-                let { uid } = user._user
-                database()
-                    .ref('/Estabelecimento/' + uid)
-                    .once('value')
-                    .then(snapshot => {
-                        console.log(snapshot.exists())
-                        if (snapshot.exists()) {
-                            navigation.navigate('DashBoard')
-                        } else {
-                            navigation.navigate('Estabelecimento', { token: uid })
-                        }
-                    })
+                let { uid } = user
+                database().ref('/Estabelecimento/' + uid).once('value').then(snapshot => {
+                    console.log(snapshot.exists())
+                    if(snapshot.exists()){
+                        navigation.navigate('DashBoard')
+                    }else{
+                        navigation.navigate('Estabelecimento')
+                    }
+                })
             } else {
                 navigation.navigate('Home');
             }

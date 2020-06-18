@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        fontSize: 16,
         backgroundColor: 'transparent',
-        fontSize: 18
     },
     SectionStyle: {
         width: (Dimensions.get('window').width / 4 * 3),
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     icon:{
-        padding: 0,
+        margin: 15,
     },
     btn: {
         backgroundColor: "#ffff",
@@ -45,9 +45,9 @@ const styles = StyleSheet.create({
         letterSpacing: 3,
     },
     image_logo:{
-        width: (Dimensions.get('window').width / 10 * 6),
-        height: (Dimensions.get('window').height / 10 * 3),
-        resizeMode: 'stretch'
+        width: (Dimensions.get('window').width / 10 * 7),
+        height: (Dimensions.get('window').height / 10 * 4),
+        resizeMode: 'stretch',
     },
     textBtn:{
         justifyContent: 'center',

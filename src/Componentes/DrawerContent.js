@@ -15,7 +15,7 @@ export default function DrawerContent({ navigation }) {
             { 
                 text: "OK", 
                 onPress: () => auth().signOut().then(() =>{
-                    navigation.navigate('Login');
+                   // navigation.navigate('Login');
                 }).catch(error => {
                     Alert.alert('Erro', toString(error.code))
                 })},
