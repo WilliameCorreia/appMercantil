@@ -4,6 +4,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import DashBoard from '../pages/DashBoard/DashBoard'
 import Usuario from '../pages/Usuario/usuario'
 import DrawerContent from '../Componentes/DrawerContent'
+import Route from '../Routes/route'
 
 const Drawer = createDrawerNavigator();
 
@@ -16,7 +17,7 @@ export default function RouteDrawer() {
         >
             <Drawer.Screen 
                 name="Inicio" 
-                component={DashBoard}
+                component={Route}
             />
             <Drawer.Screen 
                 name="Usuario" 

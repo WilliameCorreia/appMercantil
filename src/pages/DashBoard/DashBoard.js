@@ -1,20 +1,28 @@
-import React, { useState } from 'react'
-import { View, Text, Image, _View, ActivityIndicator } from 'react-native'
-
-import database from '@react-native-firebase/database';
-import auth from '@react-native-firebase/auth'
+import React from 'react'
+import { View, Text, Image, _View, BackHandler, Alert } from 'react-native'
 
 import { Button } from 'react-native-elements'
-import HeaderDashBoard from '../../Componentes/HeaderDashBoard'
 import styles from './style'
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function DashBoard({ navigation }) {
+    console.log('entrou dashBoard')
 
+    useFocusEffect(
+        React.useCallback(()=>{
+            BackHandler.removeEventListener('hardwareBackPress', onBackPress)
+            const onBackPress = () => {
+                console.log('tefgsdfgsdfgsdfgsdfgsdfgste')
+                Alert.alert('toque em voltar para sair')
+            }
+
+            BackHandler.addEventListener('hardwareBackPress', onBackPress)
+            
+         })
+    )
     return (
         <View style={styles.container}>
-            <View style={styles.box1}>
-                <HeaderDashBoard title={'PLANETA ENTREGAS'} color={'#B32728'} navigation={navigation} />
-            </View>
+           
             <View style={styles.box2}>
                 <View>
                     <Button
