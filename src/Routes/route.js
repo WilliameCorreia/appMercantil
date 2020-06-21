@@ -8,8 +8,7 @@ import Cadastro from '../pages/Cadastro/Cadastro'
 import Estabelecimento from '../pages/Estabelecimento/Estabelecimento'
 import MyHeader from '../Componentes/MyHeader'
 import MyBackButton from '../Componentes/MyBackButton'
-import DashBoard from '../pages/DashBoard/DashBoard'
-import RouteDashBoard from './routeDashBoard'
+import RouteDrawer from './routeDrawer'
 
 const Stack = createStackNavigator();
 
@@ -57,13 +56,13 @@ function Route() {
                 options={{ headerStyle: { backgroundColor: '#B32728' } }}
             />
             <Stack.Screen
-                name='DashBoard'
+                name='RouteDrawer'
                 options={{
                     title: 'Universo Entregas',
                     headerStyle: { backgroundColor: '#B32728' },
                     header:(()=>{})
                 }}
-                component={RouteDashBoard}
+                component={RouteDrawer}
             />
         </Stack.Navigator>
     )

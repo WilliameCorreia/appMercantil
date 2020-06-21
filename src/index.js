@@ -9,7 +9,7 @@ const index = () => {
     return (
         <NavigationContainer>
             <StatusBar backgroundColor={'#fff'} barStyle='dark-content' translucent={true}/>
-            <RouteDrawer />
+            <Route />
         </NavigationContainer>
     )
 }

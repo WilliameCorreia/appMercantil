@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Header } from 'react-native-elements'
-import MyDrawerOpen from '../Componentes/MyDrawerOpen'
 
 export default function HeaderDashBoard({ title, leftButton, rightButton, color}) {
     return (
