@@ -32,7 +32,7 @@ export default function login({ navigation }) {
                 .signInWithEmailAndPassword(usuario, password)
                 .then(() => {
                     //navigation.navigate('DashBoard');
-                    setloading(false)
+                    //setloading(false)
                 })
                 .catch(error => {
                     switch (error.code) {
@@ -70,51 +70,63 @@ export default function login({ navigation }) {
         }
     }
     return (
-        <KeyboardAvoidingView style={styles.container}>
-            <Image source={require('../../Assets/logo.png')} style={styles.image_logo} />
-            {loading ? <ActivityIndicator size={"large"} color={'#ffff'}></ActivityIndicator> : <Text></Text>}
-            <View style={styles.SectionStyle}>
-                <Icon
-                    style={styles.icon}
-                    name='ios-contact'
-                    type='ionicon'
-                    size={40}
-                    color={'#fff'}
-                />
-                <TextInput
-                    dataDetectorTypes={'address'}
-                    style={styles.input}
-                    placeholder={'USUÁRIO'}
-                    placeholderTextColor={'#ffff'}
-                    onChangeText={texto => setUsuario(texto)}
-                />
+        <KeyboardAvoidingView style={styles.container} keyboardVerticalOffset={80} behavior={"position"}>
+            <View style={styles.box1}>
+                <Image source={require('../../Assets/logo322.png')} style={styles.image_logo} />
+                <Image source={require('../../Assets/nomeLogo2.png')} style={styles.name_logo} />
             </View>
-            <View style={styles.SectionStyle}>
-                <Icon
-                    style={styles.icon}
-                    name='ios-lock'
-                    type='ionicon'
-                    size={40}
-                    color={'#fff'}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder={'********'}
-                    placeholderTextColor={'#ffff'}
-                    secureTextEntry
-                    onChangeText={texto => setPassword(texto)}
-                />
-                <TextInput />
+            <View style={styles.box2}>
+                {loading ? <ActivityIndicator size={"large"} color={'#ffff'}></ActivityIndicator> : <Text></Text>}
+                <View style={styles.SectionStyle}>
+                    <Icon
+                        style={styles.icon}
+                        name='ios-contact'
+                        type='ionicon'
+                        size={40}
+                        color={'#fff'}
+                    />
+                    <TextInput
+                        returnKeyType={'next'}
+                        autoCapitalize={'none'}
+                        dataDetectorTypes={'address'}
+                        style={styles.input}
+                        placeholder={'USUÁRIO'}
+                        placeholderTextColor={'#ffff'}
+                        onChangeText={texto => setUsuario(texto)}
+                    />
+                </View>
+                <View style={styles.SectionStyle}>
+                    <Icon
+                        returnKeyType={'next'}
+                        autoCapitalize={'none'}
+                        style={styles.icon}
+                        name='ios-lock'
+                        type='ionicon'
+                        size={40}
+                        color={'#fff'}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder={'********'}
+                        placeholderTextColor={'#ffff'}
+                        secureTextEntry
+                        onChangeText={texto => setPassword(texto)}
+                    />
+                    <TextInput />
+                </View>
+                <TouchableOpacity style={styles.btn} onPress={() => autenticar()}>
+                    <Text style={styles.text}>Entrar</Text>
+                </TouchableOpacity>
+                <StatusBar backgroundColor={'#FF7223'} barStyle='dark-content' />
+                <TouchableOpacity onPress={() => { navigation.navigate('Cadastro') }} style={styles.textBtn}>
+                    <Text style={styles.text2}>Ainda não possui conta ?</Text>
+                    <Text style={styles.text2}>Cadastre-se</Text>
+                </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.btn} onPress={() => autenticar()}>
-                <Text style={styles.text}>Entrar</Text>
-            </TouchableOpacity>
-            <StatusBar backgroundColor={'#FF7223'} barStyle='dark-content' />
-            <TouchableOpacity onPress={() => { navigation.navigate('Cadastro') }} style={styles.textBtn}>
-                <Text style={styles.text2}>Ainda não possui conta ?</Text>
-                <Text style={styles.text2}>Cadastre-se</Text>
-            </TouchableOpacity>
-            <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} />
+            <View style={styles.box3}>
+                <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} />
+            </View>
+
         </KeyboardAvoidingView>
     )
 }

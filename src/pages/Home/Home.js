@@ -41,7 +41,7 @@ export default function Home({ navigation }) {
     return (
         <ImageBackground source={require('../../Assets/backHome.jpeg')} style={styles.container}>
             <View style={styles.box1}>
-                <Image source={require('../../Assets/logo32.png')} style={styles.image_logo} />
+                <Image source={require('../../Assets/logo22.png')} style={styles.image_logo} />
                 <Image source={require('../../Assets/nomeLogo.png')} style={styles.image_logoNome} />
             </View>
             {initializing ?

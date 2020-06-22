@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 
 const styles = StyleSheet.create({
     container: {
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     box2: {
-        flex: 7,
+        flex: 2,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
@@ -37,6 +37,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    imgScrow: {
+       width: (Dimensions.get('window').width / 20 * 18),
+       height: (Dimensions.get('window').height / 20 * 6),
+       resizeMode: 'stretch'
+    }
 })
 
 export default styles
