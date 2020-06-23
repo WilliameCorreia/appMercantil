@@ -4,6 +4,7 @@ import { StyleSheet, View, Dimensions, Image, ScrollView, Text } from 'react-nat
 const DEVICE_WIDTH = Dimensions.get('window').width
 
 export default class CarroselImage extends Component {
+    
     scrollRef = React.createRef()
 
     constructor(props) {
@@ -50,7 +51,8 @@ export default class CarroselImage extends Component {
                     onMomentumScrollEnd={this.setSelectedIndex} 
                     ref = {this.scrollRef}
                 >
-                    {images.map(image => {
+                    {images ? 
+                    images.map(image => {
                         return (
                             <Image
                                 key={image}
@@ -58,7 +60,7 @@ export default class CarroselImage extends Component {
                                 style={styles.img}
                             />
                         )
-                    })}
+                    }): null}
                 </ScrollView>
                 <View style={styles.circleDiv}>
                     {images.map((image, i) => {

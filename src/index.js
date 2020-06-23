@@ -3,6 +3,8 @@ import { StatusBar } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 
 import Route from './Routes/route'
+import RouteDashBoard from './Routes/routeDashBoard'
+import RouteDrawer from './Routes/routeDrawer'
 
 const index = () => {
     return (

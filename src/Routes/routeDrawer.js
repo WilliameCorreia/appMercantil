@@ -16,6 +16,7 @@ export default function RouteDrawer() {
             <Drawer.Screen 
                 name="Inicio" 
                 component={RouteDashBoard}
+                options={{tabBarLabel: 'teste'}}
             />
             <Drawer.Screen 
                 name="Usuario" 
