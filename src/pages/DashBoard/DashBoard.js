@@ -113,7 +113,7 @@ export default function DashBoard({ navigation }) {
                         raised
                         containerStyle={styles.cont_btn}
                         buttonStyle={styles.btn}
-                        onPress={() => navigation.navigate('MeusProdutos')}
+                        onPress={() => navigation.navigate('Categorias')}
                     />
 
                     <Button

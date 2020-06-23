@@ -20,6 +20,7 @@ import DrawerContent from '../Componentes/DrawerContent'
 import HeaderDashBoard from '../Componentes/HeaderDashBoard'
 import MyDrawerOpen from '../Componentes/MyDrawerOpen'
 import { DrawerActions } from '@react-navigation/native';
+import Categorias from '../pages/Categorias/Categorias'
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -88,6 +89,11 @@ function RouteDashBoard() {
                 component={Produto}
                 options={{ headerStyle: { backgroundColor: '#B32728' } }}
             />
+            <Stack.Screen
+                name={'Categorias'}
+                component={Categorias}
+                options={{ headerStyle: { backgroundColor: '#B32728' } }}
+            />
         </Stack.Navigator>
     )
 }
@@ -134,14 +140,6 @@ function Route() {
                 component={Estabelecimento}
                 options={{ headerStyle: { backgroundColor: '#B32728' } }}
             />
-            {/* <Stack.Screen
-                name='RouteDrawer'
-                options={{
-                    title: 'Universo Entregas',
-                    headerStyle: { backgroundColor: '#B32728' },
-                }}
-                component={RouteDrawer}
-            /> */}
         </Stack.Navigator>
     )
 }
