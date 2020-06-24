@@ -110,7 +110,7 @@ function Route() {
                     const title = options.headerTitle !== undefined ? options.headerTitle : options.title !== undefined
                         ? options.title : scene.route.name;
                     const backColor = options.headerStyle.backgroundColor
-
+                    console.log(backColor)
                     return (
                         <MyHeader
                             title={title}
@@ -123,7 +123,7 @@ function Route() {
             <Stack.Screen
                 name='Home'
                 component={Home}
-                options={{ headerShown: false }}
+                options={{ headerShown: false}}
             />
             <Stack.Screen
                 name='Login'
@@ -152,7 +152,7 @@ function RouteDrawer() {
             drawerContent={({navigation}) => <DrawerContent navigation={navigation}/>}
         >
             <Drawer.Screen 
-                name="DashBoard" 
+                name="InicioDashBoard" 
                 component={RouteDashBoard}
                 options={{tabBarLabel: 'teste'}}
             />

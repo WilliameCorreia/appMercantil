@@ -19,7 +19,7 @@ export default function Home({ navigation }) {
                 database().ref('/Estabelecimento/' + uid).once('value').then(snapshot => {
                     console.log(snapshot.exists())
                     if(snapshot.exists()){
-                        navigation.navigate('DashBoard')
+                        navigation.navigate('InicioDashBoard')
                         if (initializing) setInitializing(false);
                     }else{
                         navigation.navigate('Estabelecimento', token={uid})

@@ -45,18 +45,25 @@ export default function Categorias( { navigation } ) {
         })
     }) */
 
-    function teste() {
-        /*  let x = newReference.child('1331770004509/categoria').once('value', dados =>{
-             console.log(dados.val())
-         }) */
-        /*  newReference.child('Produtos').orderByChild('categoria').equalTo('MERCEARIA').once('value', dados =>{
-             console.log(dados.val())
-         }) */
+    const init = async () => {
+        console.log('entrou init')
+        const conteudo = await newReference.child('1331770004509/categoria').once('value', dados =>{
+            console.log('conteudo1')
+            return dados.val()
+        })
+
+        const conteudo2 = await newReference.child('Produtos').orderByChild('categoria').equalTo('MERCEARIA').once('value', dados =>{
+            console.log('conteudo2')
+            return dados.val()
+        })
+
+        return conteudo2
+        
     }
 
-    teste()
-
-    //console.log(produtos)
+   /*  init().then(dados =>{
+        console.log(dados)
+    }) */
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -64,7 +71,8 @@ export default function Categorias( { navigation } ) {
                 return (
                     <TouchableOpacity 
                         style={styles.btnCategoria}
-                        onPress={() => navigation.navigate('MeusProdutos')}
+                        key={item}
+                        onPress={() => navigation.navigate('MeusProdutos', {item})}
                     >
                         <Text style={styles.label}>{item}</Text>
                     </TouchableOpacity>
