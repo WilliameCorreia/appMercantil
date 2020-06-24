@@ -2,15 +2,15 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 
 import { Header } from 'react-native-elements'
-import MyBackButton from '../Componentes/MyBackButton'
 
-export default function MyHeader({ title, leftButton, style, color }) {
+export default function MyHeader({ title, leftButton, color }) {
+    console.log('MyHeader')
     return (
         <Header
             statusBarProps={{ barStyle: 'light-content', backgroundColor: color }}
             barStyle="light-content"
             centerComponent={{ text: title, style: { color: '#fff', fontSize: 25 } }}
-            leftComponent={<MyBackButton />}
+            leftComponent={leftButton}
             containerStyle={{
                 backgroundColor: color,
                 justifyContent: 'space-around',

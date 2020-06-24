@@ -2,13 +2,12 @@ import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { Icon } from 'react-native-elements'
-import { useNavigation } from '@react-navigation/native';
 
-export default function MyBackButton() {
-    const navigation = useNavigation();
+export default function MyBackButton({ onPress }) {
+    
     return (
         <View style={styles.container}>
-            <TouchableOpacity  onPress={() => {navigation.goBack();}}>
+            <TouchableOpacity  onPress={onPress}>
                 <Icon
                     style={styles.icon}
                     raised

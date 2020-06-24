@@ -1,15 +1,17 @@
 import React from 'react'
 
 import { Header } from 'react-native-elements'
-import MyDrawerOpen from '../Componentes/MyDrawerOpen'
+import { StyleSheet } from 'react-native'
 
-export default function HeaderDashBoard({ title, leftButton, style, color, navigation}) {
+export default function HeaderDashBoard({ title, leftButton, rightButton, color }) {
+    console.log('HeaderDashBoard')
     return (
         <Header
-        statusBarProps={{ barStyle: 'light-content', backgroundColor: color }}
+            statusBarProps={{ barStyle: 'light-content', backgroundColor: color }}
             barStyle="light-content"
-            leftComponent={<MyDrawerOpen navigation={navigation}/>}
-            centerComponent={{text: title, style:{color: '#fff', fontSize: 20}}}
+            leftComponent={leftButton}
+            rightComponent={rightButton}
+            centerComponent={{ text: title, style: { color: '#fff', fontSize: 20 } }}
             containerStyle={{
                 backgroundColor: color,
                 justifyContent: 'space-around',

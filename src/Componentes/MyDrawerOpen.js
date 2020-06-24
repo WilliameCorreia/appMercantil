@@ -2,12 +2,11 @@ import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { Icon } from 'react-native-elements'
-import { DrawerActions } from '@react-navigation/native';
 
-export default function MyDrawerOpen( { navigation } ) {
+export default function MyDrawerOpen( { onPress } ) {
     return (
         <View style={styles.container}>
-            <TouchableOpacity  onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
+            <TouchableOpacity  onPress={onPress}>
                 <Icon
                     style={styles.icon}
                     raised

@@ -21,12 +21,12 @@ const styles = StyleSheet.create({
     image_logo: {
         width: (Dimensions.get('window').width / 2),
         height: (Dimensions.get('window').height /4),
-        resizeMode: 'stretch',
+        resizeMode: 'center',
     },
     image_logoNome: {
         width: (Dimensions.get('window').width / 2),
         height: (Dimensions.get('window').height / 6),
-        resizeMode: 'stretch',
+        resizeMode: 'center',
     },
     btn: {
         backgroundColor: "#B32728",

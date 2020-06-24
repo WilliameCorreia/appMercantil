@@ -6,18 +6,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#F23132',
     },
     box1:{
-        flex: 2,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 40
     },
     box2:{
-        flex: 2,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: 50
     },
     image_person:{
-        width: (Dimensions.get('window').width / 4),
-        height: (Dimensions.get('window').width / 4),
+        width: (Dimensions.get('window').width / 10 * 3),
+        height: (Dimensions.get('window').width / 10 * 3),
+        margin: 20
     },
     input: {
         width: (Dimensions.get('window').width / 4 * 3),
@@ -28,11 +29,13 @@ const styles = StyleSheet.create({
         borderColor: '#9C3F3A',
         backgroundColor: 'transparent',
         paddingLeft: 20,
-        fontSize: 16
+        fontSize: 16,
+       
     },
-    img:{
+    btn:{
         width: (Dimensions.get('window').width / 6),
         height: (Dimensions.get('window').height / 10),
+        margin: 20
     }
 })
 

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 
 const styles = StyleSheet.create({
     container: {
@@ -8,16 +8,21 @@ const styles = StyleSheet.create({
     },
     box1: {
         flex: 1,
+        marginTop: 20,
+        marginLeft: 20,
+        marginRight: 20
     },
     box2: {
-        flex: 7,
+        flex: 3,
+        marginLeft: 20,
+        marginRight: 20,
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center'
+        alignItems: 'flex-start',
+        justifyContent: 'center',
     },
     btn: {
-        width: 150,
-        height: 150,
+        width: (Dimensions.get('window').width / 40 * 17),
+        height: (Dimensions.get('window').height /4),
         backgroundColor: '#cccccc'
     },
     cont_btn: {
@@ -37,6 +42,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+
 })
 
 export default styles

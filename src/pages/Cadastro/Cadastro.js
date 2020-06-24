@@ -68,13 +68,18 @@ export default function Cadastro({ navigation }) {
     }
 
     return (
-        <KeyboardAvoidingView style={styles.container}>
+        <KeyboardAvoidingView
+            contentContainerStyle={styles.teste}
+            style={styles.container}
+            behavior={'position'} >
             <View style={styles.box1}>
                 <Image source={require('../../Assets/person.png')} style={styles.image_person} />
             </View>
             <View style={styles.box2}>
                 {loading ? <ActivityIndicator size={"large"} color={'#ffff'}></ActivityIndicator> : <Text></Text>}
                 <TextInput
+                    returnKeyType={'next'}
+                    autoCapitalize={'none'}
                     style={styles.input}
                     placeholder={'E-mail'}
                     placeholderTextColor={'#ffff'}
@@ -95,10 +100,12 @@ export default function Cadastro({ navigation }) {
                     onChangeText={text => setConfPassword(text)}
                 />
                 <TouchableOpacity onPress={cadastrar}>
-                    <Image style={styles.img} source={require('../../Assets/next.png')} />
+                    <Image style={styles.btn} source={require('../../Assets/next.png')} />
                 </TouchableOpacity>
             </View>
-            <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} navigation />
+            <View style={styles.box3}>
+                <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} navigation />
+            </View>
         </KeyboardAvoidingView>
     )
 }

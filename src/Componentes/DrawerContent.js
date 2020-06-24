@@ -3,6 +3,8 @@ import { StyleSheet, View, Image, Text, TouchableOpacity, Alert } from 'react-na
 
 import auth from '@react-native-firebase/auth';
 
+import { CommonActions } from '@react-navigation/native';
+
 export default function DrawerContent({ navigation }) {
 
     const logout = () => {
@@ -31,13 +33,17 @@ export default function DrawerContent({ navigation }) {
             </View>
             <View style={styles.box2}>
                 <View style={styles.item}>
-                    <TouchableOpacity style={styles.opacity} onPress={() => navigation.navigate('Inicio')}>
+                    <TouchableOpacity style={styles.opacity} onPress={() => navigation.dispatch(
+                        CommonActions.navigate({
+                            name:'DashBoard'
+                        })
+                    )}>
                         <Image style={styles.imgIcone} source={require('../Assets/home.png')} />
                         <Text style={styles.text}>Inicio</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.item}>
-                    <TouchableOpacity style={styles.opacity} onPress={() => navigation.navigate('Inicio')}>
+                    <TouchableOpacity style={styles.opacity} onPress={() => navigation.navigate('Usuario')}>
                         <Image style={styles.imgIcone} source={require('../Assets/user.png')} />
                         <Text style={styles.text}>Perfil</Text>
                     </TouchableOpacity>
