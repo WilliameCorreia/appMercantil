@@ -6,14 +6,14 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
     },
     btnCategoria:{
-        width: (Dimensions.get('window').width / 20 * 9),
+        width: (Dimensions.get('window').width / 2),
         height: (Dimensions.get('window').height / 20 * 3),
-        margin: 10,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'pink',
         padding: 10,
-        
+        borderWidth: 10,
+        borderColor: '#fff'
     },
     label:{
         fontSize: 18,
