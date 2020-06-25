@@ -14,24 +14,35 @@ import database from '@react-native-firebase/database';
 
 import { useNavigation } from '@react-navigation/native';
 
-export default () => {
+export default ({ categoria }) => {
 
+    console.log('listaProdutos => ' + categoria)
     const navigation = useNavigation();
 
-    const reference = database().ref('/produtos');
+    const reference = database().ref('/Produtos');
 
-    const [listProdutos, setListProdutos] = useState();
+    const [listProdutos, setListProdutos] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        reference
-            .once('value')
-            .then(snapshot => {
-                let lista_produtos = snapshot.val()
-                setListProdutos(lista_produtos);
-                setLoading(false)
+    const listarProdutos = async () => {
+
+        const listaProdutos = await reference.orderByChild('categoria').equalTo(categoria).once('value').then(snapshot => {
+            let lista = []
+            snapshot.forEach((child) => {
+                lista.push(child.val())
             })
-    }, [loading])
+            setLoading(false)
+            return lista
+        })
+        return listaProdutos
+    }
+
+    useEffect(() => {
+        listarProdutos().then(lista => {
+            setListProdutos(lista)
+        })
+    }, [])
+
 
     const getItem = (data, index) => {
         if (data) {
@@ -59,14 +70,6 @@ export default () => {
         return valor;
     }
 
-    const Item = ({ title }) => {
-        return (
-            <View style={styles.item}>
-                <Text style={styles.title}>{title.teste1}</Text>
-            </View>
-        );
-    }
-
     const _renderItem = ({ title }) => (
         <TouchableHighlight
             activeOpacity={0.6}
@@ -90,19 +93,25 @@ export default () => {
             </View>
         </TouchableHighlight>
     )
-
+    console.log(listProdutos.length)
     return (
         <SafeAreaView style={styles.container}>
-            <VirtualizedList
-                data={listProdutos}
-                initialNumToRender={4}
-                renderItem={({ item }) => <_renderItem title={item} />}
-                keyExtractor={item => item.key.toString()}
-                getItemCount={getItemCount}
-                getItem={getItem}
-                windowSize={10}
-                maxToRenderPerBatch={4}
-            />
+            {loading ? <ActivityIndicator style={styles.loading} size={"large", 100} color={'#000'} /> :
+                listProdutos.length !== 0 ?
+                    <VirtualizedList
+                        data={listProdutos}
+                        initialNumToRender={4}
+                        renderItem={({ item }) => <_renderItem title={item} />}
+                        keyExtractor={item => item.key.toString()}
+                        getItemCount={getItemCount}
+                        getItem={getItem}
+                        windowSize={10}
+                        maxToRenderPerBatch={4}
+                    /> :
+                    <View style={styles.msn}>
+                        <Text style={styles.textMsn}>Não existem produtos cadastrado nessa categoria</Text>
+                    </View>
+            }
         </SafeAreaView>
     )
 }
@@ -112,8 +121,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#eef0f3'
     },
-    cards:{
-        backgroundColor: '#ffff', 
+    cards: {
+        backgroundColor: '#ffff',
         borderColor: '#9a9696',
         borderWidth: 3,
         borderRadius: 10,
@@ -121,37 +130,51 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 160
     },
-    box1:{
+    box1: {
         flex: 3,
         padding: 10,
         justifyContent: 'center',
     },
-    box2:{
+    box2: {
         flex: 1,
-        alignItems:'center', 
+        alignItems: 'center',
         justifyContent: 'center',
     },
-    prodImg:{
+    prodImg: {
         height: 90,
         width: 80,
         marginBottom: 5
     },
-    nomeProduto:{
+    nomeProduto: {
         fontSize: 20,
         fontWeight: 'bold',
     },
-    texto:{
-        fontSize:16,
+    texto: {
+        fontSize: 16,
         letterSpacing: 2
     },
-    dispon:{
+    dispon: {
         backgroundColor: '#469b19',
         padding: 10,
         borderRadius: 30
     },
-    active:{
+    active: {
         justifyContent: 'center',
         marginTop: 250
+    },
+    loading:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    msn:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    textMsn:{
+        fontSize: 20,
+        textAlign: 'center'
     }
 
 })

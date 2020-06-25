@@ -36,11 +36,11 @@ export default function DashBoard({ navigation }) {
                 })
             });
 
-            if (result.nextPageToken) {
+          /*   if (result.nextPageToken) {
                 return listFilesAndDirectories(reference, result.nextPageToken);
             }
 
-            return Promise.resolve();
+            return Promise.resolve(); */
         });
     }
 
@@ -53,7 +53,7 @@ export default function DashBoard({ navigation }) {
             console.log('finalizado !');
         });
         return () => {
-            console.log('error')
+            console.log('error DahBoard')
         }
     }, [])
 

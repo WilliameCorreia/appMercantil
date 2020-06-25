@@ -11,28 +11,28 @@ export default function Categorias( { navigation } ) {
     const newReference = database().ref();
 
     const [Categorias, setCategorias] = useState([
-        "AÇOUGUE",
-        "AUTOS",
-        "BAZAR",
-        "BEBÊ",
-        "BEBIDAS",
-        "CASA E CONSTRUÇÃO",
-        "CONGELADOS",
-        "ELETRO",
-        "FARMÁCIA",
-        "FRIOS E LATICÍNIOS",
-        "HIGIENE E BELEZA",
-        "HORTIFRUTI",
-        "INFANTIL",
-        "LIMPEZA",
-        "MERCEARIA",
-        "PADARIA",
-        "PAPELARIA",
-        "PERFUMARIA",
-        "PETSHOP",
-        "SUPLEMENTOS",
-        "TABACARIA",
-        "TINTAS / PINTURAS",
+        {nome:"AÇOUGUE", nomeBusca: "ACOUGUE"},
+        {nome:"AUTOS", nomeBusca: "AUTOS"},
+        {nome:"BAZAR", nomeBusca: "BAZAR"},
+        {nome:"BEBÊ", nomeBusca: "BEBE"},
+        {nome:"BEBIDAS", nomeBusca: "BEBIDAS"},
+        {nome:"CASA E CONSTRUÇÃO", nomeBusca: "CASA E CONSTRUCAO"},
+        {nome:"CONGELADOS", nomeBusca: "CONGELADOS"},
+        {nome:"ELETRO", nomeBusca: "ELETRO"},
+        {nome:"FARMÁCIA", nomeBusca: "FARMACIA"},
+        {nome:"FRIOS E LATICÍNIOS", nomeBusca: "FRIOS E LATICINIOS"},
+        {nome:"HIGIENE E BELEZA", nomeBusca: "HIGIENE E BELEZA"},
+        {nome:"HORTIFRUTI", nomeBusca: "HORTIFRUTI"},
+        {nome:"INFANTIL", nomeBusca: "INFANTIL"},
+        {nome:"LIMPEZA", nomeBusca: "LIMPEZA"},
+        {nome:"MERCEARIA", nomeBusca: "MERCEARIA"},
+        {nome:"PADARIA", nomeBusca: "PADARIA"},
+        {nome:"PAPELARIA", nomeBusca: "PAPELARIA"},
+        {nome:"PERFUMARIA", nomeBusca: "PERFUMARIA"},
+        {nome:"PETSHOP", nomeBusca: "PETSHOP"},
+        {nome:"SUPLEMENTOS", nomeBusca: "SUPLEMENTOS"},
+        {nome:"TABACARIA", nomeBusca: "TABACARIA"},
+        {nome:"TINTAS / PINTURAS", nomeBusca: "TINTAS / PINTURAS"},
     ])
 
     /* const [produtos, SetProdutos] = useState(data.produtos)
@@ -71,10 +71,10 @@ export default function Categorias( { navigation } ) {
                 return (
                     <TouchableOpacity 
                         style={styles.btnCategoria}
-                        key={item}
-                        onPress={() => navigation.navigate('MeusProdutos', {item})}
+                        key={item.nome}
+                        onPress={() => navigation.navigate('MeusProdutos', item.nomeBusca)}
                     >
-                        <Text style={styles.label}>{item}</Text>
+                        <Text style={styles.label}>{item.nome}</Text>
                     </TouchableOpacity>
                 )
             })}

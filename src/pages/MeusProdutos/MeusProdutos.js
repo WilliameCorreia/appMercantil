@@ -1,12 +1,13 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useEffect } from 'react';
 
 import ListaProdutos from '../../Services/ListaProdutos'
 
-export default class extends PureComponent{
+export default function MeusProdutos({ route }) {
 
-    render(){
-        return(
-            <ListaProdutos/>
-        )
-    }
+    const item = route.params 
+
+    console.log('meus produtos => ' + item)
+    return(
+        <ListaProdutos categoria={item}/>
+    )
 }
