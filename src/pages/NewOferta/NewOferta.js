@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, TextInput } from 'react-native'
 
 import Styles from './style'
+import styles from '../Home/style'
 
 export default class NewOferta extends Component {
     render() {
@@ -14,8 +15,8 @@ export default class NewOferta extends Component {
                             <Text style={[Styles.text, Styles.colorLabelProduto]}> #00001 </Text>
                         </View>
                         <View style={Styles.margin}>
-                            <TouchableOpacity style={[Styles.button, Styles.paddingHorizontal]} >
-                                <Text style={[Styles.colorBranco]}>EM FALTA</Text>
+                            <TouchableOpacity style={[Styles.btnStatus, Styles.paddingHorizontal, Styles.colorVermelho]} >
+                                <Text style={[Styles.colorBranco, Styles.BtnStatusText, Styles.BtnFont]}>EM FALTA</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -40,17 +41,19 @@ export default class NewOferta extends Component {
                         <View style={[Styles.row, Styles.cadaNoSeuLado]}>
                             <TextInput style={[Styles.tamanhoInputFull, Styles.inputs, Styles.espacamentoInput1]} />
                         </View>
-                        <View style={[Styles.alignCenter, Styles.row]}>
-                            <TouchableOpacity style={Styles.colorBtnAlterar}>
-                                <Text>ALTERAR</Text>
+                        <View style={[Styles.alignCenter, Styles.row, Styles.margin]}>
+                            <TouchableOpacity style={Styles.BtnAlterar}>
+                                <Text style={[Styles.colorBranco]}>ALTERAR</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
-                <View style={Styles.box2}>
-                    <TouchableOpacity >
-                        <Text >Salvar</Text>
-                    </TouchableOpacity>
+                <View style={[Styles.box2, Styles.bordado, Styles.colum, Styles.alignCenter]}>
+                    <View style={[Styles.alignCenter, Styles.row, Styles.margin]}>
+                        <TouchableOpacity style={[Styles.colorVermelho]}>
+                            <Text style={[Styles.BtnEncerrarText, Styles.colorBranco]} >ENCERRAR OFERTA</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         )
