@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import styles from './style'
 
 /* import * as data from '../../Produtos.json' */
@@ -16,7 +16,6 @@ export default function Categorias( { navigation } ) {
         const lista = await newReference.once('value').then(dados => {
             let _listaCategoria = []
             dados.forEach((child) =>{
-                console.log(child)
                 _listaCategoria.push(child.val())
             })
             return (_listaCategoria)
@@ -29,7 +28,7 @@ export default function Categorias( { navigation } ) {
             setCategorias(dados)
            // console.log(dados)
         })
-    })
+    }, [])
 
    /*  const [Categorias, setCategorias] = useState([
         {nome:"AÇOUGUE", nomeBusca: "ACOUGUE"},
@@ -77,25 +76,25 @@ export default function Categorias( { navigation } ) {
             console.log('conteudo2')
             return dados.val()
         })
-
         return conteudo2
-        
     }
 
    /*  init().then(dados =>{
         console.log(dados)
     }) */
-
+    console.log('lista de categorias')
     return (
         <ScrollView contentContainerStyle={styles.container}>
             {categorias.map(item => {
+                console.log(item.uri)
                 return (
                     <TouchableOpacity 
                         style={styles.btnCategoria}
                         key={item.nome}
                         onPress={() => navigation.navigate('MeusProdutos', item.nomeBusca)}
                     >
-                        <Text style={styles.label}>{item.nome}</Text>
+                        <Image source={{uri:item.uri}} style={styles.uriImg}/>
+                        {/* <Text style={styles.label}>{item.nome}</Text> */}
                     </TouchableOpacity>
                 )
             })}

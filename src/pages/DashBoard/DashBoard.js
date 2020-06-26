@@ -28,10 +28,6 @@ export default function DashBoard({ navigation }) {
         return ImgSlide
     }
 
-    console.log(images)
-
-    console.log('entrou dashBoard')
-
     useEffect(() => {
         listFilesAndDirectories(reference).then(dados => {
             setImages(dados)
@@ -55,6 +51,8 @@ export default function DashBoard({ navigation }) {
            })
       ) */
 
+      console.log('entrou dashBoard')
+    
     return (
         <View style={styles.container}>
             <View style={styles.box1}>
