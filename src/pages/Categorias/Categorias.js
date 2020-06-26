@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import styles from './style'
 
@@ -8,9 +8,30 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Categorias( { navigation } ) {
 
-    const newReference = database().ref();
+    const newReference = database().ref('/Categorias');
 
-    const [Categorias, setCategorias] = useState([
+    const [categorias, setCategorias] = useState([])
+
+    const Lista_Categorias = async () => {
+        const lista = await newReference.once('value').then(dados => {
+            let _listaCategoria = []
+            dados.forEach((child) =>{
+                console.log(child)
+                _listaCategoria.push(child.val())
+            })
+            return (_listaCategoria)
+        })
+        return lista
+    }
+
+    useEffect(() =>{
+        Lista_Categorias().then(dados => {
+            setCategorias(dados)
+           // console.log(dados)
+        })
+    })
+
+   /*  const [Categorias, setCategorias] = useState([
         {nome:"AÇOUGUE", nomeBusca: "ACOUGUE"},
         {nome:"AUTOS", nomeBusca: "AUTOS"},
         {nome:"BAZAR", nomeBusca: "BAZAR"},
@@ -33,7 +54,7 @@ export default function Categorias( { navigation } ) {
         {nome:"SUPLEMENTOS", nomeBusca: "SUPLEMENTOS"},
         {nome:"TABACARIA", nomeBusca: "TABACARIA"},
         {nome:"TINTAS / PINTURAS", nomeBusca: "TINTAS / PINTURAS"},
-    ])
+    ]) */
 
     /* const [produtos, SetProdutos] = useState(data.produtos)
 
@@ -67,7 +88,7 @@ export default function Categorias( { navigation } ) {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            {Categorias.map(item => {
+            {categorias.map(item => {
                 return (
                     <TouchableOpacity 
                         style={styles.btnCategoria}
