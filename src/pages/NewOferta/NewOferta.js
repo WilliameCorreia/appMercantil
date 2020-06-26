@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, TextInput } from 'react-native'
+import { Text, View, TouchableOpacity, TextInput, ScrollView } from 'react-native'
 
 import Styles from './style'
 import styles from '../Home/style'
@@ -7,7 +7,7 @@ import styles from '../Home/style'
 export default class NewOferta extends Component {
     render() {
         return (
-            <View style={Styles.container}>
+            <ScrollView style={Styles.container}>
                 <View style={[Styles.box1, Styles.bordado]}>
                     <View style={Styles.row}>
                         <View style={Styles.margin}>
@@ -55,7 +55,7 @@ export default class NewOferta extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 }
