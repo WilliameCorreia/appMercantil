@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import {TouchableOpacity} from 'react-native'
+import { ActivityIndicator } from 'react-native';
+import { Image } from 'react-native-elements';
 import styles from './style'
 
 /* import * as data from '../../Produtos.json' */
@@ -93,8 +95,13 @@ export default function Categorias( { navigation } ) {
                         key={item.nome}
                         onPress={() => navigation.navigate('MeusProdutos', item.nomeBusca)}
                     >
-                        <Image source={{uri:item.uri}} style={styles.uriImg}/>
-                        {/* <Text style={styles.label}>{item.nome}</Text> */}
+                        <Image 
+                            source={{uri:item.uri}}
+                            style={styles.uriImg}
+                            PlaceholderContent={<ActivityIndicator style={styles.Indicator} color={'red'} />}
+                            transition={true}
+                        />
+                        
                     </TouchableOpacity>
                 )
             })}

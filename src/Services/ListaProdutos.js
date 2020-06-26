@@ -119,7 +119,7 @@ export default ({ categoria }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#eef0f3'
+        backgroundColor: '#fff'
     },
     cards: {
         backgroundColor: '#ffff',

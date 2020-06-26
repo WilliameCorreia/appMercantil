@@ -4,9 +4,13 @@ const styles = StyleSheet.create({
     container:{
         flexDirection: 'row',
         flexWrap: 'wrap',
+        backgroundColor: '#fff'
     },
     btnCategoria:{
-        
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 10,
+        borderColor: '#fff'
     },
     label:{
         fontSize: 18,
@@ -15,14 +19,14 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     uriImg:{
+        resizeMode: 'center',
         width: (Dimensions.get('window').width / 2),
         height: (Dimensions.get('window').height / 20 * 3),
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 10,
-        borderWidth: 10,
-        borderColor: '#fff',
-        resizeMode: 'center'
+    },
+    Indicator:{
+        width: (Dimensions.get('window').width / 2),
+        height: (Dimensions.get('window').height / 20 * 3),
+        backgroundColor: '#fff'
     }
 })
 
