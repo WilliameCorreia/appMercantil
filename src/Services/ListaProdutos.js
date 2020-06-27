@@ -3,7 +3,7 @@ import {
     Text,
     View,
     Image,
-    TouchableHighlight,
+    TouchableOpacity,
     SafeAreaView,
     VirtualizedList,
     ActivityIndicator,
@@ -11,7 +11,6 @@ import {
 } from 'react-native'
 
 import database from '@react-native-firebase/database';
-
 import { useNavigation } from '@react-navigation/native';
 
 export default ({ categoria }) => {
@@ -40,6 +39,7 @@ export default ({ categoria }) => {
     useEffect(() => {
         listarProdutos().then(lista => {
             setListProdutos(lista)
+            console.log(lista)
         })
     }, [])
 
@@ -48,10 +48,9 @@ export default ({ categoria }) => {
         if (data) {
             return {
                 key: index,
-                produto: data[index].produto,
-                categoria: data[index].categoria,
-                marca: data[index].marca,
-                preco_medio: data[index].preco_medio
+                produto: data[index].produto_acento,
+                preco_medio: data[index].preco_medio,
+                quantidade: data[index].quantidade_embalagem
             }
         } else {
             return {
@@ -71,27 +70,25 @@ export default ({ categoria }) => {
     }
 
     const _renderItem = ({ title }) => (
-        <TouchableHighlight
-            activeOpacity={0.6}
-            underlayColor="#DDDDDD"
+        <TouchableOpacity
+            style={styles.cards}
             onPress={() => navigation.navigate('Produto', title)}
         >
-            <View style={styles.cards}>
+            <View style={styles.box}>
                 <View style={styles.box1}>
-                    <Text style={[styles.texto, styles.nomeProduto]}>{title.produto}</Text>
-                    <Text style={styles.texto}>Categoria: {title.categoria}</Text>
-                    <Text style={styles.texto}>Marca: {title.marca}</Text>
-                    <Text style={styles.texto}>Preço {title.preco_medio}</Text>
+                    <Text style={styles.nomeProduto}>{title.produto}</Text>
+                    <Text style={styles.texto}>Preço: R$ {title.preco_medio}</Text>
+                    <Text style={styles.texto}>Quantidade: {title.quantidade}</Text>
                 </View>
                 <View style={styles.box2}>
                     <Image
-                        style={styles.prodImg} source={require('../Assets/bombril.jpg')}
+                        style={styles.prodImg} source={require('../Assets/Arroz.png')}
                         PlaceholderContent={<ActivityIndicator />}
                     />
-                    <Text style={styles.dispon}>Disponível</Text>
+                    <Text style={styles.dispon}>Em Falta</Text>
                 </View>
             </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
     )
     console.log(listProdutos.length)
     return (
@@ -121,14 +118,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff'
     },
+    box:{
+        flexDirection: 'row',
+    },
     cards: {
         backgroundColor: '#ffff',
-        borderColor: '#9a9696',
-        borderWidth: 3,
-        borderRadius: 10,
         margin: 15,
-        flexDirection: 'row',
-        height: 160
+        height: 160,
+        elevation: 6
     },
     box1: {
         flex: 3,
@@ -139,24 +136,34 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        marginRight: 10
     },
     prodImg: {
         height: 90,
         width: 80,
-        marginBottom: 5
+        marginBottom: 5,
     },
     nomeProduto: {
         fontSize: 20,
         fontWeight: 'bold',
+        color: '#999999'
     },
     texto: {
-        fontSize: 16,
-        letterSpacing: 2
+        fontSize: 20,
+        letterSpacing: 2,
+        color: '#999999',
+        borderWidth: 2,
+        borderColor: '#999999',
+        borderRadius: 30,
+        paddingLeft: 10,
+        marginVertical: 5,
+        width: '80%'
     },
     dispon: {
-        backgroundColor: '#469b19',
-        padding: 10,
-        borderRadius: 30
+        backgroundColor: '#f23132',
+        paddingHorizontal: 15,
+        borderRadius: 30,
+        color: '#fff'
     },
     active: {
         justifyContent: 'center',

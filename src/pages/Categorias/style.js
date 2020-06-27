@@ -7,21 +7,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     btnCategoria:{
+        width: (Dimensions.get('window').width /2),
+        height: (Dimensions.get('window').height / 40 * 6),
         alignItems: 'center',
         justifyContent: 'center',
-        marginVertical: 10,
-        borderColor: '#fff'
-    },
-    label:{
-        fontSize: 18,
-        color: '#B32728',
-        fontWeight: 'bold',
-        textAlign: 'center'
     },
     uriImg:{
-        resizeMode: 'center',
-        width: (Dimensions.get('window').width / 2),
+        width: (Dimensions.get('window').width / 20 * 8),
         height: (Dimensions.get('window').height / 20 * 3),
+        resizeMode: 'center'
     },
     Indicator:{
         width: (Dimensions.get('window').width / 2),

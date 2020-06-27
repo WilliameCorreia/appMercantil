@@ -88,7 +88,6 @@ export default function Categorias( { navigation } ) {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             {categorias.map(item => {
-                console.log(item.uri)
                 return (
                     <TouchableOpacity 
                         style={styles.btnCategoria}
@@ -101,7 +100,6 @@ export default function Categorias( { navigation } ) {
                             PlaceholderContent={<ActivityIndicator style={styles.Indicator} color={'red'} />}
                             transition={true}
                         />
-                        
                     </TouchableOpacity>
                 )
             })}

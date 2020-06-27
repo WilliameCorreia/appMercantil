@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Image, _View, BackHandler, Alert } from 'react-native'
+import { View, Text, Image, _View} from 'react-native'
 
 import storage from '@react-native-firebase/storage';
 
@@ -10,7 +10,6 @@ import CarroselImage from '../../Componentes/CarroselImage'
 const reference = storage().ref('/Propagandas');
 
 export default function DashBoard({ navigation }) {
-    console.log("dashboard")
 
     const [images, setImages] = useState([])
 
@@ -51,8 +50,8 @@ export default function DashBoard({ navigation }) {
            })
       ) */
 
-      console.log('entrou dashBoard')
-    
+    console.log('entrou dashBoard')
+
     return (
         <View style={styles.container}>
             <View style={styles.box1}>
