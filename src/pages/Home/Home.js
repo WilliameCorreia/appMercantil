@@ -7,7 +7,7 @@ import AuthContext from '../../Contexts/Auth'
 
 export default function Home({ navigation }) {
 
-    const { signIn, usuario, signed } = useContext(AuthContext)
+    const { signed } = useContext(AuthContext)
 
     console.log(signed)
     //console.log(usuario)
@@ -15,7 +15,6 @@ export default function Home({ navigation }) {
     const [initializing, setinItializing] = useState(true)
 
     setTimeout(() => {
-        signIn();
         setinItializing(false)
     }, 2000);
 
