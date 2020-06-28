@@ -9,9 +9,9 @@ export const AuthProvider = ( { children } ) => {
     const [usuario, SetUsuario] = useState(null)
 
     async function signIn(){
-       const response = auth.SignIn()
-       console.log("authContext => " + response)
-
+       const response = auth.SignIn().then(dados =>{
+           console.log(dados)
+       })
        SetUsuario(response)
     }
 

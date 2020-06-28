@@ -1,24 +1,11 @@
 import auth from '@react-native-firebase/auth'
 //import database from '@react-native-firebase/database';
 
-export function SignIn(user){
+export async function SignIn(user){
 
-    return setTimeout(function () {
-        console.log('serviço auth')
-        auth().onUserChanged((user) =>{
-            let usuario = {}
-            if(user){
-                const { email, uid } = user
-                usuario = {
-                    email: email,
-                    token: uid
-                }
-            }
-            return usuario
-        })
-    },2000)
+    const teste = auth().currentUser
 
-
+    return teste
     /* return new Promise(resolve =>{
         setTimeout(() =>{
             resolve({
