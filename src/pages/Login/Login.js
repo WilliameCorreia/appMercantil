@@ -1,4 +1,4 @@
-import React, { useState, isValidElement } from 'react'
+import React, { useState, useContext } from 'react'
 import {
     Text,
     View,
@@ -11,6 +11,8 @@ import {
     KeyboardAvoidingView
 } from 'react-native'
 
+import AuthContext from '../../Contexts/Auth'
+
 import { Icon } from 'react-native-elements'
 import auth from '@react-native-firebase/auth'
 import MyModal from '../../Componentes/MyModal'
@@ -18,6 +20,8 @@ import MyModal from '../../Componentes/MyModal'
 import styles from './style'
 
 export default function login({ navigation }) {
+
+    const { signIn } = useContext(AuthContext)
 
     const [loading, setloading] = useState(false);
     const [usuario, setUsuario] = useState();
@@ -31,8 +35,7 @@ export default function login({ navigation }) {
             auth()
                 .signInWithEmailAndPassword(usuario, password)
                 .then(() => {
-                    //navigation.navigate('DashBoard');
-                    //setloading(false)
+                    signIn()
                 })
                 .catch(error => {
                     switch (error.code) {

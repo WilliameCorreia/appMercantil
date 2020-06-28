@@ -2,16 +2,19 @@ import React from 'react';
 import { StatusBar } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 
-import Route from './Routes/route'
-import RouteDashBoard from './Routes/routeDashBoard'
-import RouteDrawer from './Routes/routeDrawer'
+import Routes from './Routes/Index'
+
+import { AuthProvider } from './Contexts/Auth'
 
 const index = () => {
     return (
         <NavigationContainer>
-            <StatusBar backgroundColor={'#fff'} barStyle='dark-content' translucent={true}/>
-            <Route />
+            <AuthProvider>
+                <StatusBar backgroundColor={'#fff'} barStyle='dark-content' translucent={true} />
+                <Routes />
+            </AuthProvider>
         </NavigationContainer>
+
     )
 }
 

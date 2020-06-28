@@ -1,42 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Text, View, ImageBackground, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 
 import styles from './style'
-import auth from '@react-native-firebase/auth'
-import database from '@react-native-firebase/database';
+
+import AuthContext from '../../Contexts/Auth'
 
 export default function Home({ navigation }) {
 
-    // Set an initializing state whilst Firebase connects
-    const [initializing, setInitializing] = useState(true);
-    //const [user, setUser] = useState();
+    const { signIn, usuario, signed } = useContext(AuthContext)
 
-    // Handle user state changes
-    async function onAuthStateChanged(user) {
-        setTimeout(function () {
-            if (user) {
-                let { uid } = user
-                database().ref('/Estabelecimento/' + uid).once('value').then(snapshot => {
-                    console.log(snapshot.exists())
-                    if(snapshot.exists()){
-                        navigation.navigate('InicioDashBoard')
-                        if (initializing) setInitializing(false);
-                    }else{
-                        navigation.navigate('Estabelecimento', token={uid})
-                        if (initializing) setInitializing(false);
-                    }
-                })
-            } else {
-                if (initializing) setInitializing(false);
-                navigation.navigate('Home');
-            }
-        }, 2000)
-    }
+    console.log(signed)
+    //console.log(usuario)
 
-    useEffect(() => {
-        const subscriber = auth().onUserChanged(onAuthStateChanged);
-        return subscriber; // unsubscribe on unmount
-    }, []);
+    const [initializing, setinItializing] = useState(true)
+
+    setTimeout(() => {
+        signIn();
+        setinItializing(false)
+    }, 2000);
+
 
     return (
         <ImageBackground source={require('../../Assets/backHome.jpeg')} style={styles.container}>

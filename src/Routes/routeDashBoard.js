@@ -10,8 +10,9 @@ import Produto from '../pages/Produto/Produto'
 import HeaderDashBoard from '../Componentes/HeaderDashBoard'
 import MyBackButton from '../Componentes/MyBackButton'
 import MyDrawerOpen from '../Componentes/MyDrawerOpen'
-import { DrawerActions } from '@react-navigation/native';
+import { DrawerActions } from '@react-navigation/native'
 import DashBoard from '../pages/DashBoard/DashBoard'
+import Categorias from '../pages/Categorias/Categorias'
 
 const Stack = createStackNavigator();
 
@@ -78,6 +79,11 @@ function RouteDashBoard() {
             <Stack.Screen
                 name={'Produto'}
                 component={Produto}
+                options={{ headerStyle: { backgroundColor: '#B32728' } }}
+            />
+            <Stack.Screen
+                name={'Categorias'}
+                component={Categorias}
                 options={{ headerStyle: { backgroundColor: '#B32728' } }}
             />
         </Stack.Navigator>
