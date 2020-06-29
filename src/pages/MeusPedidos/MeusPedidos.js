@@ -1,11 +1,19 @@
-import React, { useEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
 
 import storage from '@react-native-firebase/storage';
 import database from '@react-native-firebase/database';
 import { cond } from 'react-native-reanimated';
 
+import Styles from './style.js'
+
 export default function MeusPedidos() {
+    const [pedidos, setImages] = useState(
+        [{id:'#000001', cliente:'João Marcos', status:'A CAMINHO'},
+        {id:'#000002', cliente:'Williame', status:'A CAMINHO'},
+        {id:'#000003', cliente:'Artur', status:'A CAMINHO'}
+        ]
+        )
 
     const reference = storage().ref('/Categorias');
 
@@ -24,17 +32,29 @@ export default function MeusPedidos() {
     }, [])
 
     return (
-        <View style={styles.container}>
-            <Text>Meus pedidos</Text>
-        </View>
+        <ScrollView style={Styles.container}>
+            <View>
+                {pedidos.map(order =>
+                    <View style={Styles.bordado}>
+                        <View style={Styles.box1}>
+                            <Text style={[Styles.text]}>{order.cliente}</Text>
+                            <Text style={[Styles.status, Styles.text]}>{order.status}</Text>
+                        </View>
+                        <View style={Styles.box1}>
+                            <Text style={[Styles.text]}>{order.id}</Text>                            
+                        </View>
+                    </View>
+                    )}
+            </View>
+        </ScrollView>
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#F5FCFF"
-      },    
-})
+// const styles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         justifyContent: "center",
+//         alignItems: "center",
+//         backgroundColor: "#F5FCFF"
+//       },    
+// })
