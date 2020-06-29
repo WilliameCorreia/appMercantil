@@ -7,17 +7,9 @@ import AuthContext from '../../Contexts/Auth'
 
 export default function Home({ navigation }) {
 
-    const { signed } = useContext(AuthContext)
+    const { loading } = useContext(AuthContext)
 
-    console.log(signed)
-    //console.log(usuario)
-
-    const [initializing, setinItializing] = useState(true)
-
-    setTimeout(() => {
-        setinItializing(false)
-    }, 2000);
-
+    console.log('home => ' + loading)
 
     return (
         <ImageBackground source={require('../../Assets/backHome.jpeg')} style={styles.container}>
@@ -25,7 +17,7 @@ export default function Home({ navigation }) {
                 <Image source={require('../../Assets/logo22.png')} style={styles.image_logo} />
                 <Image source={require('../../Assets/nomeLogo.png')} style={styles.image_logoNome} />
             </View>
-            {initializing ?
+            {loading ?
                 <View style={[styles.box2, styles.boxLoad]}>
                     <ActivityIndicator style={[styles.load]} size={"large", 100} color={'#000'} />
                 </View>

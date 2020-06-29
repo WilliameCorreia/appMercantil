@@ -8,16 +8,20 @@ const AuthContext = createContext({ signed: false })
 export const AuthProvider = ({ children }) => {
 
     const [usuario, SetUsuario] = useState({ email: '', token: '' })
+    const [loading, SetLoading] = useState(true)
     //const [token, SetToken] = useState(null)
 
     async function signIn(user) {
-        if (user) {
-            const { email, uid } = user
-
-            SetUsuario({ email, uid })
-        }else{
-            SetUsuario(null)
-        }
+        setTimeout(() =>{
+            if (user) {
+                const { email, uid } = user
+                SetUsuario({ email, uid })
+            }else{
+                SetLoading(false)
+                SetUsuario({email: undefined})
+                console.log("entro aqui")
+            }
+        },2000)
     }
 
     useEffect(() => {
@@ -27,10 +31,10 @@ export const AuthProvider = ({ children }) => {
         }
     }, []);
 
-    console.log(usuario)
+    console.log("authContext => " + usuario.email)
 
     return (
-        <AuthContext.Provider value={{ signed: Boolean(usuario), signIn, usuario }}>
+        <AuthContext.Provider value={{ signed: Boolean(usuario.email), signIn, usuario, loading }}>
             {children}
         </AuthContext.Provider>
     )
