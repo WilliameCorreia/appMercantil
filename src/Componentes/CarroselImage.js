@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Dimensions, Image, ScrollView, Text } from 'react-native'
+import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 
 const DEVICE_WIDTH = Dimensions.get('window').width
 
 export default class CarroselImage extends Component {
-    
+
     scrollRef = React.createRef()
 
     constructor(props) {
@@ -17,16 +18,17 @@ export default class CarroselImage extends Component {
 
     componentDidMount = () => {
         setInterval(() => {
-            this.setState(prev => ({ 
-                selectedIndex: 
-                    prev.selectedIndex === this.props.images.length -1 ? 0 : prev.selectedIndex + 1 }), 
-            () => {
-                this.scrollRef.current.scrollTo({
-                    animated: true,
-                    y: 0,
-                    x: DEVICE_WIDTH * this.state.selectedIndex
+            this.setState(prev => ({
+                selectedIndex:
+                    prev.selectedIndex === this.props.images.length - 1 ? 0 : prev.selectedIndex + 1
+            }),
+                () => {
+                    this.scrollRef.current.scrollTo({
+                        animated: true,
+                        y: 0,
+                        x: DEVICE_WIDTH * this.state.selectedIndex
+                    })
                 })
-            })
         }, 4000)
     }
 
@@ -37,7 +39,7 @@ export default class CarroselImage extends Component {
         const selectedIndex = Math.floor(contentOffset / viewSize)
 
         this.setState({ selectedIndex })
-    } 
+    }
 
     render() {
         const { images } = this.props
@@ -45,22 +47,24 @@ export default class CarroselImage extends Component {
 
         return (
             <View style={{ width: '100%', height: '100%' }}>
-                <ScrollView 
-                    horizontal={true} 
-                    pagingEnabled={true} 
-                    onMomentumScrollEnd={this.setSelectedIndex} 
-                    ref = {this.scrollRef}
+                <ScrollView
+                    horizontal={true}
+                    pagingEnabled={true}
+                    onMomentumScrollEnd={this.setSelectedIndex}
+                    ref={this.scrollRef}
                 >
-                    {images ? 
-                    images.map(image => {
-                        return (
-                            <Image
-                                key={image}
-                                source={{ uri: image }}
-                                style={styles.img}
-                            />
-                        )
-                    }): null}
+                    <ShimmerPlaceHolder style={styles.img} autoRun={true} visible={images.length != 0}>
+                        {images ?
+                            images.map(image => {
+                                return (
+                                    <Image
+                                        key={image}
+                                        source={{ uri: image }}
+                                        style={styles.img}
+                                    />
+                                )
+                            }) : null}
+                    </ShimmerPlaceHolder>
                 </ScrollView>
                 <View style={styles.circleDiv}>
                     {images.map((image, i) => {
