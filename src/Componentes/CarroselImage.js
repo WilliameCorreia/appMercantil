@@ -53,7 +53,7 @@ export default class CarroselImage extends Component {
                     onMomentumScrollEnd={this.setSelectedIndex}
                     ref={this.scrollRef}
                 >
-                    <ShimmerPlaceHolder style={styles.img} autoRun={true} visible={images.length != 0}>
+                    <ShimmerPlaceHolder style={styles.img} autoRun={true} visible={images.length != 0}/>
                         {images ?
                             images.map(image => {
                                 return (
@@ -64,7 +64,6 @@ export default class CarroselImage extends Component {
                                     />
                                 )
                             }) : null}
-                    </ShimmerPlaceHolder>
                 </ScrollView>
                 <View style={styles.circleDiv}>
                     {images.map((image, i) => {

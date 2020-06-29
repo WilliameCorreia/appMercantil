@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import {TouchableOpacity} from 'react-native'
-import { ActivityIndicator } from 'react-native';
+import {TouchableOpacity, ActivityIndicator} from 'react-native'
 import { Image } from 'react-native-elements';
 import styles from './style'
 
 /* import * as data from '../../Produtos.json' */
+import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 import database from '@react-native-firebase/database';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -32,41 +32,6 @@ export default function Categorias( { navigation } ) {
         })
     }, [])
 
-   /*  const [Categorias, setCategorias] = useState([
-        {nome:"AÇOUGUE", nomeBusca: "ACOUGUE"},
-        {nome:"AUTOS", nomeBusca: "AUTOS"},
-        {nome:"BAZAR", nomeBusca: "BAZAR"},
-        {nome:"BEBÊ", nomeBusca: "BEBE"},
-        {nome:"BEBIDAS", nomeBusca: "BEBIDAS"},
-        {nome:"CASA E CONSTRUÇÃO", nomeBusca: "CASA E CONSTRUCAO"},
-        {nome:"CONGELADOS", nomeBusca: "CONGELADOS"},
-        {nome:"ELETRO", nomeBusca: "ELETRO"},
-        {nome:"FARMÁCIA", nomeBusca: "FARMACIA"},
-        {nome:"FRIOS E LATICÍNIOS", nomeBusca: "FRIOS E LATICINIOS"},
-        {nome:"HIGIENE E BELEZA", nomeBusca: "HIGIENE E BELEZA"},
-        {nome:"HORTIFRUTI", nomeBusca: "HORTIFRUTI"},
-        {nome:"INFANTIL", nomeBusca: "INFANTIL"},
-        {nome:"LIMPEZA", nomeBusca: "LIMPEZA"},
-        {nome:"MERCEARIA", nomeBusca: "MERCEARIA"},
-        {nome:"PADARIA", nomeBusca: "PADARIA"},
-        {nome:"PAPELARIA", nomeBusca: "PAPELARIA"},
-        {nome:"PERFUMARIA", nomeBusca: "PERFUMARIA"},
-        {nome:"PETSHOP", nomeBusca: "PETSHOP"},
-        {nome:"SUPLEMENTOS", nomeBusca: "SUPLEMENTOS"},
-        {nome:"TABACARIA", nomeBusca: "TABACARIA"},
-        {nome:"TINTAS / PINTURAS", nomeBusca: "TINTAS / PINTURAS"},
-    ]) */
-
-    /* const [produtos, SetProdutos] = useState(data.produtos)
-
-    produtos.map(item => {
-        newReference.child(item.codbar).set(item).then(() =>{
-            console.log('Sucesso')
-        }).catch(erro =>{
-            console.log('error')
-        })
-    }) */
-
     const init = async () => {
         console.log('entrou init')
         const conteudo = await newReference.child('1331770004509/categoria').once('value', dados =>{
@@ -87,6 +52,9 @@ export default function Categorias( { navigation } ) {
     console.log('lista de categorias')
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            {Array(12).fill(
+                <ShimmerPlaceHolder style={styles.img} autoRun={true} visible={categorias.length != 0} style={styles.btnCategoria}/>
+            )}
             {categorias.map(item => {
                 return (
                     <TouchableOpacity 
