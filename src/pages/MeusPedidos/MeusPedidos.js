@@ -37,11 +37,11 @@ export default function MeusPedidos() {
                 {pedidos.map(order =>
                     <View style={Styles.bordado}>
                         <View style={Styles.box1}>
-                            <Text style={[Styles.text]}>{order.cliente}</Text>
-                            <Text style={[Styles.status, Styles.text]}>{order.status}</Text>
+                            <Text style={[Styles.textGrande, Styles.cinza]}>{order.cliente}</Text>
+                            <Text style={[Styles.status, Styles.textPequeno]}>{order.status}</Text>
                         </View>
                         <View style={Styles.box1}>
-                            <Text style={[Styles.text]}>{order.id}</Text>                            
+                            <Text style={[Styles.textGrande, Styles.cinza]}>{order.id}</Text>                            
                         </View>
                     </View>
                     )}
