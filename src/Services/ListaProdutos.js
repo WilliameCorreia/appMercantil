@@ -50,7 +50,9 @@ export default ({ categoria }) => {
                 key: index,
                 produto: data[index].produto_acento,
                 preco_medio: data[index].preco_medio,
-                quantidade: data[index].quantidade_embalagem
+                quantidade: data[index].quantidade_embalagem,
+                categoria: data[index].categoria,
+                descricao: data[index].produto_upper
             }
         } else {
             return {
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
         elevation: 6
     },
     box1: {
-        flex: 3,
+        flex: 2.7,
         padding: 10,
         justifyContent: 'center',
     },

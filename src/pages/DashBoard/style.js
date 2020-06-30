@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         color: '#B32728',
     },
     icone: {
-        resizeMode: 'stretch',
+        resizeMode: 'center',
         width: 100,
         height: 100,
         margin: 10
