@@ -69,7 +69,7 @@ const Styles = StyleSheet.create({
         padding: 10,
     },
     metadeTop2:{
-        flex: 1.3,
+        flex: 1.5,
         padding: 10,
         alignItems: 'center',
         justifyContent: 'center',
@@ -83,6 +83,9 @@ const Styles = StyleSheet.create({
         flex: 2,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    textStatus:{
+        fontSize: 16
     }
 })
 

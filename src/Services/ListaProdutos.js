@@ -87,7 +87,7 @@ export default ({ categoria }) => {
                         style={styles.prodImg} source={require('../Assets/Arroz.png')}
                         PlaceholderContent={<ActivityIndicator />}
                     />
-                    <Text style={styles.dispon}>Em Falta</Text>
+                    <Text style={styles.dispon}>DISPONIVEL</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     box:{
+        flex: 1,
         flexDirection: 'row',
     },
     cards: {
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
         elevation: 6
     },
     box1: {
-        flex: 2.7,
+        flex: 2.5,
         padding: 10,
         justifyContent: 'center',
     },
@@ -138,7 +139,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        marginRight: 10
     },
     prodImg: {
         height: 90,
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
         color: '#999999'
     },
     texto: {
-        fontSize: 20,
+        fontSize: 16,
         letterSpacing: 2,
         color: '#999999',
         borderWidth: 2,
@@ -165,7 +165,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#f23132',
         paddingHorizontal: 15,
         borderRadius: 30,
-        color: '#fff'
+        color: '#fff',
+        fontSize: 12
     },
     active: {
         justifyContent: 'center',

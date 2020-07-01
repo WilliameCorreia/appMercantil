@@ -21,6 +21,11 @@ const styles = StyleSheet.create({
         width: (Dimensions.get('window').width / 2),
         height: (Dimensions.get('window').height / 20 * 3),
         backgroundColor: '#fff'
+    },
+    uriShimmer:{
+        width: '45%',
+        height: (Dimensions.get('screen').height / 20 * 3),
+        margin: 8
     }
 })
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {TouchableOpacity, ActivityIndicator} from 'react-native'
+import { TouchableOpacity, ActivityIndicator } from 'react-native'
 import { Image } from 'react-native-elements';
 import styles from './style'
 
@@ -8,7 +8,7 @@ import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 import database from '@react-native-firebase/database';
 import { ScrollView } from 'react-native-gesture-handler';
 
-export default function Categorias( { navigation } ) {
+export default function Categorias({ navigation }) {
 
     const newReference = database().ref('/Categorias');
 
@@ -17,7 +17,7 @@ export default function Categorias( { navigation } ) {
     const Lista_Categorias = async () => {
         const lista = await newReference.once('value').then(dados => {
             let _listaCategoria = []
-            dados.forEach((child) =>{
+            dados.forEach((child) => {
                 _listaCategoria.push(child.val())
             })
             return (_listaCategoria)
@@ -25,45 +25,45 @@ export default function Categorias( { navigation } ) {
         return lista
     }
 
-    useEffect(() =>{
+    useEffect(() => {
         Lista_Categorias().then(dados => {
             setCategorias(dados)
-           // console.log(dados)
+            // console.log(dados)
         })
     }, [])
 
     const init = async () => {
         console.log('entrou init')
-        const conteudo = await newReference.child('1331770004509/categoria').once('value', dados =>{
+        const conteudo = await newReference.child('1331770004509/categoria').once('value', dados => {
             console.log('conteudo1')
             return dados.val()
         })
 
-        const conteudo2 = await newReference.child('Produtos').orderByChild('categoria').equalTo('MERCEARIA').once('value', dados =>{
+        const conteudo2 = await newReference.child('Produtos').orderByChild('categoria').equalTo('MERCEARIA').once('value', dados => {
             console.log('conteudo2')
             return dados.val()
         })
         return conteudo2
     }
 
-   /*  init().then(dados =>{
-        console.log(dados)
-    }) */
+    /*  init().then(dados =>{
+         console.log(dados)
+     }) */
     console.log('lista de categorias')
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            {Array(12).fill(
-                <ShimmerPlaceHolder style={styles.img} autoRun={true} visible={categorias.length != 0} style={styles.btnCategoria}/>
+            {Array(10).fill(
+                <ShimmerPlaceHolder style={styles.uriShimmer} autoRun={true} visible={categorias.length != 0} />
             )}
             {categorias.map(item => {
                 return (
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style={styles.btnCategoria}
                         key={item.nome}
                         onPress={() => navigation.navigate('MeusProdutos', item.nomeBusca)}
                     >
-                        <Image 
-                            source={{uri:item.uri}}
+                        <Image
+                            source={{ uri: item.uri }}
                             style={styles.uriImg}
                             PlaceholderContent={<ActivityIndicator style={styles.Indicator} color={'red'} />}
                             transition={true}

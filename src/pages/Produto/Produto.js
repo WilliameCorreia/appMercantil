@@ -23,10 +23,10 @@ export default function Produto({ route }) {
                     <View style={Styles.metadeTop2}>
                         {item.quantidade == 0 ?
                             <TouchableOpacity style={Styles.btnTop} >
-                                <Text style={[Styles.colorBranco, Styles.text]}>EM FALTA</Text>
+                                <Text style={[Styles.colorBranco, Styles.textStatus]}>EM FALTA</Text>
                             </TouchableOpacity>
                             : <TouchableOpacity style={[Styles.btnTop, {backgroundColor: 'green'}]} >
-                                <Text style={[Styles.colorBranco, Styles.text]}>DISPONÍVEL</Text>
+                                <Text style={[Styles.colorBranco, Styles.textStatus]}>DISPONÍVEL</Text>
                             </TouchableOpacity>}
 
                     </View>
@@ -66,7 +66,7 @@ export default function Produto({ route }) {
                     </View>
                     <View style={Styles.metadeBotton2}>
                         <TouchableOpacity style={Styles.btnTop} >
-                            <Text style={[Styles.colorBranco, Styles.text]}>EM OFERTA</Text>
+                            <Text style={[Styles.colorBranco, Styles.textStatus]}>EM OFERTA</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
