@@ -27,7 +27,7 @@ export default function DrawerContent({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.box1}>
-                <Image style={styles.img} source={require('../Assets/user.png')} />
+                <Image style={styles.img} source={require('../Assets/person.png')} />
             </View>
             <View style={styles.box2}>
                 <View style={styles.item}>
@@ -44,8 +44,8 @@ export default function DrawerContent({ navigation }) {
                 </View>
                 <View style={styles.item}>
                     <TouchableOpacity style={styles.opacity} onPress={() => logout()}>
-                        <Image style={styles.imgIcone2} source={require('../Assets/opcoes.png')} />
-                        <Text style={styles.text}>Sair</Text>
+                        <Image style={styles.imgIcone} source={require('../Assets/logout.png')} />
+                        <Text style={styles.text}>Sair  </Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -66,31 +66,34 @@ const styles = StyleSheet.create({
         letterSpacing: 1
     },
     box1: {
-        flex: 1,
-        alignItems: 'center'
+        flex: 1.5,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     box2: {
         flex: 3,
         flexDirection: 'column',
-        padding: 10,
         backgroundColor: '#fff',
     },
     img: {
-        width: 150,
-        height: 150,
+        width: 120,
+        height: 120,
     },
     imgIcone: {
-        width: 50,
-        height: 50,
-    },
-    imgIcone2: {
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
     },
     opacity: {
         flexDirection: 'row',
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent:'center',
+        alignItems: 'center',
+        borderColor: '#999999',
+        borderBottomWidth: 3,
+        padding: 10,
+        
     },
     item:{
+       marginVertical: 10,
     }
 })
