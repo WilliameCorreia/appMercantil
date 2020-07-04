@@ -30,6 +30,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         paddingLeft: 20,
         fontSize: 16,
+        fontFamily: 'Montserrat-SemiBold',
+        fontWeight: '600'
        
     },
     btn:{

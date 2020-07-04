@@ -46,7 +46,7 @@ function RouteDashBoard() {
             <Stack.Screen
                 name='DashBoard'
                 options={{
-                    title: 'Universo Entregas',
+                    title: 'PLANETA ENTREGAS',
                     headerStyle: { backgroundColor: '#B32728' }
                 }}
                 component={DashBoard}
@@ -54,7 +54,10 @@ function RouteDashBoard() {
             <Stack.Screen
                 name={'MeusPedidos'}
                 component={MeusPedidos}
-                options={{ headerStyle: { backgroundColor: '#B32728' }}}
+                options={{ 
+                    title: 'MEUS PEDIDOS',
+                    headerStyle: { backgroundColor: '#B32728' }
+                }}
             />
             <Stack.Screen
                 name={'MeusProdutos'}
@@ -64,27 +67,27 @@ function RouteDashBoard() {
             <Stack.Screen
                 name={'Ofertas'}
                 component={Ofertas}
-                options={{ headerStyle: { backgroundColor: '#B32728' } }}
+                options={{ title: 'OFERTAS', headerStyle: { backgroundColor: '#B32728' }}}
             />
             <Stack.Screen
                 name={'NewOfertas'}
                 component={NewOfertas}
-                options={{ headerStyle: { backgroundColor: '#B32728' } }}
+                options={{ title: 'NOVAS OFERTAS', headerStyle: { backgroundColor: '#B32728' }}}
             />
             <Stack.Screen
                 name={'NovoProduto'}
                 component={NewProduto}
-                options={{ headerStyle: { backgroundColor: '#B32728' } }}
+                options={{ title: 'NOVO PRODUTO', headerStyle: { backgroundColor: '#B32728' }}}
             />
             <Stack.Screen
                 name={'Produto'}
                 component={Produto}
-                options={{ headerStyle: { backgroundColor: '#B32728' } }}
+                options={{ title: 'PRODUTO', headerStyle: { backgroundColor: '#B32728' }}}
             />
             <Stack.Screen
                 name={'Categorias'}
                 component={Categorias}
-                options={{ headerStyle: { backgroundColor: '#B32728' } }}
+                options={{ title: 'CATEGORIAS', headerStyle: { backgroundColor: '#B32728' }}}
             />
         </Stack.Navigator>
     )

@@ -2,9 +2,15 @@ import {StyleSheet, Dimensions} from 'react-native'
 const windowWidth = Dimensions.get('window').width
 
 const Styles = StyleSheet.create({
+
     container:{ flex:1 },
 
-    text:{ fontSize: 20, fontWeight: 'bold', textAlign: 'left'},
+    text:{ 
+        fontSize: 20, 
+        textAlign: 'left',
+        fontFamily: 'Montserrat-SemiBold',
+        fontWeight: '600'
+    },
 
     colorLabelProduto:{ color:"#999999" },
     
@@ -16,7 +22,13 @@ const Styles = StyleSheet.create({
     
     colorBranco:{ color:"white" },
 
-    BtnEncerrarText:{ fontSize: 20, paddingHorizontal:40, paddingVertical:2},
+    BtnEncerrarText:{ 
+        fontSize: 20, 
+        paddingHorizontal:40, 
+        paddingVertical:2, 
+        fontFamily: 'Montserrat-SemiBold',
+        fontWeight: '600'
+    },
     
     margin:{ margin: 20},
     
@@ -52,9 +64,17 @@ const Styles = StyleSheet.create({
     
     alignCenter:{ justifyContent:"center" },
     
-    tamanhoInputMetade:{ width:windowWidth /10 * 4 },
+    tamanhoInputMetade:{ 
+        width:windowWidth /10 * 4,
+        fontFamily: 'Montserrat-SemiBold',
+        fontWeight: '600' 
+    },
     
-    tamanhoInputFull:{ width:windowWidth /100 * 85 },
+    tamanhoInputFull:{ 
+        width:windowWidth /100 * 85,
+        fontFamily: 'Montserrat-SemiBold',
+        fontWeight: '600'
+    },
     
     inputs: { 
         textAlign:"center",
@@ -85,7 +105,9 @@ const Styles = StyleSheet.create({
         justifyContent: 'center'
     },
     textStatus:{
-        fontSize: 16
+        fontSize: 16,
+        fontFamily: 'Montserrat-SemiBold',
+        fontWeight: '600'
     }
 })
 

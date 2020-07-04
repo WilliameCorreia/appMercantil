@@ -41,17 +41,17 @@ function Route() {
             <Stack.Screen
                 name='Login'
                 component={Login}
-                options={{ headerStyle: { backgroundColor: '#FF7223' } }}
+                options={{ headerStyle: { backgroundColor: '#FF7223' }, title: 'LOGIN' }}
             />
             <Stack.Screen
                 name='Cadastro'
                 component={Cadastro}
-                options={{ headerStyle: { backgroundColor: '#F23132' } }}
+                options={{ headerStyle: { backgroundColor: '#F23132' }, title: 'CADASTRO' }}
             />
             <Stack.Screen
                 name='Estabelecimento'
                 component={Estabelecimento}
-                options={{ headerStyle: { backgroundColor: '#B32728' } }}
+                options={{ headerStyle: { backgroundColor: '#B32728' }, title:'ESTABELECIMENTO' }}
             />
         </Stack.Navigator>
     )

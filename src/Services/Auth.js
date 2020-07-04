@@ -20,30 +20,24 @@ export async function SignIn(user){
 
 }
 
-/* useEffect(() => {
-    const subscriber = auth().onUserChanged(SignIn);
-    return subscriber; // unsubscribe on unmount
-}, []);
- */
-/* export function onAuthStateChanged(user) {
-    setTimeout(function () {
-        //verifica se o usuario existe
-        if (user) {
-            let { uid } = user
-            database().ref('/Estabelecimento/' + uid).once('value').then(snapshot => {
-                console.log(snapshot.exists())
-                if (snapshot.exists()) {
-                    //navigation.navigate('InicioDashBoard')
-                    //if (initializing) setInitializing(false);
-                } else {
-                    //navigation.navigate('Estabelecimento', token={uid})
-                    //if (initializing) setInitializing(false);
-                }
-            })
-        } else {
-            SetRouteName('Home')
-            Setloading(false)
-            console.log(loading)
-        }
-    }, 5000)
-} */
+export function getCategoria(){
+
+    const categorias = [
+        { "foto_Png": "acougue.png", "nome": "AÇOUGUE", "nomeBusca": "ACOUGUE" },
+        { "foto_Png": "autos.png", "nome": "AUTOS", "nomeBusca": "AUTOS" },
+        { "foto_Png": "bazar.png", "nome": "BAZAR", "nomeBusca": "BAZAR" },
+        { "foto_Png": "bebidas.png", "nome": "BEBÊ", "nomeBusca": "BEBE" },
+        { "foto_Png": "cereais.png", "nome": "BEBIDAS", "nomeBusca": "BEBIDAS" },
+        { "foto_Png": "congelados.png", "nome": "CONGELADOS", "nomeBusca": "CONGELADOS"},
+        { "foto_Png": "eletro.png", "nome": "ELETRO", "nomeBusca": "ELETRO"},
+        { "foto_Png": "frios.png", "nome": "FRIOS E LATICÍNIOS", "nomeBusca": "FRIOS E LATICINIOS"},
+        { "foto_Png": "higiene.png", "nome": "HIGIENE E BELEZA", "nomeBusca": "HIGIENE E BELEZA"},
+        { "foto_Png": "hortifruti.png", "nome": "HORTIFRUTI", "nomeBusca": "HORTIFRUTI"},
+        { "foto_Png": "limpeza.png", "nome": "LIMPEZA", "nomeBusca": "LIMPEZA"},
+        { "foto_Png": "mercearia.png", "nome": "MERCEARIA", "nomeBusca": "MERCEARIA"},
+        { "foto_Png": "padaria.png", "nome": "PADARIA", "nomeBusca": "PADARIA"},
+        { "foto_Png": "papelaria.png", "nome": "PAPELARIA", "nomeBusca": "PAPELARIA"},
+        { "foto_Png": "perfumaria.png", "nome": "PERFUMARIA", "nomeBusca": "PERFUMARIA"}
+    ]
+    return categorias
+}

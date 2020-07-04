@@ -118,7 +118,7 @@ export default ({ categoria }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
     },
     box:{
         flex: 1,
@@ -131,12 +131,12 @@ const styles = StyleSheet.create({
         elevation: 6
     },
     box1: {
-        flex: 2.5,
+        flex: 2,
         padding: 10,
         justifyContent: 'center',
     },
     box2: {
-        flex: 1,
+        flex: 1.2,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -146,9 +146,11 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     nomeProduto: {
+        width: '100%',
         fontSize: 20,
-        fontWeight: 'bold',
-        color: '#999999'
+        color: '#999999',
+        fontFamily: 'Montserrat-SemiBold',
+        fontWeight: '600',
     },
     texto: {
         fontSize: 16,
@@ -159,14 +161,18 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         paddingLeft: 10,
         marginVertical: 5,
-        width: '80%'
+        width: '100%',
+        fontFamily: 'Montserrat-SemiBold',
+        fontWeight: '600',
     },
     dispon: {
         backgroundColor: '#f23132',
         paddingHorizontal: 15,
         borderRadius: 30,
         color: '#fff',
-        fontSize: 12
+        fontSize: 12,
+        fontFamily: 'Montserrat-SemiBold',
+        fontWeight: '600'
     },
     active: {
         justifyContent: 'center',
@@ -184,7 +190,9 @@ const styles = StyleSheet.create({
     },
     textMsn:{
         fontSize: 20,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'Montserrat-SemiBold',
+        fontWeight: '600'
     }
 
 })

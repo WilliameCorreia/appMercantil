@@ -3,9 +3,6 @@ import { Text, View, Image } from 'react-native'
 import styles from './style'
 import { TextInput, TouchableOpacity, ScrollView } from 'react-native-gesture-handler'
 
-
-
-
 export default class NewProduto extends Component {
     render() {
         return (

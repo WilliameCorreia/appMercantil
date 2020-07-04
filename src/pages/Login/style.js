@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         fontSize: 16,
         backgroundColor: 'transparent',
+        fontFamily: 'Montserrat-SemiBold', fontWeight: '600'
     },
     SectionStyle: {
         width: (Dimensions.get('window').width / 4 * 3),
@@ -50,6 +51,7 @@ const styles = StyleSheet.create({
         color: '#B32728',
         textAlign: 'center',
         letterSpacing: 3,
+        fontFamily: 'Montserrat-SemiBold', fontWeight: '600'
     },
     image_logo:{
         width: (Dimensions.get('window').width / 10 * 6),
@@ -68,7 +70,8 @@ const styles = StyleSheet.create({
     },
     text2:{
         color: '#fff',
-        fontSize: 18
+        fontSize: 18,
+        fontFamily: 'Montserrat-SemiBold', fontWeight: '600'
     }
     
 })

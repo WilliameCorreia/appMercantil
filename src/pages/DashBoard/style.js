@@ -31,6 +31,8 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#B32728',
+        fontFamily: 'Montserrat-SemiBold',
+        fontWeight: '600'
     },
     icone: {
         resizeMode: 'center',

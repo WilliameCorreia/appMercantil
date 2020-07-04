@@ -9,7 +9,7 @@ export default function MyHeader({ title, leftButton, color }) {
         <Header
             statusBarProps={{ barStyle: 'light-content', backgroundColor: color }}
             barStyle="light-content"
-            centerComponent={{ text: title, style: { color: '#fff', fontSize: 25 } }}
+            centerComponent={{ text: title, style: { color: '#fff', fontSize: 20, fontFamily: 'Montserrat-SemiBold', fontWeight: '600' } }}
             leftComponent={leftButton}
             containerStyle={{
                 backgroundColor: color,

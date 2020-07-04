@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginLeft: 20,
         color: '#B32728',
-        fontWeight: 'bold',
+        fontFamily: 'Montserrat-SemiBold',
+        fontWeight: '600',
         letterSpacing: 1
     },
     box1: {

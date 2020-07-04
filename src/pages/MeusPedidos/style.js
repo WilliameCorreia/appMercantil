@@ -16,8 +16,8 @@ const Styles = StyleSheet.create({
         marginTop:windowHeight/10000 *70
     },
     box1:{justifyContent:"space-between", flexDirection:"row"},
-    textPequeno:{fontSize:windowWidth/28},
-    textGrande:{fontSize:windowWidth/18},
+    textPequeno:{fontSize:windowWidth/28, fontFamily: 'Montserrat-SemiBold', fontWeight: '600'},
+    textGrande:{fontSize:windowWidth/18, fontFamily: 'Montserrat-SemiBold', fontWeight: '600'},
     cinza:{color:"#999999"}
 
 })

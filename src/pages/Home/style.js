@@ -47,12 +47,16 @@ const styles = StyleSheet.create({
         color: '#fff',
         textAlign: 'center',
         letterSpacing: 3,
+        fontFamily: 'Montserrat-SemiBold', 
+        fontWeight: '600'
     },
     text2: {
         fontSize: 20,
         color: '#B32728',
         textAlign: 'center',
-        fontWeight: "bold"
+        fontWeight: "bold",
+        fontFamily: 'Montserrat-SemiBold', 
+        fontWeight: '600'
     }
 })
 
