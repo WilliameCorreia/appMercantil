@@ -33,19 +33,19 @@ export default function DrawerContent({ navigation }) {
                 <View style={styles.item}>
                     <TouchableOpacity style={styles.opacity} onPress={() => navigation.navigate('DashBoard')}>
                         <Image style={styles.imgIcone} source={require('../Assets/home.png')} />
-                        <Text style={styles.text}>Inicio</Text>
+                        <Text style={styles.text}>inicio</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.item}>
                     <TouchableOpacity style={styles.opacity} onPress={() => navigation.navigate('Usuario')}>
                         <Image style={styles.imgIcone} source={require('../Assets/user.png')} />
-                        <Text style={styles.text}>Perfil</Text>
+                        <Text style={styles.text}>perfil</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.item}>
                     <TouchableOpacity style={styles.opacity} onPress={() => logout()}>
                         <Image style={styles.imgIcone} source={require('../Assets/logout.png')} />
-                        <Text style={styles.text}>Sair  </Text>
+                        <Text style={styles.text}>sair  </Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -87,8 +87,7 @@ const styles = StyleSheet.create({
     opacity: {
         flexDirection: 'row',
         alignItems: "center",
-        justifyContent:'center',
-        alignItems: 'center',
+        justifyContent:'flex-start',
         borderColor: '#999999',
         borderBottomWidth: 3,
         padding: 10,
