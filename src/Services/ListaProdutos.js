@@ -1,118 +1,110 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Component } from 'react'
 import {
     Text,
     View,
     Image,
     TouchableOpacity,
     SafeAreaView,
-    VirtualizedList,
     ActivityIndicator,
     StyleSheet,
 } from 'react-native'
 
-import database from '@react-native-firebase/database';
-import { useNavigation } from '@react-navigation/native';
+import Api from '../Services/api'
+import { FlatList } from 'react-native-gesture-handler';
 
-export default ({ categoria }) => {
+export default class listaProdutos extends Component {
 
-    console.log('listaProdutos => ' + categoria)
-    const navigation = useNavigation();
+    state={
+        data: [],
+        page: 1,
+        loading: false
+    }
 
-    const reference = database().ref('/Produtos');
+    componentDidMount(){
+       this.LoadListaProdutos();
+       console.log(this.props);
+    }
 
-    const [listProdutos, setListProdutos] = useState([]);
-    const [loading, setLoading] = useState(true);
+    LoadListaProdutos = async () => {
 
-    const listarProdutos = async () => {
+        if (this.state.loading) return;
 
-        const listaProdutos = await reference.orderByChild('categoria').equalTo(categoria).once('value').then(snapshot => {
-            let lista = []
-            snapshot.forEach((child) => {
-                lista.push(child.val())
+        const { page } = this.state;
+
+        this.setState({ loading: true });
+
+        console.log(`ProdutosDb/categoria/${this.props.categoria}/${page.toString()}`)
+
+        const listaProdutos = await Api.get(`ProdutosDb/categoria/${this.props.categoria}/${page.toString()}`).then(dados => {
+            this.setState({
+                data: [...this.state.data, ...dados.data],
+                page: this.state.page + 1,
+                loading: false
             })
-            setLoading(false)
-            return lista
-        })
-        return listaProdutos
+
+        }).catch(erro => {
+            console.log("erro retorno da função listaProdutos")
+            console.log(erro);
+        });
+
     }
 
-    useEffect(() => {
-        listarProdutos().then(lista => {
-            setListProdutos(lista)
-            console.log(lista)
-        })
-    }, [])
-
-
-    const getItem = (data, index) => {
-        if (data) {
-            return {
-                key: index,
-                produto: data[index].produto_acento,
-                preco_medio: data[index].preco_medio,
-                quantidade: data[index].quantidade_embalagem,
-                categoria: data[index].categoria,
-                descricao: data[index].produto_upper
-            }
-        } else {
-            return {
-                key: index,
-                produto: '',
-                categoria: '',
-                marca: '',
-                preco_medio: ''
-            }
-        }
-    }
-
-    const getItemCount = (data) => {
-        let valor;
-        data ? valor = data.length : valor = 0
-        return valor;
-    }
-
-    const _renderItem = ({ title }) => (
-        <TouchableOpacity
-            style={styles.cards}
-            onPress={() => navigation.navigate('Produto', title)}
-        >
-            <View style={styles.box}>
-                <View style={styles.box1}>
-                    <Text style={styles.nomeProduto}>{title.produto}</Text>
-                    <Text style={styles.texto}>Preço: R$ {title.preco_medio}</Text>
-                    <Text style={styles.texto}>Quantidade: {title.quantidade}</Text>
-                </View>
-                <View style={styles.box2}>
-                    <Image
-                        style={styles.prodImg} source={require('../Assets/Arroz.png')}
-                        PlaceholderContent={<ActivityIndicator />}
-                    />
-                    <Text style={styles.dispon}>DISPONIVEL</Text>
-                </View>
-            </View>
-        </TouchableOpacity>
-    )
-    console.log(listProdutos.length)
-    return (
-        <SafeAreaView style={styles.container}>
-            {loading ? <ActivityIndicator style={styles.loading} size={"large", 100} color={'#000'} /> :
-                listProdutos.length !== 0 ?
-                    <VirtualizedList
-                        data={listProdutos}
-                        initialNumToRender={4}
-                        renderItem={({ item }) => <_renderItem title={item} />}
-                        keyExtractor={item => item.key.toString()}
-                        getItemCount={getItemCount}
-                        getItem={getItem}
-                        windowSize={10}
-                        maxToRenderPerBatch={4}
-                    /> :
-                    <View style={styles.msn}>
-                        <Text style={styles.textMsn}>Não existem produtos cadastrado nessa categoria</Text>
+    _renderItem = ({ item }) => (
+        <View>
+            <TouchableOpacity
+                style={styles.cards}
+                onPress={() => this.props.navigation.navigate('Produto', item)}
+            >
+                <View style={styles.box}>
+                    <View style={styles.box1}>
+                        <Text style={styles.nomeProduto}>{item.produtoUpper}</Text>
+                        <Text style={styles.texto}>Preço: R$ {item.precoMedio}</Text>
+                        <Text style={styles.texto}>Quantidade: {item.quantidadeEmbalagem}</Text>
                     </View>
-            }
-        </SafeAreaView>
+                    <View style={styles.box2}>
+                        <Image
+                            style={styles.prodImg} source={require('../Assets/Arroz.png')}
+                            PlaceholderContent={<ActivityIndicator />}
+                        />
+                        <Text style={styles.dispon}>DISPONIVEL</Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        </View>
+
     )
+
+     renderFooter = () => {
+         if (!this.state.loading) return null;
+         return (
+             <View style={styles.footerLoading}>
+                 <ActivityIndicator style={styles.loading} size={"large", 20} color={'#000'} />
+             </View>
+         )
+     }
+ 
+    /*  RenderEmpty = () => {
+         return (
+             <View style={styles.msn}>
+                 <Text style={styles.textMsn}>Não existem produtos cadastrado nessa categoria</Text>
+             </View>
+         )
+     } */
+
+    render(){
+        return (
+            <FlatList
+                data={this.state.data}
+                renderItem={this._renderItem}
+                keyExtractor={item => item.codbar}
+                onEndReached={this.LoadListaProdutos}
+                onEndReachedThreshold={0.1}
+                ListFooterComponent={this.renderFooter}
+                //ListEmptyComponent={this.RenderEmpty}
+            />
+        )
+    }
+    
 }
 
 const styles = StyleSheet.create({
@@ -120,7 +112,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-    box:{
+    box: {
         flex: 1,
         flexDirection: 'row',
     },
@@ -178,17 +170,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginTop: 250
     },
-    loading:{
+    loading: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
     },
-    msn:{
+    msn: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
     },
-    textMsn:{
+    textMsn: {
         fontSize: 20,
         textAlign: 'center',
         fontFamily: 'Montserrat-SemiBold',

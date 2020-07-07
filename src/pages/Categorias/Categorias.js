@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { TouchableOpacity, ActivityIndicator } from 'react-native'
 import { Image } from 'react-native-elements';
 import styles from './style'
 
 /* import * as data from '../../Produtos.json' */
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
-import database from '@react-native-firebase/database';
 import { ScrollView } from 'react-native-gesture-handler';
 import { getCategoria } from '../../Services/Auth'
 
 export default function Categorias({ navigation }) {
 
     const categorias = getCategoria()
-    
-    console.log(categorias)
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
             {Array(10).fill(

@@ -3,8 +3,8 @@ import { StyleSheet, Dimensions } from 'react-native'
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
         justifyContent: 'center',
+        backgroundColor: "#fff"
     },
     box1: {
         flex: 1,
@@ -23,11 +23,10 @@ const styles = StyleSheet.create({
     btn: {
         width: (Dimensions.get('window').width / 40 * 17),
         height: (Dimensions.get('window').height /4),
-        backgroundColor: '#cccccc'
+        backgroundColor: '#fff',
     },
     cont_btn: {
         margin: 10,
-        backgroundColor: '#cccccc',
     },
     text: {
         color: '#B32728',
