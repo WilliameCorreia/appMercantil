@@ -12,16 +12,16 @@ const Styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-       backgroundColor: "#eaeaea"
+        backgroundColor: "#eaeaea"
     },
 
-    prodImg:{
+    prodImg: {
         width: "40%",
         height: "80%",
-       
+
     },
 
-    Codbar:{
+    Codbar: {
         height: '100%',
         position: 'absolute',
         alignSelf: 'flex-end',
@@ -29,12 +29,13 @@ const Styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
 
-    codbarItem:{
-       backgroundColor: '#fff',
+    codbarItem: {
+        backgroundColor: '#fff',
         borderRadius: 50,
+        elevation: 10
     },
 
-    codbarImg:{
+    codbarImg: {
         width: (Dimensions.get("window").width / 100 * 15),
         height: (Dimensions.get('window').height / 100 * 7),
         margin: 10
@@ -44,11 +45,11 @@ const Styles = StyleSheet.create({
         flex: 3,
         justifyContent: 'center',
         alignItems: 'center',
-        borderColor:"#999999", 
+        borderColor: "#999999",
         borderTopWidth: 1
     },
 
-    containerForm:{
+    containerForm: {
         flex: 1,
         width: "90%"
     },
@@ -66,10 +67,12 @@ const Styles = StyleSheet.create({
     inputs: {
         textAlign: "center",
         borderColor: "#d0d0d0",
-        borderWidth: 4,
+        borderWidth: 1,
         marginBottom: 3,
         borderRadius: 25,
-        fontSize: 15
+        fontSize: 15,
+        elevation: 6,
+        backgroundColor: "#fff"
     },
 
     text: {

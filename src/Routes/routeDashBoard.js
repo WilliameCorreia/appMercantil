@@ -13,6 +13,7 @@ import MyDrawerOpen from '../Componentes/MyDrawerOpen'
 import { DrawerActions } from '@react-navigation/native'
 import DashBoard from '../pages/DashBoard/DashBoard'
 import Categorias from '../pages/Categorias/Categorias'
+import Mycamera from '../Componentes/MyCamera';
 
 const Stack = createStackNavigator();
 
@@ -88,6 +89,11 @@ function RouteDashBoard() {
                 name={'Categorias'}
                 component={Categorias}
                 options={{ title: 'CATEGORIAS', headerStyle: { backgroundColor: '#B32728' }}}
+            />
+            <Stack.Screen
+                name={'Mycamera'}
+                component={Mycamera}
+                options={{ title: 'CODIGO DE BARRAS', headerStyle: { backgroundColor: '#B32728' }}}
             />
         </Stack.Navigator>
     )
