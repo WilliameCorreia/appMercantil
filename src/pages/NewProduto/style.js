@@ -1,23 +1,123 @@
-import { StyleSheet} from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+const windowWidth = Dimensions.get('window').width
 
-const styles = StyleSheet.create(
-    {
-        container: {flex: 1, backgroundColor: "#C0C0C0"},
-        cabecario: {flex:1, justifyContent: "center", alignItems: "center",},
-        form:{flex: 2, backgroundColor: "#ffffff", padding: 16},
-        image: { width: 120, height: 120, margin: 10},
-        inputs: { textAlign:"center" ,borderColor:"black", borderWidth: 1, marginBottom: 10, borderRadius: 25, fontSize: 20, fontFamily: 'Montserrat-SemiBold',
-        fontWeight: '600' },
-        divisor: {flexDirection:"row",},
-        content1: { flex:1, marginRight: 10},
-        content2: {flex:1},
-        text: {fontSize: 20, marginLeft: 12, fontFamily: 'Montserrat-SemiBold', fontWeight: '600'},
-        textBtn: {fontSize: 20, color:"#ffffff", fontFamily: 'Montserrat-SemiBold', fontWeight: '600'},
-        centralzador:{ justifyContent:"center", flexDirection: "row"},
-        btnCriar:{backgroundColor:"#9c3f3A", padding: 8, 
-            borderRadius: 25, alignItems: "center", width: 140 
-            }
-        
-    }
-)
-export default styles
+const Styles = StyleSheet.create({
+
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+
+    box1: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+       backgroundColor: "#eaeaea"
+    },
+
+    prodImg:{
+        width: "40%",
+        height: "80%",
+       
+    },
+
+    Codbar:{
+        height: '100%',
+        position: 'absolute',
+        alignSelf: 'flex-end',
+        padding: 15,
+        justifyContent: 'flex-end'
+    },
+
+    codbarItem:{
+       backgroundColor: '#fff',
+        borderRadius: 50,
+    },
+
+    codbarImg:{
+        width: (Dimensions.get("window").width / 100 * 15),
+        height: (Dimensions.get('window').height / 100 * 7),
+        margin: 10
+    },
+
+    box2: {
+        flex: 3,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor:"#999999", 
+        borderTopWidth: 1
+    },
+
+    containerForm:{
+        flex: 1,
+        width: "90%"
+    },
+
+    tamanhoInputMetade: {
+        width: "45%",
+        fontFamily: 'Montserrat-medium',
+    },
+
+    tamanhoInputFull: {
+        width: "100%",
+        fontFamily: 'Montserrat-medium',
+    },
+
+    inputs: {
+        textAlign: "center",
+        borderColor: "#d0d0d0",
+        borderWidth: 4,
+        marginBottom: 3,
+        borderRadius: 25,
+        fontSize: 15
+    },
+
+    text: {
+        fontSize: 15,
+        textAlign: 'left',
+        fontFamily: 'Montserrat-medium',
+        margin: 10
+    },
+
+    colorLabelProduto: { color: "#999999" },
+
+    colorPreto: { color: "black", },
+
+    colorBranco: { color: "white" },
+
+    BtnEncerrarText: {
+        fontSize: 20,
+        paddingHorizontal: 40,
+        paddingVertical: 2,
+        fontFamily: 'Montserrat-medium',
+    },
+
+    colum: { flexDirection: "column" },
+
+    BtnAlterar: {
+        backgroundColor: "#B32728",
+        width: (Dimensions.get('window').width / 2),
+        height: (Dimensions.get('window').height / 12),
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 10
+    },
+
+    row: { flexDirection: "row", justifyContent: 'space-between' },
+
+    alignCenter: { justifyContent: "center", alignItems: 'center' },
+
+    metadeBotton1: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    metadeBotton2: {
+        flex: 2,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+})
+
+export default Styles

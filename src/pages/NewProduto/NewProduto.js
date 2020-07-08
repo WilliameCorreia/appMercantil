@@ -1,39 +1,67 @@
 import React, { Component } from 'react'
-import { Text, View, Image } from 'react-native'
-import styles from './style'
-import { TextInput, TouchableOpacity, ScrollView } from 'react-native-gesture-handler'
+import {
+    Text,
+    View,
+    KeyboardAvoidingView,
+    TextInput,
+    TouchableOpacity,
+    Image,
+} from 'react-native'
 
-export default class NewProduto extends Component {
-    render() {
-        return (
-            <ScrollView style={styles.container}>
-                <View style={styles.cabecario}>
-                    <Image source={require('../../Assets/srcImage.png')} style={styles.image} />               
-                </View>
-                <View style={styles.form}>
-                    <Text style={styles.text}>Produto</Text>
-                    <TextInput style={styles.inputs}/>
-                    <View style={styles.divisor}>
-                        <View style={styles.content1}>
-                            <Text style={styles.text}>QTD</Text>
-                            <TextInput style={styles.inputs}/>
-                        </View>
-                        <View style={styles.content2}>
-                            <Text style={styles.text}>Preço</Text>
-                            <TextInput style={styles.inputs}/>
+import { HeaderHeightContext } from '@react-navigation/stack'
+
+import Styles from './style'
+
+export default function Produto() {
+
+    return (
+        <HeaderHeightContext.Consumer>
+            {headerHeight => (      
+                <KeyboardAvoidingView style={Styles.container} behavior={'padding'} keyboardVerticalOffset={headerHeight + 30}>
+                    <View style={[Styles.box1]}>
+                        <Image source={require('../../Assets/Arroz.png')} style={Styles.prodImg}/>
+                        <View style={Styles.Codbar}>
+                            <TouchableOpacity style={Styles.codbarItem}><Image source={require('../../Assets/codbar.png')} style={Styles.codbarImg} /></TouchableOpacity>
                         </View>
                     </View>
-                    <Text style={styles.text}>Categoria</Text>
-                    <TextInput style={styles.inputs}/>
-                    <Text style={styles.text}>Detalhes</Text>
-                    <TextInput style={styles.inputs}/>
-                    <View style={styles.centralzador}>
-                    <TouchableOpacity style={styles.btnCriar}>
-                        <Text style={styles.textBtn}>Salvar</Text>
-                    </TouchableOpacity>
+                    <View style={Styles.box2}>
+                        <View style={[Styles.containerForm]}>
+                            <View style={Styles.row}>
+                                <Text style={Styles.text}>PRODUTO</Text>
+                            </View>
+                            <View style={Styles.row}>
+                                <TextInput style={[Styles.tamanhoInputFull, Styles.inputs,]} />
+                            </View>
+                            <View style={Styles.row}>
+                                <Text style={Styles.text}>QTD</Text>
+                                <Text style={[Styles.text, Styles.colorPreto, Styles.espacamentolabel2]}>PREÇO</Text>
+                            </View>
+                            <View style={Styles.row}>
+                                <TextInput style={[Styles.tamanhoInputMetade, Styles.inputs]} />
+                                <TextInput style={[Styles.tamanhoInputMetade, Styles.inputs]} />
+                            </View>
+                            <View style={Styles.row}>
+                                <Text style={Styles.text}>CATEGORIA</Text>
+                            </View>
+                            <View style={Styles.row}>
+                                <TextInput style={[Styles.tamanhoInputFull, Styles.inputs,]} />
+                            </View>
+                            <View style={Styles.row}>
+                                <Text style={Styles.text}>DETALHES</Text>
+                            </View>
+                            <View style={Styles.row}>
+                                <TextInput style={[Styles.tamanhoInputFull, Styles.inputs,]} />
+                            </View>
+                            <View style={Styles.alignCenter}>
+                                <TouchableOpacity style={Styles.BtnAlterar}>
+                                    <Text style={[Styles.colorBranco, Styles.text]}>SALVAR</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
                     </View>
-                </View>
-            </ScrollView>
-        )
-    }
+                </KeyboardAvoidingView>
+            )}
+
+        </HeaderHeightContext.Consumer>
+    )
 }
