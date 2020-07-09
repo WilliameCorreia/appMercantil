@@ -4,8 +4,16 @@ import { StyleSheet, Text, View, Image } from 'react-native'
 export default function usuario() {
     return (
         <View style={styles.container}>
-            <Text>asdfasdfasdf</Text>
-            <Text>asdfasdfasdf</Text>
+            <View style={styles.box1}>
+                <View style={styles.item1}></View>
+                <View style={styles.item2}></View>
+            </View>
+            <View style={styles.box2}>
+                <View style={styles.item1}></View>
+                <View style={styles.item2}></View>
+                <View style={styles.item4}></View>
+                <View style={styles.item5}></View>
+            </View>
         </View>
     )
 }
@@ -15,8 +23,10 @@ const styles = StyleSheet.create({
         flex: 1,
        backgroundColor: 'green'
     },
-    user:{
-        width: 50,
-        height: 50
+    box1:{
+       backgroundColor: 'pink'
+    },
+    box2:{
+        backgroundColor: 'red'
     }
 })

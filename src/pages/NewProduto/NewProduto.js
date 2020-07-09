@@ -8,6 +8,7 @@ import {
     Image,
 } from 'react-native'
 
+
 import Api from '../../Services/api'
 
 import Styles from './style'

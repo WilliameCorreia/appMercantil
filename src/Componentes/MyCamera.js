@@ -1,58 +1,52 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, } from 'react-native';
+import { StyleSheet, View, } from 'react-native';
 import { RNCamera } from 'react-native-camera';
-import { BarcodeMask, useBarcodeRead } from '@nartc/react-native-barcode-mask'
+import { BarcodeMask} from '@nartc/react-native-barcode-mask'
 import { ValidaEan } from '../Services/ValidarCodebar';
 import Api from '../Services/api'
 
-const PendingView = () => (
-    <View
-        style={{
-            flex: 1,
-            backgroundColor: 'lightgreen',
-            justifyContent: 'center',
-            alignItems: 'center',
-        }}
-    >
-        <Text>Waiting</Text>
-    </View>
-);
+import MyModal from '../Componentes/MyModal'
 
 export default function MyCamera({ navigation }) {
 
-    const [produto, setProduto] = useState();
+    const [modalActive, setModalActive] = useState(false);
+    const [msnModal, setMsnModal] = useState('primeira passada');
+
     const [barcodeRead, setBarcodeReader] = useState(false);
 
     const getProduto = (codbar) => {
-        console.log("*****************************************************")
-        console.log(codbar)
-        const _produto = Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
-            console.log(response.data)
-            let item = response.data;
-            navigation.navigate('NovoProduto', {produto:item})
+        Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
+            if (response.data) {
+                let item = response.data;
+                navigation.navigate('NovoProduto', {produto:item})
+            } else {
+                setMsnModal("Produto não encontrado!" + codbar);
+                setModalActive(true);
+                setBarcodeReader(false);
+            }
         }).catch(erro => {
             console.log(erro);
         });
     }
+
     const barcodesRecognized = (barcodes) => {
-        let { bounds, data, target, type } = barcodes;
-        console.log(data)
+        let { data, type } = barcodes;
 
         if (type !== undefined && type !== "UNKNOWN_FORMAT") {
 
             console.log(data);
             console.log(type);
 
-            if (type === "EAN_13") {
-                if (ValidaEan(data)) {
-                    setBarcodeReader(true);
-                    getProduto(data);
-                }
+            if (ValidaEan(data)) {
+                setBarcodeReader(true);
+                getProduto(data);
+            }else{
+                setMsnModal("Codigo de Barras Inválido");
+                setModalActive(true);
+                setBarcodeReader(false);
             }
         }
-
     }
-
 
     return (
         <View style={styles.container}>
@@ -67,38 +61,30 @@ export default function MyCamera({ navigation }) {
                     buttonNegative: 'Cancel',
 
                 }}
-                /*  androidRecordAudioPermissionOptions={{
-                   title: 'Permission to use audio recording',
-                   message: 'We need your permission to use your audio',
-                   buttonPositive: 'Ok',
-                   buttonNegative: 'Cancel',
-                 }} */
                 onBarCodeRead={barcodesRecognized}
-                barCodeTypes={ barcodeRead ? [] : [RNCamera.Constants.BarCodeType.ean13]}
+                barCodeTypes={barcodeRead ? [] :
+                    [RNCamera.Constants.BarCodeType.ean8,
+                    RNCamera.Constants.BarCodeType.ean13,
+                    RNCamera.Constants.BarCodeType.itf14,
+                    RNCamera.Constants.BarCodeType.upc_e,
+                    RNCamera.Constants.BarCodeType.aztec,
+                    RNCamera.Constants.BarCodeType.code128,
+                    RNCamera.Constants.BarCodeType.code39,
+                    RNCamera.Constants.BarCodeType.code39mod43,
+                    RNCamera.Constants.BarCodeType.code93,
+                    RNCamera.Constants.BarCodeType.datamatrix,
+                    RNCamera.Constants.BarCodeType.interleaved2of5,
+                    RNCamera.Constants.BarCodeType.pdf417,
+                    RNCamera.Constants.BarCodeType.qr,
+                    RNCamera.Constants.BarCodeType.upc_e
+                        ,]}
             //onGoogleVisionBarcodesDetected={this.barcodesRecognized}
-            //playSoundOnCapture={true}
             >
                 <BarcodeMask></BarcodeMask>
-                {/*  {({ camera, status, recordAudioPermissionStatus }) => {
-            if (status !== 'READY') return <PendingView />;
-            return (
-              <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
-                  <Text style={{ fontSize: 14 }}> SNAP </Text>
-                </TouchableOpacity>
-              </View>
-            );
-          }} */}
             </RNCamera>
+            <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} />
         </View>
     );
-
-    /* takePicture = async function (camera) {
-      const options = { quality: 0.5, base64: true };
-      const data = await camera.takePictureAsync(options);
-      //  eslint-disable-next-line
-      console.log(data.uri);
-    }; */
 }
 
 const styles = StyleSheet.create({
