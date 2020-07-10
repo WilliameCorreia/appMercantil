@@ -9,6 +9,7 @@ import Styles from './style.js'
 
 export default function DetalhePedidos({ route }) {
     const dados = route.params
+    // console.log(dados)
 
 
     const reference = storage().ref('/Categorias');
@@ -31,16 +32,33 @@ export default function DetalhePedidos({ route }) {
         <View style={Styles.container}>
             <View style={Styles.box1}>
                 <View style={Styles.item1}>
-                    <View style={Styles.item1_1}></View>
+                    <View style={Styles.item1_1}>
+                        <Text style={Styles.textCliente}>{dados.cliente}</Text>
+                        <Text style={Styles.textPedido}>{dados.id}</Text>
+                    </View>
+                    <View style={Styles.item1_2}>
+                        <Text style={Styles.StatusPedidoP}>{dados.status}</Text>
+                    </View>
                 </View>
                 <View style={Styles.item2}>
-                    <View style={Styles.item2_1}></View>
-                    <View style={Styles.item2_2}></View>
+                    <View style={Styles.item2_1}>
+                        <Image source={require("../../../Assets/11.png")} style={Styles.ImgLoction}></Image>
+                    </View>
+                    <View style={Styles.item2_2}>
+                        <Text style={Styles.TextEndereco}>{dados.endereco}</Text>
+                        <Text style={Styles.TextTelefone}>{dados.telefone}</Text>
+                    </View>
                 </View>
                 <View style={Styles.item3}>
-                    <View style={Styles.item3_1}></View>
-                    <View style={Styles.item3_2}></View>
-                    <View style={Styles.item3_3}></View>
+                    <View style={Styles.item3_1}>
+                        <Text style={Styles.TextHeader}>Qnt.</Text>
+                    </View>
+                    <View style={Styles.item3_2}>
+                        <Text style={Styles.TextHeader}>Produto</Text>
+                    </View>
+                    <View style={Styles.item3_3}>
+                        <Text style={Styles.TextHeader}>Preço</Text>
+                    </View>
                 </View>
                 <View style={Styles.item4}>
                     <View style={Styles.item4_1}>
@@ -95,7 +113,12 @@ export default function DetalhePedidos({ route }) {
             </View>
             <View style={Styles.box2}>
                 <View style={Styles.item6}>
-
+                    <View style={Styles.item6_1}>
+                        <Text style={Styles.item6_1Text}>STATUS</Text>
+                    </View>
+                    <View style={Styles.item6_2}>
+                        <Text style={Styles.item6_2Text}>{dados.status}</Text>
+                    </View>
                 </View>
             </View>
         </View>
