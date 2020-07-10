@@ -107,6 +107,46 @@ export default function DetalhePedidos({ route }) {
                         <View style={Styles.item4_1_C}>
                         </View>
                     </View>
+                    <View style={Styles.item4_1}>
+                        <View style={Styles.item4_1_A}>
+                        </View>
+                        <View style={Styles.item4_1_B}>
+                        </View>
+                        <View style={Styles.item4_1_C}>
+                        </View>
+                    </View>
+                    <View style={Styles.item4_1}>
+                        <View style={Styles.item4_1_A}>
+                        </View>
+                        <View style={Styles.item4_1_B}>
+                        </View>
+                        <View style={Styles.item4_1_C}>
+                        </View>
+                    </View>
+                    <View style={Styles.item4_1}>
+                        <View style={Styles.item4_1_A}>
+                        </View>
+                        <View style={Styles.item4_1_B}>
+                        </View>
+                        <View style={Styles.item4_1_C}>
+                        </View>
+                    </View>
+                    <View style={Styles.item4_1}>
+                        <View style={Styles.item4_1_A}>
+                        </View>
+                        <View style={Styles.item4_1_B}>
+                        </View>
+                        <View style={Styles.item4_1_C}>
+                        </View>
+                    </View>
+                </View>
+                <View style={Styles.item5}>
+                    <View style={Styles.item5_1}>
+                        <Text style={Styles.item5_1Text}>TOTAL</Text>
+                    </View>
+                    <View style={Styles.item5_2}>
+                        <Text style={Styles.item5_2Text}>R$ 15,99</Text>
+                    </View>
                 </View>
             </View>
             <View style={Styles.box2}>

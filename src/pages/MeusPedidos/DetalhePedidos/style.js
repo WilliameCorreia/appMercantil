@@ -33,8 +33,13 @@ const Styles = StyleSheet.create({
     item4_1_B:{width:"60%", backgroundColor:"pink"},
     item4_1_C:{width:"20%", backgroundColor:"black"},
    
+    item5:{height:"6%", backgroundColor:'yellow', marginTop:"5%", flexDirection:'row'},
+    item5_1:{width:"50%", backgroundColor:'#fff', alignItems:"flex-start", height:"100%"},
+    item5_1Text:{fontFamily:"Montserrat-SemiBold", fontSize:10, width:"30%", marginHorizontal:15, marginVertical:2, padding:1},
+    item5_2:{width:"50%", backgroundColor:'#fff', alignItems:"flex-end", height:"100%"},
+    item5_2Text:{fontFamily:"Montserrat-SemiBold", fontSize:17, marginRight:5},
 
-    item6:{height:"50%", backgroundColor:'yellow', flexDirection:'row', elevation:2},
+    item6:{height:"50%", backgroundColor:'yellow', flexDirection:'row', elevation:10},
     item6_1:{width:"50%", backgroundColor:'#fff'},
     item6_1Text:{fontFamily:'Montserrat-Medium', fontSize:18, padding:30},
     item6_2:{width:"50%", backgroundColor:'#fff', flexDirection:"column", justifyContent:"center"},
