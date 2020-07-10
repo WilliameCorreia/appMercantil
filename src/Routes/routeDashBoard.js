@@ -2,7 +2,6 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import MeusPedidos from '../pages/MeusPedidos/MeusPedidos'
-import DetalhePedidos from '../pages/MeusPedidos/DetalhePedidos/DetalhePedidos'
 import MeusProdutos from '../pages/MeusProdutos/MeusProdutos'
 import Ofertas from '../pages/MinhasOfertas/MinhasOfertas'
 import NewOfertas from '../pages/NewOferta/NewOferta'
@@ -58,14 +57,6 @@ function RouteDashBoard() {
                 component={MeusPedidos}
                 options={{ 
                     title: 'MEUS PEDIDOS',
-                    headerStyle: { backgroundColor: '#B32728' }
-                }}
-            />
-            <Stack.Screen
-                name={'DetalhePedidos'}
-                component={DetalhePedidos}
-                options={{ 
-                    title: 'Detalhe Pedidos',
                     headerStyle: { backgroundColor: '#B32728' }
                 }}
             />
