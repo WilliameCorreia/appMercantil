@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Image } from 'react-native'
 
 import storage from '@react-native-firebase/storage';
-import database from '@react-native-firebase/database';
-import { cond } from 'react-native-reanimated';
 
 import Styles from './style.js'
 

@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Text,
     View,
@@ -8,10 +8,10 @@ import {
     Image,
 } from 'react-native'
 
-
+import { SearchBar } from 'react-native-elements';
 import Api from '../../Services/api'
-
 import Styles from './style'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
 export default function Produto({ navigation, route }) {
@@ -24,31 +24,32 @@ export default function Produto({ navigation, route }) {
         detalhes: ''
     });
 
-    useEffect(()=>{
-        if(route.params){
+    useEffect(() => {
+        if (route.params) {
             let { produto } = route.params
-            setProduto({produto:produto.produto, 
-                        qtn: produto.quantidadeEmbalagem, 
-                        preco: produto.precoMedio, 
-                        categoria: produto.categoria, 
-                        detalhes: produto.produtoAcento 
+            setProduto({
+                produto: produto.produto,
+                qtn: produto.quantidadeEmbalagem,
+                preco: produto.precoMedio,
+                categoria: produto.categoria,
+                detalhes: produto.produtoAcento
             })
             console.log(route.params.produto)
         }
-    },[route.params])
+    }, [route.params])
 
-    const getProduto = (codbar) =>{
-        const produto = Api.get(`ProdutosDb/codbar/${codbar}`).then(response =>{
+    const getProduto = (codbar) => {
+        const produto = Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
             setProduto(response.data);
-        }).catch(erro =>{
+        }).catch(erro => {
             console.log(erro);
         });
     }
 
     return (
-        <KeyboardAvoidingView style={Styles.container} behavior={'padding'} keyboardVerticalOffset={30}>
-            <View style={[Styles.box1]}>
-                <Image source={require('../../Assets/Arroz.png')} style={Styles.prodImg}/>
+        <KeyboardAwareScrollView style={Styles.container}>
+            <View style={Styles.box1}>
+                <Image source={require('../../Assets/Arroz.png')} style={Styles.prodImg} />
                 <View style={Styles.Codbar}>
                     <TouchableOpacity style={Styles.codbarItem} onPress={() => navigation.navigate('Mycamera', getProduto)}>
                         <Image source={require('../../Assets/codbar.png')} style={Styles.codbarImg} />
@@ -57,31 +58,62 @@ export default function Produto({ navigation, route }) {
             </View>
             <View style={Styles.box2}>
                 <View style={[Styles.containerForm]}>
+                    <View style={Styles.containerSearch}>
+                        <SearchBar
+                            style={Styles.search}
+                            placeholder="Digite o codigo de barras"
+                            platform={'android'}
+                            containerStyle={Styles.search}
+                            onChangeText={getProduto}
+                        /* value={search} */
+                        />
+                    </View>
                     <View style={Styles.row}>
                         <Text style={Styles.text}>PRODUTO</Text>
                     </View>
                     <View style={Styles.row}>
-                        <TextInput style={[Styles.tamanhoInputFull, Styles.inputs,]} value={produto.produto} />
+                        <TextInput
+                            style={[Styles.tamanhoInputFull, Styles.inputs,]}
+                            value={produto.produto}
+                            onChangeText={text => setProduto({ produto: text })}
+                            placeholder={"PRODUTO"}
+                        />
                     </View>
                     <View style={Styles.row}>
                         <Text style={Styles.text}>QTD</Text>
                         <Text style={[Styles.text, Styles.colorPreto, Styles.espacamentolabel2]}>PREÇO</Text>
                     </View>
                     <View style={Styles.row}>
-                        <TextInput style={[Styles.tamanhoInputMetade, Styles.inputs]} value={produto.qtn} />
-                        <TextInput style={[Styles.tamanhoInputMetade, Styles.inputs]} value={produto.preco.toString()}/>
+                        <TextInput
+                            style={[Styles.tamanhoInputMetade, Styles.inputs]}
+                            value={produto.qtn}
+                            placeholder={"QTD"}
+                        />
+                        <TextInput
+                            style={[Styles.tamanhoInputMetade, Styles.inputs]}
+                            value={produto.preco ?? null}
+                            placeholder={"PREÇO"}
+                        />
                     </View>
                     <View style={Styles.row}>
                         <Text style={Styles.text}>CATEGORIA</Text>
                     </View>
                     <View style={Styles.row}>
-                        <TextInput style={[Styles.tamanhoInputFull, Styles.inputs,]} value={produto.categoria}/>
+                        <TextInput
+                            style={[Styles.tamanhoInputFull, Styles.inputs,]}
+                            value={produto.categoria}
+                            placeholder={"CATEGORIA"}
+                        />
                     </View>
                     <View style={Styles.row}>
                         <Text style={Styles.text}>DETALHES</Text>
                     </View>
                     <View style={Styles.row}>
-                        <TextInput style={[Styles.tamanhoInputFull, Styles.inputs,]} value={produto.detalhes}/>
+                        <TextInput
+                            style={[Styles.tamanhoInputFull, Styles.inputs,]}
+                            value={produto.detalhes}
+                            placeholder={"DETALHES"}
+                        />
                     </View>
                     <View style={Styles.alignCenter}>
                         <TouchableOpacity style={Styles.BtnAlterar}>
@@ -90,6 +122,9 @@ export default function Produto({ navigation, route }) {
                     </View>
                 </View>
             </View>
-        </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
     )
 }
+
+
+

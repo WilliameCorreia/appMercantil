@@ -9,16 +9,16 @@ const Styles = StyleSheet.create({
     },
 
     box1: {
-        flex: 1,
+        width: (Dimensions.get('window').width),
+        height: (Dimensions.get('window').height / 100 * 16),
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: "#eaeaea"
+        backgroundColor: "#eaeaea",
     },
 
     prodImg: {
-        width: "40%",
+        width: "25%",
         height: "80%",
-
     },
 
     Codbar: {
@@ -41,8 +41,21 @@ const Styles = StyleSheet.create({
         margin: 10
     },
 
+    containerSearch:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 5
+    },
+
+    search:{
+        width:(Dimensions.get('window').width / 10 * 8),
+        height: (Dimensions.get('window').height / 100 * 6),
+        elevation: 3, 
+        borderRadius: 30,
+        justifyContent: 'center',
+    },
+
     box2: {
-        flex: 3,
         justifyContent: 'center',
         alignItems: 'center',
         borderColor: "#999999",
@@ -67,12 +80,12 @@ const Styles = StyleSheet.create({
     inputs: {
         textAlign: "center",
         borderColor: "#d0d0d0",
-        borderWidth: 1,
         marginBottom: 3,
         borderRadius: 25,
         fontSize: 15,
         elevation: 6,
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        fontFamily: 'Montserrat-medium',
     },
 
     text: {
