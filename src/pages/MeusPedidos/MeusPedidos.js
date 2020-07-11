@@ -9,7 +9,16 @@ import Styles from './style.js'
 
 export default function MeusPedidos({ navigation }) {
     const [pedidos, setImages] = useState(
-        [{ id: '#000001', cliente: 'João Marcos', status: 'A CAMINHO', endereco:"RUA OURO PRETO, 15, MARACANAÚ CEARÁ - BR, 619020-35", telefone:"(85) 987694480" },
+        [{
+            id: '#000001', cliente: 'João Marcos', status: 'A CAMINHO',
+            endereco: "RUA OURO PRETO, 15, MARACANAÚ CEARÁ - BR, 619020-35", telefone: "(85) 987694480",
+            itens: 
+            [
+                { produto: 'ALCACHOFRA', preco: '5,90', qnt: '1KG' },
+                { produto: 'COCA COLA', preco: '7,90', qnt: '1' },
+                { produto: 'ARROZ BRANCO', preco: '2,19', qnt: '1' }
+            ]
+        },
         { id: '#000002', cliente: 'Williame', status: 'A CAMINHO' },
         { id: '#000003', cliente: 'Artur', status: 'A CAMINHO' }
         ]
@@ -36,7 +45,7 @@ export default function MeusPedidos({ navigation }) {
             <View>
                 {pedidos.map(order =>
                     <TouchableOpacity style={Styles.bordado}
-                        onPress={() => navigation.navigate('DetalhePedidos', order )}
+                        onPress={() => navigation.navigate('DetalhePedidos', order)}
                     >
                         <View style={Styles.box1}>
                             <Text style={[Styles.textGrande, Styles.cinza]}>{order.cliente}</Text>

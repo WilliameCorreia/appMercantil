@@ -4,7 +4,7 @@ const windowHeight = Dimensions.get('window').height
 
 const Styles = StyleSheet.create({
     container:{ flex:1, backgroundColor:'#fff', padding:"4%" },
-    box1:{height:"68%", backgroundColor:'red', elevation:10},
+    box1:{height:"68%", backgroundColor:'#fff', elevation:10},
     box2:{height:"28%", backgroundColor:'#fff', marginTop:"4%"},
 
     item1:{height:"20%", flexDirection:'row'},
@@ -28,10 +28,13 @@ const Styles = StyleSheet.create({
     item3_3:{width:"20%", backgroundColor:"#fff"},
     
     item4:{height:"43%", flexDirection:'column'},
-    item4_1:{height:"10%", flexDirection:"row", marginTop:4 },
-    item4_1_A:{width:"20%", backgroundColor:"brown"},
-    item4_1_B:{width:"60%", backgroundColor:"pink"},
-    item4_1_C:{width:"20%", backgroundColor:"black"},
+    item4_1:{height:"25%", flexDirection:"row", marginTop:4 },
+    item4_1_A:{width:"20%", backgroundColor:"#fff"},
+    item4_1_AText:{textAlign:"center"},
+    item4_1_B:{width:"60%", backgroundColor:"#fff"},
+    item4_1_BText:{textAlign:"center"},
+    item4_1_C:{width:"20%", backgroundColor:"#fff"},
+    item4_1_CText:{textAlign:"center"},
    
     item5:{height:"6%", backgroundColor:'yellow', marginTop:"5%", flexDirection:'row'},
     item5_1:{width:"50%", backgroundColor:'#fff', alignItems:"flex-start", height:"100%"},
