@@ -59,86 +59,19 @@ export default function DetalhePedidos({ route }) {
                     </View>
                 </View>
                 <View style={Styles.item4}>
-                    <View style={Styles.item4_1}>
-                        <View style={Styles.item4_1_A}>
+                    {dados.itens.map(item =>
+                        <View style={Styles.item4_1}>
+                            <View style={Styles.item4_1_A}>
+                                <Text style={Styles.item4_1_AText}>{item.qnt}</Text>
+                            </View>
+                            <View style={Styles.item4_1_B}>
+                                <Text style={Styles.item4_1_BText}>{item.produto}</Text>
+                            </View>
+                            <View style={Styles.item4_1_C}>
+                                <Text style={Styles.item4_1_CText}>{item.preco}</Text>
+                            </View>
                         </View>
-                        <View style={Styles.item4_1_B}>
-                        </View>
-                        <View style={Styles.item4_1_C}>
-                        </View>
-                    </View>
-                    <View style={Styles.item4_1}>
-                        <View style={Styles.item4_1_A}>
-                        </View>
-                        <View style={Styles.item4_1_B}>
-                        </View>
-                        <View style={Styles.item4_1_C}>
-                        </View>
-                    </View>
-                    <View style={Styles.item4_1}>
-                        <View style={Styles.item4_1_A}>
-                        </View>
-                        <View style={Styles.item4_1_B}>
-                        </View>
-                        <View style={Styles.item4_1_C}>
-                        </View>
-                    </View>
-                    <View style={Styles.item4_1}>
-                        <View style={Styles.item4_1_A}>
-                        </View>
-                        <View style={Styles.item4_1_B}>
-                        </View>
-                        <View style={Styles.item4_1_C}>
-                        </View>
-                    </View>
-                    <View style={Styles.item4_1}>
-                        <View style={Styles.item4_1_A}>
-                        </View>
-                        <View style={Styles.item4_1_B}>
-                        </View>
-                        <View style={Styles.item4_1_C}>
-                        </View>
-                    </View>
-                    <View style={Styles.item4_1}>
-                        <View style={Styles.item4_1_A}>
-                        </View>
-                        <View style={Styles.item4_1_B}>
-                        </View>
-                        <View style={Styles.item4_1_C}>
-                        </View>
-                    </View>
-                    <View style={Styles.item4_1}>
-                        <View style={Styles.item4_1_A}>
-                        </View>
-                        <View style={Styles.item4_1_B}>
-                        </View>
-                        <View style={Styles.item4_1_C}>
-                        </View>
-                    </View>
-                    <View style={Styles.item4_1}>
-                        <View style={Styles.item4_1_A}>
-                        </View>
-                        <View style={Styles.item4_1_B}>
-                        </View>
-                        <View style={Styles.item4_1_C}>
-                        </View>
-                    </View>
-                    <View style={Styles.item4_1}>
-                        <View style={Styles.item4_1_A}>
-                        </View>
-                        <View style={Styles.item4_1_B}>
-                        </View>
-                        <View style={Styles.item4_1_C}>
-                        </View>
-                    </View>
-                    <View style={Styles.item4_1}>
-                        <View style={Styles.item4_1_A}>
-                        </View>
-                        <View style={Styles.item4_1_B}>
-                        </View>
-                        <View style={Styles.item4_1_C}>
-                        </View>
-                    </View>
+                    )}
                 </View>
                 <View style={Styles.item5}>
                     <View style={Styles.item5_1}>
