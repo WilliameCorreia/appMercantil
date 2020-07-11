@@ -134,6 +134,13 @@ const Styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    picker:{
+        elevation: 6,
+        backgroundColor: '#fff',
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 })
 
 export default Styles
