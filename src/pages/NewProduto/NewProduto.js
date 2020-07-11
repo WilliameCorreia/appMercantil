@@ -17,14 +17,11 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 export default function Produto({ navigation, route }) {
 
     const [codbar, setCodbar] = useState();
-    const [categoria, setCategorias] = useState({
-        item: ''
-    });
 
     const [produto, setProduto] = useState({
         produto: '',
         Quantidade: '',
-        Preco: 0,
+        Preco: null,
         categoria: '',
         codbar: ''
     });
@@ -34,8 +31,8 @@ export default function Produto({ navigation, route }) {
             let { produto } = route.params
             setProduto({
                 produto: produto.produto,
-                quantidadeEmbalagem: produto.quantidadeEmbalagem,
-                precoMedio: produto.precoMedio,
+                Quantidade: produto.quantidadeEmbalagem,
+                Preco: produto.precoMedio,
                 categoria: produto.categoria,
                 codbar: produto.codbar
             })
@@ -51,17 +48,19 @@ export default function Produto({ navigation, route }) {
             console.log("entrou getProduto")
             setProduto({
                 produto: response.data.produto,
-                quantidadeEmbalagem: response.data.quantidadeEmbalagem,
+                Quantidade: response.data.quantidadeEmbalagem,
                 precoMedio: response.data.precoMedio,
+                Preco: response.data.categoria,
                 categoria: response.data.categoria,
                 codbar: response.data.codbar
             });
-            setCategorias({
-                item: response.data.categoria
-            })
         }).catch(erro => {
             console.log(erro);
         });
+    }
+
+    const FormValidacao = () => {
+        if(){}
     }
 
     return (
@@ -106,13 +105,13 @@ export default function Produto({ navigation, route }) {
                     <View style={Styles.row}>
                         <TextInput
                             style={[Styles.tamanhoInputMetade, Styles.inputs]}
-                            value={produto.quantidadeEmbalagem}
+                            value={produto.Quantidade}
                             placeholder={"QTD"}
                             keyboardType={'numeric'}
                         />
                         <TextInput
                             style={[Styles.tamanhoInputMetade, Styles.inputs]}
-                            value={produto.precoMedio.toString()}
+                            value={produto.Preco}
                             placeholder={"PREÇO"}
                             keyboardType={'numeric'}
                         />
@@ -123,11 +122,12 @@ export default function Produto({ navigation, route }) {
                     <View style={[Styles.row, Styles.picker]}>
                         <Picker
                             style={{width:"50%", textAlign: 'center'}}
-                            selectedValue={categoria.item}
+                            selectedValue={produto.categoria}
                             itemStyle={{textAlign: 'center'}}
-                            onValueChange={(itemValue, itemIndex) => setCategorias({ item: itemValue })}
+                            onValueChange={(itemValue, itemIndex) => setProduto({ categoria: itemValue })}
                             mode="dropdown"
                         >
+                            <Picker.Item label="SELECIONE"/>
                             <Picker.Item label="PERFUMARIA" value='PERFUMARIA' />
                             <Picker.Item label="BEBIDAS" value='BEBIDAS' />
                             <Picker.Item label="HORTIFRUTI" value='HORTIFRUTI' />
