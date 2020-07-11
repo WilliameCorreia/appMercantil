@@ -82,7 +82,9 @@ export default function MyCamera({ navigation }) {
             >
                 <BarcodeMask></BarcodeMask>
             </RNCamera>
-            <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} />
+            <View>
+                <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} />
+            </View>
         </View>
     );
 }
