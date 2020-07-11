@@ -14,9 +14,9 @@ export default function MeusPedidos({ navigation }) {
             endereco: "RUA OURO PRETO, 15, MARACANAÚ CEARÁ - BR, 619020-35", telefone: "(85) 987694480",
             itens: 
             [
-                { produto: 'ALCACHOFRA', preco: '5,90', qnt: '1KG' },
-                { produto: 'COCA COLA', preco: '7,90', qnt: '1' },
-                { produto: 'ARROZ BRANCO', preco: '2,19', qnt: '1' }
+                { produto: 'ALCACHOFRA', preco:5.90, qnt: '1KG' },
+                { produto: 'COCA COLA', preco:7.90, qnt: '1' },
+                { produto: 'ARROZ BRANCO', preco:2.19, qnt: '1' }
             ]
         },
         { id: '#000002', cliente: 'Williame', status: 'A CAMINHO' },

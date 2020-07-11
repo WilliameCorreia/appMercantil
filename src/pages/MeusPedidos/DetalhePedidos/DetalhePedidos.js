@@ -6,25 +6,19 @@ import storage from '@react-native-firebase/storage';
 import Styles from './style.js'
 
 export default function DetalhePedidos({ route }) {
-    const dados = route.params
-    // console.log(dados)
+    const dados = route.params  
+   
 
 
-    const reference = storage().ref('/Categorias');
-
-    const listaImagens = (reference, pageToken) => {
-        return reference.list({ pageToken }).then(result => {
-            result.items.forEach(ref => {
-                ref.getDownloadURL().then(dados => console.log(dados))
-            });
-        })
+    function somar(){
+        let total = 0;
+        dados.itens.map(
+            item => 
+            { total += item.preco}
+        )
+        return total
     }
-
-    useEffect(() => {
-        listaImagens(reference).then(dados => {
-            console.log(dados)
-        })
-    }, [])
+    
 
     return (
         <View style={Styles.container}>
@@ -59,7 +53,7 @@ export default function DetalhePedidos({ route }) {
                     </View>
                 </View>
                 <View style={Styles.item4}>
-                    {dados.itens.map(item =>
+                    {dados.itens.map(item =>                        
                         <View style={Styles.item4_1}>
                             <View style={Styles.item4_1_A}>
                                 <Text style={Styles.item4_1_AText}>{item.qnt}</Text>
@@ -68,7 +62,7 @@ export default function DetalhePedidos({ route }) {
                                 <Text style={Styles.item4_1_BText}>{item.produto}</Text>
                             </View>
                             <View style={Styles.item4_1_C}>
-                                <Text style={Styles.item4_1_CText}>{item.preco}</Text>
+                                <Text style={Styles.item4_1_CText}>{item.preco}</Text>                                                             
                             </View>
                         </View>
                     )}
@@ -78,7 +72,7 @@ export default function DetalhePedidos({ route }) {
                         <Text style={Styles.item5_1Text}>TOTAL</Text>
                     </View>
                     <View style={Styles.item5_2}>
-                        <Text style={Styles.item5_2Text}>R$ 15,99</Text>
+                    <Text style={Styles.item5_2Text}>R$ {somar()}</Text>
                     </View>
                 </View>
             </View>

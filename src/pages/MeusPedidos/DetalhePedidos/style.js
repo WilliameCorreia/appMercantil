@@ -9,8 +9,8 @@ const Styles = StyleSheet.create({
 
     item1:{height:"20%", flexDirection:'row'},
     item1_1:{ width:"50%", backgroundColor:"#fff"},
-    textCliente:{fontFamily:'Montserrat-Medium', fontSize:20, padding:10},
-    textPedido:{fontFamily:'Montserrat-Medium', fontSize:16, marginLeft:10},
+    textCliente:{fontFamily:'Montserrat-Medium', fontSize:20, padding:16, paddingBottom:0},
+    textPedido:{fontFamily:'Montserrat-Medium', fontSize:16, marginLeft:16},
     item1_2:{width:"50%", backgroundColor:'#fff', flexDirection:"column", justifyContent:"center"},
     StatusPedidoP:{backgroundColor:"red", width:"85%", textAlign:"center", color:"white", marginBottom:15},
 
