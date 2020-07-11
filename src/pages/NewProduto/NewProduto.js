@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import {
     Text,
     View,
-    KeyboardAvoidingView,
     TextInput,
     TouchableOpacity,
     Image,
 } from 'react-native'
 
+import { Picker } from '@react-native-community/picker'
 import { SearchBar } from 'react-native-elements';
 import Api from '../../Services/api'
 import Styles from './style'
@@ -16,12 +16,17 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 export default function Produto({ navigation, route }) {
 
+    const [codbar, setCodbar] = useState();
+    const [categoria, setCategorias] = useState({
+        item: ''
+    });
+
     const [produto, setProduto] = useState({
         produto: '',
-        qtn: '',
-        preco: '',
+        Quantidade: '',
+        Preco: 0,
         categoria: '',
-        detalhes: ''
+        codbar: ''
     });
 
     useEffect(() => {
@@ -29,18 +34,31 @@ export default function Produto({ navigation, route }) {
             let { produto } = route.params
             setProduto({
                 produto: produto.produto,
-                qtn: produto.quantidadeEmbalagem,
-                preco: produto.precoMedio,
+                quantidadeEmbalagem: produto.quantidadeEmbalagem,
+                precoMedio: produto.precoMedio,
                 categoria: produto.categoria,
-                detalhes: produto.produtoAcento
+                codbar: produto.codbar
             })
             console.log(route.params.produto)
         }
     }, [route.params])
 
     const getProduto = (codbar) => {
+        setCodbar(codbar)
+        console.log(codbar)
         const produto = Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
-            setProduto(response.data);
+            console.log(response.data)
+            console.log("entrou getProduto")
+            setProduto({
+                produto: response.data.produto,
+                quantidadeEmbalagem: response.data.quantidadeEmbalagem,
+                precoMedio: response.data.precoMedio,
+                categoria: response.data.categoria,
+                codbar: response.data.codbar
+            });
+            setCategorias({
+                item: response.data.categoria
+            })
         }).catch(erro => {
             console.log(erro);
         });
@@ -64,8 +82,10 @@ export default function Produto({ navigation, route }) {
                             placeholder="Digite o codigo de barras"
                             platform={'android'}
                             containerStyle={Styles.search}
-                            onChangeText={getProduto}
-                        /* value={search} */
+                            onChangeText={text => getProduto(text)}
+                            keyboardType={'numeric'}
+                            value={codbar}
+                        //showLoading={true}
                         />
                     </View>
                     <View style={Styles.row}>
@@ -86,33 +106,61 @@ export default function Produto({ navigation, route }) {
                     <View style={Styles.row}>
                         <TextInput
                             style={[Styles.tamanhoInputMetade, Styles.inputs]}
-                            value={produto.qtn}
+                            value={produto.quantidadeEmbalagem}
                             placeholder={"QTD"}
+                            keyboardType={'numeric'}
                         />
                         <TextInput
                             style={[Styles.tamanhoInputMetade, Styles.inputs]}
-                            value={produto.preco ?? null}
+                            value={produto.precoMedio.toString()}
                             placeholder={"PREÇO"}
+                            keyboardType={'numeric'}
                         />
                     </View>
                     <View style={Styles.row}>
                         <Text style={Styles.text}>CATEGORIA</Text>
                     </View>
-                    <View style={Styles.row}>
-                        <TextInput
-                            style={[Styles.tamanhoInputFull, Styles.inputs,]}
-                            value={produto.categoria}
-                            placeholder={"CATEGORIA"}
-                        />
+                    <View style={[Styles.row, Styles.picker]}>
+                        <Picker
+                            style={{width:"50%", textAlign: 'center'}}
+                            selectedValue={categoria.item}
+                            itemStyle={{textAlign: 'center'}}
+                            onValueChange={(itemValue, itemIndex) => setCategorias({ item: itemValue })}
+                            mode="dropdown"
+                        >
+                            <Picker.Item label="PERFUMARIA" value='PERFUMARIA' />
+                            <Picker.Item label="BEBIDAS" value='BEBIDAS' />
+                            <Picker.Item label="HORTIFRUTI" value='HORTIFRUTI' />
+                            <Picker.Item label="TINTAS / PINTURAS" value='TINTAS / PINTURAS' />
+                            <Picker.Item label="PADARIA" value='PADARIA' />
+                            <Picker.Item label="CASA E CONSTRUÇÃO" value='CASA E CONSTRUÇÃO' />
+                            <Picker.Item label="FARMÁCIA" value='FARMÁCIA' />
+                            <Picker.Item label="AUTOS" value='AUTOS' />
+                            <Picker.Item label="BAZAR" value='BAZAR' />
+                            <Picker.Item label="PETSHOP" value='PETSHOP' />
+                            <Picker.Item label="TABACARIA" value='TABACARIA' />
+                            <Picker.Item label="ELETRO" value='ELETRO' />
+                            <Picker.Item label="HIGIENE E BELEZA" value='HIGIENE E BELEZA' />
+                            <Picker.Item label="BEBÊ" value='BEBÊ' />
+                            <Picker.Item label="INFANTIL" value='INFANTIL' />
+                            <Picker.Item label="CONGELADOS" value='CONGELADOS' />
+                            <Picker.Item label="SUPLEMENTOS" value='SUPLEMENTOS' />
+                            <Picker.Item label="PAPELARIA" value='PAPELARIA' />
+                            <Picker.Item label="FRIOS E LATICÍNIOS" value='FRIOS E LATICÍNIOS' />
+                            <Picker.Item label="AÇOUGUE" value='AÇOUGUE' />
+                            <Picker.Item label="MERCEARIA" value='MERCEARIA' />
+                            <Picker.Item label="LIMPEZA" value='LIMPEZA' />
+                        </Picker>
                     </View>
                     <View style={Styles.row}>
-                        <Text style={Styles.text}>DETALHES</Text>
+                        <Text style={Styles.text}>CODIGO DE BARRAS</Text>
                     </View>
                     <View style={Styles.row}>
                         <TextInput
-                            style={[Styles.tamanhoInputFull, Styles.inputs,]}
-                            value={produto.detalhes}
-                            placeholder={"DETALHES"}
+                            style={[Styles.tamanhoInputFull, Styles.inputs]}
+                            value={produto.codbar}
+                            placeholder={"CODIGO DE BARRAS"}
+                            keyboardType={'numeric'}
                         />
                     </View>
                     <View style={Styles.alignCenter}>
