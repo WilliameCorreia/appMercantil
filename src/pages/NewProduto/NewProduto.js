@@ -13,11 +13,16 @@ import Api from '../../Services/api'
 import { ValidaEan } from '../../Services/ValidarCodebar'
 import Styles from './style'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import MyModal from "../../Componentes/MyModal"
 
 
 export default function Produto({ navigation, route }) {
 
     const [codbar, setCodbar] = useState();
+    const [categorias, setCategorias] = useState();
+
+    const [modalActive, setModalActive] = useState(false);
+    const [msnModal, setMsnModal] = useState('primeira passada');
 
     const [produto, setProduto] = useState({
         produto: '',
@@ -28,6 +33,7 @@ export default function Produto({ navigation, route }) {
     });
 
     useEffect(() => {
+        getCategorias();
         if (route.params) {
             let { produto } = route.params
             setProduto({
@@ -44,7 +50,7 @@ export default function Produto({ navigation, route }) {
     const getProduto = (codbar) => {
         setCodbar(codbar)
         console.log("codbar")
-        if(ValidaEan(codbar)){
+        if (ValidaEan(codbar)) {
             console.log(codbar)
             const produto = Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
                 console.log(response.data)
@@ -61,17 +67,30 @@ export default function Produto({ navigation, route }) {
             }).catch(erro => {
                 console.log(erro);
             });
-        }else{
+        } else {
 
         }
-        
+
+    }
+
+    const getCategorias = () => {
+        const categorias = Api.get("/Categorias").then(response => {
+            console.log(response.data);
+        }).catch(erro => {
+            console.log(erro);
+        });
     }
 
     const FormValidacao = () => {
-    
+        if (produto.produto && produto.Quantidade && produto.Preco && produto.categoria && produto.codbar) {
+
+        } else {
+            setMsnModal("Para cadastrar o produto preencha todos os campos!");
+            setModalActive(true);
+        }
     }
 
-    console.log("newProduto resderizado!")
+    console.log("newProduto renderizado!")
     console.log(produto)
 
     return (
@@ -132,13 +151,13 @@ export default function Produto({ navigation, route }) {
                     </View>
                     <View style={[Styles.row, Styles.picker]}>
                         <Picker
-                            style={{width:"50%", textAlign: 'center'}}
+                            style={{ width: "50%", textAlign: 'center' }}
                             selectedValue={produto.categoria}
-                            itemStyle={{textAlign: 'center'}}
-                            onValueChange={(itemValue, itemIndex) => setProduto(prevState => ({...prevState, categoria: itemValue}))}
+                            itemStyle={{ textAlign: 'center' }}
+                            onValueChange={(itemValue, itemIndex) => setProduto(prevState => ({ ...prevState, categoria: itemValue }))}
                             mode="dropdown"
                         >
-                            <Picker.Item label="SELECIONE"/>
+                            <Picker.Item label="SELECIONE" />
                             <Picker.Item label="PERFUMARIA" value='PERFUMARIA' />
                             <Picker.Item label="BEBIDAS" value='BEBIDAS' />
                             <Picker.Item label="HORTIFRUTI" value='HORTIFRUTI' />
@@ -175,11 +194,14 @@ export default function Produto({ navigation, route }) {
                         />
                     </View>
                     <View style={Styles.alignCenter}>
-                        <TouchableOpacity style={Styles.BtnAlterar}>
+                        <TouchableOpacity style={Styles.BtnAlterar} onPress={FormValidacao}>
                             <Text style={[Styles.colorBranco, Styles.text]}>SALVAR</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
+            </View>
+            <View>
+                <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} navigation />
             </View>
         </KeyboardAwareScrollView>
     )
