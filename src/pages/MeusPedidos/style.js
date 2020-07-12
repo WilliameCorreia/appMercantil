@@ -4,11 +4,8 @@ const windowHeight = Dimensions.get('window').height
 
 const Styles = StyleSheet.create({
     container:{ flex:1, flexDirection:"column" },
-    bordado:{borderWidth:windowWidth/100000 * 47, borderColor:'black', 
-        marginTop:windowHeight/10000 * 300, 
-        marginHorizontal:windowWidth/10000 * 700,
-        padding:windowWidth/10000 * 300
-    },
+    item:{ elevation:8, backgroundColor:"#fff", marginHorizontal:"5%", marginVertical:"5%", padding:"5%"},
+    
     status:{backgroundColor:"blue", color:"white", 
         paddingLeft:windowWidth/10000 * 600,
         paddingRight:windowWidth/10000 * 900, 
