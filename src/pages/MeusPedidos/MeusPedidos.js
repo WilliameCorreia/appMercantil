@@ -11,40 +11,42 @@ export default function MeusPedidos({ navigation }) {
     const [pedidos, setImages] = useState(
         [{
             id: '#000001', cliente: 'João Marcos', status: 'A CAMINHO',
-            endereco: "RUA OURO PRETO, 15, MARACANAÚ CEARÁ - BR, 619020-35", telefone: "(85) 987694480",
-            itens: 
-            [
-                { produto: 'ALCACHOFRA', preco:5.90, qnt: '1KG' },
-                { produto: 'COCA COLA', preco:7.90, qnt: '1' },
-                { produto: 'ARROZ BRANCO', preco:2.19, qnt: '1' }
-            ]
+            endereco: "RUA 17, 70, Pacatuba CEARÁ - BR, 61814-524", telefone: "(85) 987694480",
+            itens:
+                [
+                    { produto: 'ALCACHOFRA', preco: 5.90, qnt: '1KG' },
+                    { produto: 'COCA COLA', preco: 7.90, qnt: '1' },
+                    { produto: 'ARROZ BRANCO', preco: 2.19, qnt: '1' }
+                ]
         },
-        { id: '#000002', cliente: 'Williame', status: 'A CAMINHO' },
-        { id: '#000003', cliente: 'Artur', status: 'A CAMINHO' }
+        {
+            id: '#000002', cliente: 'Williame', status: 'A CAMINHO',
+            endereco: "RUA OURO PRETO, 15, MARACANAÚ CEARÁ - BR, 619020-35", telefone: "(85) 987694480",
+            itens:
+                [
+                    { produto: 'ALCACHOFRA', preco: 5.90, qnt: '1KG' },
+                    { produto: 'COCA COLA', preco: 7.90, qnt: '1' },
+                    { produto: 'ARROZ BRANCO', preco: 2.19, qnt: '1' }
+                ]
+        },
+        {
+            id: '#000003', cliente: 'Artur', status: 'A CAMINHO',
+            endereco: "RUA OURO PRETO, 15, MARACANAÚ CEARÁ - BR, 619020-35", telefone: "(85) 987694480",
+            itens:
+                [
+                    { produto: 'ALCACHOFRA', preco: 52.00, qnt: '1KG' },
+                    { produto: 'COCA COLA', preco: 7.00, qnt: '1' },
+                    { produto: 'ARROZ BRANCO', preco: 2.00, qnt: '1' }
+                ]
+        }
         ]
     )
-
-    const reference = storage().ref('/Categorias');
-
-    const listaImagens = (reference, pageToken) => {
-        return reference.list({ pageToken }).then(result => {
-            result.items.forEach(ref => {
-                ref.getDownloadURL().then(dados => console.log(dados))
-            });
-        })
-    }
-
-    useEffect(() => {
-        listaImagens(reference).then(dados => {
-            console.log(dados)
-        })
-    }, [])
-
+    
     return (
         <ScrollView style={Styles.container}>
             <View>
                 {pedidos.map(order =>
-                    <TouchableOpacity style={Styles.bordado}
+                    <TouchableOpacity style={Styles.item}
                         onPress={() => navigation.navigate('DetalhePedidos', order)}
                     >
                         <View style={Styles.box1}>

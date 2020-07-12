@@ -6,19 +6,18 @@ import storage from '@react-native-firebase/storage';
 import Styles from './style.js'
 
 export default function DetalhePedidos({ route }) {
-    const dados = route.params  
-   
+    const dados = route.params
 
 
-    function somar(){
+
+    function somar() {
         let total = 0;
         dados.itens.map(
-            item => 
-            { total += item.preco}
+            item => { total += item.preco }
         )
         return total
     }
-    
+
 
     return (
         <View style={Styles.container}>
@@ -43,17 +42,18 @@ export default function DetalhePedidos({ route }) {
                 </View>
                 <View style={Styles.item3}>
                     <View style={Styles.item3_1}>
-                        <Text style={Styles.TextHeader}>Qnt.</Text>
+                        <Image source={require("../../../Assets/12.png")} style={Styles.item3_1Img}></Image>
+                        <Text style={Styles.item3_1Text}>Qnt.</Text>
                     </View>
                     <View style={Styles.item3_2}>
-                        <Text style={Styles.TextHeader}>Produto</Text>
+                        <Text style={Styles.item3_2Text}>Produto</Text>
                     </View>
                     <View style={Styles.item3_3}>
-                        <Text style={Styles.TextHeader}>Preço</Text>
+                        <Text style={Styles.item3_3Text}>Preço</Text>
                     </View>
                 </View>
                 <View style={Styles.item4}>
-                    {dados.itens.map(item =>                        
+                    {dados.itens.map(item =>
                         <View style={Styles.item4_1}>
                             <View style={Styles.item4_1_A}>
                                 <Text style={Styles.item4_1_AText}>{item.qnt}</Text>
@@ -62,7 +62,7 @@ export default function DetalhePedidos({ route }) {
                                 <Text style={Styles.item4_1_BText}>{item.produto}</Text>
                             </View>
                             <View style={Styles.item4_1_C}>
-                                <Text style={Styles.item4_1_CText}>{item.preco}</Text>                                                             
+                                <Text style={Styles.item4_1_CText}>{item.preco}</Text>
                             </View>
                         </View>
                     )}
@@ -72,7 +72,7 @@ export default function DetalhePedidos({ route }) {
                         <Text style={Styles.item5_1Text}>TOTAL</Text>
                     </View>
                     <View style={Styles.item5_2}>
-                    <Text style={Styles.item5_2Text}>R$ {somar()}</Text>
+                        <Text style={Styles.item5_2Text}>R$ {somar()}</Text>
                     </View>
                 </View>
             </View>
