@@ -10,6 +10,7 @@ import {
 import { Picker } from '@react-native-community/picker'
 import { SearchBar } from 'react-native-elements';
 import Api from '../../Services/api'
+import { ValidaEan } from '../../Services/ValidarCodebar'
 import Styles from './style'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
@@ -32,7 +33,7 @@ export default function Produto({ navigation, route }) {
             setProduto({
                 produto: produto.produto,
                 Quantidade: produto.quantidadeEmbalagem,
-                Preco: produto.precoMedio,
+                Preco: produto.precoMedio.toString(),
                 categoria: produto.categoria,
                 codbar: produto.codbar
             })
@@ -42,26 +43,36 @@ export default function Produto({ navigation, route }) {
 
     const getProduto = (codbar) => {
         setCodbar(codbar)
-        console.log(codbar)
-        const produto = Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
-            console.log(response.data)
-            console.log("entrou getProduto")
-            setProduto({
-                produto: response.data.produto,
-                Quantidade: response.data.quantidadeEmbalagem,
-                precoMedio: response.data.precoMedio,
-                Preco: response.data.categoria,
-                categoria: response.data.categoria,
-                codbar: response.data.codbar
+        console.log("codbar")
+        if(ValidaEan(codbar)){
+            console.log(codbar)
+            const produto = Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
+                console.log(response.data)
+                console.log("entrou getProduto")
+
+                setProduto({
+                    produto: response.data.produto,
+                    Quantidade: response.data.quantidadeEmbalagem,
+                    precoMedio: response.data.precoMedio.toString(),
+                    Preco: response.data.categoria,
+                    categoria: response.data.categoria,
+                    codbar: response.data.codbar
+                });
+            }).catch(erro => {
+                console.log(erro);
             });
-        }).catch(erro => {
-            console.log(erro);
-        });
+        }else{
+
+        }
+        
     }
 
     const FormValidacao = () => {
-        
+    
     }
+
+    console.log("newProduto resderizado!")
+    console.log(produto)
 
     return (
         <KeyboardAwareScrollView style={Styles.container}>
@@ -124,7 +135,7 @@ export default function Produto({ navigation, route }) {
                             style={{width:"50%", textAlign: 'center'}}
                             selectedValue={produto.categoria}
                             itemStyle={{textAlign: 'center'}}
-                            onValueChange={(itemValue, itemIndex) => setProduto({ categoria: itemValue })}
+                            onValueChange={(itemValue, itemIndex) => setProduto(prevState => ({...prevState, categoria: itemValue}))}
                             mode="dropdown"
                         >
                             <Picker.Item label="SELECIONE"/>
