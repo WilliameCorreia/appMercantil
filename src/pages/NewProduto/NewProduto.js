@@ -19,17 +19,17 @@ import MyModal from "../../Componentes/MyModal"
 export default function Produto({ navigation, route }) {
 
     const [codbar, setCodbar] = useState();
-    const [categorias, setCategorias] = useState();
+    const [categorias, setCategorias] = useState([]);
 
     const [modalActive, setModalActive] = useState(false);
     const [msnModal, setMsnModal] = useState('primeira passada');
 
     const [produto, setProduto] = useState({
-        produto: '',
+        Produto: '',
         Quantidade: '',
-        Preco: null,
-        categoria: '',
-        codbar: ''
+        Preco: '',
+        CategoriaId: '',
+        Codbar: ''
     });
 
     useEffect(() => {
@@ -37,11 +37,11 @@ export default function Produto({ navigation, route }) {
         if (route.params) {
             let { produto } = route.params
             setProduto({
-                produto: produto.produto,
+                Produto: produto.produto,
                 Quantidade: produto.quantidadeEmbalagem,
                 Preco: produto.precoMedio.toString(),
-                categoria: produto.categoria,
-                codbar: produto.codbar
+                CategoriaId: produto.categoria,
+                Codbar: produto.codbar
             })
             console.log(route.params.produto)
         }
@@ -57,12 +57,11 @@ export default function Produto({ navigation, route }) {
                 console.log("entrou getProduto")
 
                 setProduto({
-                    produto: response.data.produto,
+                    Produto: response.data.produto,
                     Quantidade: response.data.quantidadeEmbalagem,
-                    precoMedio: response.data.precoMedio.toString(),
-                    Preco: response.data.categoria,
-                    categoria: response.data.categoria,
-                    codbar: response.data.codbar
+                    Preco: response.data.preco,
+                    Categoria: response.data.categoria,
+                    Codbar: response.data.codbar
                 });
             }).catch(erro => {
                 console.log(erro);
@@ -70,11 +69,11 @@ export default function Produto({ navigation, route }) {
         } else {
 
         }
-
     }
 
     const getCategorias = () => {
-        const categorias = Api.get("/Categorias").then(response => {
+        Api.get("Categorias").then(response => {
+            setCategorias(response.data)
             console.log(response.data);
         }).catch(erro => {
             console.log(erro);
@@ -82,8 +81,21 @@ export default function Produto({ navigation, route }) {
     }
 
     const FormValidacao = () => {
-        if (produto.produto && produto.Quantidade && produto.Preco && produto.categoria && produto.codbar) {
+        console.log(produto);
+        if (produto.Produto && produto.Quantidade && produto.Preco && produto.CategoriaId && produto.Codbar) {
+            console.log(produto);
+            Api.post("Produtos", {
+                Produto: produto.Produto,
+                Quantidade: parseInt(produto.Quantidade),
+                Preco: produto.Preco,
+                CategoriaId: parseInt(produto.CategoriaId),
+                CodeBar: produto.Codbar
 
+            }).then(response =>{
+                console.log(response.data);
+            }).catch(erro =>{
+                console.log(erro);
+            })
         } else {
             setMsnModal("Para cadastrar o produto preencha todos os campos!");
             setModalActive(true);
@@ -123,8 +135,8 @@ export default function Produto({ navigation, route }) {
                     <View style={Styles.row}>
                         <TextInput
                             style={[Styles.tamanhoInputFull, Styles.inputs,]}
-                            value={produto.produto}
-                            onChangeText={text => setProduto({ produto: text })}
+                            value={produto.Produto}
+                           onChangeText={text => setProduto(prevState => ({ ...prevState, Produto: text }))}
                             placeholder={"PRODUTO"}
                         />
                     </View>
@@ -138,12 +150,14 @@ export default function Produto({ navigation, route }) {
                             value={produto.Quantidade}
                             placeholder={"QTD"}
                             keyboardType={'numeric'}
+                            onChangeText={text => setProduto(prevState => ({ ...prevState, Quantidade: text}))}
                         />
                         <TextInput
                             style={[Styles.tamanhoInputMetade, Styles.inputs]}
                             value={produto.Preco}
                             placeholder={"PREÇO"}
                             keyboardType={'numeric'}
+                            onChangeText={text => setProduto(prevState => ({ ...prevState, Preco: text }))}
                         />
                     </View>
                     <View style={Styles.row}>
@@ -152,34 +166,14 @@ export default function Produto({ navigation, route }) {
                     <View style={[Styles.row, Styles.picker]}>
                         <Picker
                             style={{ width: "50%", textAlign: 'center' }}
-                            selectedValue={produto.categoria}
+                            selectedValue={produto.CategoriaId}
                             itemStyle={{ textAlign: 'center' }}
-                            onValueChange={(itemValue, itemIndex) => setProduto(prevState => ({ ...prevState, categoria: itemValue }))}
+                            onValueChange={(itemValue, itemIndex) => setProduto(prevState => ({ ...prevState, CategoriaId: itemValue }))}
                             mode="dropdown"
                         >
-                            <Picker.Item label="SELECIONE" />
-                            <Picker.Item label="PERFUMARIA" value='PERFUMARIA' />
-                            <Picker.Item label="BEBIDAS" value='BEBIDAS' />
-                            <Picker.Item label="HORTIFRUTI" value='HORTIFRUTI' />
-                            <Picker.Item label="TINTAS / PINTURAS" value='TINTAS / PINTURAS' />
-                            <Picker.Item label="PADARIA" value='PADARIA' />
-                            <Picker.Item label="CASA E CONSTRUÇÃO" value='CASA E CONSTRUÇÃO' />
-                            <Picker.Item label="FARMÁCIA" value='FARMÁCIA' />
-                            <Picker.Item label="AUTOS" value='AUTOS' />
-                            <Picker.Item label="BAZAR" value='BAZAR' />
-                            <Picker.Item label="PETSHOP" value='PETSHOP' />
-                            <Picker.Item label="TABACARIA" value='TABACARIA' />
-                            <Picker.Item label="ELETRO" value='ELETRO' />
-                            <Picker.Item label="HIGIENE E BELEZA" value='HIGIENE E BELEZA' />
-                            <Picker.Item label="BEBÊ" value='BEBÊ' />
-                            <Picker.Item label="INFANTIL" value='INFANTIL' />
-                            <Picker.Item label="CONGELADOS" value='CONGELADOS' />
-                            <Picker.Item label="SUPLEMENTOS" value='SUPLEMENTOS' />
-                            <Picker.Item label="PAPELARIA" value='PAPELARIA' />
-                            <Picker.Item label="FRIOS E LATICÍNIOS" value='FRIOS E LATICÍNIOS' />
-                            <Picker.Item label="AÇOUGUE" value='AÇOUGUE' />
-                            <Picker.Item label="MERCEARIA" value='MERCEARIA' />
-                            <Picker.Item label="LIMPEZA" value='LIMPEZA' />
+                            {categorias.map(item =>
+                                <Picker.Item label={item.nome} value={item.id} />
+                            )}
                         </Picker>
                     </View>
                     <View style={Styles.row}>
@@ -188,9 +182,10 @@ export default function Produto({ navigation, route }) {
                     <View style={Styles.row}>
                         <TextInput
                             style={[Styles.tamanhoInputFull, Styles.inputs]}
-                            value={produto.codbar}
+                            value={produto.Codbar}
                             placeholder={"CODIGO DE BARRAS"}
                             keyboardType={'numeric'}
+                            onChangeText={text => setProduto(prevState => ({ ...prevState, Codbar: text }))}
                         />
                     </View>
                     <View style={Styles.alignCenter}>
