@@ -171,6 +171,7 @@ export default function Produto({ navigation, route }) {
                             onValueChange={(itemValue, itemIndex) => setProduto(prevState => ({ ...prevState, CategoriaId: itemValue }))}
                             mode="dropdown"
                         >
+                            <Picker.Item label={"Selecione"} />
                             {categorias.map(item =>
                                 <Picker.Item label={item.nome} value={item.id} />
                             )}

@@ -9,9 +9,9 @@ import MyModal from '../../Componentes/MyModal'
 export default function Estabelecimento({ navigation, route }) {
 
     //parametro para cadastrar estabelecimento
-    const { uid } = route.params
+    //const { uid } = route.params
 
-    const newReference = database().ref('/Estabelecimento').child(uid);
+    //const newReference = database().ref('/Estabelecimento').child(uid);
 
     //modal
     const [modalActive, setModalActive] = useState(false);
