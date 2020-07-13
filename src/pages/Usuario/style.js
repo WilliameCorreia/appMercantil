@@ -9,7 +9,8 @@ const Styles = StyleSheet.create({
         height:"40%",
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: "#B32728"
+        backgroundColor: "#B32728",
+        elevation:10
     },
     box2: {
         height:"60%",

@@ -3,8 +3,8 @@ const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
 const Styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#fff', padding: "4%"},
-    box1: { height: "75%", backgroundColor: '#fff', elevation: 10, marginBottom:"10%" },
+    container: { flex: 1, padding: "4%"},
+    box1: { height: "75%", backgroundColor: '#fff', elevation: 8, marginBottom:"10%" },
     box2: { height: "20%", marginTop: "4%"},
 
     item1: { height: "20%", flexDirection: 'row' },
@@ -54,22 +54,7 @@ const Styles = StyleSheet.create({
     item8_1Text: { borderRadius:25, width:"60%", backgroundColor:"#9C3F3A", textAlign:"center", padding:"2%", fontSize:16, fontFamily:"Montserrat-SemiBold", color:"white"},    
     
     
-    // item4: { height: "35%", flexDirection: 'column', paddingLeft: "5%" },
-    // item4_1: { height: "25%", flexDirection: "row", marginTop: 4 },
-    // item4_1_A: { width: "20%", backgroundColor: "#fff", marginRight: "3%" },
-    // item4_1_AText: { textAlign: "center" },
-    // item4_1_B: { width: "58%", backgroundColor: "#fff" },
-    // item4_1_BText: { textAlign: "left" },
-    // item4_1_C: { width: "10%", backgroundColor: "#fff" },
-    // item4_1_CText: { textAlign: "left" },
-
-    // item5: { height: "6%", backgroundColor: '#fff', flexDirection: 'row', paddingVertical: 10 },
-    // item5_1: { width: "50%", backgroundColor: '#fff', alignItems: "flex-start", height: "100%" },
-    // item5_1Text: { fontFamily: "Montserrat-SemiBold", fontSize: 10, width: "30%", marginHorizontal: 15, marginVertical: 2, padding: 1 },
-    // item5_2: { width: "50%", backgroundColor: '#fff', alignItems: "flex-end", height: "100%" },
-    // item5_2Text: { fontFamily: "Montserrat-SemiBold", fontSize: 17, marginRight: "12%" },
-
-    item9: { height: "60%", elevation: 10, backgroundColor: "#fff", padding:10, alignItems:"center", justifyContent:"center" },
+    item9: { height: "60%", elevation: 4, backgroundColor: "#fff", padding:10, alignItems:"center", justifyContent:"center" },
     item9_1: { width: "90%", height:"90%", backgroundColor:"#ff0000", alignItems:"center", justifyContent:"center"},
     item9_1Text: { fontFamily: 'Montserrat-Medium', fontSize: 22, textAlign:"center", color:"white" }
 
