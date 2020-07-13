@@ -21,6 +21,7 @@ export default function RouteDrawer() {
             <Drawer.Screen 
                 name="Usuario" 
                 component={Usuario}
+                options={{tabBarLabel: 'teste'}}
             />
         </Drawer.Navigator>
     );

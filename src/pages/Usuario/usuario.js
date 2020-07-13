@@ -1,98 +1,41 @@
-import React from 'react'
-import { StyleSheet, Text, View, Keyboard, SafeAreaView, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, TextInput, Button } from 'react-native'
+import React, { Component } from 'react'
+import { Image, StyleSheet, Text, View, Keyboard, SafeAreaView, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, TextInput, Button, TouchableOpacity } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-export default function usuario() {
+import Styles from './style'
+
+export default function usuario({ route }) {
     return (
-        <KeyboardAwareScrollView>
-            <View style={styles.container}>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <View style={styles.inner}>
-                        <Text style={styles.header}>
-                            Header
-                            </Text>
-                        <TextInput
-                            placeholder="Username"
-                            style={styles.input}
-                        />
-                        <TextInput
-                            placeholder="Password"
-                            style={styles.input}
-                        />
-                        <TextInput
-                            placeholder="Confrim Password"
-                            style={styles.input}
-                        />
-                        <View style={styles.btnContainer}>
-                            <Button title="Submit" onPress={() => null} />
-                        </View>
-                        <View style={{ flex: 1 }} />
-                    </View>
-                </TouchableWithoutFeedback>
+        <View style={Styles.container}>
+            <View style={Styles.box1}>
+                <Image style={Styles.img} source={require('../../Assets/person.png')} />
             </View>
-        </KeyboardAwareScrollView>
+            <View style={Styles.box2}>
+                <View style={Styles.item1}>
+                    <View style={Styles.item1_1}>
+                        <Text style={Styles.item1_1Text}>ESTABELECIMENTO</Text>
+                    </View>
+                </View>
+                <View style={Styles.item2}>
+                    <View style={Styles.item2_1}>
+                        <TextInput style={Styles.item2_1Input} />
+                    </View>
+                </View>
+                <View style={Styles.item3}>
+                    <View style={Styles.item3_1}>
+                        <Text style={Styles.item3_1Text}>NONENONE</Text>
+                    </View>
+                </View>
+                <View style={Styles.item4}>
+                    <View style={Styles.item4_1}>
+                        <TextInput style={Styles.item4_1Input} />
+                    </View>
+                </View>
+
+            </View>
+        </View>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 4,
-        backgroundColor: 'green'
-    },
-    inner: {
-        padding: 24,
-        flex: 1,
-        justifyContent: "flex-end",
-    },
-    header: {
-        fontSize: 36,
-        marginBottom: 48,
-    },
-    input: {
-        height: 40,
-        borderColor: "#000000",
-        borderBottomWidth: 1,
-        marginBottom: 36,
-    },
-    btnContainer: {
-        backgroundColor: "white",
-        marginTop: 12,
-    },
-});
+
 

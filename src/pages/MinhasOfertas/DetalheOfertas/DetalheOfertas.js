@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Image } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import storage from '@react-native-firebase/storage';
 
@@ -11,23 +12,13 @@ export default function DetalheOfertas({ route }) {
 
     console.log(dados)
 
-
-    // function somar() {
-    //     let total = 0;
-    //     dados.itens.map(
-    //         item => { total += item.preco }
-    //     )
-    //     return total
-    // }
-
-
     return (
-        <View style={Styles.container}>
+        <KeyboardAwareScrollView style={Styles.container}>
             <View style={Styles.box1}>
                 <View style={Styles.item1}>
                     <View style={Styles.item1_1}>
-                        {/* <Text style={Styles.textCliente}>{dados.cliente}</Text> */}
-                        {/* <Text style={Styles.textPedido}>{dados.id}</Text> */}
+                        <Text style={Styles.textCliente}>{dados.produto}</Text>
+                        <Text style={Styles.textPedido}>{dados.id}</Text>
                     </View>
                     <View style={Styles.item1_2}>
                         <Text style={Styles.StatusPedidoP}>{quantidade}</Text>
@@ -35,71 +26,57 @@ export default function DetalheOfertas({ route }) {
                 </View>
                 <View style={Styles.item2}>
                     <View style={Styles.item2_1}>
-                        <Image source={require("../../../Assets/11.png")} style={Styles.ImgLoction}></Image>
+                        <Text style={Styles.item2_1Text}>QTD</Text>
                     </View>
                     <View style={Styles.item2_2}>
-                        {/* <Text style={Styles.TextEndereco}>{dados.endereco}</Text> */}
-                        {/* <Text style={Styles.TextTelefone}>{dados.telefone}</Text> */}
+                        <Text style={Styles.item2_2Text}>PREÇO</Text>
                     </View>
                 </View>
                 <View style={Styles.item3}>
                     <View style={Styles.item3_1}>
-                        <Image source={require("../../../Assets/12.png")} style={Styles.item3_1Img}></Image>
-                        <Text style={Styles.item3_1Text}>Qnt.</Text>
+                        <TextInput style={Styles.item3_1Input} />
                     </View>
                     <View style={Styles.item3_2}>
-                        <Text style={Styles.item3_2Text}>Produto</Text>
-                    </View>
-                    <View style={Styles.item3_3}>
-                        <Text style={Styles.item3_3Text}>Preço</Text>
+                        <TextInput style={Styles.item3_2Input} />
                     </View>
                 </View>
                 <View style={Styles.item4}>
-                    {/*dados.map(item =>
-                        <View style={Styles.item4_1}>
-                            <View style={Styles.item4_1_A}>
-                                <Text style={Styles.item4_1_AText}>{item.id}</Text>
-                            </View>
-                            <View style={Styles.item4_1_B}>
-                                <Text style={Styles.item4_1_BText}>{item.produto}</Text>
-                            </View>
-                            <View style={Styles.item4_1_C}>
-                                <Text style={Styles.item4_1_CText}>{item.preco}</Text>
-                            </View>
-                        </View>
-                    )*/}
                     <View style={Styles.item4_1}>
-                        <View style={Styles.item4_1_A}>
-                            <Text style={Styles.item4_1_AText}>{dados.id}</Text>
-                        </View>
-                        <View style={Styles.item4_1_B}>
-                            <Text style={Styles.item4_1_BText}></Text>
-                        </View>
-                        <View style={Styles.item4_1_C}>
-                            <Text style={Styles.item4_1_CText}></Text>
-                        </View>
+                        <Text style={Styles.item4_1Text}>CATEGORIA</Text>
                     </View>
                 </View>
                 <View style={Styles.item5}>
                     <View style={Styles.item5_1}>
-                        <Text style={Styles.item5_1Text}>TOTAL</Text>
+                        <TextInput style={Styles.item5_1Input} />
                     </View>
                     <View style={Styles.item5_2}>
-                        {/* <Text style={Styles.item5_2Text}>R$ {somar()}</Text> */}
+                        <TextInput style={Styles.item5_2Input} />
                     </View>
+                </View>
+                <View style={Styles.item6}>
+                    <View style={Styles.item6_1}>
+                        <Text style={Styles.item6_1Text}>DETALHES</Text>
+                    </View>
+                </View>
+                <View style={Styles.item7}>
+                    <View style={Styles.item7_1}>
+                        <TextInput style={Styles.item7_1Input} />
+                    </View>
+                </View>
+                <View style={Styles.item8}>
+                    <TouchableOpacity style={Styles.item8_1}>                        
+                        <Text style={Styles.item8_1Text} >ALTERAR</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={Styles.box2}>
-                <View style={Styles.item6}>
-                    <View style={Styles.item6_1}>
-                        <Text style={Styles.item6_1Text}>STATUS</Text>
-                    </View>
-                    <View style={Styles.item6_2}>
-                        {/* <Text style={Styles.item6_2Text}>{dados.status}</Text> */}
-                    </View>
+                <View style={Styles.item9}>
+                    <TouchableOpacity style={Styles.item9_1}>
+                        <Text style={Styles.item9_1Text} >ENCERRAR OFERTA</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
-        </View>
+        </KeyboardAwareScrollView>
     )
 }
 
