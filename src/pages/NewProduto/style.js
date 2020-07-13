@@ -19,6 +19,7 @@ const Styles = StyleSheet.create({
     prodImg: {
         width: "25%",
         height: "80%",
+        resizeMode: 'center'
     },
 
     Codbar: {

@@ -138,7 +138,6 @@ function RouteDashBoard() {
                                 color={backColor}
                                 leftButton={<MyDrawerOpen
                                     onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())} />}
-                                rightButton={_rightbutton === 'DashBoard' ? null : <MyBackButton onPress={() => navigation.goBack()} />}
                             />
                         )
                     }
@@ -149,7 +148,6 @@ function RouteDashBoard() {
                 options={{ headerStyle: { backgroundColor: '#B32728' }, title:'ESTABELECIMENTO' }}
             />
             </Stack.Navigator>
-
     )
 }
 
