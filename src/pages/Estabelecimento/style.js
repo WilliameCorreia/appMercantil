@@ -53,6 +53,9 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    textErro:{
+        color: 'red'
     }
 })
 export default styles

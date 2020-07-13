@@ -6,7 +6,7 @@ import AuthContext from '../Contexts/Auth'
 
 const Routes = () => {
 
-    const { signed } = useContext(AuthContext)
+    const { signed } = useContext(AuthContext);
 
     return (
         signed ? <RouteDrawer/> : <Route/>

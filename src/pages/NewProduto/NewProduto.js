@@ -29,7 +29,8 @@ export default function Produto({ navigation, route }) {
         Quantidade: '',
         Preco: '',
         CategoriaId: '',
-        Codbar: ''
+        Codbar: '',
+        FotoPng: ''
     });
 
     useEffect(() => {
@@ -41,7 +42,8 @@ export default function Produto({ navigation, route }) {
                 Quantidade: produto.quantidadeEmbalagem,
                 Preco: produto.precoMedio.toString(),
                 CategoriaId: produto.categoria,
-                Codbar: produto.codbar
+                Codbar: produto.codbar,
+                FotoPng: response.data.fotoPng
             })
             console.log(route.params.produto)
         }
@@ -60,8 +62,9 @@ export default function Produto({ navigation, route }) {
                     Produto: response.data.produto,
                     Quantidade: response.data.quantidadeEmbalagem,
                     Preco: response.data.preco,
-                    Categoria: response.data.categoria,
-                    Codbar: response.data.codbar
+                    CategoriaId: response.data.categoria,
+                    Codbar: response.data.codbar,
+                    FotoPng: response.data.fotoPng
                 });
             }).catch(erro => {
                 console.log(erro);
@@ -88,12 +91,24 @@ export default function Produto({ navigation, route }) {
                 Produto: produto.Produto,
                 Quantidade: parseInt(produto.Quantidade),
                 Preco: produto.Preco,
-                CategoriaId: parseInt(produto.CategoriaId),
-                CodeBar: produto.Codbar
-
+                CategoriaId: GetId(produto.CategoriaId),
+                CodeBar: produto.Codbar,
+                FotoPng: produto.FotoPng
             }).then(response =>{
                 console.log(response.data);
+                setMsnModal("Produto cadastrado com sucesso !");
+                setModalActive(true);
+                setProduto({
+                    Produto: '',
+                    Quantidade: '',
+                    Preco: '',
+                    CategoriaId: '',
+                    Codbar: '',
+                    FotoPng: ''
+                })
             }).catch(erro =>{
+                setMsnModal("Erro ao cadastrar o Produto !" + erro);
+                setModalActive(true);
                 console.log(erro);
             })
         } else {
@@ -102,13 +117,23 @@ export default function Produto({ navigation, route }) {
         }
     }
 
+    function GetId(teste){
+        let cat = ''
+        for(let item of categorias) {
+            if( teste == item.nomeBusca || teste == item.id){
+               cat =  item.id
+            }
+        }
+        return cat
+    }
+
     console.log("newProduto renderizado!")
     console.log(produto)
 
     return (
         <KeyboardAwareScrollView style={Styles.container}>
             <View style={Styles.box1}>
-                <Image source={require('../../Assets/Arroz.png')} style={Styles.prodImg} />
+                <Image source={{ uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/ImagensPng/png/' + produto.FotoPng }} style={Styles.prodImg} />
                 <View style={Styles.Codbar}>
                     <TouchableOpacity style={Styles.codbarItem} onPress={() => navigation.navigate('Mycamera', getProduto)}>
                         <Image source={require('../../Assets/codbar.png')} style={Styles.codbarImg} />
@@ -166,11 +191,12 @@ export default function Produto({ navigation, route }) {
                     <View style={[Styles.row, Styles.picker]}>
                         <Picker
                             style={{ width: "50%", textAlign: 'center' }}
-                            selectedValue={produto.CategoriaId}
+                            selectedValue={GetId(produto.CategoriaId)}
                             itemStyle={{ textAlign: 'center' }}
                             onValueChange={(itemValue, itemIndex) => setProduto(prevState => ({ ...prevState, CategoriaId: itemValue }))}
                             mode="dropdown"
                         >
+                            <Picker.Item label={"Selecione"} />
                             {categorias.map(item =>
                                 <Picker.Item label={item.nome} value={item.id} />
                             )}
