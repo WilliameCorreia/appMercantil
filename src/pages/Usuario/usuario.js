@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
-import { Image, StyleSheet, Text, View, Keyboard, SafeAreaView, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, TextInput, Button, TouchableOpacity } from 'react-native'
+import { Image, Text, View, SafeAreaView, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, TextInput, Button, TouchableOpacity } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import Styles from './style'
 
 export default function usuario({ route }) {
     return (
-        <View style={Styles.container}>
+        <KeyboardAvoidingView style={Styles.container}>
             <View style={Styles.box1}>
                 <Image style={Styles.img} source={require('../../Assets/person.png')} />
             </View>
-            <View style={Styles.box2}>
+            <KeyboardAwareScrollView style={Styles.box2}>
                 <View style={Styles.item1}>
                     <View style={Styles.item1_1}>
                         <Text style={Styles.item1_1Text}>ESTABELECIMENTO</Text>
@@ -32,8 +32,8 @@ export default function usuario({ route }) {
                     </View>
                 </View>
 
-            </View>
-        </View>
+            </KeyboardAwareScrollView>
+        </KeyboardAvoidingView>
     );
 }
 
