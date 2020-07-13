@@ -15,8 +15,7 @@ export const AuthProvider = ({ children }) => {
     async function signIn(user) {
         setTimeout(() =>{
             if (user) {
-                const { email, uid } = user
-                SetUsuario({ email, uid })
+                GetEstabelecimento(user);
             }else{
                 SetLoading(false)
                 SetUsuario({email: undefined})
@@ -25,11 +24,15 @@ export const AuthProvider = ({ children }) => {
         },2000)
     }
 
-    async function GetEstabelecimento(){
-        Api.get("Estabelecimento/Index").then(response =>{
-            let id = response.data[0];
-            setEstabelecimento( id )
-            console.log(id)
+    async function GetEstabelecimento(user){
+        const { email, uid } = user;
+        console.log('%%%%%%%%%%%%%%%%%%')
+        console.log(uid)
+        Api.get(`Estabelecimento/${uid}`).then(response =>{
+            let { ativo } = response.data;
+            setEstabelecimento( ativo )
+            SetUsuario({email, uid})
+            console.log(ativo)
         }).catch(
             erro =>{
                 console.log(erro);
@@ -39,7 +42,6 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const subscriber = auth().onUserChanged(signIn);
-        GetEstabelecimento();
         return () => {
             subscriber; // unsubscribe on unmount
         }

@@ -1,4 +1,4 @@
-import React, { useState, use, useRef } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import { Text, View, Image, TouchableOpacity, Alert } from 'react-native';
 
 import styles from './style'
@@ -7,13 +7,14 @@ import MyModal from '../../Componentes/MyModal';
 
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import api from '../../Services/api'
+import AuthContext from '../../Contexts/Auth'
 
-export default function Estabelecimento({ navigation, route }) {
+export default function Estabelecimento({ navigation}) {
 
-    //parametro para cadastrar estabelecimento
-    //const { uid } = route.params
+    const {usuario} = useContext(AuthContext);
 
-
+    console.log(usuario);
     //modal
     const [modalActive, setModalActive] = useState(false);
     const [msnModal, setMsnModal] = useState('primeira passada');
@@ -21,6 +22,7 @@ export default function Estabelecimento({ navigation, route }) {
     //campos de cadastro
     const razaoSocial = useRef();
     const estabelecimento = useRef();
+    const cnpj = useRef();
     const telefone = useRef();
     const cep = useRef();
     const cidade = useRef();
@@ -30,34 +32,16 @@ export default function Estabelecimento({ navigation, route }) {
     const numero = useRef();
     const complemento = useRef();
 
-    const registrar = () => {
-        let dados = {
-            usuarioId: uid,
-            razaoSocial: razaoSocial,
-            estabelecimento: estabelecimento,
-            telefone: telefone,
-            cep: cep,
-            cidade: cidade,
-            estado: estado,
-            bairro: bairro,
-            endereco: endereco,
-            numero: numero,
-            complemento: complemento
-        }
-
-        for (const key in dados) {
-            console.log(key)
-            if (dados.hasOwnProperty(key)) {
-                console.log(dados[key]);
-            }
-        }
-
-        /* newReference.set(dados).then(() => {
-            setMsnModal('Dados cadastrados com sucesso !')
-            setModalActive(true)
-        }).catch(error => {
-            console.log(error)
-        }) */
+    const registrarEstabelecimento = (values) => {
+        api.post("Estabelecimento", {
+            Token: usuario.uid,
+            Email: usuario.email,
+            Estabelecimento: values.estabelecimento,
+            RazaoSocial: values.razaoSocial,
+            Cnpj: values.cnpj,
+            Ativo: false,
+        })
+        console.log(values)
     }
 
     console.log('Estabelecimento');
@@ -65,6 +49,7 @@ export default function Estabelecimento({ navigation, route }) {
     const FormSchema = yup.object().shape({
         razaoSocial: yup.string().required('Campo obrigatório'),
         estabelecimento: yup.string().required('Campo obrigatório'),
+        cnpj: yup.string().required('Campo obrigatório'),
         telefone: yup.string().required('Campo obrigatório'),
         cep: yup.string().required('Campo obrigatório'),
         cidade: yup.string().required('Campo obrigatório'),
@@ -80,6 +65,7 @@ export default function Estabelecimento({ navigation, route }) {
             initialValues={{
                 razaoSocial: '',
                 estabelecimento: '',
+                cnpj: '',
                 telefone: '',
                 cep: '',
                 cidade: '',
@@ -90,7 +76,8 @@ export default function Estabelecimento({ navigation, route }) {
                 complemento: ''
             }}
             onSubmit={values =>{
-                console.log(values)
+                //console.log(values)
+                registrarEstabelecimento(values)
             }}
             validationSchema={FormSchema}
         >
@@ -125,9 +112,21 @@ export default function Estabelecimento({ navigation, route }) {
                     />
                     {errors.estabelecimento && <Text style={styles.textErro}>{errors.estabelecimento}</Text>}
                 </View>
+                <View style={styles.box2} >
+                    <Text style={styles.label}>CNPJ</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder='CNPJ'
+                        ref={cnpj}
+                        value={values.cnpj}
+                        onChangeText={handleChange('cnpj')}
+                    />
+                    {errors.estabelecimento && <Text style={styles.textErro}>{errors.estabelecimento}</Text>}
+                </View>
                 <View style={styles.box2}>
                     <Text style={styles.label}>TELEFONE</Text>
                     <TextInput
+                        keyboardType={'numeric'}
                         style={styles.input}
                         placeholder='Telefone'
                         ref={telefone}
@@ -139,6 +138,7 @@ export default function Estabelecimento({ navigation, route }) {
                 <View style={styles.box2}>
                     <Text style={styles.label}>CEP</Text>
                     <TextInput
+                    keyboardType={'numeric'}
                         style={styles.input}
                         placeholder='Cep'
                         ref={cep}

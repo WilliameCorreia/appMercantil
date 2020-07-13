@@ -31,7 +31,7 @@ function RouteDashBoard() {
 
     return (
 
-        !estabelecimento ?
+        estabelecimento ?
 
             <Stack.Navigator
                 initialRouteName={'DashBoard'}
