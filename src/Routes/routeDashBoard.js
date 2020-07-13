@@ -6,7 +6,7 @@ import MeusPedidos from '../pages/MeusPedidos/MeusPedidos'
 import DetalhePedidos from '../pages/MeusPedidos/DetalhePedidos/DetalhePedidos'
 import MeusProdutos from '../pages/MeusProdutos/MeusProdutos'
 import Ofertas from '../pages/MinhasOfertas/MinhasOfertas'
-//import DetalheOfertas from '../pages/MinhasOfertas/DetalheOfertas/DetalheOfertas'
+import DetalheOfertas from '../pages/MinhasOfertas/DetalheOfertas/DetalheOfertas'
 import NewOfertas from '../pages/NewOferta/NewOferta'
 import NewProduto from '../pages/NewProduto/NewProduto'
 import Produto from '../pages/Produto/Produto'
@@ -90,6 +90,11 @@ function RouteDashBoard() {
                     name={'Ofertas'}
                     component={Ofertas}
                     options={{ title: 'OFERTAS', headerStyle: { backgroundColor: '#B32728' } }}
+                />
+                <Stack.Screen
+                    name={'DetalheOfertas'}
+                    component={DetalheOfertas}
+                    options={{ title: 'DetalheOfertas', headerStyle: { backgroundColor: '#B32728' } }}
                 />
                 <Stack.Screen
                     name={'NewOfertas'}
