@@ -54,8 +54,8 @@ const Styles = StyleSheet.create({
     item8_1Text: { borderRadius:25, width:"60%", backgroundColor:"#9C3F3A", textAlign:"center", padding:"2%", fontSize:16, fontFamily:"Montserrat-SemiBold", color:"white"},    
     
     
-    item9: { height: "60%", elevation: 4, backgroundColor: "#fff", padding:10, alignItems:"center", justifyContent:"center" },
-    item9_1: { width: "90%", height:"90%", backgroundColor:"#ff0000", alignItems:"center", justifyContent:"center"},
+    item9: { height: "60%", elevation: 4, backgroundColor: "#fff", padding:7 },
+    item9_1: { width: "100%", height:"100%", backgroundColor:"#ff0000", alignItems:"center", justifyContent:"center", elevation:2},
     item9_1Text: { fontFamily: 'Montserrat-Medium', fontSize: 22, textAlign:"center", color:"white" }
 
 
