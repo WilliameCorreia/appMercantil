@@ -13,28 +13,28 @@ export const AuthProvider = ({ children }) => {
     const [estabelecimento, setEstabelecimento] = useState();
 
     async function signIn(user) {
-        setTimeout(() =>{
+        setTimeout(() => {
             if (user) {
                 GetEstabelecimento(user);
-            }else{
+            } else {
                 SetLoading(false)
-                SetUsuario({email: undefined})
-                console.log("entro aqui")
+                SetUsuario({ email: undefined })
             }
-        },2000)
+        }, 2000)
     }
 
-    async function GetEstabelecimento(user){
+    async function GetEstabelecimento(user) {
         const { email, uid } = user;
-        console.log('%%%%%%%%%%%%%%%%%%')
         console.log(uid)
-        Api.get(`Estabelecimento/${uid}`).then(response =>{
+        Api.get(`Estabelecimento/${uid}`).then(response => {
             let { ativo } = response.data;
-            setEstabelecimento( ativo )
-            SetUsuario({email, uid})
+            setEstabelecimento(ativo)
+            SetUsuario({ email, uid })
             console.log(ativo)
         }).catch(
-            erro =>{
+            erro => {
+                SetUsuario({ email, uid })
+                console.log("*************************")
                 console.log(erro);
             }
         );

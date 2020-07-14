@@ -18,7 +18,6 @@ import MyModal from "../../Componentes/MyModal"
 
 export default function Produto({ navigation, route }) {
 
-    const [codbar, setCodbar] = useState();
     const [categorias, setCategorias] = useState([]);
 
     const [modalActive, setModalActive] = useState(false);
@@ -50,8 +49,8 @@ export default function Produto({ navigation, route }) {
     }, [route.params])
 
     const getProduto = (codbar) => {
-        setCodbar(codbar)
-        console.log("codbar")
+        setProduto(prevState => ({ ...prevState, Codbar: codbar }))
+        console.log(codbar)
         if (ValidaEan(codbar)) {
             console.log(codbar)
             const produto = Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
@@ -70,7 +69,7 @@ export default function Produto({ navigation, route }) {
                 console.log(erro);
             });
         } else {
-
+            setProduto(prevState => ({ ...prevState, Produto: '', Quantidade: '', Preco: '', CategoriaId: '', FotoPng: '' }))
         }
     }
 
@@ -83,10 +82,9 @@ export default function Produto({ navigation, route }) {
         });
     }
 
-    const FormValidacao = () => {
-        console.log(produto);
-        if (produto.Produto && produto.Quantidade && produto.Preco && produto.CategoriaId && produto.Codbar) {
-            console.log(produto);
+    const adicionarProduto = () => {
+        console.log("**********Adicionando Produto********")
+        if(ValidaEan(produto.Codbar)){
             Api.post("Produtos", {
                 Produto: produto.Produto,
                 Quantidade: parseInt(produto.Quantidade),
@@ -98,19 +96,38 @@ export default function Produto({ navigation, route }) {
                 console.log(response.data);
                 setMsnModal("Produto cadastrado com sucesso !");
                 setModalActive(true);
-                setProduto({
-                    Produto: '',
-                    Quantidade: '',
-                    Preco: '',
-                    CategoriaId: '',
-                    Codbar: '',
-                    FotoPng: ''
-                })
+                setProduto({Produto: '', Quantidade: '', Preco: '', CategoriaId: '', Codbar: '', FotoPng: ''})
             }).catch(erro =>{
                 setMsnModal("Erro ao cadastrar o Produto !" + erro);
                 setModalActive(true);
                 console.log(erro);
             })
+        }else{
+            setMsnModal("Favor digitar um codigo de barras válido");
+            setModalActive(true);
+        }
+        
+    }
+
+    const VerificarProduto = async (codbar) => {
+        console.log("****************************");
+        console.log(codbar);
+        Api.get(`Produtos/codbar/${codbar}`).then(response =>{
+            if(response.data != 0){
+                setMsnModal("Produto já Cadastrado ");
+                setModalActive(true);
+            }else{
+                adicionarProduto();
+            }
+        }).catch(erro =>{
+            setMsnModal("Erro ao consultar produto " + erro);
+            setModalActive(true);
+        })
+    }
+
+    const FormValidacao = () => {
+        if (produto.Produto && produto.Quantidade && produto.Preco && produto.CategoriaId && produto.Codbar) { 
+            VerificarProduto(produto.Codbar);
         } else {
             setMsnModal("Para cadastrar o produto preencha todos os campos!");
             setModalActive(true);
@@ -150,7 +167,7 @@ export default function Produto({ navigation, route }) {
                             containerStyle={Styles.search}
                             onChangeText={text => getProduto(text)}
                             keyboardType={'numeric'}
-                            value={codbar}
+                            value={produto.Codbar}
                         //showLoading={true}
                         />
                     </View>

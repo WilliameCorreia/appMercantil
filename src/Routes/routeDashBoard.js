@@ -26,7 +26,7 @@ function RouteDashBoard() {
 
     const { estabelecimento } = useContext(AuthContext);
 
-    console.log("")
+    console.log("///////////////////////////////////////////////")
     console.log(estabelecimento)
 
     return (
