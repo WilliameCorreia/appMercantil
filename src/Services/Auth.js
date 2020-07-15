@@ -20,7 +20,7 @@ export async function SignIn(user){
 
 }
 
-export function getCategoria(){
+/* export function getCategoria(){
 
     const categorias = [
         { "foto_Png": "acougue.png", "nome": "AÇOUGUE", "nomeBusca": "ACOUGUE" },
@@ -40,4 +40,4 @@ export function getCategoria(){
         { "foto_Png": "perfumaria.png", "nome": "PERFUMARIA", "nomeBusca": "PERFUMARIA"}
     ]
     return categorias
-}
+} */

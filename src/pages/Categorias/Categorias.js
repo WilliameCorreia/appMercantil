@@ -31,8 +31,6 @@ export default function Categorias({ navigation }) {
         }
     }, [])
 
-    
-
     return (
         <ScrollView contentContainerStyle={styles.container}>
             {Array(10).fill(

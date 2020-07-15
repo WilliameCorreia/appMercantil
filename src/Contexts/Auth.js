@@ -2,7 +2,6 @@ import React, { createContext, useState, useEffect } from 'react'
 
 import auth from '@react-native-firebase/auth'
 import Api from '../Services/api'
-//import * as auth from '../Services/Auth'
 
 const AuthContext = createContext({ signed: false })
 
@@ -27,9 +26,10 @@ export const AuthProvider = ({ children }) => {
         const { email, uid } = user;
         console.log(uid)
         Api.get(`Estabelecimento/${uid}`).then(response => {
+            console.log("0000000000000000000000000000")
             console.log(response.data)
             let estabelecimento = response.data;
-            if (estabelecimento.ativo) {
+            if ( estabelecimento != null ) {
                 setEstabelecimento(estabelecimento) 
                 console.log("1111111111111111111111")
             }else{
@@ -40,6 +40,7 @@ export const AuthProvider = ({ children }) => {
         }).catch(
             erro => {
                 console.log("333333333333333333333")
+                SetLoading(false)
                 console.log(erro);
             }
         );

@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import ListaProdutos from '../../Services/ListaProdutos'
 import { SearchBar } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-import { View, Platform } from 'react-native';
+import { View } from 'react-native';
+import AuthContext from '../../Contexts/Auth'
+
 import styles from './style';
 
 export default function MeusProdutos({ route }) {
+
+    //const {  } = useContext(AuthContext);
 
     const navigation = useNavigation();
 
