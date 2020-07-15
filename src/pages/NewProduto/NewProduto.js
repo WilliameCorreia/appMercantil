@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
     Text,
     View,
@@ -7,6 +7,7 @@ import {
     Image,
 } from 'react-native'
 
+import AuthContext from '../../Contexts/Auth'
 import { Picker } from '@react-native-community/picker'
 import { SearchBar } from 'react-native-elements';
 import Api from '../../Services/api'
@@ -17,6 +18,8 @@ import MyModal from "../../Componentes/MyModal"
 
 
 export default function Produto({ navigation, route }) {
+
+    const { estabelecimento } = useContext(AuthContext);
 
     const [categorias, setCategorias] = useState([]);
 
@@ -91,7 +94,8 @@ export default function Produto({ navigation, route }) {
                 Preco: produto.Preco,
                 CategoriaId: GetId(produto.CategoriaId),
                 CodeBar: produto.Codbar,
-                FotoPng: produto.FotoPng
+                FotoPng: produto.FotoPng,
+                EstabelecimentoId: estabelecimento.id 
             }).then(response =>{
                 console.log(response.data);
                 setMsnModal("Produto cadastrado com sucesso !");
@@ -145,7 +149,8 @@ export default function Produto({ navigation, route }) {
     }
 
     console.log("newProduto renderizado!")
-    console.log(produto)
+    console.log("------------------------------------------------")
+    console.log(estabelecimento)
 
     return (
         <KeyboardAwareScrollView style={Styles.container}>

@@ -12,7 +12,7 @@ import AuthContext from '../../Contexts/Auth'
 
 export default function Estabelecimento({ navigation}) {
 
-    const {usuario} = useContext(AuthContext);
+    const {usuario, signIn} = useContext(AuthContext);
 
     console.log(usuario);
     //modal
@@ -33,6 +33,8 @@ export default function Estabelecimento({ navigation}) {
     const complemento = useRef();
 
     const registrarEstabelecimento = (values) => {
+        console.log("####################################################################");
+        console.log(values);
         api.post("Estabelecimento", {
             Token: usuario.uid,
             Email: usuario.email,
@@ -40,8 +42,28 @@ export default function Estabelecimento({ navigation}) {
             RazaoSocial: values.razaoSocial,
             Cnpj: values.cnpj,
             Ativo: false,
-        })
+            Telefones:[{
+                Ddd: 85,
+                Tipo: "Celular",
+                Numero: values.telefone,
+            }]
+        }).then(dados =>{
+            console.log(dados.data);
+            typeof(dados.data)
+            if(dados.data){
+                setMsnModal("Dados cadastrados com sucesso ! aguarde a ativação da sua conta");
+            }else{
+                setMsnModal("Estabelecimento já cadastrado!");
+            }
+            setModalActive(true);
+        }).catch(errors =>{
+            console.log(errors);
+        });
         console.log(values)
+    }
+
+    function clearState(){
+        set
     }
 
     console.log('Estabelecimento');
@@ -75,9 +97,9 @@ export default function Estabelecimento({ navigation}) {
                 numero: '',
                 complemento: ''
             }}
-            onSubmit={values =>{
-                //console.log(values)
+            onSubmit={(values, { resetForm }) =>{
                 registrarEstabelecimento(values)
+                resetForm();
             }}
             validationSchema={FormSchema}
         >
@@ -97,7 +119,7 @@ export default function Estabelecimento({ navigation}) {
                         value={values.razaoSocial}
                         onChangeText={handleChange('razaoSocial')}
                         style={styles.input}
-                        placeholder='Razão social do estabelecimento'
+                        placeholder='Razão social'
                     />
                     {errors.razaoSocial && <Text style={styles.textErro}>{errors.razaoSocial}</Text>}
                 </View>

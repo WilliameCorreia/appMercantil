@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { Header } from 'react-native-elements'
-import { StyleSheet } from 'react-native'
+import { Header } from 'react-native-elements';
 
 export default function HeaderDashBoard({ title, leftButton, rightButton, color }) {
     console.log('HeaderDashBoard')

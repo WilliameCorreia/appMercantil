@@ -18,6 +18,7 @@ import DashBoard from '../pages/DashBoard/DashBoard'
 import Categorias from '../pages/Categorias/Categorias'
 import Mycamera from '../Componentes/MyCamera'
 import Estabelecimento from '../pages/Estabelecimento/Estabelecimento'
+import Usuario from '../pages/Usuario/usuario'
 
 const Stack = createStackNavigator();
 
@@ -31,7 +32,7 @@ function RouteDashBoard() {
 
     return (
 
-        estabelecimento ?
+        estabelecimento.ativo ?
 
             <Stack.Navigator
                 initialRouteName={'DashBoard'}
@@ -64,6 +65,14 @@ function RouteDashBoard() {
                         headerStyle: { backgroundColor: '#B32728' }
                     }}
                     component={DashBoard}
+                />
+                 <Stack.Screen
+                    name='Usuario'
+                    options={{
+                        title: 'PLANETA ENTREGAS',
+                        headerStyle: { backgroundColor: '#B32728' }
+                    }}
+                    component={Usuario}
                 />
                 <Stack.Screen
                     name={'MeusPedidos'}
