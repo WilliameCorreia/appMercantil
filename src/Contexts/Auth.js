@@ -29,17 +29,17 @@ export const AuthProvider = ({ children }) => {
         Api.get(`Estabelecimento/${uid}`).then(response => {
             console.log(response.data)
             let estabelecimento = response.data;
-            if (estabelecimento.ativo) {
+            if (estabelecimento != null ) {
                 setEstabelecimento(estabelecimento) 
-                console.log("1111111111111111111111")
+                console.log("estabelecimento está ativo")
             }else{
                 setEstabelecimento(null);
-                console.log("2222222222222222222222")
+                console.log("estabelecimento está vazio")
             }
             SetUsuario({ email, uid })
         }).catch(
             erro => {
-                console.log("333333333333333333333")
+                console.log("error de requisição da api")
                 console.log(erro);
             }
         );

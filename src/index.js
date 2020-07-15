@@ -9,6 +9,7 @@ import { AuthProvider } from './Contexts/Auth'
 const index = () => {
     return (
         <NavigationContainer>
+            {/* toda aplicação tem o context */}
             <AuthProvider>
                 <StatusBar backgroundColor={'#fff'} barStyle='dark-content' translucent={true} />
                 <Routes />
