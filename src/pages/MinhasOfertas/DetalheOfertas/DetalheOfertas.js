@@ -8,12 +8,12 @@ import Styles from './style'
 
 export default function DetalheOfertas({ route }) {
     const dados = route.params
-    const quantidade = 0 == 0 ? "EM FALTA" : dados.quantidade
+    const quantidade = dados.quantidade == 0 ? "EM FALTA" : dados.quantidade
 
     console.log(dados)
 
     return (
-        <KeyboardAwareScrollView style={Styles.container}>
+        <View style={Styles.container}>
             <View style={Styles.box1}>
                 <View style={Styles.item1}>
                     <View style={Styles.item1_1}>
@@ -76,7 +76,7 @@ export default function DetalheOfertas({ route }) {
                     </TouchableOpacity>
                 </View>
             </View>
-        </KeyboardAwareScrollView>
+        </View>
     )
 }
 
