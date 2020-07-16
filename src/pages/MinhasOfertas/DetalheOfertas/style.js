@@ -1,11 +1,11 @@
 import { StyleSheet, Dimensions } from 'react-native'
-const windowWidth = Dimensions.get('window').width
-const windowHeight = Dimensions.get('window').height
+const windowWidth = Dimensions.get('window').width / 100
+const windowHeight = Dimensions.get('window').height / 100
 
 const Styles = StyleSheet.create({
     container: { flex: 1, padding: "4%" },
-    box1: { height: "78%", backgroundColor: '#fff', elevation: 8, marginBottom:"10%"},
-    box2: { height: "20%", marginTop: "4%" },
+    box1: { height: windowHeight * 65, backgroundColor: '#fff', elevation: 8, marginBottom:"10%"},
+    box2: { height: windowHeight * 15, marginTop: "4%" },
 
     item1: { height: "20%", flexDirection: 'row' },
     item1_1: { width: "50%", backgroundColor: "#fff", marginLeft: 8 },
