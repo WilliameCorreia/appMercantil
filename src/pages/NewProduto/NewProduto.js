@@ -23,6 +23,9 @@ export default function Produto({ navigation, route }) {
 
     const [categorias, setCategorias] = useState([]);
 
+    const [searchLoad, setSearchLoad] = useState(false);
+    const [search, setSearch] = useState(false);
+    const [codeValida, setCodvalida] = useState(false);
     const [modalActive, setModalActive] = useState(false);
     const [msnModal, setMsnModal] = useState('primeira passada');
 
@@ -52,26 +55,36 @@ export default function Produto({ navigation, route }) {
     }, [route.params])
 
     const getProduto = (codbar) => {
+        setSearch(false);
         setProduto(prevState => ({ ...prevState, Codbar: codbar }))
-        console.log(codbar)
-        if (ValidaEan(codbar)) {
-            console.log(codbar)
+        setSearchLoad(true)
+        if(ValidaEan(codbar)) {
+            setCodvalida(false)
             const produto = Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
-                console.log(response.data)
-                console.log("entrou getProduto")
-
-                setProduto({
-                    Produto: response.data.produto,
-                    Quantidade: response.data.quantidadeEmbalagem,
-                    Preco: response.data.preco,
-                    CategoriaId: response.data.categoria,
-                    Codbar: response.data.codbar,
-                    FotoPng: response.data.fotoPng
-                });
+                console.log("?????????????????????????????????????????????????????");
+                console.log(response.data);
+                if(response.data){
+                    setProduto({
+                        Produto: response.data.produto,
+                        Quantidade: response.data.quantidadeEmbalagem,
+                        Preco: response.data.preco,
+                        CategoriaId: response.data.categoria,
+                        Codbar: response.data.codbar,
+                        FotoPng: response.data.fotoPng
+                    });
+                    setSearchLoad(false)
+                }else{
+                    setSearch(true);
+                    setSearchLoad(false)
+                }
+                
             }).catch(erro => {
                 console.log(erro);
             });
         } else {
+            setSearchLoad(false);
+            setCodvalida(true);
+            console.log("codigo de barras não e válido");
             setProduto(prevState => ({ ...prevState, Produto: '', Quantidade: '', Preco: '', CategoriaId: '', FotoPng: '' }))
         }
     }
@@ -79,7 +92,6 @@ export default function Produto({ navigation, route }) {
     const getCategorias = () => {
         Api.get("Categorias").then(response => {
             setCategorias(response.data)
-            console.log(response.data);
         }).catch(erro => {
             console.log(erro);
         });
@@ -173,8 +185,10 @@ export default function Produto({ navigation, route }) {
                             onChangeText={text => getProduto(text)}
                             keyboardType={'numeric'}
                             value={produto.Codbar}
-                        //showLoading={true}
+                            showLoading={searchLoad}
                         />
+                      {search ? <Text>Produto não encontrado !</Text> : null}
+                      {codeValida ? <Text>Codigo de Barras Inválido !</Text> : null}
                     </View>
                     <View style={Styles.row}>
                         <Text style={Styles.text}>PRODUTO</Text>
