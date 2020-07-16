@@ -10,11 +10,9 @@ export default function usuario({ route }) {
             <View style={Styles.box1}>
                 <Image style={Styles.img} source={require('../../Assets/person.png')} />
             </View>
-            <KeyboardAwareScrollView style={Styles.box2}>
+            < View style={Styles.box2}>
                 <View style={Styles.item1}>
-                    <View style={Styles.item1_1}>
-                        <Text style={Styles.item1_1Text}>ESTABELECIMENTO</Text>
-                    </View>
+                    <Text style={Styles.item1_1Text}>ESTABELECIMENTO</Text>
                 </View>
                 <View style={Styles.item2}>
                     <View style={Styles.item2_1}>
@@ -32,7 +30,7 @@ export default function usuario({ route }) {
                     </View>
                 </View>
 
-            </KeyboardAwareScrollView>
+            </View>
         </KeyboardAvoidingView>
     );
 }

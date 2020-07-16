@@ -13,7 +13,7 @@ export default function DetalheOfertas({ route }) {
     console.log(dados)
 
     return (
-        <View style={Styles.container}>
+        <KeyboardAwareScrollView style={Styles.container}>
             <View style={Styles.box1}>
                 <View style={Styles.item1}>
                     <View style={Styles.item1_1}>
@@ -76,7 +76,7 @@ export default function DetalheOfertas({ route }) {
                     </TouchableOpacity>
                 </View>
             </View>
-        </View>
+        </KeyboardAwareScrollView>
     )
 }
 
