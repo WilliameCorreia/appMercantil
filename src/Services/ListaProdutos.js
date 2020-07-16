@@ -21,6 +21,7 @@ export default class listaProdutos extends Component {
 
     componentDidMount(){
        this.LoadListaProdutos();
+       console.log("-----------------------------------------------------------------------------------------")
        console.log(this.props);
     }
 
@@ -32,9 +33,10 @@ export default class listaProdutos extends Component {
 
         this.setState({ loading: true });
 
-        console.log(`ProdutosDb/categoria/${this.props.categoria}/${page.toString()}`)
+        console.log(`Produtos/${this.props.estabelecimentoId}/${this.props.categoriaId}/${page.toString()}`)
 
-        const listaProdutos = await Api.get(`ProdutosDb/categoria/${this.props.categoria}/${page.toString()}`).then(dados => {
+        const listaProdutos = await Api.get(`Produtos/${this.props.categoria}/${this.props.estabelecimentoId}/${page.toString()}`).then(dados => {
+            console.log(dados.data)
             this.setState({
                 data: [...this.state.data, ...dados.data],
                 page: this.state.page + 1,
@@ -56,13 +58,13 @@ export default class listaProdutos extends Component {
             >
                 <View style={styles.box}>
                     <View style={styles.box1}>
-                        <Text style={styles.nomeProduto}>{item.produtoUpper}</Text>
-                        <Text style={styles.texto}>Preço: R$ {item.precoMedio}</Text>
-                        <Text style={styles.texto}>Quantidade: {item.quantidadeEmbalagem}</Text>
+                        <Text style={styles.nomeProduto}>{item.produto}</Text>
+                        <Text style={styles.texto}>Preço: R$ {item.preco}</Text>
+                        <Text style={styles.texto}>Quantidade: {item.quantidade}</Text>
                     </View>
                     <View style={styles.box2}>
                         <Image
-                            style={styles.prodImg} source={require('../Assets/Arroz.png')}
+                            style={styles.prodImg} source={{uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/ImagensPng/png/' + item.fotoPng}}
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text style={styles.dispon}>DISPONIVEL</Text>

@@ -10,7 +10,7 @@ import styles from './style';
 
 export default function MeusProdutos({ route }) {
 
-    //const {  } = useContext(AuthContext);
+    const { estabelecimento } = useContext(AuthContext);
 
     const navigation = useNavigation();
 
@@ -29,7 +29,7 @@ export default function MeusProdutos({ route }) {
                 //onChangeText={this.updateSearch}
                 //value={search}
             />
-            <ListaProdutos categoria={item} navigation={navigation} />
+            <ListaProdutos estabelecimentoId={ estabelecimento.id } categoria={item} navigation={navigation} />
         </View>
 
     )

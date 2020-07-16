@@ -10,8 +10,6 @@ import api from '../../Services/api'
 
 export default function Categorias({ navigation }) {
 
-    //const categorias = getCategoria()
-
     const [categorias, SetCategorias] = useState([]);
 
     const LoadCategorias = async () =>{
@@ -22,7 +20,6 @@ export default function Categorias({ navigation }) {
         }).catch(error =>{
             console.log(error);
         })
-
     }
 
     useEffect(() => {
@@ -41,7 +38,7 @@ export default function Categorias({ navigation }) {
                     <TouchableOpacity
                         style={styles.btnCategoria}
                         key={item.nome}
-                        onPress={() => navigation.navigate('MeusProdutos', item.nomeBusca)}
+                        onPress={() => navigation.navigate('MeusProdutos', item.id)}
                     >
                         <Image
                             source={{ uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/categorias/' + item.categoriaPng }}
