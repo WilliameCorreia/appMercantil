@@ -37,12 +37,16 @@ export default class listaProdutos extends Component {
 
         const listaProdutos = await Api.get(`Produtos/${this.props.categoria}/${this.props.estabelecimentoId}/${page.toString()}`).then(dados => {
             console.log(dados.data)
-            this.setState({
-                data: [...this.state.data, ...dados.data],
-                page: this.state.page + 1,
-                loading: false
-            })
-
+            console.log(this.state.data.length)
+            if(this.state.data.length > 5){
+                
+            }else{
+                this.setState({
+                    data: [...this.state.data, ...dados.data],
+                    page: this.state.page + 1,
+                    loading: false
+                })
+            }
         }).catch(erro => {
             console.log("erro retorno da função listaProdutos")
             console.log(erro);
@@ -98,7 +102,7 @@ export default class listaProdutos extends Component {
                 data={this.state.data}
                 renderItem={this._renderItem}
                 keyExtractor={item => item.codbar}
-                onEndReached={this.LoadListaProdutos}
+                onEndReached={this.state.data.length > 5 ? this.LoadListaProdutos : null}
                 onEndReachedThreshold={0.1}
                 ListFooterComponent={this.renderFooter}
                 //ListEmptyComponent={this.RenderEmpty}
