@@ -23,6 +23,7 @@ export default function Produto({ navigation, route }) {
 
     const [categorias, setCategorias] = useState([]);
 
+    const [searchLoad, setSearchLoad] = useState(false);
     const [search, setSearch] = useState(false);
     const [codeValida, setCodvalida] = useState(false);
     const [modalActive, setModalActive] = useState(false);
@@ -56,7 +57,7 @@ export default function Produto({ navigation, route }) {
     const getProduto = (codbar) => {
         setSearch(false);
         setProduto(prevState => ({ ...prevState, Codbar: codbar }))
-       
+        setSearchLoad(true)
         if(ValidaEan(codbar)) {
             setCodvalida(false)
             const produto = Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
@@ -71,15 +72,18 @@ export default function Produto({ navigation, route }) {
                         Codbar: response.data.codbar,
                         FotoPng: response.data.fotoPng
                     });
+                    setSearchLoad(false)
                 }else{
                     setSearch(true);
+                    setSearchLoad(false)
                 }
                 
             }).catch(erro => {
                 console.log(erro);
             });
         } else {
-            setCodvalida(true)
+            setSearchLoad(false);
+            setCodvalida(true);
             console.log("codigo de barras não e válido");
             setProduto(prevState => ({ ...prevState, Produto: '', Quantidade: '', Preco: '', CategoriaId: '', FotoPng: '' }))
         }
@@ -181,7 +185,7 @@ export default function Produto({ navigation, route }) {
                             onChangeText={text => getProduto(text)}
                             keyboardType={'numeric'}
                             value={produto.Codbar}
-                        //showLoading={true}
+                            showLoading={searchLoad}
                         />
                       {search ? <Text>Produto não encontrado !</Text> : null}
                       {codeValida ? <Text>Codigo de Barras Inválido !</Text> : null}
