@@ -4,7 +4,7 @@ const windowHeight = Dimensions.get('window').height
 
 const Styles = StyleSheet.create({
     container: { flex: 1, padding: "4%" },
-    box1: { height: "75%", backgroundColor: '#fff', elevation: 8, marginBottom: "10%" },
+    box1: { height: "78%", backgroundColor: '#fff', elevation: 8, marginBottom:"10%"},
     box2: { height: "20%", marginTop: "4%" },
 
     item1: { height: "20%", flexDirection: 'row' },
@@ -26,7 +26,7 @@ const Styles = StyleSheet.create({
     item2_2: { width: "45%", backgroundColor: "#fff" },
     item2_2Text: { fontFamily: "Montserrat-Medium", fontSize: 15 },
 
-    item3: { height: "8%", flexDirection: 'row', paddingTop: 0, marginLeft: "5%", marginBottom: "4%" },
+    item3: { height: "15%", flexDirection: 'row', paddingTop: 0, marginLeft: "5%", marginBottom: "4%" },
     item3_1: { width: "50%", backgroundColor: "#fff", marginLeft: "2%" },
     item3_1Input: {
         textAlign: "center",
@@ -50,11 +50,16 @@ const Styles = StyleSheet.create({
         fontSize: 13,
         fontFamily: "Montserrat-light",
     },
-    item4: { flexDirection: 'row', padding: "7%", paddingTop: 0, paddingBottom: "2%" },
+    item4: { 
+        flexDirection: 'row', 
+        padding: "7%", 
+        paddingTop: 0, 
+        paddingBottom: "2%" 
+    },
     item4_1: { width: "60%", backgroundColor: "#fff" },
     item4_1Text: { fontFamily: "Montserrat-Medium", fontSize: 15 },
 
-    item5: { height: "8%", flexDirection: 'row', paddingTop: 0, marginLeft: "5%", marginBottom: "4%" },
+    item5: { height: "15%", flexDirection: 'row', paddingTop: 0, marginLeft: "5%", marginBottom: "4%" },
     item5_1: { width: "100%", backgroundColor: "#fff", paddingLeft: "2%" },
     item5_1Input: {
         elevation: 6,
@@ -72,7 +77,7 @@ const Styles = StyleSheet.create({
     item6_1: { width: "60%", backgroundColor: "#fff" },
     item6_1Text: { fontFamily: "Montserrat-Medium", fontSize: 15 },
 
-    item7: { height: "8%", flexDirection: 'row', paddingTop: 0, marginLeft: "5%", marginBottom: "4%" },
+    item7: { height: "15%", flexDirection: 'row', paddingTop: 0, marginLeft: "5%" },
     item7_1: { width: "100%", backgroundColor: "#fff", paddingLeft: "2%" },
     item7_1Input: {
         elevation: 6,
@@ -87,7 +92,7 @@ const Styles = StyleSheet.create({
     },
 
 
-    item8: { height: "8%", flexDirection: 'row', marginTop: "7%" },
+    item8: { height: "12%", flexDirection: 'row', marginBottom:5, marginTop:"2%"},
     item8_1: { width: "100%", backgroundColor: "#fff", alignItems: "center" },
     item8_1Text: { borderRadius: 25, width: "60%", backgroundColor: "#9C3F3A", textAlign: "center", padding: "2%", fontSize: 16, fontFamily: "Montserrat-SemiBold", color: "white" },
 

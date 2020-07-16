@@ -31,10 +31,10 @@ export const AuthProvider = ({ children }) => {
             let estabelecimento = response.data;
             if ( estabelecimento != null ) {
                 setEstabelecimento(estabelecimento) 
-                console.log("1111111111111111111111")
+                console.log("estabelecimento está ativo")
             }else{
                 setEstabelecimento(null);
-                console.log("2222222222222222222222")
+                console.log("estabelecimento está vazio")
             }
             SetUsuario({ email, uid })
         }).catch(
