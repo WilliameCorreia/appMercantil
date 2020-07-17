@@ -5,7 +5,8 @@ const windowHeight = Dimensions.get('window').height / 100
 const Styles = StyleSheet.create({
 
     container: {
-        flex: 1
+       flex:1,
+       backgroundColor:"#fff"
     },
     box1: {
         height: windowHeight * 25,
@@ -18,7 +19,19 @@ const Styles = StyleSheet.create({
         height: windowHeight * 65, 
         flexDirection: 'column',
         backgroundColor: '#fff',
-        padding:"5%" 
+        padding:"8%" 
+    },
+    box3: {
+        backgroundColor:"#fff",
+        marginTop:"6%",
+        alignItems:"center",
+        justifyContent:"center", 
+        height: windowHeight *10, 
+        flexDirection: 'column',
+        padding:"8%" 
+    },
+    btnSalvar:{
+        backgroundColor:"orange"
     },
 
     img: {
@@ -26,71 +39,31 @@ const Styles = StyleSheet.create({
         height: 120,
     },
 
-    item1: { 
-        flexDirection: 'row' 
+    item: { 
+        flexDirection: "column",
+        marginBottom:"5%"
     },    
-    item1_1Text: { 
+    itemText: { 
         fontFamily: "Montserrat-Medium", 
         fontSize: 15,
-        color:"#B32728"
+        color:"#B32728",
+        marginBottom:"4%",
+        marginLeft:"3%"
     },
-    
-    item2: { 
-        height: "25%", 
-        flexDirection: 'row',
-        marginTop:"2%"
-    },
-    item2_1: { 
-        width: "100%" 
-    },
-    item2_1Input: {
+    itemInput: {
+        width:"100%",
         textAlign: "center",
         backgroundColor: "#fff",
-        borderColor: "#d0d0d0",
-        elevation: 6,
-        borderRadius: 25,
-        
+        elevation: 10,
+        borderRadius: 25,        
         fontSize: 13,
         fontFamily: "Montserrat-light",
         borderColor: "#b4b4b4"
     },
+    ultimo:{marginBottom:"10%"},
 
-    // container: {
-    //     flex:1
-    // },
-    // box1: {
-    //     height:"40%",
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    //     backgroundColor: "#B32728",
-    //     elevation:10
-    // },
-    // box2: {
-    //     height:"60%",
-    //     flexDirection: 'column',
-    //     backgroundColor: '#fff',
-    //     padding:"5%"
-    // },
-    // img: {
-    //     width: 120,
-    //     height: 120,
-    // },
-
-    // item1: { flexDirection: 'row', padding: "7%", paddingTop: 0, paddingBottom: "2%" },
-    // item1_1: { width: "100%", backgroundColor: "#fff" },
-    // item1_1Text: { fontFamily: "Montserrat-Medium", fontSize: 18, color: "#B32728" },
-
-    // item2: { height: "25%", flexDirection: 'row', paddingTop: 0, marginLeft: "5%", marginBottom: "4%" },
-    // item2_1: { width: "100%", backgroundColor: "#fff", paddingLeft: "2%" },
-    // item2_1Input: { elevation:10, backgroundColor:"#fff", textAlign: "center", borderRadius: 25, width: "90%", fontSize: 13, fontFamily: "Montserrat-light", borderColor: "#b4b4b4" },
-
-    // item3: { flexDirection: 'row', padding: "7%", paddingTop: 0, paddingBottom: "2%" },
-    // item3_1: { width: "100%", backgroundColor: "#fff" },
-    // item3_1Text: { fontFamily: "Montserrat-Medium", fontSize: 18, color: "#B32728" },
-
-    // item4: { height: "18%", flexDirection: 'row', paddingTop: 0, marginLeft: "5%", marginBottom: "4%" },
-    // item4_1: { width: "100%", backgroundColor: "#fff", paddingLeft: "2%" },
-    // item4_1Input: { elevation:10, backgroundColor:"#fff", textAlign: "center", borderRadius: 25, width: "90%", fontSize: 13, fontFamily: "Montserrat-light", borderColor: "#b4b4b4" },
+    item8_1: { width: "100%", backgroundColor: "#fff", alignItems: "center" },
+    item8_1Text: { borderRadius: 25, width: "60%", backgroundColor: "#9C3F3A", textAlign: "center", padding: "2%", fontSize: 16, fontFamily: "Montserrat-SemiBold", color: "white" },
 })
 
 export default Styles

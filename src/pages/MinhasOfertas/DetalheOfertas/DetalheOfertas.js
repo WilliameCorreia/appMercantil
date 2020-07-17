@@ -10,6 +10,8 @@ export default function DetalheOfertas({ route }) {
     const dados = route.params
     const quantidade = dados.quantidade == 0 ? "EM FALTA" : dados.quantidade
 
+    
+
     console.log(dados)
 
     return (
