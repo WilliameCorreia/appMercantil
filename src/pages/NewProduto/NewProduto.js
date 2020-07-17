@@ -178,7 +178,6 @@ export default function Produto({ navigation, route }) {
                 <View style={[Styles.containerForm]}>
                     <View style={Styles.containerSearch}>
                         <SearchBar
-                            style={Styles.search}
                             placeholder="Digite o codigo de barras"
                             platform={'android'}
                             containerStyle={Styles.search}

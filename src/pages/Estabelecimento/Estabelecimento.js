@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef } from 'react';
-import { Text, View, Image, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 
 import styles from './style'
 import { TextInput, ScrollView } from 'react-native-gesture-handler';
