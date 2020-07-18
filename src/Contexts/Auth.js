@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
 
     const [usuario, SetUsuario] = useState({ email: '', token: '' })
     const [loading, SetLoading] = useState(true)
-    const [estabelecimento, setEstabelecimento] = useState(false);
+    const [Estabelecimento, setEstabelecimento] = useState(false);
     async function signIn(user) {
         setTimeout(() =>{
             if (user) {
@@ -26,11 +26,11 @@ export const AuthProvider = ({ children }) => {
         const { email, uid } = user;
         console.log(uid)
         Api.get(`Estabelecimento/${uid}`).then(response => {
-            let estabelecimento = response.data;
-            if ( estabelecimento != null ) {
+            let estabelecimento = response.data;         
+            if (Boolean(estabelecimento)) {
                 setEstabelecimento(estabelecimento) 
             }else{
-                setEstabelecimento(null);
+                setEstabelecimento(Boolean(estabelecimento));
             }
             SetUsuario({ email, uid })
         }).catch(
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
     console.log("authContext => " + usuario.email)
 
     return (
-        <AuthContext.Provider value={{ signed: Boolean(usuario.email), signIn, usuario, loading, estabelecimento }}>
+        <AuthContext.Provider value={{ signed: Boolean(usuario.email), signIn, usuario, loading, Estabelecimento }}>
             {children}
         </AuthContext.Provider>
     )

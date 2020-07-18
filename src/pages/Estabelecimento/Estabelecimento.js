@@ -1,17 +1,11 @@
 import React, { useState } from 'react'
-import { Text, View, Image, TouchableOpacity, Alert } from 'react-native'
+import { Text, View, Image, TouchableOpacity} from 'react-native'
 
 import styles from './style'
 import { TextInput, ScrollView } from 'react-native-gesture-handler'
-import database from '@react-native-firebase/database';
 import MyModal from '../../Componentes/MyModal'
 
-export default function Estabelecimento({ navigation, route }) {
-
-    //parametro para cadastrar estabelecimento
-    const { uid } = route.params
-
-    const newReference = database().ref('/Estabelecimento').child(uid);
+export default function Estabelecimento({ navigation }) {
 
     //modal
     const [modalActive, setModalActive] = useState(false);
@@ -50,13 +44,6 @@ export default function Estabelecimento({ navigation, route }) {
                 console.log(dados[key]);
             }
         }
-
-        /* newReference.set(dados).then(() => {
-            setMsnModal('Dados cadastrados com sucesso !')
-            setModalActive(true)
-        }).catch(error => {
-            console.log(error)
-        }) */
     }
     console.log('Estabelecimento');
     return (

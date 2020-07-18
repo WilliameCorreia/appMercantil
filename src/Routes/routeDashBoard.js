@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { View, Text} from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import MeusPedidos from '../pages/MeusPedidos/MeusPedidos'
@@ -18,6 +17,7 @@ import Categorias from '../pages/Categorias/Categorias'
 import Mycamera from '../Componentes/MyCamera'
 import WaitRow from '../Componentes/WaitRow'
 import MyGetOutButton from '../Componentes/MyGetOutButton'
+import Estabelecimentos from '../pages/Estabelecimento/Estabelecimento'
 
 import AuthContext from '../Contexts/Auth'
 
@@ -26,11 +26,11 @@ const Stack = createStackNavigator();
 
 function RouteDashBoard() {
 
-    const { estabelecimento } = useContext(AuthContext);
+    const { Estabelecimento } = useContext(AuthContext);
 
     return (
 
-        estabelecimento ?
+        Estabelecimento ?
 
             <Stack.Navigator
                 initialRouteName={'DashBoard'}
@@ -170,7 +170,7 @@ function RouteDashBoard() {
                 }}>
                 <Stack.Screen
                     name='Estabelecimento'
-                    component={Estabelecimento}
+                    component={Estabelecimentos}
                     options={{ headerStyle: { backgroundColor: '#B32728' }, title: 'ESTABELECIMENTO' }}
                 />
             </Stack.Navigator>
