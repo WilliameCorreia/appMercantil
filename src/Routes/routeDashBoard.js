@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { View, Text} from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import MeusPedidos from '../pages/MeusPedidos/MeusPedidos'
@@ -14,10 +15,11 @@ import MyDrawerOpen from '../Componentes/MyDrawerOpen'
 import { DrawerActions } from '@react-navigation/native'
 import DashBoard from '../pages/DashBoard/DashBoard'
 import Categorias from '../pages/Categorias/Categorias'
-import Mycamera from '../Componentes/MyCamera';
+import Mycamera from '../Componentes/MyCamera'
+import WaitRow from '../Componentes/WaitRow'
+import MyGetOutButton from '../Componentes/MyGetOutButton'
 
 import AuthContext from '../Contexts/Auth'
-import { View } from 'react-native'
 
 const Stack = createStackNavigator();
 
@@ -69,16 +71,21 @@ function RouteDashBoard() {
 
                     //tele aguardando ativação
                     <Stack.Screen
-                    name='DashBoard'
+                    name='Aguarde'
                     options={{
+                        header:({})=>{
+                            return (
+                                <HeaderDashBoard
+                                    title={"PLANETA ENTREGAS"}
+                                    color={'#B32728'}
+                                    rightButton={<MyGetOutButton/>}
+                                />
+                            )
+                        },
                         title: 'PLANETA ENTREGAS',
                         headerStyle: { backgroundColor: '#B32728' }
                     }}
-                    component={
-                    <View style={{flex: 1, backgroundColor: 'pink'}}>
-                        <Text> Aguarde a Liberação para usar o Sistema !</Text>
-                    </View>
-                    }
+                    component={WaitRow}
                 />
 
                 }
