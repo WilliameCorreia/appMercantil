@@ -17,7 +17,7 @@ import Categorias from '../pages/Categorias/Categorias'
 import Mycamera from '../Componentes/MyCamera'
 import WaitRow from '../Componentes/WaitRow'
 import MyGetOutButton from '../Componentes/MyGetOutButton'
-import Estabelecimentos from '../pages/Estabelecimento/Estabelecimento'
+import CadastroEstabelecimento from '../pages/Estabelecimento/Estabelecimento'
 
 import AuthContext from '../Contexts/Auth'
 
@@ -56,7 +56,7 @@ function RouteDashBoard() {
                     }
                 }}>
 
-                {estabelecimento.ativo ?
+                {Estabelecimento.ativo ?
                 
                     <Stack.Screen
                         name='DashBoard'
@@ -146,7 +146,7 @@ function RouteDashBoard() {
             :
 
             <Stack.Navigator
-                initialRouteName={'Estabelecimento'}
+                initialRouteName={'CadastroEstabelecimento'}
                 headerMode={'screen'}
                 screenOptions={{
                     header: ({ scene, previous, navigation }) => {
@@ -169,9 +169,20 @@ function RouteDashBoard() {
                     }
                 }}>
                 <Stack.Screen
-                    name='Estabelecimento'
-                    component={Estabelecimentos}
-                    options={{ headerStyle: { backgroundColor: '#B32728' }, title: 'ESTABELECIMENTO' }}
+                    name='CadastroEstabelecimento'
+                    component={CadastroEstabelecimento}
+                    options={{
+                        header:({})=>{
+                            return (
+                                <HeaderDashBoard
+                                    title={"ESTABELECIMENTO"}
+                                    color={'#B32728'}
+                                    rightButton={<MyGetOutButton/>}
+                                />
+                            )
+                        },
+                        headerStyle: { backgroundColor: '#B32728' }
+                    }}
                 />
             </Stack.Navigator>
 
