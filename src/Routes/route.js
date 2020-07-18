@@ -48,11 +48,6 @@ function Route() {
                 component={Cadastro}
                 options={{ headerStyle: { backgroundColor: '#F23132' }, title: 'CADASTRO' }}
             />
-            <Stack.Screen
-                name='Estabelecimento'
-                component={Estabelecimento}
-                options={{ headerStyle: { backgroundColor: '#B32728' }, title:'ESTABELECIMENTO' }}
-            />
         </Stack.Navigator>
     )
 }
