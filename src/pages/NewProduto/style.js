@@ -13,7 +13,7 @@ const Styles = StyleSheet.create({
         height: (Dimensions.get('window').height / 100 * 13),
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: "#eaeaea",
+        backgroundColor: "#fff",
     },
 
     prodImg: {
@@ -28,12 +28,6 @@ const Styles = StyleSheet.create({
         alignSelf: 'flex-end',
         padding: 15,
         justifyContent: 'flex-end'
-    },
-
-    codbarItem: {
-        backgroundColor: '#fff',
-        borderRadius: 50,
-        elevation: 10
     },
 
     codbarImg: {
@@ -60,7 +54,6 @@ const Styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderColor: "#999999",
-        borderTopWidth: 1
     },
 
     containerForm: {

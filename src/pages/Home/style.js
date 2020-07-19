@@ -32,6 +32,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#B32728",
         width: (Dimensions.get('window').width / 2),
         height: (Dimensions.get('window').height / 12),
+        justifyContent:'center',
+        alignItems: 'center',
         borderRadius: 30,
         margin: 10
     },
@@ -43,9 +45,8 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     text: {
-        fontSize: 40,
+        fontSize: 30,
         color: '#fff',
-        textAlign: 'center',
         letterSpacing: 3,
         fontFamily: 'Montserrat-SemiBold', 
         fontWeight: '600'

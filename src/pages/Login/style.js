@@ -43,11 +43,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#ffff",
         width: (Dimensions.get('window').width / 2),
         height: (Dimensions.get('window').height / 12),
+        justifyContent: 'center',
+        alignItems: 'center',
         borderRadius: 30,
         margin: 10
     },
     text: {
-        fontSize: 40,
+        fontSize: 30,
         color: '#B32728',
         textAlign: 'center',
         letterSpacing: 3,

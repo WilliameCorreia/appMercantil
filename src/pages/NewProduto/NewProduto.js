@@ -66,7 +66,7 @@ export default function NewProduto({ navigation, route }) {
                 if(response.data){
                     setProduto({
                         Produto: response.data.produto,
-                        Quantidade: response.data.quantidadeEmbalagem,
+                        Quantidade: response.data.quantidade,
                         Preco: response.data.preco,
                         CategoriaId: response.data.categoria,
                         Codbar: response.data.codbar,

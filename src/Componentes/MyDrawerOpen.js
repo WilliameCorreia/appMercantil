@@ -9,7 +9,6 @@ export default function MyDrawerOpen( { onPress } ) {
             <TouchableOpacity  onPress={onPress}>
                 <Icon
                     style={styles.icon}
-                    raised
                     reverse={true}
                     name='md-menu'
                     type='ionicon'
