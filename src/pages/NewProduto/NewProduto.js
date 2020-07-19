@@ -38,10 +38,13 @@ export default function NewProduto({ navigation, route }) {
         FotoPng: ''
     });
 
-    useEffect(() => {
+    /* useEffect(() => {
         getCategorias();
         if (route.params) {
             let { produto } = route.params
+            console.log("***************************************")
+            console.log(produto)
+            console.log("**************************************")
             setProduto({
                 Produto: produto.produto,
                 Quantidade: produto.quantidadeEmbalagem,
@@ -52,7 +55,7 @@ export default function NewProduto({ navigation, route }) {
             })
             console.log(route.params.produto)
         }
-    }, [route.params])
+    }, [route.params]) */
 
     const getProduto = (codbar) => {
         setSearch(false);
@@ -167,7 +170,7 @@ export default function NewProduto({ navigation, route }) {
     return (
         <KeyboardAwareScrollView style={Styles.container}>
             <View style={Styles.box1}>
-                <Image source={{ uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/ImagensPng/png/' + produto.FotoPng }} style={Styles.prodImg} />
+                <Image source={ produto.FotoPng ? {uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/ImagensPng/png/' + produto.FotoPng}: require("../../Assets/srcImage.png")} style={Styles.prodImg} />
                 <View style={Styles.Codbar}>
                     <TouchableOpacity style={Styles.codbarItem} onPress={() => navigation.navigate('Mycamera', getProduto)}>
                         <Image source={require('../../Assets/codbar.png')} style={Styles.codbarImg} />

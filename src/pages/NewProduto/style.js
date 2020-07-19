@@ -31,8 +31,8 @@ const Styles = StyleSheet.create({
     },
 
     codbarImg: {
-        width: (Dimensions.get("window").width / 100 * 15),
-        height: (Dimensions.get('window').height / 100 * 7),
+        width: (Dimensions.get("window").width / 100 * 13),
+        height: (Dimensions.get('window').height / 100 * 6),
         margin: 10
     },
 

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { StyleSheet, View, } from 'react-native';
 import { RNCamera } from 'react-native-camera';
@@ -16,6 +17,9 @@ export default function MyCamera({ navigation }) {
 
     const getProduto = (codbar) => {
         Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
+            console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+            console.log(response)
+            console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
             if (response.data) {
                 let item = response.data;
                 navigation.navigate('NovoProduto', {produto:item})

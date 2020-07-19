@@ -33,7 +33,7 @@ export default function DashBoard({ navigation }) {
             console.log('finalizado !');
         });
         return () => {
-            console.log('error DahBoard')
+            console.log('error DashBoard')
         }
     }, [])
 
