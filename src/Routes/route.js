@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Home from '../pages/Home/Home'
 import Login from '../pages/Login/Login'
 import Cadastro from '../pages/Cadastro/Cadastro'
-import Estabelecimento from '../pages/Estabelecimento/Estabelecimento'
 import MyHeader from '../Componentes/MyHeader'
 import MyBackButton from '../Componentes/MyBackButton'
 

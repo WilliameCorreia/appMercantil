@@ -1,7 +1,6 @@
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import Usuario from '../pages/Usuario/usuario'
 import DrawerContent from '../Componentes/DrawerContent'
 import RouteDashBoard from '../Routes/routeDashBoard'
 
@@ -17,10 +16,6 @@ export default function RouteDrawer() {
                 name="Inicio" 
                 component={RouteDashBoard}
                 options={{tabBarLabel: 'teste'}}
-            />
-            <Drawer.Screen 
-                name="Usuario" 
-                component={Usuario}
             />
         </Drawer.Navigator>
     );

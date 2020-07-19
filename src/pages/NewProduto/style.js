@@ -10,7 +10,7 @@ const Styles = StyleSheet.create({
 
     box1: {
         width: (Dimensions.get('window').width),
-        height: (Dimensions.get('window').height / 100 * 16),
+        height: (Dimensions.get('window').height / 100 * 13),
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: "#eaeaea",
@@ -19,6 +19,7 @@ const Styles = StyleSheet.create({
     prodImg: {
         width: "25%",
         height: "80%",
+        resizeMode: 'center'
     },
 
     Codbar: {

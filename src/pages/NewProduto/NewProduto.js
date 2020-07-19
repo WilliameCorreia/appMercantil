@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
     Text,
     View,
@@ -7,6 +7,7 @@ import {
     Image,
 } from 'react-native'
 
+import AuthContext from '../../Contexts/Auth'
 import { Picker } from '@react-native-community/picker'
 import { SearchBar } from 'react-native-elements';
 import Api from '../../Services/api'
@@ -16,20 +17,25 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import MyModal from "../../Componentes/MyModal"
 
 
-export default function Produto({ navigation, route }) {
+export default function NewProduto({ navigation, route }) {
 
-    const [codbar, setCodbar] = useState();
-    const [categorias, setCategorias] = useState();
+    const { estabelecimento } = useContext(AuthContext);
 
+    const [categorias, setCategorias] = useState([]);
+
+    const [searchLoad, setSearchLoad] = useState(false);
+    const [search, setSearch] = useState(false);
+    const [codeValida, setCodvalida] = useState(false);
     const [modalActive, setModalActive] = useState(false);
     const [msnModal, setMsnModal] = useState('primeira passada');
 
     const [produto, setProduto] = useState({
-        produto: '',
+        Produto: '',
         Quantidade: '',
-        Preco: null,
-        categoria: '',
-        codbar: ''
+        Preco: '',
+        CategoriaId: '',
+        Codbar: '',
+        FotoPng: ''
     });
 
     useEffect(() => {
@@ -37,66 +43,131 @@ export default function Produto({ navigation, route }) {
         if (route.params) {
             let { produto } = route.params
             setProduto({
-                produto: produto.produto,
+                Produto: produto.produto,
                 Quantidade: produto.quantidadeEmbalagem,
                 Preco: produto.precoMedio.toString(),
-                categoria: produto.categoria,
-                codbar: produto.codbar
+                CategoriaId: produto.categoria,
+                Codbar: produto.codbar,
+                FotoPng: response.data.fotoPng
             })
             console.log(route.params.produto)
         }
     }, [route.params])
 
     const getProduto = (codbar) => {
-        setCodbar(codbar)
-        console.log("codbar")
-        if (ValidaEan(codbar)) {
-            console.log(codbar)
+        setSearch(false);
+        setProduto(prevState => ({ ...prevState, Codbar: codbar }))
+        setSearchLoad(true)
+        if(ValidaEan(codbar)) {
+            setCodvalida(false)
             const produto = Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
-                console.log(response.data)
-                console.log("entrou getProduto")
-
-                setProduto({
-                    produto: response.data.produto,
-                    Quantidade: response.data.quantidadeEmbalagem,
-                    precoMedio: response.data.precoMedio.toString(),
-                    Preco: response.data.categoria,
-                    categoria: response.data.categoria,
-                    codbar: response.data.codbar
-                });
+                console.log("?????????????????????????????????????????????????????");
+                console.log(response.data);
+                if(response.data){
+                    setProduto({
+                        Produto: response.data.produto,
+                        Quantidade: response.data.quantidadeEmbalagem,
+                        Preco: response.data.preco,
+                        CategoriaId: response.data.categoria,
+                        Codbar: response.data.codbar,
+                        FotoPng: response.data.fotoPng
+                    });
+                    setSearchLoad(false)
+                }else{
+                    setSearch(true);
+                    setSearchLoad(false)
+                }
+                
             }).catch(erro => {
                 console.log(erro);
             });
         } else {
-
+            setSearchLoad(false);
+            setCodvalida(true);
+            console.log("codigo de barras não e válido");
+            setProduto(prevState => ({ ...prevState, Produto: '', Quantidade: '', Preco: '', CategoriaId: '', FotoPng: '' }))
         }
-
     }
 
     const getCategorias = () => {
-        const categorias = Api.get("/Categorias").then(response => {
-            console.log(response.data);
+        Api.get("Categorias").then(response => {
+            setCategorias(response.data)
         }).catch(erro => {
             console.log(erro);
         });
     }
 
-    const FormValidacao = () => {
-        if (produto.produto && produto.Quantidade && produto.Preco && produto.categoria && produto.codbar) {
+    const adicionarProduto = () => {
+        console.log("**********Adicionando Produto********")
+        if(ValidaEan(produto.Codbar)){
+            Api.post("Produtos", {
+                Produto: produto.Produto,
+                Quantidade: parseInt(produto.Quantidade),
+                Preco: produto.Preco,
+                CategoriaId: GetId(produto.CategoriaId),
+                CodeBar: produto.Codbar,
+                FotoPng: produto.FotoPng,
+                EstabelecimentoId: estabelecimento.id 
+            }).then(response =>{
+                console.log(response.data);
+                setMsnModal("Produto cadastrado com sucesso !");
+                setModalActive(true);
+                setProduto({Produto: '', Quantidade: '', Preco: '', CategoriaId: '', Codbar: '', FotoPng: ''})
+            }).catch(erro =>{
+                setMsnModal("Erro ao cadastrar o Produto !" + erro);
+                setModalActive(true);
+                console.log(erro);
+            })
+        }else{
+            setMsnModal("Favor digitar um codigo de barras válido");
+            setModalActive(true);
+        }
+        
+    }
 
+    const VerificarProduto = async (codbar) => {
+        console.log("****************************");
+        console.log(codbar);
+        Api.get(`Produtos/codbar/${codbar}`).then(response =>{
+            if(response.data != 0){
+                setMsnModal("Produto já Cadastrado ");
+                setModalActive(true);
+            }else{
+                adicionarProduto();
+            }
+        }).catch(erro =>{
+            setMsnModal("Erro ao consultar produto " + erro);
+            setModalActive(true);
+        })
+    }
+
+    const FormValidacao = () => {
+        if (produto.Produto && produto.Quantidade && produto.Preco && produto.CategoriaId && produto.Codbar) { 
+            VerificarProduto(produto.Codbar);
         } else {
             setMsnModal("Para cadastrar o produto preencha todos os campos!");
             setModalActive(true);
         }
     }
 
+    function GetId(teste){
+        let cat = ''
+        for(let item of categorias) {
+            if( teste == item.nomeBusca || teste == item.id){
+               cat =  item.id
+            }
+        }
+        return cat
+    }
+
     console.log("newProduto renderizado!")
-    console.log(produto)
+    console.log("------------------------------------------------")
+    console.log(estabelecimento)
 
     return (
         <KeyboardAwareScrollView style={Styles.container}>
             <View style={Styles.box1}>
-                <Image source={require('../../Assets/Arroz.png')} style={Styles.prodImg} />
+                <Image source={{ uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/ImagensPng/png/' + produto.FotoPng }} style={Styles.prodImg} />
                 <View style={Styles.Codbar}>
                     <TouchableOpacity style={Styles.codbarItem} onPress={() => navigation.navigate('Mycamera', getProduto)}>
                         <Image source={require('../../Assets/codbar.png')} style={Styles.codbarImg} />
@@ -107,15 +178,16 @@ export default function Produto({ navigation, route }) {
                 <View style={[Styles.containerForm]}>
                     <View style={Styles.containerSearch}>
                         <SearchBar
-                            style={Styles.search}
                             placeholder="Digite o codigo de barras"
                             platform={'android'}
                             containerStyle={Styles.search}
                             onChangeText={text => getProduto(text)}
                             keyboardType={'numeric'}
-                            value={codbar}
-                        //showLoading={true}
+                            value={produto.Codbar}
+                            showLoading={searchLoad}
                         />
+                      {search ? <Text>Produto não encontrado !</Text> : null}
+                      {codeValida ? <Text>Codigo de Barras Inválido !</Text> : null}
                     </View>
                     <View style={Styles.row}>
                         <Text style={Styles.text}>PRODUTO</Text>
@@ -123,8 +195,8 @@ export default function Produto({ navigation, route }) {
                     <View style={Styles.row}>
                         <TextInput
                             style={[Styles.tamanhoInputFull, Styles.inputs,]}
-                            value={produto.produto}
-                            onChangeText={text => setProduto({ produto: text })}
+                            value={produto.Produto}
+                           onChangeText={text => setProduto(prevState => ({ ...prevState, Produto: text }))}
                             placeholder={"PRODUTO"}
                         />
                     </View>
@@ -138,12 +210,14 @@ export default function Produto({ navigation, route }) {
                             value={produto.Quantidade}
                             placeholder={"QTD"}
                             keyboardType={'numeric'}
+                            onChangeText={text => setProduto(prevState => ({ ...prevState, Quantidade: text}))}
                         />
                         <TextInput
                             style={[Styles.tamanhoInputMetade, Styles.inputs]}
                             value={produto.Preco}
                             placeholder={"PREÇO"}
                             keyboardType={'numeric'}
+                            onChangeText={text => setProduto(prevState => ({ ...prevState, Preco: text }))}
                         />
                     </View>
                     <View style={Styles.row}>
@@ -152,34 +226,15 @@ export default function Produto({ navigation, route }) {
                     <View style={[Styles.row, Styles.picker]}>
                         <Picker
                             style={{ width: "50%", textAlign: 'center' }}
-                            selectedValue={produto.categoria}
+                            selectedValue={GetId(produto.CategoriaId)}
                             itemStyle={{ textAlign: 'center' }}
-                            onValueChange={(itemValue, itemIndex) => setProduto(prevState => ({ ...prevState, categoria: itemValue }))}
+                            onValueChange={(itemValue, itemIndex) => setProduto(prevState => ({ ...prevState, CategoriaId: itemValue }))}
                             mode="dropdown"
                         >
-                            <Picker.Item label="SELECIONE" />
-                            <Picker.Item label="PERFUMARIA" value='PERFUMARIA' />
-                            <Picker.Item label="BEBIDAS" value='BEBIDAS' />
-                            <Picker.Item label="HORTIFRUTI" value='HORTIFRUTI' />
-                            <Picker.Item label="TINTAS / PINTURAS" value='TINTAS / PINTURAS' />
-                            <Picker.Item label="PADARIA" value='PADARIA' />
-                            <Picker.Item label="CASA E CONSTRUÇÃO" value='CASA E CONSTRUÇÃO' />
-                            <Picker.Item label="FARMÁCIA" value='FARMÁCIA' />
-                            <Picker.Item label="AUTOS" value='AUTOS' />
-                            <Picker.Item label="BAZAR" value='BAZAR' />
-                            <Picker.Item label="PETSHOP" value='PETSHOP' />
-                            <Picker.Item label="TABACARIA" value='TABACARIA' />
-                            <Picker.Item label="ELETRO" value='ELETRO' />
-                            <Picker.Item label="HIGIENE E BELEZA" value='HIGIENE E BELEZA' />
-                            <Picker.Item label="BEBÊ" value='BEBÊ' />
-                            <Picker.Item label="INFANTIL" value='INFANTIL' />
-                            <Picker.Item label="CONGELADOS" value='CONGELADOS' />
-                            <Picker.Item label="SUPLEMENTOS" value='SUPLEMENTOS' />
-                            <Picker.Item label="PAPELARIA" value='PAPELARIA' />
-                            <Picker.Item label="FRIOS E LATICÍNIOS" value='FRIOS E LATICÍNIOS' />
-                            <Picker.Item label="AÇOUGUE" value='AÇOUGUE' />
-                            <Picker.Item label="MERCEARIA" value='MERCEARIA' />
-                            <Picker.Item label="LIMPEZA" value='LIMPEZA' />
+                            <Picker.Item label={"Selecione"} />
+                            {categorias.map(item =>
+                                <Picker.Item label={item.nome} value={item.id} />
+                            )}
                         </Picker>
                     </View>
                     <View style={Styles.row}>
@@ -188,9 +243,10 @@ export default function Produto({ navigation, route }) {
                     <View style={Styles.row}>
                         <TextInput
                             style={[Styles.tamanhoInputFull, Styles.inputs]}
-                            value={produto.codbar}
+                            value={produto.Codbar}
                             placeholder={"CODIGO DE BARRAS"}
                             keyboardType={'numeric'}
+                            onChangeText={text => setProduto(prevState => ({ ...prevState, Codbar: text }))}
                         />
                     </View>
                     <View style={Styles.alignCenter}>

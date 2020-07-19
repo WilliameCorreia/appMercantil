@@ -1,76 +1,267 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
     Text,
     View,
-    ScrollView,
     TextInput,
     TouchableOpacity,
+    Image,
 } from 'react-native'
 
+import AuthContext from '../../Contexts/Auth'
+import { Picker } from '@react-native-community/picker'
+import { SearchBar } from 'react-native-elements';
+import Api from '../../Services/api'
+import { ValidaEan } from '../../Services/ValidarCodebar'
 import Styles from './style'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import MyModal from "../../Componentes/MyModal"
 
-export default function Produto({ route }) {
-    const item = route.params
-    console.log("Produtos =>")
-    console.log(item)
+
+export default function Produto({ navigation, route }) {
+
+    const { estabelecimento } = useContext(AuthContext);
+
+    const [categorias, setCategorias] = useState([]);
+
+    const [searchLoad, setSearchLoad] = useState(false);
+    const [search, setSearch] = useState(false);
+    const [codeValida, setCodvalida] = useState(false);
+    const [modalActive, setModalActive] = useState(false);
+    const [msnModal, setMsnModal] = useState('primeira passada');
+
+    const [produto, setProduto] = useState({
+        Produto: '',
+        Quantidade: '',
+        Preco: '',
+        CategoriaId: '',
+        Codbar: '',
+        FotoPng: ''
+    });
+
+    useEffect(() => {
+        getCategorias();
+        if (route.params) {
+            let { produto } = route.params
+            setProduto({
+                Produto: produto.produto,
+                Quantidade: produto.quantidadeEmbalagem,
+                Preco: produto.precoMedio.toString(),
+                CategoriaId: produto.categoria,
+                Codbar: produto.codbar,
+                FotoPng: response.data.fotoPng
+            })
+            console.log(route.params.produto)
+        }
+    }, [route.params])
+
+    const getProduto = (codbar) => {
+        setSearch(false);
+        setProduto(prevState => ({ ...prevState, Codbar: codbar }))
+        setSearchLoad(true)
+        if(ValidaEan(codbar)) {
+            setCodvalida(false)
+            const produto = Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
+                console.log("?????????????????????????????????????????????????????");
+                console.log(response.data);
+                if(response.data){
+                    setProduto({
+                        Produto: response.data.produto,
+                        Quantidade: response.data.quantidadeEmbalagem,
+                        Preco: response.data.preco,
+                        CategoriaId: response.data.categoria,
+                        Codbar: response.data.codbar,
+                        FotoPng: response.data.fotoPng
+                    });
+                    setSearchLoad(false)
+                }else{
+                    setSearch(true);
+                    setSearchLoad(false)
+                }
+                
+            }).catch(erro => {
+                console.log(erro);
+            });
+        } else {
+            setSearchLoad(false);
+            setCodvalida(true);
+            console.log("codigo de barras não e válido");
+            setProduto(prevState => ({ ...prevState, Produto: '', Quantidade: '', Preco: '', CategoriaId: '', FotoPng: '' }))
+        }
+    }
+
+    const getCategorias = () => {
+        Api.get("Categorias").then(response => {
+            setCategorias(response.data)
+        }).catch(erro => {
+            console.log(erro);
+        });
+    }
+
+    const adicionarProduto = () => {
+        console.log("**********Adicionando Produto********")
+        if(ValidaEan(produto.Codbar)){
+            Api.post("Produtos", {
+                Produto: produto.Produto,
+                Quantidade: parseInt(produto.Quantidade),
+                Preco: produto.Preco,
+                CategoriaId: GetId(produto.CategoriaId),
+                CodeBar: produto.Codbar,
+                FotoPng: produto.FotoPng,
+                EstabelecimentoId: estabelecimento.id 
+            }).then(response =>{
+                console.log(response.data);
+                setMsnModal("Produto cadastrado com sucesso !");
+                setModalActive(true);
+                setProduto({Produto: '', Quantidade: '', Preco: '', CategoriaId: '', Codbar: '', FotoPng: ''})
+            }).catch(erro =>{
+                setMsnModal("Erro ao cadastrar o Produto !" + erro);
+                setModalActive(true);
+                console.log(erro);
+            })
+        }else{
+            setMsnModal("Favor digitar um codigo de barras válido");
+            setModalActive(true);
+        }
+        
+    }
+
+    const VerificarProduto = async (codbar) => {
+        console.log("****************************");
+        console.log(codbar);
+        Api.get(`Produtos/codbar/${codbar}`).then(response =>{
+            if(response.data != 0){
+                setMsnModal("Produto já Cadastrado ");
+                setModalActive(true);
+            }else{
+                adicionarProduto();
+            }
+        }).catch(erro =>{
+            setMsnModal("Erro ao consultar produto " + erro);
+            setModalActive(true);
+        })
+    }
+
+    const FormValidacao = () => {
+        if (produto.Produto && produto.Quantidade && produto.Preco && produto.CategoriaId && produto.Codbar) { 
+            VerificarProduto(produto.Codbar);
+        } else {
+            setMsnModal("Para cadastrar o produto preencha todos os campos!");
+            setModalActive(true);
+        }
+    }
+
+    function GetId(teste){
+        let cat = ''
+        for(let item of categorias) {
+            if( teste == item.nomeBusca || teste == item.id){
+               cat =  item.id
+            }
+        }
+        return cat
+    }
+
+    console.log("newProduto renderizado!")
+    console.log("------------------------------------------------")
+    console.log(estabelecimento)
+
     return (
-        <ScrollView style={Styles.container}>
+        <KeyboardAwareScrollView style={Styles.container}>
             <View style={Styles.box1}>
-                <View style={Styles.row}>
-                    <View style={Styles.metadeTop1}>
-                        <Text style={[Styles.text, Styles.colorLabelProduto]}> {item.produto} </Text>
-                    </View>
-                    <View style={Styles.metadeTop2}>
-                        {item.quantidade == 0 ?
-                            <TouchableOpacity style={Styles.btnTop} >
-                                <Text style={[Styles.colorBranco, Styles.textStatus]}>EM FALTA</Text>
-                            </TouchableOpacity>
-                            : <TouchableOpacity style={[Styles.btnTop, {backgroundColor: 'green'}]} >
-                                <Text style={[Styles.colorBranco, Styles.textStatus]}>DISPONÍVEL</Text>
-                            </TouchableOpacity>}
-
-                    </View>
+                <Image source={{ uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/ImagensPng/png/' + produto.FotoPng }} style={Styles.prodImg} />
+                <View style={Styles.Codbar}>
+                    <TouchableOpacity style={Styles.codbarItem} onPress={() => navigation.navigate('Mycamera', getProduto)}>
+                        <Image source={require('../../Assets/codbar.png')} style={Styles.codbarImg} />
+                    </TouchableOpacity>
                 </View>
-                <View style={[Styles.bordadoTop]}>
-                    <View style={[Styles.row, Styles.cadaNoSeuLado]}>
-                        <Text style={[Styles.text, Styles.colorPreto, Styles.espacamentolabel1]}>QTD</Text>
+            </View>
+            <View style={Styles.box2}>
+                <View style={[Styles.containerForm]}>
+                    <View style={Styles.containerSearch}>
+                        <SearchBar
+                            placeholder="Digite o codigo de barras"
+                            platform={'android'}
+                            containerStyle={Styles.search}
+                            onChangeText={text => getProduto(text)}
+                            keyboardType={'numeric'}
+                            value={produto.Codbar}
+                            showLoading={searchLoad}
+                        />
+                      {search ? <Text>Produto não encontrado !</Text> : null}
+                      {codeValida ? <Text>Codigo de Barras Inválido !</Text> : null}
+                    </View>
+                    <View style={Styles.row}>
+                        <Text style={Styles.text}>PRODUTO</Text>
+                    </View>
+                    <View style={Styles.row}>
+                        <TextInput
+                            style={[Styles.tamanhoInputFull, Styles.inputs,]}
+                            value={produto.Produto}
+                           onChangeText={text => setProduto(prevState => ({ ...prevState, Produto: text }))}
+                            placeholder={"PRODUTO"}
+                        />
+                    </View>
+                    <View style={Styles.row}>
+                        <Text style={Styles.text}>QTD</Text>
                         <Text style={[Styles.text, Styles.colorPreto, Styles.espacamentolabel2]}>PREÇO</Text>
                     </View>
-                    <View style={[Styles.row, Styles.cadaNoSeuLado]}>
-                        <TextInput style={[Styles.tamanhoInputMetade, Styles.inputs, Styles.espacamentoInput1]} value={item.quantidadeEmbalagem} />
-                        <TextInput style={[Styles.tamanhoInputMetade, Styles.inputs, Styles.espacamentoInput2]} value={'R$ ' + item.precoMedio} />
+                    <View style={Styles.row}>
+                        <TextInput
+                            style={[Styles.tamanhoInputMetade, Styles.inputs]}
+                            value={produto.Quantidade}
+                            placeholder={"QTD"}
+                            keyboardType={'numeric'}
+                            onChangeText={text => setProduto(prevState => ({ ...prevState, Quantidade: text}))}
+                        />
+                        <TextInput
+                            style={[Styles.tamanhoInputMetade, Styles.inputs]}
+                            value={produto.Preco}
+                            placeholder={"PREÇO"}
+                            keyboardType={'numeric'}
+                            onChangeText={text => setProduto(prevState => ({ ...prevState, Preco: text }))}
+                        />
                     </View>
-                    <View style={[Styles.row, Styles.cadaNoSeuLado]}>
-                        <Text style={[Styles.text, Styles.colorPreto, Styles.espacamentolabel1]}>CATEGORIA</Text>
+                    <View style={Styles.row}>
+                        <Text style={Styles.text}>CATEGORIA</Text>
                     </View>
-                    <View style={[Styles.row, Styles.cadaNoSeuLado]}>
-                        <TextInput style={[Styles.tamanhoInputFull, Styles.inputs, Styles.espacamentoInput1]} value={item.categoria} />
+                    <View style={[Styles.row, Styles.picker]}>
+                        <Picker
+                            style={{ width: "50%", textAlign: 'center' }}
+                            selectedValue={GetId(produto.CategoriaId)}
+                            itemStyle={{ textAlign: 'center' }}
+                            onValueChange={(itemValue, itemIndex) => setProduto(prevState => ({ ...prevState, CategoriaId: itemValue }))}
+                            mode="dropdown"
+                        >
+                            <Picker.Item label={"Selecione"} />
+                            {categorias.map(item =>
+                                <Picker.Item label={item.nome} value={item.id} />
+                            )}
+                        </Picker>
                     </View>
-                    <View style={[Styles.row, Styles.cadaNoSeuLado]}>
-                        <Text style={[Styles.text, Styles.colorPreto, Styles.espacamentolabel1]}>DETALHES</Text>
+                    <View style={Styles.row}>
+                        <Text style={Styles.text}>CODIGO DE BARRAS</Text>
                     </View>
-                    <View style={[Styles.row, Styles.cadaNoSeuLado]}>
-                        <TextInput style={[Styles.tamanhoInputFull, Styles.inputs, Styles.espacamentoInput1]} value={item.produtoAcento} />
+                    <View style={Styles.row}>
+                        <TextInput
+                            style={[Styles.tamanhoInputFull, Styles.inputs]}
+                            value={produto.Codbar}
+                            placeholder={"CODIGO DE BARRAS"}
+                            keyboardType={'numeric'}
+                            onChangeText={text => setProduto(prevState => ({ ...prevState, Codbar: text }))}
+                        />
                     </View>
-                    <View style={[Styles.alignCenter, Styles.row, Styles.margin]}>
-                        <TouchableOpacity style={Styles.BtnAlterar}>
-                            <Text style={[Styles.colorBranco, Styles.text]}>ALTERAR</Text>
+                    <View style={Styles.alignCenter}>
+                        <TouchableOpacity style={Styles.BtnAlterar} onPress={FormValidacao}>
+                            <Text style={[Styles.colorBranco, Styles.text]}>SALVAR</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>
-            <View style={[Styles.box2]}>
-                <View style={[Styles.alignCenter, Styles.row, Styles.margin]}>
-                    <View style={Styles.metadeBotton1}>
-                        <Text style={[Styles.text, Styles.colorLabelProduto]}> STATUS </Text>
-                    </View>
-                    <View style={Styles.metadeBotton2}>
-                        <TouchableOpacity style={Styles.btnTop} >
-                            <Text style={[Styles.colorBranco, Styles.textStatus]}>EM OFERTA</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+            <View>
+                <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} navigation />
             </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
     )
 }
+
+
+

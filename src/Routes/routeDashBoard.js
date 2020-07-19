@@ -5,6 +5,7 @@ import MeusPedidos from '../pages/MeusPedidos/MeusPedidos'
 import DetalhePedidos from '../pages/MeusPedidos/DetalhePedidos/DetalhePedidos'
 import MeusProdutos from '../pages/MeusProdutos/MeusProdutos'
 import Ofertas from '../pages/MinhasOfertas/MinhasOfertas'
+import DetalheOfertas from '../pages/MinhasOfertas/DetalheOfertas/DetalheOfertas'
 import NewOfertas from '../pages/NewOferta/NewOferta'
 import NewProduto from '../pages/NewProduto/NewProduto'
 import Produto from '../pages/Produto/Produto'
@@ -18,6 +19,7 @@ import Mycamera from '../Componentes/MyCamera'
 import WaitRow from '../Componentes/WaitRow'
 import MyGetOutButton from '../Componentes/MyGetOutButton'
 import CadastroEstabelecimento from '../pages/Estabelecimento/Estabelecimento'
+import Usuario from '../pages/Usuario/usuario'
 
 import AuthContext from '../Contexts/Auth'
 
@@ -57,7 +59,7 @@ function RouteDashBoard() {
                 }}>
 
                 {Estabelecimento.ativo ?
-                
+
                     <Stack.Screen
                         name='DashBoard'
                         options={{
@@ -71,24 +73,33 @@ function RouteDashBoard() {
 
                     //tele aguardando ativação
                     <Stack.Screen
-                    name='Aguarde'
-                    options={{
-                        header:({})=>{
-                            return (
-                                <HeaderDashBoard
-                                    title={"PLANETA ENTREGAS"}
-                                    color={'#B32728'}
-                                    rightButton={<MyGetOutButton/>}
-                                />
-                            )
-                        },
-                        title: 'PLANETA ENTREGAS',
-                        headerStyle: { backgroundColor: '#B32728' }
-                    }}
-                    component={WaitRow}
-                />
+                        name='Aguarde'
+                        options={{
+                            header: ({ }) => {
+                                return (
+                                    <HeaderDashBoard
+                                        title={"PLANETA ENTREGAS"}
+                                        color={'#B32728'}
+                                        rightButton={<MyGetOutButton />}
+                                    />
+                                )
+                            },
+                            title: 'PLANETA ENTREGAS',
+                            headerStyle: { backgroundColor: '#B32728' }
+                        }}
+                        component={WaitRow}
+                    />
 
                 }
+
+                <Stack.Screen
+                    name={'Usuario'}
+                    component={Usuario}
+                    options={{
+                        title: 'Perfil',
+                        headerStyle: { backgroundColor: '#B32728' }
+                    }}
+                />
 
                 <Stack.Screen
                     name={'MeusPedidos'}
@@ -126,11 +137,11 @@ function RouteDashBoard() {
                     component={NewProduto}
                     options={{ title: 'NOVO PRODUTO', headerStyle: { backgroundColor: '#B32728' } }}
                 />
-                <Stack.Screen
+                {<Stack.Screen
                     name={'Produto'}
                     component={Produto}
                     options={{ title: 'PRODUTO', headerStyle: { backgroundColor: '#B32728' } }}
-                />
+                />}
                 <Stack.Screen
                     name={'Categorias'}
                     component={Categorias}
@@ -140,6 +151,11 @@ function RouteDashBoard() {
                     name={'Mycamera'}
                     component={Mycamera}
                     options={{ title: 'CODIGO DE BARRAS', headerStyle: { backgroundColor: '#B32728' } }}
+                />
+                <Stack.Screen
+                    name={'DetalheOfertas'}
+                    component={DetalheOfertas}
+                    options={{ title: 'DETALHE OFERTA', headerStyle: { backgroundColor: '#B32728' } }}
                 />
             </Stack.Navigator>
 
@@ -172,12 +188,12 @@ function RouteDashBoard() {
                     name='CadastroEstabelecimento'
                     component={CadastroEstabelecimento}
                     options={{
-                        header:({})=>{
+                        header: ({ }) => {
                             return (
                                 <HeaderDashBoard
                                     title={"ESTABELECIMENTO"}
                                     color={'#B32728'}
-                                    rightButton={<MyGetOutButton/>}
+                                    rightButton={<MyGetOutButton />}
                                 />
                             )
                         },

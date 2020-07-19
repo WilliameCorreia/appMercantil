@@ -81,7 +81,7 @@ export default function DashBoard({ navigation }) {
                         raised
                         containerStyle={styles.cont_btn}
                         buttonStyle={styles.btn}
-                        onPress={() => navigation.navigate('NewOfertas')}
+                        onPress={() => navigation.navigate('Ofertas')}
                     />
                 </View>
                 <View>

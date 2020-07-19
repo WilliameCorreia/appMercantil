@@ -34,11 +34,12 @@ const styles = StyleSheet.create({
     input:{
         width: (Dimensions.get('window').width / 4 * 3),
         height: (Dimensions.get('window').width / 7),
-        padding: 20,
+        padding: 10,
         borderWidth: 4,
         borderRadius: 30,
         borderColor: '#b3b3b3',
         backgroundColor: 'transparent',
+        fontSize: 18, textAlign: 'center'
     },
     label:{
         alignSelf: 'flex-start',
@@ -53,6 +54,9 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    textErro:{
+        color: 'red'
     }
 })
 export default styles

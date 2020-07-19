@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 
 const styles = StyleSheet.create({
     container: {
@@ -15,7 +15,19 @@ const styles = StyleSheet.create({
     },
     input:{
         fontFamily: 'Montserrat-SemiBold'
-    }
+    },
+    search:{
+        width:(Dimensions.get('window').width / 10 * 8),
+        height: (Dimensions.get('window').height / 100 * 6),
+        elevation: 3, 
+        borderRadius: 30,
+        justifyContent: 'center',
+    },
+    containerSearch:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 5
+    },
 })
 
 export default styles

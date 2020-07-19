@@ -11,25 +11,26 @@ export const AuthProvider = ({ children }) => {
     const [usuario, SetUsuario] = useState({ email: '', token: '' })
     const [loading, SetLoading] = useState(true)
     const [Estabelecimento, setEstabelecimento] = useState(false);
+
     async function signIn(user) {
-        setTimeout(() =>{
+        setTimeout(() => {
             if (user) {
                 GetEstabelecimento(user);
-            }else{
+            } else {
                 SetLoading(false)
-                SetUsuario({email: undefined})
+                SetUsuario({ email: undefined })
             }
-        },2000)
+        }, 2000)
     }
 
     async function GetEstabelecimento(user) {
         const { email, uid } = user;
         console.log(uid)
         Api.get(`Estabelecimento/${uid}`).then(response => {
-            let estabelecimento = response.data;         
+            let estabelecimento = response.data;
             if (Boolean(estabelecimento)) {
-                setEstabelecimento(estabelecimento) 
-            }else{
+                setEstabelecimento(estabelecimento)
+            } else {
                 setEstabelecimento(Boolean(estabelecimento));
             }
             SetUsuario({ email, uid })
@@ -44,13 +45,13 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const subscriber = auth().onUserChanged(signIn);
         return () => {
-            subscriber
-             // unsubscribe on unmount
+            //subscriber
+            // unsubscribe on unmount
         }
     }, []);
 
-    console.log("authContext => " + usuario.email)
-
+    console.log("authContext => " + Boolean(usuario.email))
+    console.log("estabelecimento => " + Estabelecimento)
     return (
         <AuthContext.Provider value={{ signed: Boolean(usuario.email), signIn, usuario, loading, Estabelecimento }}>
             {children}

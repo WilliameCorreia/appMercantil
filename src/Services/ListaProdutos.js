@@ -4,7 +4,6 @@ import {
     View,
     Image,
     TouchableOpacity,
-    SafeAreaView,
     ActivityIndicator,
     StyleSheet,
 } from 'react-native'
@@ -12,58 +11,28 @@ import {
 import Api from '../Services/api'
 import { FlatList } from 'react-native-gesture-handler';
 
-export default class listaProdutos extends Component {
+export default function listaProdutos({ Produtos, LoadListaProdutos, loading, navigation }) {
 
-    state={
-        data: [],
-        page: 1,
-        loading: false
-    }
+    console.log("((((((((((((((((((((lista de produtos renderizado))))))))))))))))))))")
+    console.log(Produtos);
 
-    componentDidMount(){
-       this.LoadListaProdutos();
-       console.log(this.props);
-    }
+    //const [listProdutos, setListProdutos] = useState(Produtos);
 
-    LoadListaProdutos = async () => {
-
-        if (this.state.loading) return;
-
-        const { page } = this.state;
-
-        this.setState({ loading: true });
-
-        console.log(`ProdutosDb/categoria/${this.props.categoria}/${page.toString()}`)
-
-        const listaProdutos = await Api.get(`ProdutosDb/categoria/${this.props.categoria}/${page.toString()}`).then(dados => {
-            this.setState({
-                data: [...this.state.data, ...dados.data],
-                page: this.state.page + 1,
-                loading: false
-            })
-
-        }).catch(erro => {
-            console.log("erro retorno da função listaProdutos")
-            console.log(erro);
-        });
-
-    }
-
-    _renderItem = ({ item }) => (
+    const _renderItem = ({ item }) => (
         <View>
             <TouchableOpacity
                 style={styles.cards}
-                onPress={() => this.props.navigation.navigate('Produto', item)}
+                onPress={() => navigation.navigate('Produto', item)}
             >
                 <View style={styles.box}>
                     <View style={styles.box1}>
-                        <Text style={styles.nomeProduto}>{item.produtoUpper}</Text>
-                        <Text style={styles.texto}>Preço: R$ {item.precoMedio}</Text>
-                        <Text style={styles.texto}>Quantidade: {item.quantidadeEmbalagem}</Text>
+                        <Text style={styles.nomeProduto}>{item.produto}</Text>
+                        <Text style={styles.texto}>Preço: R$ {item.preco}</Text>
+                        <Text style={styles.texto}>Quantidade: {item.quantidade}</Text>
                     </View>
                     <View style={styles.box2}>
                         <Image
-                            style={styles.prodImg} source={require('../Assets/Arroz.png')}
+                            style={styles.prodImg} source={{ uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/ImagensPng/png/' + item.fotoPng }}
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text style={styles.dispon}>DISPONIVEL</Text>
@@ -71,40 +40,42 @@ export default class listaProdutos extends Component {
                 </View>
             </TouchableOpacity>
         </View>
-
     )
 
-     renderFooter = () => {
-         if (!this.state.loading) return null;
-         return (
-             <View style={styles.footerLoading}>
-                 <ActivityIndicator style={styles.loading} size={"large", 20} color={'#000'} />
-             </View>
-         )
-     }
- 
-    /*  RenderEmpty = () => {
-         return (
-             <View style={styles.msn}>
-                 <Text style={styles.textMsn}>Não existem produtos cadastrado nessa categoria</Text>
-             </View>
-         )
-     } */
-
-    render(){
+    const renderFooter = () => {
+        if (!loading) return null;
         return (
-            <FlatList
-                data={this.state.data}
-                renderItem={this._renderItem}
-                keyExtractor={item => item.codbar}
-                onEndReached={this.LoadListaProdutos}
-                onEndReachedThreshold={0.1}
-                ListFooterComponent={this.renderFooter}
-                //ListEmptyComponent={this.RenderEmpty}
-            />
+            <View style={styles.footerLoading}>
+                <ActivityIndicator style={styles.loading} size={"large", 20} color={'#000'} />
+            </View>
         )
     }
-    
+
+    const RenderEmpty = () => {
+        return (
+            <View style={styles.msn}>
+                <Text style={styles.textMsn}>Nenhum produto Encontrado</Text>
+            </View>
+        )
+    }
+    console.log("((((((((((((((((((((lista de produtos renderizado))))))))))))))))))))")
+
+
+    return (
+        <View>
+            {<FlatList
+            data={Produtos}
+            renderItem={_renderItem}
+            keyExtractor={item => item.codbar}
+            //onEndReached={Produtos.length >= 5 ? LoadListaProdutos : null}
+            onEndReachedThreshold={0.1}
+            ListFooterComponent={renderFooter}
+            ListEmptyComponent={RenderEmpty}
+        />}
+        </View>
+    )
+
+
 }
 
 const styles = StyleSheet.create({
@@ -188,3 +159,4 @@ const styles = StyleSheet.create({
     }
 
 })
+

@@ -1,98 +1,51 @@
-import React from 'react'
-import { StyleSheet, Text, View, Keyboard, SafeAreaView, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, TextInput, Button } from 'react-native'
+import React, { Component, useContext } from 'react'
+import { Image, Text, View, TouchableWithoutFeedback, TextInput, TouchableOpacity, ScrollView } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-export default function usuario() {
+import Styles from './style'
+
+import AuthContext from '../../Contexts/Auth'
+
+
+
+export default function usuario({ route }) {
+    const { estabelecimento } = useContext(AuthContext);
+    console.log(estabelecimento)
     return (
-        <KeyboardAwareScrollView>
-            <View style={styles.container}>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <View>
-                    <Text>asdfasdfasdfasdfasf</Text>
-                </View>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <View style={styles.inner}>
-                        <Text style={styles.header}>
-                            Header
-                            </Text>
-                        <TextInput
-                            placeholder="Username"
-                            style={styles.input}
-                        />
-                        <TextInput
-                            placeholder="Password"
-                            style={styles.input}
-                        />
-                        <TextInput
-                            placeholder="Confrim Password"
-                            style={styles.input}
-                        />
-                        <View style={styles.btnContainer}>
-                            <Button title="Submit" onPress={() => null} />
-                        </View>
-                        <View style={{ flex: 1 }} />
-                    </View>
-                </TouchableWithoutFeedback>
+        <View style={Styles.container}>
+            <View style={Styles.box1}>
+                <Image style={Styles.img} source={require('../../Assets/person.png')} />
             </View>
-        </KeyboardAwareScrollView>
+            < ScrollView style={Styles.box2}>
+                <View style={Styles.item}>
+                    <Text style={Styles.itemText}>ESTABELECIMENTO</Text>
+                    <TextInput  style={Styles.itemInput} />
+                </View>
+                <View style={Styles.item}>
+                    <Text style={Styles.itemText}>CNPJ</Text>
+                    <TextInput  style={Styles.itemInput} />
+                </View>
+                <View style={Styles.item}>
+                    <Text style={Styles.itemText}>RAZÃO SOCIAL</Text>
+                    <TextInput  style={Styles.itemInput} />
+                </View>
+                <View style={Styles.item}>
+                    <Text style={Styles.itemText}>Endereço</Text>
+                    <TextInput  style={Styles.itemInput} />
+                </View>
+                <View style={Styles.item}>
+                    <Text style={Styles.itemText}>Telefone</Text>
+                    <TextInput  style={[Styles.itemInput, Styles.ultimo]} />
+                </View>
+            </ScrollView>
+            <View style={Styles.box3}>
+                <TouchableOpacity style={Styles.item8_1}>
+                    <Text style={Styles.item8_1Text} >ALTERAR</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 4,
-        backgroundColor: 'green'
-    },
-    inner: {
-        padding: 24,
-        flex: 1,
-        justifyContent: "flex-end",
-    },
-    header: {
-        fontSize: 36,
-        marginBottom: 48,
-    },
-    input: {
-        height: 40,
-        borderColor: "#000000",
-        borderBottomWidth: 1,
-        marginBottom: 36,
-    },
-    btnContainer: {
-        backgroundColor: "white",
-        marginTop: 12,
-    },
-});
+
 

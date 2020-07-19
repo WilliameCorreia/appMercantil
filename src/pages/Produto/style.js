@@ -1,113 +1,146 @@
-import {StyleSheet, Dimensions} from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 const windowWidth = Dimensions.get('window').width
 
 const Styles = StyleSheet.create({
 
-    container:{ flex:1 },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
 
-    text:{ 
-        fontSize: 20, 
+    box1: {
+        width: (Dimensions.get('window').width),
+        height: (Dimensions.get('window').height / 100 * 13),
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: "#eaeaea",
+    },
+
+    prodImg: {
+        width: "25%",
+        height: "80%",
+        resizeMode: 'center'
+    },
+
+    Codbar: {
+        height: '100%',
+        position: 'absolute',
+        alignSelf: 'flex-end',
+        padding: 15,
+        justifyContent: 'flex-end'
+    },
+
+    codbarItem: {
+        backgroundColor: '#fff',
+        borderRadius: 50,
+        elevation: 10
+    },
+
+    codbarImg: {
+        width: (Dimensions.get("window").width / 100 * 15),
+        height: (Dimensions.get('window').height / 100 * 7),
+        margin: 10
+    },
+
+    containerSearch:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 5
+    },
+
+    search:{
+        width:(Dimensions.get('window').width / 10 * 8),
+        height: (Dimensions.get('window').height / 100 * 6),
+        elevation: 3, 
+        borderRadius: 30,
+        justifyContent: 'center',
+    },
+
+    box2: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: "#999999",
+        borderTopWidth: 1
+    },
+
+    containerForm: {
+        flex: 1,
+        width: "90%"
+    },
+
+    tamanhoInputMetade: {
+        width: "45%",
+        fontFamily: 'Montserrat-medium',
+    },
+
+    tamanhoInputFull: {
+        width: "100%",
+        fontFamily: 'Montserrat-medium',
+    },
+
+    inputs: {
+        textAlign: "center",
+        borderColor: "#d0d0d0",
+        marginBottom: 3,
+        borderRadius: 25,
+        fontSize: 15,
+        elevation: 6,
+        backgroundColor: "#fff",
+        fontFamily: 'Montserrat-medium',
+    },
+
+    text: {
+        fontSize: 15,
         textAlign: 'left',
-        fontFamily: 'Montserrat-SemiBold',
-        fontWeight: '600'
+        fontFamily: 'Montserrat-medium',
+        margin: 10
     },
 
-    colorLabelProduto:{ color:"#999999" },
-    
-    colorPreto:{ color:"black", },
+    colorLabelProduto: { color: "#999999" },
 
-    btnTop:{ backgroundColor:"#ff0000", paddingVertical: 5, paddingHorizontal: 10 },
+    colorPreto: { color: "black", },
 
-    btnStatus:{ backgroundColor:"#ff0000", },
-    
-    colorBranco:{ color:"white" },
+    colorBranco: { color: "white" },
 
-    BtnEncerrarText:{ 
-        fontSize: 20, 
-        paddingHorizontal:40, 
-        paddingVertical:2, 
-        fontFamily: 'Montserrat-SemiBold',
-        fontWeight: '600'
+    BtnEncerrarText: {
+        fontSize: 20,
+        paddingHorizontal: 40,
+        paddingVertical: 2,
+        fontFamily: 'Montserrat-medium',
     },
-    
-    margin:{ margin: 20},
-    
-    espacamentolabel1:{ marginLeft:16, marginTop:5},
-    espacamentolabel2:{ marginRight:110, marginTop:5 },
-    
-    espacamentoInput1:{ marginLeft:16, marginTop:5},
-    espacamentoInput2:{ marginRight:16, marginTop:5},
-    
-    paddingHorizontal:{ paddingHorizontal: 0, },
-    paddingVertical:{ paddingVertical: 2,},
-    
-    box1:{ flex:5, margin:15, elevation: 3, backgroundColor: '#fff' },
-    
-    colum:{ flexDirection:"column" },
-    
-    box2:{ flex:1, marginHorizontal:15, marginBottom:8, elevation: 3, backgroundColor: '#fff' },
-    
-    bordadoTop:{ borderColor:"#999999", borderTopWidth: 1 },
 
-    BtnAlterar:{ 
-        backgroundColor:"#B32728", 
+    colum: { flexDirection: "column" },
+
+    BtnAlterar: {
+        backgroundColor: "#B32728",
         width: (Dimensions.get('window').width / 2),
         height: (Dimensions.get('window').height / 12),
         borderRadius: 30,
         justifyContent: 'center',
-        alignItems: 'center'
-    },
-    
-    row:{flexDirection:"row" },
-    
-    cadaNoSeuLado:{ justifyContent:"space-between" },
-    
-    alignCenter:{ justifyContent:"center" },
-    
-    tamanhoInputMetade:{ 
-        width:windowWidth /10 * 4,
-        fontFamily: 'Montserrat-SemiBold',
-        fontWeight: '600' 
-    },
-    
-    tamanhoInputFull:{ 
-        width:windowWidth /100 * 85,
-        fontFamily: 'Montserrat-SemiBold',
-        fontWeight: '600'
-    },
-    
-    inputs: { 
-        textAlign:"center",
-        borderColor:"#d0d0d0", 
-        borderWidth: 4, 
-        marginBottom: 3, 
-        borderRadius: 25,
-        fontSize: 20
-    },
-    metadeTop1:{
-        flex: 2,
-        padding: 10,
-    },
-    metadeTop2:{
-        flex: 1.5,
-        padding: 10,
         alignItems: 'center',
-        justifyContent: 'center',
+        margin: 10
     },
-    metadeBotton1:{
+
+    row: { flexDirection: "row", justifyContent: 'space-between' },
+
+    alignCenter: { justifyContent: "center", alignItems: 'center' },
+
+    metadeBotton1: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
     },
-    metadeBotton2:{
+    metadeBotton2: {
         flex: 2,
         alignItems: 'center',
         justifyContent: 'center'
     },
-    textStatus:{
-        fontSize: 16,
-        fontFamily: 'Montserrat-SemiBold',
-        fontWeight: '600'
+    picker:{
+        elevation: 6,
+        backgroundColor: '#fff',
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 })
 
