@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const subscriber = auth().onUserChanged(signIn);
         return () => {
-            console(subscriber);
+            subscriber
              // unsubscribe on unmount
         }
     }, []);
