@@ -38,24 +38,15 @@ export default function NewProduto({ navigation, route }) {
         FotoPng: ''
     });
 
-    /* useEffect(() => {
+    useEffect(() => {
         getCategorias();
-        if (route.params) {
-            let { produto } = route.params
-            console.log("***************************************")
-            console.log(produto)
-            console.log("**************************************")
-            setProduto({
-                Produto: produto.produto,
-                Quantidade: produto.quantidadeEmbalagem,
-                Preco: produto.precoMedio.toString(),
-                CategoriaId: produto.categoria,
-                Codbar: produto.codbar,
-                FotoPng: response.data.fotoPng
-            })
-            console.log(route.params.produto)
+        try {
+            
+        } catch (error) {
+            
         }
-    }, [route.params]) */
+        
+    }, [route.params])
 
     const getProduto = (codbar) => {
         setSearch(false);
