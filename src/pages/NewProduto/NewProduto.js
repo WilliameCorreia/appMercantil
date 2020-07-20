@@ -41,9 +41,23 @@ export default function NewProduto({ navigation, route }) {
     useEffect(() => {
         getCategorias();
         try {
-            
+            if (route.params) {
+                let { produto } = route.params
+                console.log("***************************************")
+                console.log(produto)
+                console.log("**************************************")
+                setProduto({
+                    Produto: produto.produto,
+                    Quantidade: produto.quantidadeEmbalagem,
+                    Preco: produto.precoMedio.toString(),
+                    CategoriaId: produto.categoria,
+                    Codbar: produto.codbar,
+                    FotoPng: produto.fotoPng
+                })
+                console.log(route.params.produto)
+            }
         } catch (error) {
-            
+            console.log(error)
         }
         
     }, [route.params])

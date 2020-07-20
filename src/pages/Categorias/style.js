@@ -11,11 +11,12 @@ const styles = StyleSheet.create({
         height: (Dimensions.get('window').height / 40 * 6),
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'red'
     },
     uriImg:{
-        width: (Dimensions.get('window').width / 20 * 8),
-        height: (Dimensions.get('window').height / 20 * 3),
-        resizeMode: 'center'
+        width: (Dimensions.get('window').width / 100 * 45),
+        height: (Dimensions.get('window').height / 100 * 13),
+        //resizeMode: 'center'
     },
     Indicator:{
         width: (Dimensions.get('window').width / 2),
