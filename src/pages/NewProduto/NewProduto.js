@@ -255,6 +255,7 @@ export default function NewProduto({ navigation, route }) {
                             placeholder={"CODIGO DE BARRAS"}
                             keyboardType={'numeric'}
                             onChangeText={text => setProduto(prevState => ({ ...prevState, Codbar: text }))}
+                            editable={false}
                         />
                     </View>
                     <View style={Styles.alignCenter}>

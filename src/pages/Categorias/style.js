@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
         height: (Dimensions.get('window').height / 40 * 6),
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'red'
     },
     uriImg:{
         width: (Dimensions.get('window').width / 100 * 45),

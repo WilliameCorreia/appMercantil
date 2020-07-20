@@ -11,7 +11,7 @@ import {
 import Api from '../Services/api'
 import { FlatList } from 'react-native-gesture-handler';
 
-export default function listaProdutos({ Produtos, LoadListaProdutos, loading, navigation }) {
+export default function listaProdutos({ Produtos, LoadListaProdutos, loading, navigation, setAtualizar }) {
 
     console.log("((((((((((((((((((((lista de produtos renderizado))))))))))))))))))))")
     console.log(Produtos);
@@ -22,7 +22,7 @@ export default function listaProdutos({ Produtos, LoadListaProdutos, loading, na
         <View>
             <TouchableOpacity
                 style={styles.cards}
-                onPress={() => navigation.navigate('Produto', item)}
+                onPress={() => navigation.navigate('Produto', item, setAtualizar)}
             >
                 <View style={styles.box}>
                     <View style={styles.box1}>

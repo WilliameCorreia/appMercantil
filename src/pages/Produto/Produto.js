@@ -20,9 +20,12 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 
 
-export default function Produto({ navigation, route }) {
+export default function Produto({ navigation, route,  }) {
 
-    console.log(route);
+    const { Estabelecimento } = useContext(AuthContext);
+
+    const [modalActive, setModalActive] = useState(false);
+    const [msnModal, setMsnModal] = useState('primeira passada');
 
     const produto = route.params;
 
@@ -31,6 +34,36 @@ export default function Produto({ navigation, route }) {
     const preco = useRef();
     const categoria = useRef();
     const codBar = useRef();
+
+    const ProdutoUpdate = (values) => {
+        console.log("**********Adicionando Produto********")
+        console.log(values)
+        if (ValidaEan(values.codBar)) {
+            console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+            Api.put("Produtos", {
+                Id: produto.id,
+                Produto: values.produto,
+                Quantidade: parseInt(values.quantidade),
+                Preco: values.preco,
+                CategoriaId: parseInt(values.categoria),
+                CodeBar: values.codBar,
+                //FotoPng: produto.FotoPng,
+                EstabelecimentoId: Estabelecimento.id
+            }).then(response => {
+                console.log(response.data);
+                setMsnModal("Produto cadastrado com sucesso !");
+                setModalActive(true);
+            }).catch(erro => {
+                setMsnModal("Erro ao cadastrar o Produto !" + erro);
+                setModalActive(true);
+                console.log(erro);
+            })
+        } else {
+            setMsnModal("Favor digitar um codigo de barras válido");
+            setModalActive(true);
+        }
+
+    }
 
     const FormSchema = yup.object().shape({
         produto: yup.string().required("Campo obrigatório"),
@@ -47,10 +80,11 @@ export default function Produto({ navigation, route }) {
                 quantidade: produto.quantidade.toString(),
                 preco: produto.preco,
                 categoria: produto.categoriaId.toString(),
-                codBar: produto.codeBar.toString()
+                codBar: produto.codeBar
             }}
             onSubmit={values => {
-                console.log(values)
+                //console.log(values)
+                ProdutoUpdate(values)
             }}
             validationSchema={FormSchema}
         >
@@ -62,7 +96,7 @@ export default function Produto({ navigation, route }) {
                                 <Text style={Styles.textCliente}>{values.produto}</Text>
                             </View>
                             <View style={Styles.item1_2}>
-                                <Text style={Styles.StatusPedidoP}>{values.quantidade}</Text>
+                                <Image source={produto.FotoPng ? { uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/ImagensPng/png/' + produto.FotoPng } : require("../../Assets/srcImage.png")} style={Styles.prodImg} />
                             </View>
                         </View>
                         <View style={Styles.item2}>
@@ -122,6 +156,7 @@ export default function Produto({ navigation, route }) {
                                     value={values.codBar}
                                     ref={codBar}
                                     onChangeText={handleChange("codBar")}
+                                    
                                 />
                                 {errors.codBar && <Text style={Styles.textErro}>{errors.codBar}</Text>}
                             </View>
@@ -130,6 +165,9 @@ export default function Produto({ navigation, route }) {
                             <TouchableOpacity style={Styles.item8_1} onPress={handleSubmit}>
                                 <Text style={Styles.item8_1Text} >ALTERAR</Text>
                             </TouchableOpacity>
+                        </View>
+                        <View>
+                            <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} navigation />
                         </View>
                     </ScrollView>
                 </KeyboardAwareScrollView>

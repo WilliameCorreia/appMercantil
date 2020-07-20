@@ -13,6 +13,8 @@ export default function MeusProdutos({ route }) {
 
     const { Estabelecimento } = useContext(AuthContext);
 
+    const [ atualizar, setAtualizar] = useState(false);
+
     const [produtos, setProdutos] = useState({
         data: [],
         page: 1,
@@ -25,10 +27,8 @@ export default function MeusProdutos({ route }) {
 
     const categoriaId = route.params;
 
-    console.log(`Produtos/Pesquisar/${Estabelecimento.id}/${categoriaId}/${1}`);
-
     const LoadListaProdutos = async () => {
-        console.log("((((((((((((((((((((Buscar produtos 111111111))))))))))))))))))))");
+       
         if (produtos.loading) return;
 
         const { page } = produtos;
@@ -38,8 +38,6 @@ export default function MeusProdutos({ route }) {
         console.log(`Produtos/${categoriaId}/${Estabelecimento.id}/${produtos.page.toString()}`)
 
         api.get(`Produtos/${categoriaId}/${Estabelecimento.id}/${produtos.page}`).then(dados => {
-            console.log("((((((((((((((((((((Buscar produtos 222222222222))))))))))))))))))))");
-            console.log(dados.data)
             setProdutos({
                 data: [...produtos.data, ...dados.data],
                 page: produtos.page + 1,
@@ -52,19 +50,16 @@ export default function MeusProdutos({ route }) {
     }
 
     useEffect(() => {
-        console.log("((((((((((((((((((((Buscar produtos 3333333333))))))))))))))))))))");
         LoadListaProdutos()
         return () => {
             console.log("deu erro!")
         }
-    }, [])
+    }, [atualizar])
 
     const pesquisar = () => {
         if (texto) {
             console.log(`Produtos/Pesquisar/${Estabelecimento.id}/${categoriaId}/${texto}/${1}}`)
             api.get(`Produtos/Pesquisar/${Estabelecimento.id}/${categoriaId}/${texto}/${1}`).then(reponse => {
-                console.log("<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-                console.log(reponse.data)
                 setProdutos({
                     data: [...reponse.data],
                     page: produtos.page + 1,
@@ -77,8 +72,6 @@ export default function MeusProdutos({ route }) {
         }
     }
 
-    console.log("((((((((((((((((((((produtos renderizado))))))))))))))))))))");
-    console.log('meus produtos => ' + produtos)
     return (
         <View style={styles.container}>
             <View style={styles.containerSearch}>
@@ -93,7 +86,7 @@ export default function MeusProdutos({ route }) {
                 />
                 <TouchableOpacity onPress={pesquisar}><Text>Pesquisar</Text></TouchableOpacity>
             </View>
-            <ListaProdutos navigation={navigation} Produtos={produtos.data ? produtos.data : []} LoadListaProdutos={LoadListaProdutos} loading={produtos.loading} />
+            <ListaProdutos navigation={navigation} Produtos={produtos.data ? produtos.data : []} LoadListaProdutos={LoadListaProdutos} loading={produtos.loading} setAtualizar />
         </View>
     )
 }
