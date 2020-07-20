@@ -5,6 +5,7 @@ import { SearchBar } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, TouchableOpacity } from 'react-native';
 import AuthContext from '../../Contexts/Auth';
+import ProdutoContext, { ProdutosContext } from '../../Contexts/ProdutoContext'
 import api from '../../Services/api';
 
 import styles from './style';
@@ -12,6 +13,8 @@ import styles from './style';
 export default function MeusProdutos({ route }) {
 
     const { Estabelecimento } = useContext(AuthContext);
+
+    const { LoadCategorias } = useContext(ProdutosContext);
 
     const [produtos, setProdutos] = useState({
         data: [],
@@ -24,6 +27,7 @@ export default function MeusProdutos({ route }) {
     const navigation = useNavigation();
 
     const categoriaId = route.params;
+
 
     const LoadListaProdutos = async () => {
        
@@ -38,8 +42,8 @@ export default function MeusProdutos({ route }) {
         api.get(`Produtos/${categoriaId}/${Estabelecimento.id}/${produtos.page}`).then(dados => {
             console.log(dados.data)
             setProdutos({
-                data: [...produtos.data, ...dados.data],
-                page: produtos.page + 1,
+                data: [...dados.data],
+                page: produtos.page,
                 loading: false
             })
         }).catch(erro => {
@@ -53,7 +57,7 @@ export default function MeusProdutos({ route }) {
         return () => {
             console.log("deu erro!")
         }
-    }, [])
+    }, [LoadCategorias])
 
     const pesquisar = () => {
         if (texto) {
@@ -85,7 +89,7 @@ export default function MeusProdutos({ route }) {
                 />
                 <TouchableOpacity onPress={pesquisar}><Text>Pesquisar</Text></TouchableOpacity>
             </View>
-            <ListaProdutos navigation={navigation} Produtos={produtos.data ? produtos.data : []} LoadListaProdutos={LoadListaProdutos} loading={produtos.loading}/>
+            <ListaProdutos navigation={navigation} Produtos={produtos.data ? produtos.data : []} LoadListaProdutos loading={produtos.loading}/>
         </View>
     )
 }
