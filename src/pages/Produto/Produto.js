@@ -156,7 +156,7 @@ export default function Produto({ navigation, route,  }) {
                                     value={values.codBar}
                                     ref={codBar}
                                     onChangeText={handleChange("codBar")}
-                                    
+                                    editable={false}
                                 />
                                 {errors.codBar && <Text style={Styles.textErro}>{errors.codBar}</Text>}
                             </View>

@@ -25,7 +25,6 @@ import AuthContext from '../Contexts/Auth'
 
 const Stack = createStackNavigator();
 
-
 function RouteDashBoard() {
 
     const { Estabelecimento } = useContext(AuthContext);
@@ -118,11 +117,6 @@ function RouteDashBoard() {
                     }}
                 />
                 <Stack.Screen
-                    name={'MeusProdutos'}
-                    component={MeusProdutos}
-                    options={{ title: 'MEUS PRODUTOS', headerStyle: { backgroundColor: '#B32728' } }}
-                />
-                <Stack.Screen
                     name={'Ofertas'}
                     component={Ofertas}
                     options={{ title: 'OFERTAS', headerStyle: { backgroundColor: '#B32728' } }}
@@ -133,21 +127,6 @@ function RouteDashBoard() {
                     options={{ title: 'NOVAS OFERTAS', headerStyle: { backgroundColor: '#B32728' } }}
                 />
                 <Stack.Screen
-                    name={'NovoProduto'}
-                    component={NewProduto}
-                    options={{ title: 'NOVO PRODUTO', headerStyle: { backgroundColor: '#B32728' } }}
-                />
-                {<Stack.Screen
-                    name={'Produto'}
-                    component={Produto}
-                    options={{ title: 'PRODUTO', headerStyle: { backgroundColor: '#B32728' } }}
-                />}
-                <Stack.Screen
-                    name={'Categorias'}
-                    component={Categorias}
-                    options={{ title: 'CATEGORIAS', headerStyle: { backgroundColor: '#B32728' } }}
-                />
-                <Stack.Screen
                     name={'Mycamera'}
                     component={Mycamera}
                     options={{ title: 'CODIGO DE BARRAS', headerStyle: { backgroundColor: '#B32728' } }}
@@ -156,6 +135,26 @@ function RouteDashBoard() {
                     name={'DetalheOfertas'}
                     component={DetalheOfertas}
                     options={{ title: 'DETALHE OFERTA', headerStyle: { backgroundColor: '#B32728' } }}
+                />
+                <Stack.Screen
+                    name={'MeusProdutos'}
+                    component={MeusProdutos}
+                    options={{ title: 'MEUS PRODUTOS', headerStyle: { backgroundColor: '#B32728' } }}
+                />
+                <Stack.Screen
+                    name={'Categorias'}
+                    component={Categorias}
+                    options={{ title: 'CATEGORIAS', headerStyle: { backgroundColor: '#B32728' } }}
+                />
+                <Stack.Screen
+                    name={'NovoProduto'}
+                    component={NewProduto}
+                    options={{ title: 'NOVO PRODUTO', headerStyle: { backgroundColor: '#B32728' } }}
+                />
+                <Stack.Screen
+                    name={'Produto'}
+                    component={Produto}
+                    options={{ title: 'PRODUTO', headerStyle: { backgroundColor: '#B32728' } }}
                 />
             </Stack.Navigator>
 
