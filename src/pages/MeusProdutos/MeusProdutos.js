@@ -13,8 +13,6 @@ export default function MeusProdutos({ route }) {
 
     const { Estabelecimento } = useContext(AuthContext);
 
-    const [ atualizar, setAtualizar] = useState(false);
-
     const [produtos, setProdutos] = useState({
         data: [],
         page: 1,
@@ -38,6 +36,7 @@ export default function MeusProdutos({ route }) {
         console.log(`Produtos/${categoriaId}/${Estabelecimento.id}/${produtos.page.toString()}`)
 
         api.get(`Produtos/${categoriaId}/${Estabelecimento.id}/${produtos.page}`).then(dados => {
+            console.log(dados.data)
             setProdutos({
                 data: [...produtos.data, ...dados.data],
                 page: produtos.page + 1,
@@ -54,7 +53,7 @@ export default function MeusProdutos({ route }) {
         return () => {
             console.log("deu erro!")
         }
-    }, [atualizar])
+    }, [])
 
     const pesquisar = () => {
         if (texto) {
@@ -86,7 +85,7 @@ export default function MeusProdutos({ route }) {
                 />
                 <TouchableOpacity onPress={pesquisar}><Text>Pesquisar</Text></TouchableOpacity>
             </View>
-            <ListaProdutos navigation={navigation} Produtos={produtos.data ? produtos.data : []} LoadListaProdutos={LoadListaProdutos} loading={produtos.loading} setAtualizar />
+            <ListaProdutos navigation={navigation} Produtos={produtos.data ? produtos.data : []} LoadListaProdutos={LoadListaProdutos} loading={produtos.loading}/>
         </View>
     )
 }

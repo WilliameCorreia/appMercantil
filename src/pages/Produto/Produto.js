@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import {
     Text,
     View,
@@ -18,21 +18,35 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import MyModal from "../../Componentes/MyModal"
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { ProdutosContext } from '../../Contexts/ProdutoContext'
 
 
 export default function Produto({ navigation, route,  }) {
+
+    const { LoadCategorias } = useContext(ProdutosContext);
 
     const { Estabelecimento } = useContext(AuthContext);
 
     const [modalActive, setModalActive] = useState(false);
     const [msnModal, setMsnModal] = useState('primeira passada');
 
+    const { categoria , estabelecimento } = route.params;
+    
+    
+    console.log(categoria)
+    
+    
+    console.log(estabelecimento)
+    
+
     const produto = route.params;
+
+    console.log(produto)
 
     const produtor = useRef();
     const quantidade = useRef();
     const preco = useRef();
-    const categoria = useRef();
+    const categoria_ = useRef();
     const codBar = useRef();
 
     const ProdutoUpdate = (values) => {
@@ -53,6 +67,7 @@ export default function Produto({ navigation, route,  }) {
                 console.log(response.data);
                 setMsnModal("Produto cadastrado com sucesso !");
                 setModalActive(true);
+                LoadCategorias();
             }).catch(erro => {
                 setMsnModal("Erro ao cadastrar o Produto !" + erro);
                 setModalActive(true);
@@ -79,11 +94,11 @@ export default function Produto({ navigation, route,  }) {
                 produto: produto.produto,
                 quantidade: produto.quantidade.toString(),
                 preco: produto.preco,
-                categoria: produto.categoriaId.toString(),
-                codBar: produto.codeBar
+                categoria: categoria.nome,
+                codBar: produto.codeBar,
+                fotoPng: produto.fotoPng
             }}
             onSubmit={values => {
-                //console.log(values)
                 ProdutoUpdate(values)
             }}
             validationSchema={FormSchema}
@@ -96,7 +111,7 @@ export default function Produto({ navigation, route,  }) {
                                 <Text style={Styles.textCliente}>{values.produto}</Text>
                             </View>
                             <View style={Styles.item1_2}>
-                                <Image source={produto.FotoPng ? { uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/ImagensPng/png/' + produto.FotoPng } : require("../../Assets/srcImage.png")} style={Styles.prodImg} />
+                                <Image source={produto.fotoPng ? { uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/ImagensPng/png/' + produto.fotoPng } : require("../../Assets/srcImage.png")} style={Styles.prodImg} />
                             </View>
                         </View>
                         <View style={Styles.item2}>
@@ -138,7 +153,7 @@ export default function Produto({ navigation, route,  }) {
                                 <TextInput
                                     style={Styles.item5_1Input}
                                     value={values.categoria}
-                                    ref={categoria}
+                                    ref={categoria_}
                                     onChangeText={handleChange("categoria")}
                                 />
                                 {errors.categoria && <Text style={Styles.textErro}>{errors.categoria}</Text>}

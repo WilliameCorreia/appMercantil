@@ -8,10 +8,9 @@ import {
     StyleSheet,
 } from 'react-native'
 
-import Api from '../Services/api'
 import { FlatList } from 'react-native-gesture-handler';
 
-export default function listaProdutos({ Produtos, LoadListaProdutos, loading, navigation, setAtualizar }) {
+export default function listaProdutos({ Produtos, loading, navigation}) {
 
     console.log("((((((((((((((((((((lista de produtos renderizado))))))))))))))))))))")
     console.log(Produtos);
@@ -22,7 +21,7 @@ export default function listaProdutos({ Produtos, LoadListaProdutos, loading, na
         <View>
             <TouchableOpacity
                 style={styles.cards}
-                onPress={() => navigation.navigate('Produto', item, setAtualizar)}
+                onPress={() => navigation.navigate('Produto', item)}
             >
                 <View style={styles.box}>
                     <View style={styles.box1}>
@@ -58,8 +57,6 @@ export default function listaProdutos({ Produtos, LoadListaProdutos, loading, na
             </View>
         )
     }
-    console.log("((((((((((((((((((((lista de produtos renderizado))))))))))))))))))))")
-
 
     return (
         <View>

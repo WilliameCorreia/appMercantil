@@ -8,14 +8,21 @@ const ProdutosProvider = ({ children }) => {
 
     const [categorias, setCategorias] = useState([]);
 
-    const LoadCategorias = async () => {
+    const [teste, setTest] = useState();
 
+    const LoadCategorias = async () => {
+        console.log("entrou em load categorias")
         const getCategorias = await api.get("Categorias").then(response => {
             setCategorias(response.data)
             console.log(response.data)
         }).catch(error => {
             console.log(error);
         })
+    }
+
+    const testando =  valor => {
+        console.log(valor);
+        setTest(valor);
     }
 
     useEffect(() => {
@@ -25,7 +32,7 @@ const ProdutosProvider = ({ children }) => {
     }, [])
 
     return (
-        <ProdutosContext.Provider value={{categorias}} >
+        <ProdutosContext.Provider value={{categorias, testando, LoadCategorias}} >
             {children}
         </ProdutosContext.Provider>
     )
