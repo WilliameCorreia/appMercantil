@@ -49,11 +49,11 @@ export default function Produto({ navigation, route }) {
                 categoria: produto.categoriaId.toString(),
                 codBar: produto.codeBar.toString()
             }}
-            onSubmit={values =>{
+            onSubmit={values => {
                 console.log(values)
             }}
-           validationSchema={FormSchema}
-            >
+            validationSchema={FormSchema}
+        >
             {({ values, handleChange, handleSubmit, errors }) =>
                 <KeyboardAwareScrollView style={Styles.container}>
                     <ScrollView style={Styles.box1}>
@@ -131,7 +131,7 @@ export default function Produto({ navigation, route }) {
                                 <Text style={Styles.item8_1Text} >ALTERAR</Text>
                             </TouchableOpacity>
                         </View>
-                    </ScrollView>                    
+                    </ScrollView>
                 </KeyboardAwareScrollView>
             }
         </Formik>

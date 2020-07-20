@@ -7,7 +7,7 @@ const Styles = StyleSheet.create({
     box1: { height: windowHeight *82, backgroundColor: '#fff', elevation: 8, marginBottom:"10%"},
     // box2: { height: windowHeight * 15, marginTop: "4%" },
 
-    item1: { height: windowHeight *20, flexDirection: 'row' },
+    item1: { height: windowHeight * 20, flexDirection: 'row' },
     item1_1: { width: "50%", backgroundColor: "#fff", marginLeft: 8 },
     textCliente: { fontFamily: 'Montserrat-Medium', fontSize: 20, padding: 16, paddingBottom: 0, opacity: 0.3 },
     textPedido: { fontFamily: 'Montserrat-Medium', fontSize: 16, marginLeft: 16, opacity: 0.3 },
@@ -15,18 +15,18 @@ const Styles = StyleSheet.create({
     StatusPedidoP: { backgroundColor: "red", width: "85%", textAlign: "center", color: "white", marginBottom: 8 },
 
     item2: {
-        height: "20%", backgroundColor: '#fff',
+        height: windowHeight *8, backgroundColor: '#fff',
         flexDirection: 'row', borderTopWidth: 0.3, borderBottomWidth: 0.3, borderColor: "#b4b4b4",
         paddingTop: 10
     },
 
-    item2: { flexDirection: 'row', padding: "7%", paddingTop: "5%", borderTopWidth: 0.3, paddingBottom: "2%" },
+    item2: { height: windowHeight *8, flexDirection: 'row', padding: "7%", paddingTop: "5%", borderTopWidth: 0.3, paddingBottom: "2%" },
     item2_1: { width: "60%", backgroundColor: "#fff" },
     item2_1Text: { fontFamily: "Montserrat-Medium", fontSize: 15 },
     item2_2: { width: "45%", backgroundColor: "#fff" },
     item2_2Text: { fontFamily: "Montserrat-Medium", fontSize: 15 },
 
-    item3: { height: "15%", flexDirection: 'row', paddingTop: 0, marginLeft: "5%", marginBottom: "4%" },
+    item3: { height: windowHeight *8, flexDirection: 'row', paddingTop: 0, marginLeft: "5%", marginBottom: "4%" },
     item3_1: { width: "50%", backgroundColor: "#fff", marginLeft: "2%"},
     item3_1Input: {
         textAlign: "center",
@@ -51,6 +51,7 @@ const Styles = StyleSheet.create({
         fontFamily: "Montserrat-light",
     },
     item4: { 
+        height: windowHeight *6,
         flexDirection: 'row', 
         padding: "7%", 
         paddingTop: 0, 
@@ -59,7 +60,7 @@ const Styles = StyleSheet.create({
     item4_1: { width: "60%", backgroundColor: "#fff" },
     item4_1Text: { fontFamily: "Montserrat-Medium", fontSize: 15 },
 
-    item5: { height: "15%", flexDirection: 'row', paddingTop: 0, marginLeft: "5%", marginBottom: "4%" },
+    item5: {height: windowHeight *8, flexDirection: 'row', paddingTop: 0, marginLeft: "5%", marginBottom: "4%" },
     item5_1: { width: "100%", backgroundColor: "#fff", paddingLeft: "2%" },
     item5_1Input: {
         elevation: 6,
@@ -73,11 +74,11 @@ const Styles = StyleSheet.create({
         fontFamily: "Montserrat-light",
     },
 
-    item6: { flexDirection: 'row', padding: "7%", paddingTop: 0, paddingBottom: "2%" },
+    item6: { height: windowHeight *8, flexDirection: 'row', padding: "7%", paddingTop: 0, paddingBottom: "2%" },
     item6_1: { width: "60%", backgroundColor: "#fff" },
     item6_1Text: { fontFamily: "Montserrat-Medium", fontSize: 15 },
 
-    item7: { height: "15%", flexDirection: 'row', paddingTop: 0, marginLeft: "5%" },
+    item7: { height: windowHeight *10, flexDirection: 'row', paddingTop: 0, marginLeft: "5%" },
     item7_1: { width: "100%", backgroundColor: "#fff", paddingLeft: "2%" },
     item7_1Input: {
         elevation: 6,
@@ -92,7 +93,7 @@ const Styles = StyleSheet.create({
     },
 
 
-    item8: { height: windowHeight *82, flexDirection: 'row', marginBottom:5, marginTop:"2%"},
+    item8: { height: windowHeight *8, flexDirection: 'row', marginBottom:5, marginTop:"2%"},
     item8_1: { width: "100%", backgroundColor: "#fff", alignItems: "center" },
     item8_1Text: { marginTop: '2%', borderRadius: 25, width: "60%", backgroundColor: "#9C3F3A", textAlign: "center", padding: "2%", fontSize: 16, fontFamily: "Montserrat-SemiBold", color: "white" },
 
