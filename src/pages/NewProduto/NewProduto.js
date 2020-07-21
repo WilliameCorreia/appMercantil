@@ -136,7 +136,7 @@ export default function NewProduto({ navigation, route }) {
     const VerificarProduto = async (codbar) => {
         console.log("****************************");
         console.log(codbar);
-        Api.get(`Produtos/codbar/${codbar}`).then(response =>{
+        Api.get(`Produtos/codbar/${codbar}/${Estabelecimento.id}`).then(response =>{
             if(response.data != 0){
                 setMsnModal("Produto já Cadastrado ");
                 setModalActive(true);
