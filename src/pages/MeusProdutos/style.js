@@ -28,6 +28,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         margin: 5
     },
+    btnPesquisar:{
+        backgroundColor: '#B32728',
+        padding: 5,
+        borderRadius: 30,
+        marginTop: 5,
+    },
+    textPesquisar:{
+        color: '#fff'
+    }
 })
 
 export default styles

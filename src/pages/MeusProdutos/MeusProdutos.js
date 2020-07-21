@@ -87,7 +87,7 @@ export default function MeusProdutos({ route }) {
                     onChangeText={text => text.length < 1 ? LoadListaProdutos() && setTexto(text): setTexto(text)}
                     value={texto}
                 />
-                <TouchableOpacity onPress={pesquisar}><Text>Pesquisar</Text></TouchableOpacity>
+                <TouchableOpacity onPress={pesquisar} style={styles.btnPesquisar}><Text style={styles.textPesquisar}>Pesquisar</Text></TouchableOpacity>
             </View>
             <ListaProdutos navigation={navigation} Produtos={produtos.data ? produtos.data : []} LoadListaProdutos loading={produtos.loading}/>
         </View>
