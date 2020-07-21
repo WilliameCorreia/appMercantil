@@ -47,6 +47,7 @@ export default function Produto({ navigation, route,  }) {
     const quantidade = useRef();
     const preco = useRef();
     const categoria_ = useRef();
+    const categoriaId = useRef();
     const codBar = useRef();
 
     const ProdutoUpdate = (values) => {
@@ -59,13 +60,12 @@ export default function Produto({ navigation, route,  }) {
                 Produto: values.produto,
                 Quantidade: parseInt(values.quantidade),
                 Preco: values.preco,
-                CategoriaId: parseInt(values.categoria),
+                CategoriaId: parseInt(values.categoriaId),
                 CodeBar: values.codBar,
-                //FotoPng: produto.FotoPng,
                 EstabelecimentoId: Estabelecimento.id
             }).then(response => {
                 console.log(response.data);
-                setMsnModal("Produto cadastrado com sucesso !");
+                setMsnModal("Produto alterado com sucesso !");
                 setModalActive(true);
                 LoadCategorias();
             }).catch(erro => {
@@ -95,6 +95,7 @@ export default function Produto({ navigation, route,  }) {
                 quantidade: produto.quantidade.toString(),
                 preco: produto.preco,
                 categoria: categoria.nome,
+                categoriaId: produto.categoriaId,
                 codBar: produto.codeBar,
                 fotoPng: produto.fotoPng
             }}
@@ -153,8 +154,8 @@ export default function Produto({ navigation, route,  }) {
                                 <TextInput
                                     style={Styles.item5_1Input}
                                     value={values.categoria}
-                                    ref={categoria_}
-                                    onChangeText={handleChange("categoria")}
+                                    ref={categoriaId}
+                                    onChangeText={handleChange("categoriaId")}
                                 />
                                 {errors.categoria && <Text style={Styles.textErro}>{errors.categoria}</Text>}
                             </View>

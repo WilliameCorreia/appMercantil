@@ -19,7 +19,7 @@ import MyModal from "../../Componentes/MyModal"
 
 export default function NewProduto({ navigation, route }) {
 
-    const { estabelecimento } = useContext(AuthContext);
+    const { Estabelecimento } = useContext(AuthContext);
 
     const [categorias, setCategorias] = useState([]);
 
@@ -115,7 +115,7 @@ export default function NewProduto({ navigation, route }) {
                 CategoriaId: GetId(produto.CategoriaId),
                 CodeBar: produto.Codbar,
                 FotoPng: produto.FotoPng,
-                EstabelecimentoId: estabelecimento.id 
+                EstabelecimentoId: Estabelecimento.id 
             }).then(response =>{
                 console.log(response.data);
                 setMsnModal("Produto cadastrado com sucesso !");
@@ -170,7 +170,7 @@ export default function NewProduto({ navigation, route }) {
 
     console.log("newProduto renderizado!")
     console.log("------------------------------------------------")
-    console.log(estabelecimento)
+    console.log(Estabelecimento)
 
     return (
         <KeyboardAwareScrollView style={Styles.container}>
