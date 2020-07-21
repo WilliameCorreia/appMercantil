@@ -65,7 +65,7 @@ export default function MeusProdutos({ route }) {
             api.get(`Produtos/Pesquisar/${Estabelecimento.id}/${categoriaId}/${texto}/${1}`).then(reponse => {
                 setProdutos({
                     data: [...reponse.data],
-                    page: produtos.page + 1,
+                    page: produtos.page /* + 1 */,
                     loading: false
                 })
             }
@@ -84,7 +84,7 @@ export default function MeusProdutos({ route }) {
                     containerStyle={styles.search}
                     inputStyle={styles.input}
                     placeholderTextColor={"#fff"}
-                    onChangeText={text => setTexto(text)}
+                    onChangeText={text => text.length < 1 ? LoadListaProdutos() && setTexto(text): setTexto(text)}
                     value={texto}
                 />
                 <TouchableOpacity onPress={pesquisar}><Text>Pesquisar</Text></TouchableOpacity>
