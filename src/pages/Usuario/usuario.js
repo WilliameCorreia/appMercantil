@@ -12,12 +12,11 @@ import * as yup from 'yup';
 import api from '../../Services/api'
 
 
-
+import { EstabelecimentosContext } from '../../Contexts/EstabelecimentoContext'
 
 
 export default function usuario({ route }) {
-    const { Estabelecimento } = useContext(AuthContext);
-    console.log(Estabelecimento)
+    const {Estabelecimento, setEstabelecimento} = useContext(EstabelecimentosContext);
 
     const [modalActive, setModalActive] = useState(false);
     const [msnModal, setMsnModal] = useState('primeira passada');
@@ -36,8 +35,9 @@ export default function usuario({ route }) {
     const complemento = useRef();
 
     const registrarEstabelecimento = (values) => {
-        console.log("####################################################################");
+       
         console.log(values);
+        
         api.put("Estabelecimento", {
             Id: Estabelecimento.id,
             Token: Estabelecimento.token,
@@ -49,14 +49,9 @@ export default function usuario({ route }) {
             Telefones: values.telefone,
             enderecos: values.enderecos
         }).then(dados => {
-            console.log(dados.data);
-            typeof (dados.data)
-            if (dados.data) {
-                setMsnModal("Dados cadastrados com sucesso ! aguarde a ativação da sua conta");
-            } else {
-                setMsnModal("Estabelecimento já cadastrado!");
-            }
+            setMsnModal("Dados atualizados!");
             setModalActive(true);
+            setEstabelecimento(dados.data)
         }).catch(errors => {
             console.log(errors);
         });
@@ -79,7 +74,7 @@ export default function usuario({ route }) {
         // endereco: yup.string().required('Campo obrigatório'),
         // numero: yup.string().required('Campo obrigatório'),
     })
-    function teste (values){
+    function teste(values) {
         console.log(values)
     }
 
@@ -98,7 +93,7 @@ export default function usuario({ route }) {
                 // numero: '',
                 // complemento: ''
             }}
-           
+
             onSubmit={(values, { resetForm }) => {
                 registrarEstabelecimento(values)
                 teste(values)
@@ -158,12 +153,12 @@ export default function usuario({ route }) {
                         </View>
                         <View style={Styles.item}>
                             <Text style={Styles.itemText}>Telefone</Text>
-                            <TextInput 
-                            style={[Styles.itemInput, Styles.ultimo]} 
-                            ref={telefone}
-                            value={values.telefone}
-                            onChangeText={handleChange('telefone')}
-                            placeholder='telefone'
+                            <TextInput
+                                style={[Styles.itemInput, Styles.ultimo]}
+                                ref={telefone}
+                                value={values.telefone}
+                                onChangeText={handleChange('telefone')}
+                                placeholder='telefone'
                             />
                             {errors.numero && <Text style={Styles.textErro}>{errors.numero}</Text>}
                         </View>
@@ -179,6 +174,7 @@ export default function usuario({ route }) {
         </Formik>
     );
 }
+
 
 
 

@@ -5,22 +5,25 @@ import RouteDrawer from '../Routes/routeDrawer'
 import AuthContext from '../Contexts/Auth'
 
 import ProdutosProvider from '../Contexts/ProdutoContext'
+import EstabelecimentoProvider from '../Contexts/EstabelecimentoContext'
 
 const Routes = () => {
 
     const { signed } = useContext(AuthContext);
 
     return (
-        
-        signed ? 
-        
-        <ProdutosProvider>
-            <RouteDrawer/>
-        </ProdutosProvider> 
-        
-        : 
-        
-        <Route/>
+
+        signed ?
+
+            <ProdutosProvider>
+                <EstabelecimentoProvider>
+                    <RouteDrawer />
+                </EstabelecimentoProvider>
+            </ProdutosProvider>
+
+            :
+
+            <Route />
     )
 }
 
