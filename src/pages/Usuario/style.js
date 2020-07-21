@@ -51,7 +51,8 @@ const Styles = StyleSheet.create({
         marginLeft:"3%"
     },
     itemInput: {
-        width:"100%",
+        marginHorizontal:"2%",
+        width:"96%",
         textAlign: "center",
         backgroundColor: "#fff",
         elevation: 10,

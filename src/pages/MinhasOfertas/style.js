@@ -12,7 +12,7 @@ const Styles = StyleSheet.create({
     box1_1Text: { fontFamily:"Montserrat-Medium", fontSize:19, paddingLeft:"3%" },
     box1_1TextPedido: { fontFamily:"Montserrat-Medium", fontSize:14, paddingLeft:"3%" },
     box1_2: { flexDirection: "column", width: "50%", alignItems:"center", justifyContent:"center" },
-    box1_2Img: { width:"35%", height:"150%", marginLeft:"30%" },
+    box1_2Img: { width:"30%", height:"120%", paddingVertical:"2%", marginLeft:"5%" },
     
 
 })
