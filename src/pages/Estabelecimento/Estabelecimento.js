@@ -12,7 +12,7 @@ import AuthContext from '../../Contexts/Auth'
 
 export default function Estabelecimento({ navigation}) {
 
-    const {usuario, signIn} = useContext(AuthContext);
+    const {usuario, signIn, setTest} = useContext(AuthContext);
 
     console.log(usuario);
     //modal
@@ -37,33 +37,27 @@ export default function Estabelecimento({ navigation}) {
         console.log(values);
         api.post("Estabelecimento", {
             Token: usuario.uid,
-            Email: usuario.email,
+             Email: usuario.email,
             Estabelecimento: values.estabelecimento,
             RazaoSocial: values.razaoSocial,
             Cnpj: values.cnpj,
             Ativo: false,
-            Telefones:[{
-                Ddd: 85,
-                Tipo: "Celular",
-                Numero: values.telefone,
-            }]
+            Telefones: values.telefone
         }).then(dados =>{
             console.log(dados.data);
             typeof(dados.data)
             if(dados.data){
                 setMsnModal("Dados cadastrados com sucesso ! aguarde a ativação da sua conta");
+                setTest(true)
             }else{
                 setMsnModal("Estabelecimento já cadastrado!");
             }
             setModalActive(true);
         }).catch(errors =>{
-            console.log(errors);
+            setMsnModal("Error ao cadastrar o estabelecimento !!" + errors);
+            setModalActive(true);
         });
         console.log(values)
-    }
-
-    function clearState(){
-        set
     }
 
     console.log('Estabelecimento');
@@ -99,7 +93,7 @@ export default function Estabelecimento({ navigation}) {
             }}
             onSubmit={(values, { resetForm }) =>{
                 registrarEstabelecimento(values)
-                resetForm();
+                //resetForm();
             }}
             validationSchema={FormSchema}
         >
@@ -243,6 +237,5 @@ export default function Estabelecimento({ navigation}) {
             </ScrollView>
             )}
         </Formik>
-        
     )
 }
