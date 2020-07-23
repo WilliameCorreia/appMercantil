@@ -2,6 +2,7 @@ import React, { Component, useContext, useState, useRef } from 'react'
 import { Image, Text, View, TouchableWithoutFeedback, TextInput, TouchableOpacity, ScrollView } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+
 import Styles from './style'
 
 import AuthContext from '../../Contexts/Auth'
@@ -12,11 +13,17 @@ import * as yup from 'yup';
 import api from '../../Services/api'
 
 
+import S3 from 'aws-sdk/clients/s3';
+import { decode } from 'base64-arraybuffer';
+import fs from 'react-native-fs';
+import ImagePicker from 'react-native-image-picker';
+
+
 import { EstabelecimentosContext } from '../../Contexts/EstabelecimentoContext'
 
 
 export default function usuario({ route }) {
-    const {Estabelecimento, setEstabelecimento} = useContext(EstabelecimentosContext);
+    const { Estabelecimento, setEstabelecimento } = useContext(EstabelecimentosContext);
 
     const [modalActive, setModalActive] = useState(false);
     const [msnModal, setMsnModal] = useState('primeira passada');
@@ -35,9 +42,9 @@ export default function usuario({ route }) {
     const complemento = useRef();
 
     const registrarEstabelecimento = (values) => {
-       
+
         console.log(values);
-        
+
         api.put("Estabelecimento", {
             Id: Estabelecimento.id,
             Token: Estabelecimento.token,
@@ -61,6 +68,116 @@ export default function usuario({ route }) {
     function clearState() {
         set
     }
+
+    function EscolherImagem() {
+        console.log("vai selecionar a imagem");
+        //Ajusta quais opções estarão disponíveis para o usuário
+        const options = {
+            title: "Altere a Foto de Perfil",
+            takePhotoButtonTitle: "",
+            chooseFromLibraryButtonTitle: "Adicione Uma Imagem da Galeria",
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            }
+        }
+
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('resultado do seletor de imagem', response);
+
+            if (response.didCancel) {
+                console.log('operação cancelada pelo usuário');
+            } else if (response.error) {
+                console.log('Ocorreu um erro com image picker: ', response.error);
+            } else if (response.customButton) {
+                console.log('Usuário clicou em um botão customizado: ', response.customButton);
+            } else {
+                const file = {
+                    uri: response.uri,
+                    name: response.fileName,
+                    type: response.type
+                }
+
+                console.log("*******************************************")
+                console.log(file)
+                console.log("*******************************************")
+
+                uploadImageOnS3(file);
+
+                // const serverConfig = {
+                //     keyPrefix: "images/",
+                //     bucket: "appmercantilestabelecimento",
+                //     region: "us-west-2",
+                //     accessKey: "AKIAVHXDSJ6CAQOQ2F4P",
+                //     secretKey: "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",
+                //     successActionStatus: 201
+                // }
+                // let uriMod = response.uri
+                // uriMod.replace('file://', '');
+                // console.log(uriMod)
+
+                // const xhr = new XMLHttpRequest()
+                // xhr.open('PUT', serverConfig)
+                // xhr.onreadystatechange = function () {
+                //     if (xhr.readyState === 4) {
+                //         if (xhr.status === 200) {
+                //             console.log('Image successfully uploaded to S3')
+                //         } else {
+                //             console.log('Error while sending the image to S3')
+                //         }
+                //     }
+                // }
+                // xhr.setRequestHeader('Content-Type', response.type)
+                // xhr.send({ uri: uriMod, type: response.type, name: response.fileName })
+
+
+            }
+        });
+
+    }
+
+
+    const uploadImageOnS3 = async (file) => {
+        const s3bucket = new S3({
+            accessKeyId: "AKIAVHXDSJ6CAQOQ2F4P",
+            secretAccessKey: "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",
+            Bucket: "appmercantilestabelecimento",
+            signatureVersion: 'v4',
+        });
+
+        let contentType = file.type;
+        let contentDeposition = 'inline;filename="' + file.name + '"';
+        const base64 = await fs.readFile(file.uri, 'base64');
+        const arrayBuffer = decode(base64);
+
+        let tipo = file.type.replace('image/', '')
+        let nameCerto = Estabelecimento.token + '.' + tipo
+
+        s3bucket.createBucket(() => {
+            const params = {
+                Bucket: "appmercantilestabelecimento/images",
+                Key: nameCerto,
+                Body: arrayBuffer,
+                ContentDisposition: contentDeposition,
+                ContentType: contentType,
+            };
+            s3bucket.upload(params, (err, data) => {
+                if (err) {
+                    console.log('error in callback');
+                }
+                console.log('success');
+                console.log("Respomse URL : " + data.Location)
+                console.log("array buffer : " + contentDeposition)
+            });
+
+        })
+
+        
+
+
+
+    }
+
 
     const FormSchema = yup.object().shape({
         // razaoSocial: yup.string().required('Campo obrigatório'),
@@ -104,7 +221,10 @@ export default function usuario({ route }) {
             {({ values, handleChange, handleSubmit, errors }) => (
                 <View style={Styles.container}>
                     <View style={Styles.box1}>
-                        <Image style={Styles.img} source={require('../../Assets/person.png')} />
+                        <TouchableOpacity onPress={() => EscolherImagem()}>
+                            <Image style={Styles.img} source={require('../../Assets/person.png')} />
+                            {/* <Image style={Styles.img} source={{ uri: 'https://appmercantilestabelecimento.s3.us-east-2.amazonaws.com/images/8rHnabDY3XMbq3l5Q9jsAh8mYam2.jpeg' }} /> */}
+                        </TouchableOpacity>
                     </View>
                     < ScrollView style={Styles.box2}>
                         <View style={Styles.item}>
