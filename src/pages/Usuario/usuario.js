@@ -11,11 +11,8 @@ import MyModal from '../../Componentes/MyModal';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import api from '../../Services/api'
+import UploadFile from '../../Services/UploadFile'
 
-
-import S3 from 'aws-sdk/clients/s3';
-import { decode } from 'base64-arraybuffer';
-import fs from 'react-native-fs';
 import ImagePicker from 'react-native-image-picker';
 
 
@@ -102,34 +99,10 @@ export default function usuario({ route }) {
                 console.log(file)
                 console.log("*******************************************")
 
-                uploadImageOnS3(file);
+                UploadFile("appmercantilestabelecimento/images", file, Estabelecimento.token)
+                // uploadImageOnS3("appmercantilestabelecimento/images", file);
 
-                // const serverConfig = {
-                //     keyPrefix: "images/",
-                //     bucket: "appmercantilestabelecimento",
-                //     region: "us-west-2",
-                //     accessKey: "AKIAVHXDSJ6CAQOQ2F4P",
-                //     secretKey: "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",
-                //     successActionStatus: 201
-                // }
-                // let uriMod = response.uri
-                // uriMod.replace('file://', '');
-                // console.log(uriMod)
-
-                // const xhr = new XMLHttpRequest()
-                // xhr.open('PUT', serverConfig)
-                // xhr.onreadystatechange = function () {
-                //     if (xhr.readyState === 4) {
-                //         if (xhr.status === 200) {
-                //             console.log('Image successfully uploaded to S3')
-                //         } else {
-                //             console.log('Error while sending the image to S3')
-                //         }
-                //     }
-                // }
-                // xhr.setRequestHeader('Content-Type', response.type)
-                // xhr.send({ uri: uriMod, type: response.type, name: response.fileName })
-
+                
 
             }
         });
@@ -137,46 +110,10 @@ export default function usuario({ route }) {
     }
 
 
-    const uploadImageOnS3 = async (file) => {
-        const s3bucket = new S3({
-            accessKeyId: "AKIAVHXDSJ6CAQOQ2F4P",
-            secretAccessKey: "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",
-            Bucket: "appmercantilestabelecimento",
-            signatureVersion: 'v4',
-        });
+    // const uploadImageOnS3 = async (file) => {
+    //     
 
-        let contentType = file.type;
-        let contentDeposition = 'inline;filename="' + file.name + '"';
-        const base64 = await fs.readFile(file.uri, 'base64');
-        const arrayBuffer = decode(base64);
-
-        let tipo = file.type.replace('image/', '')
-        let nameCerto = Estabelecimento.token + '.' + tipo
-
-        s3bucket.createBucket(() => {
-            const params = {
-                Bucket: "appmercantilestabelecimento/images",
-                Key: nameCerto,
-                Body: arrayBuffer,
-                ContentDisposition: contentDeposition,
-                ContentType: contentType,
-            };
-            s3bucket.upload(params, (err, data) => {
-                if (err) {
-                    console.log('error in callback');
-                }
-                console.log('success');
-                console.log("Respomse URL : " + data.Location)
-                console.log("array buffer : " + contentDeposition)
-            });
-
-        })
-
-        
-
-
-
-    }
+    // }
 
 
     const FormSchema = yup.object().shape({
