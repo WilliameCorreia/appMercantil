@@ -49,7 +49,6 @@ export default function NewProduto({ navigation, route }) {
                 setProduto({
                     Produto: produto.produto,
                     Quantidade: produto.quantidadeEmbalagem,
-                    Preco: produto.precoMedio.toString(),
                     CategoriaId: produto.categoria,
                     Codbar: produto.codbar,
                     FotoPng: produto.fotoPng
