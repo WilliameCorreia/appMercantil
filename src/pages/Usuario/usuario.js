@@ -12,11 +12,16 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import api from '../../Services/api'
 import UploadFile from '../../Services/UploadFile'
+import DeleteFile from '../../Services/DeleteFile'
 
 import ImagePicker from 'react-native-image-picker';
 
 
 import { EstabelecimentosContext } from '../../Contexts/EstabelecimentoContext'
+
+import S3 from 'aws-sdk/clients/s3';
+import { decode } from 'base64-arraybuffer';
+import fs from 'react-native-fs';
 
 
 export default function usuario({ route }) {
@@ -99,21 +104,17 @@ export default function usuario({ route }) {
                 console.log(file)
                 console.log("*******************************************")
 
-                UploadFile("appmercantilestabelecimento/images", file, Estabelecimento.token)
                 // uploadImageOnS3("appmercantilestabelecimento/images", file);
+                DeleteFile("appmercantilestabelecimento", "/images",  file, Estabelecimento.token);
+                console.log("deletou");
+                UploadFile("appmercantilestabelecimento/images", file, Estabelecimento.token)
 
-                
+
 
             }
         });
 
     }
-
-
-    // const uploadImageOnS3 = async (file) => {
-    //     
-
-    // }
 
 
     const FormSchema = yup.object().shape({
