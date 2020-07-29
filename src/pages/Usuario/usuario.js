@@ -7,6 +7,7 @@ import Styles from './style'
 
 import AuthContext from '../../Contexts/Auth'
 import MyModal from '../../Componentes/MyModal';
+import ProfilePhoto from '../../Componentes/ProfilePhoto'
 
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -158,12 +159,13 @@ export default function usuario({ route }) {
         >
             {({ values, handleChange, handleSubmit, errors }) => (
                 <View style={Styles.container}>
-                    <View style={Styles.box1}>
+                    <ProfilePhoto />
+                    {/* <View style={Styles.box1}>
                         <TouchableOpacity onPress={() => EscolherImagem()}>
-                            <Image style={Styles.img} source={require('../../Assets/person.png')} />
+                            <Image style={Styles.img} source={require('../../Assets/person.png')} /> */}
                             {/* <Image style={Styles.img} source={{ uri: 'https://appmercantilestabelecimento.s3.us-east-2.amazonaws.com/images/8rHnabDY3XMbq3l5Q9jsAh8mYam2.jpeg' }} /> */}
-                        </TouchableOpacity>
-                    </View>
+                        {/* </TouchableOpacity>
+                    </View> */}
                     < ScrollView style={Styles.box2}>
                         <View style={Styles.item}>
                             <Text style={Styles.itemText}>ESTABELECIMENTO</Text>
