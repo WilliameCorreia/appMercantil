@@ -3,7 +3,9 @@ import { decode } from 'base64-arraybuffer';
 import fs from 'react-native-fs';
 
 
-const UploadFile = async (BacketName, file, name) => {
+
+
+const UploadFile = async (BacketName, file, UserToken) => {
     console.log("vai acessar services")
     console.log(BacketName)
     console.log(file)
@@ -20,13 +22,16 @@ const UploadFile = async (BacketName, file, name) => {
     const base64 = await fs.readFile(file.uri, 'base64');
     const arrayBuffer = decode(base64);
 
+    let nome = file.name.split(".", 1)
+    let nameCerto = nome[0]
     let tipo = file.type.replace('image/', '')
-    let nameCerto = name + '.' + tipo
+    let nameCerto1 = nameCerto + '.' + tipo
+    
 
     s3bucket.createBucket(() => {
         const params = {
-            Bucket: "appmercantilestabelecimento/images",
-            Key: nameCerto,
+            Bucket: `appmercantilestabelecimento/images/${UserToken}`,
+            Key: nameCerto1,
             Body: arrayBuffer,
             ContentDisposition: contentDeposition,
             ContentType: contentType,

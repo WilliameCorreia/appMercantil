@@ -72,7 +72,7 @@ export default function usuario({ route }) {
         set
     }
 
-    function EscolherImagem() {
+    const Img =  function EscolherImagem() {
         console.log("vai selecionar a imagem");
         //Ajusta quais opções estarão disponíveis para o usuário
         const options = {
@@ -159,7 +159,7 @@ export default function usuario({ route }) {
         >
             {({ values, handleChange, handleSubmit, errors }) => (
                 <View style={Styles.container}>
-                    <ProfilePhoto />
+                    <ProfilePhoto>{Img.bind(this)}</ProfilePhoto>
                     {/* <View style={Styles.box1}>
                         <TouchableOpacity onPress={() => EscolherImagem()}>
                             <Image style={Styles.img} source={require('../../Assets/person.png')} /> */}
