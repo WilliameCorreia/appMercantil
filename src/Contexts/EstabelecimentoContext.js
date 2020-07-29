@@ -20,6 +20,26 @@ const EstabelecimentoProvider = ({ children }) => {
             console.log(error);
         })
     }
+    const EditaFotoEstabelecimento = async (FotoName) => {
+        console.log("vai editar a img lá no banco")  
+        console.log(FotoName)  
+        api.put("Estabelecimento", {
+            Id: Estabelecimento.id,
+            Token: Estabelecimento.token,
+            Email: Estabelecimento.email,
+            Estabelecimento: Estabelecimento.estabelecimento,
+            RazaoSocial: Estabelecimento.razaoSocial,
+            Cnpj: Estabelecimento.cnpj,
+            Ativo: true,
+            Telefones: Estabelecimento.telefone,
+            enderecos: Estabelecimento.enderecos,
+            FotoName: FotoName
+        }).then(dados => {
+            setEstabelecimento(dados.data)            
+        }).catch(error => {
+            console.log(error);
+        })
+    }
 
     useEffect(() => {
         LoadEstabelecimentos();
@@ -28,7 +48,7 @@ const EstabelecimentoProvider = ({ children }) => {
     }, [])
 
     return (
-        <EstabelecimentosContext.Provider value={{Estabelecimento, setEstabelecimento}} >
+        <EstabelecimentosContext.Provider value={{Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento}} >
             {children}
         </EstabelecimentosContext.Provider>
     )

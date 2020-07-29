@@ -11,8 +11,8 @@ import DeleteFile from '../Services/DeleteFile'
 
 
 export default function ProfilePhoto() {
-    const { Estabelecimento, setEstabelecimento } = useContext(EstabelecimentosContext);
-    const [arquivo, setarquivo] = useState("recibo processadores.png");
+    const { Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento } = useContext(EstabelecimentosContext);
+    const [arquivo, setarquivo] = useState(Estabelecimento.fotoName);
 
     console.log("*********************************************");
     console.log(Estabelecimento);
@@ -61,6 +61,7 @@ export default function ProfilePhoto() {
                 let tipo = file.type.replace('image/', '')
                 let nameCerto1 = nameCerto + '.' + tipo
 
+                EditaFotoEstabelecimento(nameCerto1)
                 setarquivo(nameCerto1) 
 
 
@@ -73,8 +74,8 @@ export default function ProfilePhoto() {
     return (
         <View style={styles.box1}>
             <TouchableOpacity onPress={() => EscolherImagem()}>
-                {/* <Image style={styles.img} source={require('../Assets/person.png')} /> */}
-                <Image style={styles.img} source={{ uri: `https://appmercantilestabelecimento.s3.us-east-2.amazonaws.com/images/${Estabelecimento.token}/${arquivo}` }} />
+                {/* <Image style={styles.img} source={require('../Assets/person.png')} /> */}                
+                <Image style={styles.img} source={Estabelecimento.fotoName ?{ uri: `https://appmercantilestabelecimento.s3.us-east-2.amazonaws.com/images/${Estabelecimento.token}/${arquivo}` }: require("../Assets/person.png")} />
             </TouchableOpacity>
         </View>
     )
