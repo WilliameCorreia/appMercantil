@@ -16,6 +16,10 @@ import Styles from './style'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import MyModal from "../../Componentes/MyModal"
 
+import UploadFile from '../../Services/UploadFile'
+
+import FotoProduto from '../../Componentes/FotoProduto'
+
 
 export default function NewProduto({ navigation, route }) {
 
@@ -37,6 +41,7 @@ export default function NewProduto({ navigation, route }) {
         Codbar: '',
         FotoPng: ''
     });
+    let ImgProduto;
 
     useEffect(() => {
         getCategorias();
@@ -58,19 +63,19 @@ export default function NewProduto({ navigation, route }) {
         } catch (error) {
             console.log(error)
         }
-        
+
     }, [route.params])
 
     const getProduto = (codbar) => {
         setSearch(false);
         setProduto(prevState => ({ ...prevState, Codbar: codbar }))
         setSearchLoad(true)
-        if(ValidaEan(codbar)) {
+        if (ValidaEan(codbar)) {
             setCodvalida(false)
             const produto = Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
                 console.log("?????????????????????????????????????????????????????");
                 console.log(response.data);
-                if(response.data){
+                if (response.data) {
                     setProduto({
                         Produto: response.data.produto,
                         Quantidade: response.data.quantidade,
@@ -80,11 +85,11 @@ export default function NewProduto({ navigation, route }) {
                         FotoPng: response.data.fotoPng
                     });
                     setSearchLoad(false)
-                }else{
+                } else {
                     setSearch(true);
                     setSearchLoad(false)
                 }
-                
+
             }).catch(erro => {
                 console.log(erro);
             });
@@ -106,7 +111,7 @@ export default function NewProduto({ navigation, route }) {
 
     const adicionarProduto = () => {
         console.log("**********Adicionando Produto********")
-        if(ValidaEan(produto.Codbar)){
+        if (ValidaEan(produto.Codbar)) {
             Api.post("Produtos", {
                 Produto: produto.Produto,
                 Quantidade: parseInt(produto.Quantidade),
@@ -114,42 +119,48 @@ export default function NewProduto({ navigation, route }) {
                 CategoriaId: GetId(produto.CategoriaId),
                 CodeBar: produto.Codbar,
                 FotoPng: produto.FotoPng,
-                EstabelecimentoId: Estabelecimento.id 
-            }).then(response =>{
+                EstabelecimentoId: Estabelecimento.id
+            }).then(response => {
+                //UploadFile("appmercantilimagens", "/ImagensPng/png", ImgProduto, response.data.Codbar, "produtos")
+                // console.log(ImgProduto)
+
+                //UploadFile("appmercantilimagens", "/ImagensPng/png", ImgProduto, response.data.Codbar, "produtos")
+
+                //UploadFile("appmercantilestabelecimento/images", file, response.data.Codbar)
                 console.log(response.data);
                 setMsnModal("Produto cadastrado com sucesso !");
                 setModalActive(true);
-                setProduto({Produto: '', Quantidade: '', Preco: '', CategoriaId: '', Codbar: '', FotoPng: ''})
-            }).catch(erro =>{
+                setProduto({ Produto: '', Quantidade: '', Preco: '', CategoriaId: '', Codbar: '', FotoPng: '' })
+            }).catch(erro => {
                 setMsnModal("Erro ao cadastrar o Produto !" + erro);
                 setModalActive(true);
                 console.log(erro);
             })
-        }else{
+        } else {
             setMsnModal("Favor digitar um codigo de barras válido");
             setModalActive(true);
         }
-        
+
     }
 
     const VerificarProduto = async (codbar) => {
         console.log("****************************");
         console.log(codbar);
-        Api.get(`Produtos/codbar/${codbar}/${Estabelecimento.id}`).then(response =>{
-            if(response.data != 0){
+        Api.get(`Produtos/codbar/${codbar}/${Estabelecimento.id}`).then(response => {
+            if (response.data != 0) {
                 setMsnModal("Produto já Cadastrado ");
                 setModalActive(true);
-            }else{
+            } else {
                 adicionarProduto();
             }
-        }).catch(erro =>{
+        }).catch(erro => {
             setMsnModal("Erro ao consultar produto " + erro);
             setModalActive(true);
         })
     }
 
     const FormValidacao = () => {
-        if (produto.Produto && produto.Quantidade && produto.Preco && produto.CategoriaId && produto.Codbar) { 
+        if (produto.Produto && produto.Quantidade && produto.Preco && produto.CategoriaId && produto.Codbar) {
             VerificarProduto(produto.Codbar);
         } else {
             setMsnModal("Para cadastrar o produto preencha todos os campos!");
@@ -157,11 +168,11 @@ export default function NewProduto({ navigation, route }) {
         }
     }
 
-    function GetId(teste){
+    function GetId(teste) {
         let cat = ''
-        for(let item of categorias) {
-            if( teste == item.nomeBusca || teste == item.id){
-               cat =  item.id
+        for (let item of categorias) {
+            if (teste == item.nomeBusca || teste == item.id) {
+                cat = item.id
             }
         }
         return cat
@@ -170,11 +181,12 @@ export default function NewProduto({ navigation, route }) {
     console.log("newProduto renderizado!")
     console.log("------------------------------------------------")
     console.log(Estabelecimento)
+    
 
     return (
         <KeyboardAwareScrollView style={Styles.container}>
             <View style={Styles.box1}>
-                <Image source={ produto.FotoPng ? {uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/ImagensPng/png/' + produto.FotoPng}: require("../../Assets/srcImage.png")} style={Styles.prodImg} />
+                <FotoProduto >{produto, ImgProduto}</FotoProduto>
                 <View style={Styles.Codbar}>
                     <TouchableOpacity style={Styles.codbarItem} onPress={() => navigation.navigate('Mycamera', getProduto)}>
                         <Image source={require('../../Assets/codbar.png')} style={Styles.codbarImg} />
@@ -193,8 +205,8 @@ export default function NewProduto({ navigation, route }) {
                             value={produto.Codbar}
                             showLoading={searchLoad}
                         />
-                      {search ? <Text>Produto não encontrado !</Text> : null}
-                      {codeValida ? <Text>Codigo de Barras Inválido !</Text> : null}
+                        {search ? <Text>Produto não encontrado !</Text> : null}
+                        {codeValida ? <Text>Codigo de Barras Inválido !</Text> : null}
                     </View>
                     <View style={Styles.row}>
                         <Text style={Styles.text}>PRODUTO</Text>
@@ -203,7 +215,7 @@ export default function NewProduto({ navigation, route }) {
                         <TextInput
                             style={[Styles.tamanhoInputFull, Styles.inputs,]}
                             value={produto.Produto}
-                           onChangeText={text => setProduto(prevState => ({ ...prevState, Produto: text }))}
+                            onChangeText={text => setProduto(prevState => ({ ...prevState, Produto: text }))}
                             placeholder={"PRODUTO"}
                         />
                     </View>
@@ -217,7 +229,7 @@ export default function NewProduto({ navigation, route }) {
                             value={produto.Quantidade}
                             placeholder={"QTD"}
                             keyboardType={'numeric'}
-                            onChangeText={text => setProduto(prevState => ({ ...prevState, Quantidade: text}))}
+                            onChangeText={text => setProduto(prevState => ({ ...prevState, Quantidade: text }))}
                         />
                         <TextInput
                             style={[Styles.tamanhoInputMetade, Styles.inputs]}
