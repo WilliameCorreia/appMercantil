@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { StyleSheet, Image, TouchableOpacity } from 'react-native'
 import ImagePicker from 'react-native-image-picker';
 
-export default function FotoProduto(produto, ImgProduto) {
+export default function FotoProduto(props) { //produto, ImgProduto
     const [FotoPng, setFotoPng] = useState('');    
     function EscolherImagem() {
         const options = {
@@ -41,15 +41,19 @@ export default function FotoProduto(produto, ImgProduto) {
                 // setarquivo(nameCerto1)
 
                 setFotoPng(file)
-                ImgProduto = file
-                
+                // props.ImgProduto = file
+
+                console.log(props.ImgProduto)
+                props.ImgProduto(file)
+                // props.ImgProduto = "agr foi"
+                // console.log(props.ImgProduto)
 
             }
         });
     }
     return (
         <TouchableOpacity style={styles.container} onPress={() => EscolherImagem()}>
-            <Image source={ produto.FotoPng ? { uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/ImagensPng/png/' + produto.FotoPng } : FotoPng.name ? { uri: FotoPng.uri  } : require("../Assets/srcImage.png") } style={styles.prodImg} />            
+            <Image source={ props.produto.FotoPng ? { uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/ImagensPng/png/' + props.produto.FotoPng } : FotoPng.name ? { uri: FotoPng.uri  } : require("../Assets/srcImage.png") } style={styles.prodImg} />            
         </TouchableOpacity>
     )
 }

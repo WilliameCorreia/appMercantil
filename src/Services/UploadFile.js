@@ -22,31 +22,38 @@ const UploadFile = async (BacketName, pathName, file, UserToken, tela) => {
     const base64 = await fs.readFile(file.uri, 'base64');
     const arrayBuffer = decode(base64);
 
-    let nome = file.name.split(".", 1)
-    let nameCerto = nome[0]
-    let tipo = file.type.replace('image/', '')
-    let nameCerto1 = nameCerto + '.' + tipo
+
+    if (tela == "produtos") {
+
+        let tipo = file.type.replace('image/', '')
+        let nameCerto1 = UserToken + '.' + tipo
+
+        params = {
+            Bucket: `${BacketName}${pathName}`,//${BacketName}${pathName}
+            Key: nameCerto1,
+            Body: arrayBuffer,
+            ContentDisposition: contentDeposition,
+            ContentType: contentType,
+        };
+    } else {
+        
+        let nome = file.name.split(".", 1)
+        let nameCerto = nome[0]
+        let tipo = file.type.replace('image/', '')
+        let nameCerto1 = nameCerto + '.' + tipo
+        let params = null;
+
+        params = {
+            Bucket: `${BacketName}${pathName}${UserToken}`, ///images/
+            Key: nameCerto1,
+            Body: arrayBuffer,
+            ContentDisposition: contentDeposition,
+            ContentType: contentType,
+        };
+    }
 
 
     s3bucket.createBucket(() => {
-        if (tela == "produtos") {
-            const params = {
-                Bucket: `${BacketName}${pathName}`,
-                Key: UserToken,
-                Body: arrayBuffer,
-                ContentDisposition: contentDeposition,
-                ContentType: contentType,
-            };
-        } else {
-            const params = {
-                Bucket: `${BacketName}${pathName}${UserToken}`, ///images/
-                Key: nameCerto1,
-                Body: arrayBuffer,
-                ContentDisposition: contentDeposition,
-                ContentType: contentType,
-            };
-        }
-
         s3bucket.upload(params, (err, data) => {
             if (err) {
                 console.log('error in callback');

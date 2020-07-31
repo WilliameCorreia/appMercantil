@@ -41,7 +41,13 @@ export default function NewProduto({ navigation, route }) {
         Codbar: '',
         FotoPng: ''
     });
-    let ImgProduto;
+    const [ImgProduto, setImgProduto] = useState(null);
+    let tipo = null;
+    if (ImgProduto != null) {
+        tipo = ImgProduto.type.replace('image/', '')
+    }else{
+        tipo = 'png'
+    }
 
     useEffect(() => {
         getCategorias();
@@ -111,6 +117,15 @@ export default function NewProduto({ navigation, route }) {
 
     const adicionarProduto = () => {
         console.log("**********Adicionando Produto********")
+        let foto = null;
+        if(!produto.fotoPng){
+            foto = produto.Codbar + '.' + tipo
+        }else{
+            //caso o produto já possua foto o valor de ImgProduto é setado como null
+            //para que nao seja enviado um novo uploa e assim substitua o arquivo na amazon
+            ImgProduto = null;
+            foto = produto.fotoPng
+        }
         if (ValidaEan(produto.Codbar)) {
             Api.post("Produtos", {
                 Produto: produto.Produto,
@@ -118,11 +133,16 @@ export default function NewProduto({ navigation, route }) {
                 Preco: produto.Preco,
                 CategoriaId: GetId(produto.CategoriaId),
                 CodeBar: produto.Codbar,
-                FotoPng: produto.FotoPng,
+                FotoPng: foto,
                 EstabelecimentoId: Estabelecimento.id
             }).then(response => {
-                //UploadFile("appmercantilimagens", "/ImagensPng/png", ImgProduto, response.data.Codbar, "produtos")
-                // console.log(ImgProduto)
+                //só envia a imagem do produto para amazon caso o usuário
+                //já tenha escolhido a foto
+                if (ImgProduto) {
+                    UploadFile("appmercantilimagens", "/ImagensPng/png", ImgProduto, response.data.codeBar, "produtos")
+                }
+
+                // console.log(response.data.codeBar)
 
                 //UploadFile("appmercantilimagens", "/ImagensPng/png", ImgProduto, response.data.Codbar, "produtos")
 
@@ -181,12 +201,16 @@ export default function NewProduto({ navigation, route }) {
     console.log("newProduto renderizado!")
     console.log("------------------------------------------------")
     console.log(Estabelecimento)
-    
+
+    function teste() {
+        console.log(ImgProduto)
+        //UploadFile("appmercantilimagens", "/ImagensPng/png", ImgProduto, produto.Codbar, "produtos")
+    }
 
     return (
         <KeyboardAwareScrollView style={Styles.container}>
             <View style={Styles.box1}>
-                <FotoProduto >{produto, ImgProduto}</FotoProduto>
+                <FotoProduto produto={produto} ImgProduto={setImgProduto} />
                 <View style={Styles.Codbar}>
                     <TouchableOpacity style={Styles.codbarItem} onPress={() => navigation.navigate('Mycamera', getProduto)}>
                         <Image source={require('../../Assets/codbar.png')} style={Styles.codbarImg} />
