@@ -11,12 +11,8 @@ import DeleteFile from '../Services/DeleteFile'
 
 
 export default function ProfilePhoto() {
-    const { Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento } = useContext(EstabelecimentosContext);
-    const [arquivo, setarquivo] = useState(Estabelecimento.fotoName);
-
-    console.log("*********************************************");
-    console.log(Estabelecimento);
-    console.log("*********************************************");
+    const { Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento } = useContext(EstabelecimentosContext);    
+    const [foto, setFoto] = useState(null);
 
     function EscolherImagem() {
         console.log("vai selecionar a imagem");
@@ -47,22 +43,19 @@ export default function ProfilePhoto() {
                     type: response.type
                 }
 
-                console.log("*******************************************")
-                console.log(file)
-                console.log("*******************************************")
-
-                // uploadImageOnS3("appmercantilestabelecimento/images", file);
-                // DeleteFile("appmercantilestabelecimento", "/images", file, Estabelecimento.token);
-                // console.log("deletou");
-                UploadFile("appmercantilestabelecimento/images", file, Estabelecimento.token)
-
+                
                 let nome = file.name.split(".", 1)
                 let nameCerto = nome[0]
                 let tipo = file.type.replace('image/', '')
                 let nameCerto1 = nameCerto + '.' + tipo
 
+                
+                setFoto(file) 
+
+
+                UploadFile("appmercantilestabelecimento", "/images/", file, Estabelecimento.token, "Usuário")
+
                 EditaFotoEstabelecimento(nameCerto1)
-                setarquivo(nameCerto1) 
 
 
 
@@ -73,9 +66,8 @@ export default function ProfilePhoto() {
 
     return (
         <View style={styles.box1}>
-            <TouchableOpacity onPress={() => EscolherImagem()}>
-                {/* <Image style={styles.img} source={require('../Assets/person.png')} /> */}                
-                <Image style={styles.img} source={Estabelecimento.fotoName ?{ uri: `https://appmercantilestabelecimento.s3.us-east-2.amazonaws.com/images/${Estabelecimento.token}/${arquivo}` }: require("../Assets/person.png")} />
+            <TouchableOpacity onPress={() => EscolherImagem()}>              
+                <Image style={styles.img} source={foto ?{ uri: foto.uri }: Estabelecimento.fotoName ?{ uri: `https://appmercantilestabelecimento.s3.us-east-2.amazonaws.com/images/${Estabelecimento.token}/${Estabelecimento.fotoName}` }: require("../Assets/person.png")} />
             </TouchableOpacity>
         </View>
     )

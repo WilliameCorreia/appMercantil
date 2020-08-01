@@ -22,6 +22,8 @@ const UploadFile = async (BacketName, pathName, file, UserToken, tela) => {
     const base64 = await fs.readFile(file.uri, 'base64');
     const arrayBuffer = decode(base64);
 
+    let params
+
 
     if (tela == "produtos") {
 
@@ -41,7 +43,7 @@ const UploadFile = async (BacketName, pathName, file, UserToken, tela) => {
         let nameCerto = nome[0]
         let tipo = file.type.replace('image/', '')
         let nameCerto1 = nameCerto + '.' + tipo
-        let params = null;
+        
 
         params = {
             Bucket: `${BacketName}${pathName}${UserToken}`, ///images/
