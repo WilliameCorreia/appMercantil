@@ -36,18 +36,16 @@ export default function usuario({ route }) {
     const estabelecimentoR = useRef();
     const cnpj = useRef();
     const telefone = useRef();
+    const enderecos = useRef();
+    const tipoestabelecimento = useRef();
     const cep = useRef();
     const cidade = useRef();
     const estado = useRef();
     const bairro = useRef();
-    const enderecos = useRef();
     const numero = useRef();
     const complemento = useRef();
 
     const registrarEstabelecimento = (values) => {
-
-        console.log(values);
-
         api.put("Estabelecimento", {
             Id: Estabelecimento.id,
             Token: Estabelecimento.token,
@@ -66,10 +64,6 @@ export default function usuario({ route }) {
             console.log(errors);
         });
         console.log(values)
-    }
-
-    function clearState() {
-        set
     }
 
     const Img =  function EscolherImagem() {
@@ -100,18 +94,10 @@ export default function usuario({ route }) {
                     name: response.fileName,
                     type: response.type
                 }
-
-                console.log("*******************************************")
-                console.log(file)
-                console.log("*******************************************")
-
                 // uploadImageOnS3("appmercantilestabelecimento/images", file);
                 DeleteFile("appmercantilestabelecimento", "/images",  file, Estabelecimento.token);
                 console.log("deletou");
                 UploadFile("appmercantilestabelecimento/images", file, Estabelecimento.token)
-
-
-
             }
         });
 
@@ -168,7 +154,7 @@ export default function usuario({ route }) {
                     </View> */}
                     < ScrollView style={Styles.box2}>
                         <View style={Styles.item}>
-                            <Text style={Styles.itemText}>ESTABELECIMENTO</Text>
+                            <Text style={Styles.itemText}>Estabelecimento</Text>
                             <TextInput
                                 style={Styles.itemInput}
                                 ref={estabelecimentoR}
@@ -179,7 +165,7 @@ export default function usuario({ route }) {
                             {errors.numero && <Text style={Styles.textErro}>{errors.numero}</Text>}
                         </View>
                         <View style={Styles.item}>
-                            <Text style={Styles.itemText}>CNPJ</Text>
+                            <Text style={Styles.itemText}>Cnpj</Text>
                             <TextInput
                                 style={Styles.itemInput}
                                 ref={cnpj}
@@ -190,7 +176,7 @@ export default function usuario({ route }) {
                             {errors.numero && <Text style={Styles.textErro}>{errors.numero}</Text>}
                         </View>
                         <View style={Styles.item}>
-                            <Text style={Styles.itemText}>RAZÃO SOCIAL</Text>
+                            <Text style={Styles.itemText}>Razão Social</Text>
                             <TextInput
                                 style={Styles.itemInput}
                                 ref={razaoSocial}
