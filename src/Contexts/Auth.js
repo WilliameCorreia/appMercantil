@@ -3,6 +3,7 @@ import { Alert } from 'react-native'
 
 import auth from '@react-native-firebase/auth'
 import Api from '../Services/api'
+import { credencias } from '../credenciais'
 
 const AuthContext = createContext({ signed: false })
 
@@ -11,7 +12,9 @@ export const AuthProvider = ({ children }) => {
     const [usuario, SetUsuario] = useState({ email: '', token: '' })
     const [loading, SetLoading] = useState(true);
     const [Estabelecimento, setEstabelecimento] = useState(false);
-    const [teste , setTest] = useState(false);
+    const [token, setToken] = useState("");
+
+
 
     /* function Reload(params) {
         setTest(!params)
@@ -29,41 +32,65 @@ export const AuthProvider = ({ children }) => {
         }, 2000)
     }
 
+    function getAuth() {
+        console.log("função get auth")
+        Api.post("Auth/login", credencias).then(
+            response => {
+                const { token } = response.data
+                setToken(token)
+                console.log(token)
+
+            }
+        ).catch(error => console.log(error))
+    }
+
+
+
     async function GetEstabelecimento(user) {
-        const { email, uid } = user;
-        console.log(uid)
-        Api.get(`Estabelecimento/${uid}`).then(response => {
-            
-            let estabelecimento = response.data;
-            console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-            console.log(estabelecimento)
-            console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-            if (Boolean(estabelecimento)) {
-                setEstabelecimento(estabelecimento)
-            } else {
-                setEstabelecimento(Boolean(estabelecimento));
-            }
-            SetUsuario({ email, uid })
-        }).catch(
-            erro => {
-                Alert.alert("não estabelecer conexão com a base de dados");
-                SetLoading(false)
-            }
-        );
+        if (token) {
+            const { email, uid } = user;
+            console.log(uid)
+            // console.log(token)
+            Api.get(`v1/Estabelecimentos/Token/${uid}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(response => {
+
+                const { result } = response.data;
+                console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+                console.log(result)
+                console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+                if (Boolean(result)) {
+                    setEstabelecimento(result)
+                } else {
+                    setEstabelecimento(Boolean(estabelecimento));
+                }
+                SetUsuario({ email, uid })
+            }).catch(
+                erro => {
+                    Alert.alert("não estabelecer conexão com a base de dados");
+                    SetLoading(false)
+                }
+            );
+        }
+
     }
 
     useEffect(() => {
+        getAuth();
         const subscriber = auth().onUserChanged(signIn);
-        return () => {
-            //subscriber
-            // unsubscribe on unmount
-        }
-    }, [teste]);
+    }, [token]);
+
+    // useEffect(() => {
+    //     const subscriber = auth().onUserChanged(signIn);
+    //     // getAuth();
+    // }, [token]);
 
     console.log("authContext => " + Boolean(usuario.email))
     console.log("estabelecimento => " + Estabelecimento)
     return (
-        <AuthContext.Provider value={{ signed: Boolean(usuario.email), signIn, usuario, loading, Estabelecimento, setTest }}>
+        <AuthContext.Provider value={{ signed: Boolean(usuario.email), signIn, usuario, loading, Estabelecimento }}>
             {children}
         </AuthContext.Provider>
     )
