@@ -91,7 +91,7 @@ export default function Produto({ navigation, route,  }) {
     return (
         <Formik
             initialValues={{
-                produto: produto.produto,
+                produto: produto._Produto,
                 quantidade: produto.quantidade.toString(),
                 preco: produto.preco,
                 categoria: categoria.nome,

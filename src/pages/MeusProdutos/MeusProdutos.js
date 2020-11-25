@@ -12,7 +12,7 @@ import styles from './style';
 
 export default function MeusProdutos({ route }) {
 
-    const { Estabelecimento } = useContext(AuthContext);
+    const { Estabelecimento, token } = useContext(AuthContext);
 
     const { LoadCategorias } = useContext(ProdutosContext);
 
@@ -37,12 +37,15 @@ export default function MeusProdutos({ route }) {
 
         setProdutos({ loading: true });
 
-        console.log(`Produtos/${categoriaId}/${Estabelecimento.id}/${produtos.page.toString()}`)
-
-        api.get(`Produtos/${categoriaId}/${Estabelecimento.id}/${produtos.page}`).then(dados => {
-            console.log(dados.data)
+       
+        api.get(`v1/Produtos/${categoriaId}/${Estabelecimento.id}/${produtos.page}`, {
+            headers:{
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(response => {
+            const { result } = response.data;
             setProdutos({
-                data: [...dados.data],
+                data: [...result],
                 page: produtos.page,
                 loading: false
             })

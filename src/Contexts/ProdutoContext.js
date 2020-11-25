@@ -1,10 +1,14 @@
-import React, { createContext, useState,useEffect } from 'react';
+import React, { createContext, useState,useEffect, useContext } from 'react';
 
 import api from '../Services/api'
+import AuthContext from './Auth';
+
 
 export const ProdutosContext = createContext();
 
 const ProdutosProvider = ({ children }) => {
+
+    const {token} = useContext(AuthContext);
 
     const [categorias, setCategorias] = useState([]);
 
@@ -12,9 +16,14 @@ const ProdutosProvider = ({ children }) => {
 
     const LoadCategorias = async () => {
         console.log("entrou em load categorias")
-        const getCategorias = await api.get("Categorias").then(response => {
-            setCategorias(response.data)
-            console.log(response.data)
+        const getCategorias = await api.get("v1/Categorias", {
+            headers:{
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(response => {
+            const {result} =  response.data
+            setCategorias(result)
+            console.log(result)
         }).catch(error => {
             console.log(error);
         })

@@ -8,14 +8,19 @@ export const EstabelecimentosContext = createContext();
 const EstabelecimentoProvider = ({ children }) => {
 
     const [Estabelecimento, setEstabelecimento] = useState([]);
-    const {usuario} = useContext(AuthContext);
+    const { usuario, token } = useContext(AuthContext);
 
     
 
     const LoadEstabelecimentos = async () => {       
-        const GetEstabelecimento = await api.get(`Estabelecimento/${usuario.uid}`).then(response => {
-            setEstabelecimento(response.data)
-            console.log(response.data)
+        const GetEstabelecimento = await api.get(`Estabelecimento/${usuario.uid}`, {
+            headers:{
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(response => {
+            const {result} =  response.data
+            setEstabelecimento(result)
+            console.log(result)
         }).catch(error => {
             console.log(error);
         })

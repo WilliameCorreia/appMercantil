@@ -33,7 +33,6 @@ export const AuthProvider = ({ children }) => {
     }
 
     function getAuth() {
-        console.log("função get auth")
         Api.post("Auth/login", credencias).then(
             response => {
                 const { token } = response.data
@@ -90,7 +89,7 @@ export const AuthProvider = ({ children }) => {
     console.log("authContext => " + Boolean(usuario.email))
     console.log("estabelecimento => " + Estabelecimento)
     return (
-        <AuthContext.Provider value={{ signed: Boolean(usuario.email), signIn, usuario, loading, Estabelecimento }}>
+        <AuthContext.Provider value={{ signed: Boolean(usuario.email), signIn, usuario, loading, Estabelecimento, token }}>
             {children}
         </AuthContext.Provider>
     )

@@ -23,7 +23,7 @@ export default function listaProdutos({ Produtos, loading, navigation, LoadLista
             >
                 <View style={styles.box}>
                     <View style={styles.box1}>
-                        <Text style={styles.nomeProduto}>{item.produto}</Text>
+                        <Text style={styles.nomeProduto}>{item._Produto}</Text>
                         <Text style={styles.texto}>Preço: R$ {item.preco}</Text>
                         <Text style={styles.texto}>Quantidade: {item.quantidade}</Text>
                     </View>
