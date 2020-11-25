@@ -12,7 +12,7 @@ import AuthContext from '../../Contexts/Auth'
 
 export default function Estabelecimento({ navigation}) {
 
-    const {usuario, signIn, setTest} = useContext(AuthContext);
+    const {usuario, signIn, setTest, token } = useContext(AuthContext);
 
     console.log(usuario);
     //modal
@@ -33,9 +33,7 @@ export default function Estabelecimento({ navigation}) {
     const complemento = useRef();
 
     const registrarEstabelecimento = (values) => {
-        console.log("####################################################################");
-        console.log(values);
-        api.post("Estabelecimento", {
+        api.post("v1/Estabelecimentos", {
             Token: usuario.uid,
              Email: usuario.email,
             Estabelecimento: values.estabelecimento,
@@ -43,6 +41,10 @@ export default function Estabelecimento({ navigation}) {
             Cnpj: values.cnpj,
             Ativo: false,
             Telefones: values.telefone
+        }, {
+            headers:{
+                'Authorization': `Bearer ${token}`
+            }
         }).then(dados =>{
             console.log(dados.data);
             typeof(dados.data)

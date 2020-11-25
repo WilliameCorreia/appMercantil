@@ -57,9 +57,6 @@ export const AuthProvider = ({ children }) => {
             }).then(response => {
 
                 const { result } = response.data;
-                console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-                console.log(result)
-                console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
                 if (Boolean(result)) {
                     setEstabelecimento(result)
                 } else {

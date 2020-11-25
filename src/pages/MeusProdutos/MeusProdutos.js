@@ -64,10 +64,14 @@ export default function MeusProdutos({ route }) {
 
     const pesquisar = () => {
         if (texto) {
-            console.log(`Produtos/Pesquisar/${Estabelecimento.id}/${categoriaId}/${texto}/${1}}`)
-            api.get(`Produtos/Pesquisar/${Estabelecimento.id}/${categoriaId}/${texto}/${1}`).then(reponse => {
+            api.get(`v1/Produtos/pesquisar/${Estabelecimento.id}/${categoriaId}/${texto}/${1}`, {
+                headers:{
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(response => {
+                const { result } = response.data;
                 setProdutos({
-                    data: [...reponse.data],
+                    data: [...result],
                     page: produtos.page /* + 1 */,
                     loading: false
                 })

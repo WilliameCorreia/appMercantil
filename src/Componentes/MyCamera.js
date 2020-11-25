@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, View, } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { BarcodeMask} from '@nartc/react-native-barcode-mask'
@@ -7,6 +7,7 @@ import { ValidaEan } from '../Services/ValidarCodebar';
 import Api from '../Services/api'
 
 import MyModal from '../Componentes/MyModal'
+import AuthContext from '../Contexts/Auth';
 
 export default function MyCamera({ navigation }) {
 
@@ -14,14 +15,17 @@ export default function MyCamera({ navigation }) {
     const [msnModal, setMsnModal] = useState('primeira passada');
 
     const [barcodeRead, setBarcodeReader] = useState(false);
+    const { token } = useContext(AuthContext);
 
     const getProduto = (codbar) => {
-        Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
-            console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-            console.log(response)
-            console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-            if (response.data) {
-                let item = response.data;
+        Api.get(`v1/ProdutosDb/codbar/${codbar}`, {
+            headers:{
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(response => {
+            const { result } = response.data;
+            if (result) {
+                let item = result;
                 navigation.navigate('NovoProduto', {produto:item})
             } else {
                 setMsnModal("Produto não encontrado!" + codbar);

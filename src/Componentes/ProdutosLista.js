@@ -10,10 +10,6 @@ export default function ProdutosLista( { navigation } ) {
 
     const { categorias } = useContext(ProdutosContext)
 
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    console.log(categorias)
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-
     return (
         <ScrollView contentContainerStyle={styles.container}>
             {Array(10).fill(

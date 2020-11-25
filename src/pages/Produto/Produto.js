@@ -21,23 +21,19 @@ import * as yup from 'yup';
 import { ProdutosContext } from '../../Contexts/ProdutoContext'
 
 
-export default function Produto({ navigation, route,  }) {
+export default function Produto({ navigation, route, }) {
 
     const { LoadCategorias } = useContext(ProdutosContext);
 
-    const { Estabelecimento } = useContext(AuthContext);
+    const { Estabelecimento, token } = useContext(AuthContext);
 
     const [modalActive, setModalActive] = useState(false);
     const [msnModal, setMsnModal] = useState('primeira passada');
 
-    const { categoria , estabelecimento } = route.params;
-    
-    
-    console.log(categoria)
-    
-    
-    console.log(estabelecimento)
-    
+    const { categoria, estabelecimento } = route.params;
+
+
+
 
     const produto = route.params;
 
@@ -51,23 +47,30 @@ export default function Produto({ navigation, route,  }) {
     const codBar = useRef();
 
     const ProdutoUpdate = (values) => {
-        console.log("**********Adicionando Produto********")
-        console.log(values)
         if (ValidaEan(values.codBar)) {
-            console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-            Api.put("Produtos", {
-                Id: produto.id,
-                Produto: values.produto,
-                Quantidade: parseInt(values.quantidade),
-                Preco: values.preco,
-                CategoriaId: parseInt(values.categoriaId),
-                CodeBar: values.codBar,
-                EstabelecimentoId: Estabelecimento.id
+            Api.put(`v1/Produtos/${produto.id}`, {
+                // Id: produto.id,                
+                _Produto: values.produto,
+                quantidade: parseInt(values.quantidade),
+                preco: values.preco,
+                categoriaId: parseInt(values.categoriaId),
+                codeBar: values.codBar,
+                fotoPng: values.fotoPng,
+                estabelecimentoId: Estabelecimento.id
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             }).then(response => {
-                console.log(response.data);
-                setMsnModal("Produto alterado com sucesso !");
-                setModalActive(true);
-                LoadCategorias();
+                const { result } = response.data;
+                if (result) {
+                    setMsnModal("Produto alterado com sucesso !");
+                    setModalActive(true);
+                    LoadCategorias();
+                }else{
+                    setMsnModal("Erro ao alterar Produto !");
+                    setModalActive(true);
+                }
             }).catch(erro => {
                 setMsnModal("Erro ao cadastrar o Produto !" + erro);
                 setModalActive(true);

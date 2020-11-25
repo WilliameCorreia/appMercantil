@@ -23,7 +23,7 @@ import FotoProduto from '../../Componentes/FotoProduto'
 
 export default function NewProduto({ navigation, route }) {
 
-    const { Estabelecimento } = useContext(AuthContext);
+    const { Estabelecimento, token } = useContext(AuthContext);
 
     const [categorias, setCategorias] = useState([]);
 
@@ -78,17 +78,20 @@ export default function NewProduto({ navigation, route }) {
         setSearchLoad(true)
         if (ValidaEan(codbar)) {
             setCodvalida(false)
-            const produto = Api.get(`ProdutosDb/codbar/${codbar}`).then(response => {
-                console.log("?????????????????????????????????????????????????????");
-                console.log(response.data);
-                if (response.data) {
+            const produto = Api.get(`v1/ProdutosDb/Filtercodbar/${codbar}`, {
+                headers:{
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(response => {
+                const { result } = response.data;
+                if (result) {
                     setProduto({
-                        Produto: response.data.produto,
-                        Quantidade: response.data.quantidade,
-                        Preco: response.data.preco,
-                        CategoriaId: response.data.categoria,
-                        Codbar: response.data.codbar,
-                        FotoPng: response.data.fotoPng
+                        Produto: result.produto,
+                        Quantidade: result.quantidade,
+                        Preco: result.preco,
+                        CategoriaId: result.categoria,
+                        Codbar: result.codbar,
+                        FotoPng: result.foto_Png
                     });
                     setSearchLoad(false)
                 } else {
@@ -108,8 +111,13 @@ export default function NewProduto({ navigation, route }) {
     }
 
     const getCategorias = () => {
-        Api.get("Categorias").then(response => {
-            setCategorias(response.data)
+        Api.get("v1/Categorias", {
+            headers:{
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(response => {
+            const { result } = response.data;
+            setCategorias(result)
         }).catch(erro => {
             console.log(erro);
         });
@@ -127,7 +135,7 @@ export default function NewProduto({ navigation, route }) {
             foto = produto.fotoPng
         }
         if (ValidaEan(produto.Codbar)) {
-            Api.post("Produtos", {
+            Api.post("v1/Produtos", {
                 Produto: produto.Produto,
                 Quantidade: parseInt(produto.Quantidade),
                 Preco: produto.Preco,
@@ -135,11 +143,16 @@ export default function NewProduto({ navigation, route }) {
                 CodeBar: produto.Codbar,
                 FotoPng: foto,
                 EstabelecimentoId: Estabelecimento.id
+            }, {
+                headers:{
+                    'Authorization': `Bearer ${token}`
+                }
             }).then(response => {
+                const { result } = response.data;
                 //só envia a imagem do produto para amazon caso o usuário
                 //já tenha escolhido a foto
                 if (ImgProduto) {
-                    UploadFile("appmercantilimagens", "/ImagensPng/png", ImgProduto, response.data.codeBar, "produtos")
+                    UploadFile("appmercantilimagens", "/ImagensPng/png", ImgProduto, result.codeBar, "produtos")
                 }
 
                 // console.log(response.data.codeBar)
@@ -147,7 +160,6 @@ export default function NewProduto({ navigation, route }) {
                 //UploadFile("appmercantilimagens", "/ImagensPng/png", ImgProduto, response.data.Codbar, "produtos")
 
                 //UploadFile("appmercantilestabelecimento/images", file, response.data.Codbar)
-                console.log(response.data);
                 setMsnModal("Produto cadastrado com sucesso !");
                 setModalActive(true);
                 setProduto({ Produto: '', Quantidade: '', Preco: '', CategoriaId: '', Codbar: '', FotoPng: '' })
@@ -164,10 +176,13 @@ export default function NewProduto({ navigation, route }) {
     }
 
     const VerificarProduto = async (codbar) => {
-        console.log("****************************");
-        console.log(codbar);
-        Api.get(`Produtos/codbar/${codbar}/${Estabelecimento.id}`).then(response => {
-            if (response.data != 0) {
+        Api.get(`v1/Produtos/codbar/${codbar}/${Estabelecimento.id}`, {
+            headers:{
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(response => {
+            const { result } = response.data;
+            if (result != 0) {
                 setMsnModal("Produto já Cadastrado ");
                 setModalActive(true);
             } else {
@@ -198,14 +213,6 @@ export default function NewProduto({ navigation, route }) {
         return cat
     }
 
-    console.log("newProduto renderizado!")
-    console.log("------------------------------------------------")
-    console.log(Estabelecimento)
-
-    function teste() {
-        console.log(ImgProduto)
-        //UploadFile("appmercantilimagens", "/ImagensPng/png", ImgProduto, produto.Codbar, "produtos")
-    }
 
     return (
         <KeyboardAwareScrollView style={Styles.container}>
