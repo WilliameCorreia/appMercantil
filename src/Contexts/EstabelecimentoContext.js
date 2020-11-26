@@ -13,7 +13,7 @@ const EstabelecimentoProvider = ({ children }) => {
     
 
     const LoadEstabelecimentos = async () => {       
-        const GetEstabelecimento = await api.get(`Estabelecimento/${usuario.uid}`, {
+        const GetEstabelecimento = await api.get(`v1/Estabelecimentos/Token/${usuario.uid}`, {
             headers:{
                 'Authorization': `Bearer ${token}`
             }
@@ -28,8 +28,8 @@ const EstabelecimentoProvider = ({ children }) => {
     const EditaFotoEstabelecimento = async (FotoName) => {
         console.log("vai editar a img lá no banco")  
         console.log(FotoName)  
-        api.put("Estabelecimento", {
-            Id: Estabelecimento.id,
+        api.put(`v1/Estabelecimentos/${Estabelecimento.id}`, {
+            // Id: Estabelecimento.id,
             Token: Estabelecimento.token,
             Email: Estabelecimento.email,
             Estabelecimento: Estabelecimento.estabelecimento,
@@ -39,6 +39,10 @@ const EstabelecimentoProvider = ({ children }) => {
             Telefones: Estabelecimento.telefone,
             enderecos: Estabelecimento.enderecos,
             FotoName: FotoName
+        }, {
+            headers:{
+                'Authorization': `Bearer ${token}`
+            }
         }).then(dados => {
             setEstabelecimento(dados.data)            
         }).catch(error => {

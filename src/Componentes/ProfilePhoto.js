@@ -8,9 +8,11 @@ import ImagePicker from 'react-native-image-picker';
 
 import UploadFile from '../Services/UploadFile'
 import DeleteFile from '../Services/DeleteFile'
+import AuthContext from '../Contexts/Auth'
 
 
 export default function ProfilePhoto() {
+    const { token } = useContext(AuthContext);
     const { Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento } = useContext(EstabelecimentosContext);    
     const [foto, setFoto] = useState(null);
 
@@ -28,7 +30,7 @@ export default function ProfilePhoto() {
         }
 
         ImagePicker.showImagePicker(options, (response) => {
-            console.log('resultado do seletor de imagem', response);
+            // console.log('resultado do seletor de imagem', response);
 
             if (response.didCancel) {
                 console.log('operação cancelada pelo usuário');
@@ -46,14 +48,15 @@ export default function ProfilePhoto() {
                 
                 let nome = file.name.split(".", 1)
                 let nameCerto = nome[0]
-                let tipo = file.type.replace('image/', '')
+                let tipo = "png"
+                // let tipo = file.type.replace('image/', '')
                 let nameCerto1 = nameCerto + '.' + tipo
 
                 
                 setFoto(file) 
 
 
-                UploadFile("appmercantilestabelecimento", "/images/", file, Estabelecimento.token, "Usuário")
+                UploadFile( token, file, Estabelecimento.token, "Usuário")
 
                 EditaFotoEstabelecimento(nameCerto1)
 

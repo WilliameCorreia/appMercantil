@@ -123,7 +123,7 @@ export default function usuario({ route }) {
     return (
         <Formik
             initialValues={{
-                estabelecimentoR: Estabelecimento.estabelecimento,
+                estabelecimentoR: Estabelecimento._Estabelecimento,
                 cnpj: Estabelecimento.cnpj,
                 razaoSocial: Estabelecimento.razaoSocial,
                 enderecos: Estabelecimento.enderecos,

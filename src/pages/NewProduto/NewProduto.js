@@ -123,6 +123,12 @@ export default function NewProduto({ navigation, route }) {
         });
     }
 
+    // const teste = () =>{
+    //     if (ImgProduto) {
+    //         UploadFile( token, ImgProduto, "result.codeBar", "produtos")
+    //     }
+    // }
+
     const adicionarProduto = () => {
         console.log("**********Adicionando Produto********")
         let foto = null;
@@ -152,7 +158,7 @@ export default function NewProduto({ navigation, route }) {
                 //só envia a imagem do produto para amazon caso o usuário
                 //já tenha escolhido a foto
                 if (ImgProduto) {
-                    UploadFile("appmercantilimagens", "/ImagensPng/png", ImgProduto, result.codeBar, "produtos")
+                    UploadFile( token, ImgProduto, result.codeBar, "produtos")
                 }
 
                 // console.log(response.data.codeBar)
