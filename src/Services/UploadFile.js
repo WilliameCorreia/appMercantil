@@ -4,12 +4,12 @@ import api from './api';
 
 
 
-const UploadFile = async ( token, file, UserToken, tela) => {
+const UploadFile = async ( token, file, nomeProduto, tela) => {
     
     const base64 = await fs.readFile(file.uri, 'base64')
-    if(tela === null){
+    if(tela === "Usuário"){
 
-        api.post(`v1/FileStreamUpload?nameFile=${file.name}`, {
+        api.post(`v1/FileStreamUpload?nameFile=${nomeProduto}&urlContainerBlob=${"planeta-produtos/estabelecimento"}`, {
             image : base64 
     
         }, {
@@ -21,7 +21,8 @@ const UploadFile = async ( token, file, UserToken, tela) => {
         })
     }
     else if(tela === "produtos"){
-        api.post(`v1/FileStreamUpload?nameFile=${UserToken}`, {
+        // console.log(base64)
+        api.post(`v1/FileStreamUpload?nameFile=${nomeProduto}&urlContainerBlob=${"planeta-produtos/ImagensPng/png"}`, {
             image : base64 
     
         }, {

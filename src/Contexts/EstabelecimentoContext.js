@@ -25,9 +25,9 @@ const EstabelecimentoProvider = ({ children }) => {
             console.log(error);
         })
     }
-    const EditaFotoEstabelecimento = async (FotoName) => {
+    const EditaFotoEstabelecimento = async (fotoName) => {
         console.log("vai editar a img lá no banco")  
-        console.log(FotoName)  
+        console.log(fotoName)  
         api.put(`v1/Estabelecimentos/${Estabelecimento.id}`, {
             // Id: Estabelecimento.id,
             Token: Estabelecimento.token,
@@ -38,12 +38,13 @@ const EstabelecimentoProvider = ({ children }) => {
             Ativo: true,
             Telefones: Estabelecimento.telefone,
             enderecos: Estabelecimento.enderecos,
-            FotoName: FotoName
+            fotoName: fotoName
         }, {
             headers:{
                 'Authorization': `Bearer ${token}`
             }
         }).then(dados => {
+            console.log(dados)
             setEstabelecimento(dados.data)            
         }).catch(error => {
             console.log(error);

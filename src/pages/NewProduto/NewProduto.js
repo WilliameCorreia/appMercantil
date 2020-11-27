@@ -87,8 +87,8 @@ export default function NewProduto({ navigation, route }) {
                 if (result) {
                     setProduto({
                         Produto: result.produto,
-                        Quantidade: result.quantidade,
-                        Preco: result.preco,
+                        Quantidade: result.quantidade_Embalagem,
+                        Preco: result.preco_Medio,
                         CategoriaId: result.categoria,
                         Codbar: result.codbar,
                         FotoPng: result.foto_Png
@@ -133,7 +133,7 @@ export default function NewProduto({ navigation, route }) {
         console.log("**********Adicionando Produto********")
         let foto = null;
         if(!produto.fotoPng){
-            foto = produto.Codbar + '.' + tipo
+            foto = produto.Codbar + '.' + 'png'
         }else{
             //caso o produto já possua foto o valor de ImgProduto é setado como null
             //para que nao seja enviado um novo uploa e assim substitua o arquivo na amazon
@@ -142,13 +142,13 @@ export default function NewProduto({ navigation, route }) {
         }
         if (ValidaEan(produto.Codbar)) {
             Api.post("v1/Produtos", {
-                Produto: produto.Produto,
-                Quantidade: parseInt(produto.Quantidade),
-                Preco: produto.Preco,
-                CategoriaId: GetId(produto.CategoriaId),
-                CodeBar: produto.Codbar,
-                FotoPng: foto,
-                EstabelecimentoId: Estabelecimento.id
+                _Produto: produto.Produto,
+                quantidade: parseInt(produto.Quantidade),
+                preco: produto.Preco,
+                categoriaId: GetId(produto.CategoriaId),
+                codeBar: produto.Codbar,
+                fotoPng: foto,
+                estabelecimentoId: Estabelecimento.id
             }, {
                 headers:{
                     'Authorization': `Bearer ${token}`
@@ -188,7 +188,7 @@ export default function NewProduto({ navigation, route }) {
             }
         }).then(response => {
             const { result } = response.data;
-            if (result != 0) {
+            if (result) {
                 setMsnModal("Produto já Cadastrado ");
                 setModalActive(true);
             } else {
