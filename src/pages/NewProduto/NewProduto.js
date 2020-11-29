@@ -158,7 +158,7 @@ export default function NewProduto({ navigation, route }) {
                 //só envia a imagem do produto para amazon caso o usuário
                 //já tenha escolhido a foto
                 if (ImgProduto) {
-                    UploadFile( token, ImgProduto, result.codeBar, "produtos")
+                    UploadFile( token, ImgProduto, result.value.codeBar, "produtos")
                 }
 
                 // console.log(response.data.codeBar)

@@ -52,8 +52,8 @@ export default function FotoProduto(props) { //produto, ImgProduto
         });
     }
     return (
-        <TouchableOpacity style={styles.container} onPress={() => EscolherImagem()}>
-            <Image source={ props.produto.FotoPng ? { uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/ImagensPng/png/' + props.produto.FotoPng } : FotoPng.name ? { uri: FotoPng.uri  } : require("../Assets/srcImage.png") } style={styles.prodImg} />            
+        <TouchableOpacity style={styles.container} onPress={() => EscolherImagem()}>            
+            <Image source={ props.produto.FotoPng ? { uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/ImagensPng/png/${props.produto.FotoPng}` } : FotoPng.name ? { uri: FotoPng.uri  } : require("../Assets/srcImage.png") } style={styles.prodImg} />            
         </TouchableOpacity>
     )
 }

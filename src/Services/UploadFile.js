@@ -21,7 +21,7 @@ const UploadFile = async ( token, file, nomeProduto, tela) => {
         })
     }
     else if(tela === "produtos"){
-        // console.log(base64)
+        console.log("vai enviar a foto do produto")
         api.post(`v1/FileStreamUpload?nameFile=${nomeProduto}&urlContainerBlob=${"planeta-produtos/ImagensPng/png"}`, {
             image : base64 
     
