@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
 
 import storage from '@react-native-firebase/storage';
@@ -6,42 +6,54 @@ import database from '@react-native-firebase/database';
 import { cond } from 'react-native-reanimated';
 
 import Styles from './style.js'
+import api from '../../Services/api.js';
+import AuthContext from '../../Contexts/Auth.js';
 
 export default function MeusPedidos({ navigation }) {
-    const [pedidos, setImages] = useState(
-        [{
-            id: '#000001', cliente: 'João Marcos', status: 'A CAMINHO',
-            endereco: "RUA 17, 70, Pacatuba CEARÁ - BR, 61814-524", telefone: "(85) 987694480",
-            itens:
-                [
-                    { produto: 'ALCACHOFRA', preco: 5.90, qnt: '1KG' },
-                    { produto: 'COCA COLA', preco: 7.90, qnt: '1' },
-                    { produto: 'ARROZ BRANCO', preco: 2.19, qnt: '1' }
-                ]
-        },
-        {
-            id: '#000002', cliente: 'Williame', status: 'A CAMINHO',
-            endereco: "RUA OURO PRETO, 15, MARACANAÚ CEARÁ - BR, 619020-35", telefone: "(85) 987694480",
-            itens:
-                [
-                    { produto: 'ALCACHOFRA', preco: 5.90, qnt: '1KG' },
-                    { produto: 'COCA COLA', preco: 7.90, qnt: '1' },
-                    { produto: 'ARROZ BRANCO', preco: 2.19, qnt: '1' }
-                ]
-        },
-        {
-            id: '#000003', cliente: 'Artur', status: 'A CAMINHO',
-            endereco: "RUA OURO PRETO, 15, MARACANAÚ CEARÁ - BR, 619020-35", telefone: "(85) 987694480",
-            itens:
-                [
-                    { produto: 'ALCACHOFRA', preco: 52.00, qnt: '1KG' },
-                    { produto: 'COCA COLA', preco: 7.00, qnt: '1' },
-                    { produto: 'ARROZ BRANCO', preco: 2.00, qnt: '1' }
-                ]
+    const { token } = useContext(AuthContext);
+
+    const status = "cancelado"
+
+    const [pedidos, setPedidos] = useState([])
+
+    const verificaCor = () => {
+        switch (status) {
+            case "cancelado":
+                return {backgroundColor: "red"}
+                break;
+            case "aguardando":
+                return {backgroundColor: "yellow"}
+                break;
+        
+            default:
+                return {}
+                break;
         }
-        ]
-    )
-    
+    }
+
+    const [corStatus, setCorStatus] = useState(verificaCor())
+
+
+    const getPedidos = () => {
+
+        api.get("v1/Pedidos", {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(response => {
+            const { result } = response.data;
+            setPedidos(result)
+        }).catch(erro => {
+            console.log(erro);
+        });
+
+    }
+
+    useEffect(() => {
+        getPedidos()
+
+    }, [])
+
     return (
         <ScrollView style={Styles.container}>
             <View>
@@ -50,11 +62,11 @@ export default function MeusPedidos({ navigation }) {
                         onPress={() => navigation.navigate('DetalhePedidos', order)}
                     >
                         <View style={Styles.box1}>
-                            <Text style={[Styles.textGrande, Styles.cinza]}>{order.cliente}</Text>
-                            <Text style={[Styles.status, Styles.textPequeno]}>{order.status}</Text>
+                            <Text style={[Styles.textGrande, Styles.cinza]}>{order.clientes.nome_Client}</Text>
+                            <Text style={[Styles.status, Styles.textPequeno, corStatus]}>{"cancelado"}</Text>
                         </View>
                         <View style={Styles.box1}>
-                            <Text style={[Styles.textGrande, Styles.cinza]}>{order.id}</Text>
+                            <Text style={[Styles.textGrande, Styles.cinza]}>{order.cod_Pedido}</Text>
                         </View>
                     </TouchableOpacity>
                 )}

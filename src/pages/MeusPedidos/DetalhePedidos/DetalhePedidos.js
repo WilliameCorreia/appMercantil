@@ -12,9 +12,9 @@ export default function DetalhePedidos({ route }) {
 
     function somar() {
         let total = 0;
-        dados.itens.map(
-            item => { total += item.preco }
-        )
+        // dados.itens.map(
+        //     item => { total += item.preco }
+        // )
         return total
     }
 
@@ -24,11 +24,11 @@ export default function DetalhePedidos({ route }) {
             <View style={Styles.box1}>
                 <View style={Styles.item1}>
                     <View style={Styles.item1_1}>
-                        <Text style={Styles.textCliente}>{dados.cliente}</Text>
-                        <Text style={Styles.textPedido}>{dados.id}</Text>
+                        <Text style={Styles.textCliente}>{dados.clientes.nome_Client}</Text>
+                        <Text style={Styles.textPedido}>{dados.cod_Pedido}</Text>
                     </View>
                     <View style={Styles.item1_2}>
-                        <Text style={Styles.StatusPedidoP}>{dados.status}</Text>
+                        <Text style={Styles.StatusPedidoP}>{"cancelado"}</Text>
                     </View>
                 </View>
                 <View style={Styles.item2}>
@@ -53,7 +53,7 @@ export default function DetalhePedidos({ route }) {
                     </View>
                 </View>
                 <View style={Styles.item4}>
-                    {dados.itens.map(item =>
+                    {/* {dados.itens.map(item =>
                         <View style={Styles.item4_1}>
                             <View style={Styles.item4_1_A}>
                                 <Text style={Styles.item4_1_AText}>{item.qnt}</Text>
@@ -65,7 +65,7 @@ export default function DetalhePedidos({ route }) {
                                 <Text style={Styles.item4_1_CText}>{item.preco}</Text>
                             </View>
                         </View>
-                    )}
+                    )} */}
                 </View>
                 <View style={Styles.item5}>
                     <View style={Styles.item5_1}>
