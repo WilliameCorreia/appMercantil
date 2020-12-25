@@ -9,8 +9,6 @@ export default function Home({ navigation }) {
 
     const { loading } = useContext(AuthContext)
 
-    console.log('home => ' + loading)
-
     return (
         <ImageBackground source={require('../../Assets/backHome.jpeg')} style={styles.container}>
             <View style={styles.box1}>

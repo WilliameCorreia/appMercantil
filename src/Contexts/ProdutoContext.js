@@ -15,7 +15,6 @@ const ProdutosProvider = ({ children }) => {
     const [teste, setTest] = useState();
 
     const LoadCategorias = async () => {
-        console.log("entrou em load categorias")
         const getCategorias = await api.get("v1/Categorias", {
             headers:{
                 'Authorization': `Bearer ${token}`
@@ -23,16 +22,15 @@ const ProdutosProvider = ({ children }) => {
         }).then(response => {
             const {result} =  response.data
             setCategorias(result)
-            console.log(result)
         }).catch(error => {
             console.log(error);
         })
     }
 
-    const testando =  valor => {
-        console.log(valor);
-        setTest(valor);
-    }
+    // const testando =  valor => {
+    //     console.log(valor);
+    //     setTest(valor);
+    // }
 
     useEffect(() => {
         LoadCategorias();
@@ -41,7 +39,7 @@ const ProdutosProvider = ({ children }) => {
     }, [])
 
     return (
-        <ProdutosContext.Provider value={{categorias, testando, LoadCategorias}} >
+        <ProdutosContext.Provider value={{categorias, LoadCategorias}} >
             {children}
         </ProdutosContext.Provider>
     )

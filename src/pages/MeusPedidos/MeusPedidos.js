@@ -41,8 +41,8 @@ export default function MeusPedidos({ navigation }) {
 
 
     const getPedidos = () => {
-
-        api.get(`v1/Pedidos/FilterPedidoCliente?estabelecimentoId=${Estabelecimento.id}`, {
+        
+        api.get(`v1/Pedidos/FilterPedidoCliente?estabelecimentoId=${Estabelecimento.id}`, { 
             headers: {
                 'Authorization': `Bearer ${token}`
             }

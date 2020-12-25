@@ -30,7 +30,6 @@ export default function DashBoard({ navigation }) {
     useEffect(() => {
         listFilesAndDirectories(reference).then(dados => {
             setImages(dados)
-            console.log('finalizado !');
         });
         return () => {
             console.log('error DashBoard')
@@ -49,8 +48,6 @@ export default function DashBoard({ navigation }) {
               
            })
       ) */
-
-    console.log('entrou dashBoard')
 
     return (
         <View style={styles.container}>

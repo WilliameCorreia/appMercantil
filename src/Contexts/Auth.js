@@ -21,7 +21,6 @@ export const AuthProvider = ({ children }) => {
     } */
 
     async function signIn(user) {
-        console.log("@@@@@@@@@@@@@@@@@SignIn@@@@@@@@@@@@@@@@@@@@@@@")
         setTimeout(() => {
             if (user) {
                 GetEstabelecimento(user);
@@ -48,8 +47,6 @@ export const AuthProvider = ({ children }) => {
     async function GetEstabelecimento(user) {
         if (token) {
             const { email, uid } = user;
-            console.log(uid)
-            // console.log(token)
             Api.get(`v1/Estabelecimentos/Token/${uid}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -83,8 +80,7 @@ export const AuthProvider = ({ children }) => {
     //     // getAuth();
     // }, [token]);
 
-    console.log("authContext => " + Boolean(usuario.email))
-    console.log("estabelecimento => " + Estabelecimento)
+    
     return (
         <AuthContext.Provider value={{ signed: Boolean(usuario.email), signIn, usuario, loading, Estabelecimento, token }}>
             {children}

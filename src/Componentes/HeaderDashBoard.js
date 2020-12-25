@@ -3,7 +3,6 @@ import React from 'react'
 import { Header } from 'react-native-elements';
 
 export default function HeaderDashBoard({ title, leftButton, rightButton, color }) {
-    console.log('HeaderDashBoard')
     return (
         <Header
             statusBarProps={{ barStyle: 'light-content', backgroundColor: color }}
