@@ -23,7 +23,7 @@ export default function ProdutosLista( { navigation } ) {
                         onPress={() => navigation.navigate('MeusProdutos', item.id)}
                     >
                         <Image
-                            source={{ uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/categorias/' + item.categoriaPng }}
+                            source={{ uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/categorias/${item.categoriaPng}` }}
                             style={styles.uriImg}
                             PlaceholderContent={<ActivityIndicator style={styles.Indicator} color={'red'} />}
                             transition={true}

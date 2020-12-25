@@ -11,10 +11,10 @@ export default function DetalhePedidos({ route }) {
 
 
     function somar() {
-        let total = 0;
-        // dados.itens.map(
-        //     item => { total += item.preco }
-        // )
+        let total = "";
+        dados.produtos.map(
+            item => { total += item.preco }
+        )
         return total
     }
 
@@ -24,8 +24,9 @@ export default function DetalhePedidos({ route }) {
             <View style={Styles.box1}>
                 <View style={Styles.item1}>
                     <View style={Styles.item1_1}>
-                        <Text style={Styles.textCliente}>{dados.clientes.nome_Client}</Text>
-                        <Text style={Styles.textPedido}>{dados.cod_Pedido}</Text>
+                        {console.log(dados)}
+                        <Text style={Styles.textCliente}>{dados.clientes.nome_Client.length > 16 ? `${dados.clientes.nome_Client.substring(0,16)}...` : dados.clientes.nome_Client}</Text>
+                        <Text style={Styles.textPedido}>{`#${dados.cod_Pedido}`}</Text>
                     </View>
                     <View style={Styles.item1_2}>
                         <Text style={Styles.StatusPedidoP}>{"cancelado"}</Text>
@@ -53,19 +54,19 @@ export default function DetalhePedidos({ route }) {
                     </View>
                 </View>
                 <View style={Styles.item4}>
-                    {/* {dados.itens.map(item =>
+                    {dados.produtos.map(item =>
                         <View style={Styles.item4_1}>
                             <View style={Styles.item4_1_A}>
-                                <Text style={Styles.item4_1_AText}>{item.qnt}</Text>
+                                <Text style={Styles.item4_1_AText}>{item.quantidade}</Text>
                             </View>
                             <View style={Styles.item4_1_B}>
-                                <Text style={Styles.item4_1_BText}>{item.produto}</Text>
+                                <Text style={Styles.item4_1_BText}>{item._Produto}</Text>
                             </View>
                             <View style={Styles.item4_1_C}>
                                 <Text style={Styles.item4_1_CText}>{item.preco}</Text>
                             </View>
                         </View>
-                    )} */}
+                    )}
                 </View>
                 <View style={Styles.item5}>
                     <View style={Styles.item5_1}>

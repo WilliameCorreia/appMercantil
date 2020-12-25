@@ -10,7 +10,7 @@ import api from '../../Services/api.js';
 import AuthContext from '../../Contexts/Auth.js';
 
 export default function MeusPedidos({ navigation }) {
-    const { token } = useContext(AuthContext);
+    const { token, Estabelecimento } = useContext(AuthContext);
 
     const status = "cancelado"
 
@@ -19,12 +19,18 @@ export default function MeusPedidos({ navigation }) {
     const verificaCor = () => {
         switch (status) {
             case "cancelado":
-                return {backgroundColor: "red"}
+                return { backgroundColor: "red" }
                 break;
-            case "aguardando":
-                return {backgroundColor: "yellow"}
+            case "em separação":
+                return { backgroundColor: "orange" }
                 break;
-        
+            case "a caminho":
+                return { backgroundColor: "blue" }
+                break;
+            case "entregue":
+                return { backgroundColor: "green" }
+                break;
+
             default:
                 return {}
                 break;
@@ -36,7 +42,7 @@ export default function MeusPedidos({ navigation }) {
 
     const getPedidos = () => {
 
-        api.get("v1/Pedidos", {
+        api.get(`v1/Pedidos/FilterPedidoCliente?estabelecimentoId=${Estabelecimento.id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -62,11 +68,11 @@ export default function MeusPedidos({ navigation }) {
                         onPress={() => navigation.navigate('DetalhePedidos', order)}
                     >
                         <View style={Styles.box1}>
-                            <Text style={[Styles.textGrande, Styles.cinza]}>{order.clientes.nome_Client}</Text>
+                            <Text style={[Styles.textGrande, Styles.cinza]}>{order.clientes.nome_Client.length > 16 ? `${order.clientes.nome_Client.substring(0,16)}...` : order.clientes.nome_Client }</Text>
                             <Text style={[Styles.status, Styles.textPequeno, corStatus]}>{"cancelado"}</Text>
                         </View>
                         <View style={Styles.box1}>
-                            <Text style={[Styles.textGrande, Styles.cinza]}>{order.cod_Pedido}</Text>
+                            <Text style={[Styles.textGrande, Styles.cinza]}>{order.cod_Pedido.toString().length < 2 ? `#0${order.cod_Pedido}` : `#${order.cod_Pedido}` }</Text>
                         </View>
                     </TouchableOpacity>
                 )}

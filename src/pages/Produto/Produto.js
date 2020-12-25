@@ -115,7 +115,7 @@ export default function Produto({ navigation, route, }) {
                                 <Text style={Styles.textCliente}>{values.produto}</Text>
                             </View>
                             <View style={Styles.item1_2}>
-                                <Image source={produto.fotoPng ? { uri: 'https://appmercantilimagens.s3.us-east-2.amazonaws.com/ImagensPng/png/' + produto.fotoPng } : require("../../Assets/srcImage.png")} style={Styles.prodImg} />
+                                <Image source={produto.fotoPng ? { uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/ImagensPng/png/${produto.fotoPng}` } : require("../../Assets/srcImage.png")} style={Styles.prodImg} />
                             </View>
                         </View>
                         <View style={Styles.item2}>
