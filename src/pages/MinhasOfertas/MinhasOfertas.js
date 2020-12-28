@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ActivityIndicator, Image, FlatList } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, ActivityIndicator, Image, FlatList, Dimensions } from 'react-native'
 
 
 import Styles from './style.js'
@@ -67,8 +67,8 @@ export default function MinhasOfertas({ navigation }) {
     
     const RenderEmpty = () => {
         return (
-            <View >
-                <Text >Nenhum produto Encontrado</Text>
+            <View style={{ justifyContent: "center", alignItems:"center", height: Dimensions.get('window').height  }}>
+                <Text  style={{fontSize: 22}}>Não existem produtos em oferta!</Text>
             </View>
         )
     }
@@ -82,7 +82,7 @@ export default function MinhasOfertas({ navigation }) {
                 onEndReached={() => getOfertas()}
                 onEndReachedThreshold={0.5}
             ListFooterComponent={renderFooter}
-            // ListEmptyComponent={RenderEmpty}
+            ListEmptyComponent={RenderEmpty}
             />
         </View>
     )
