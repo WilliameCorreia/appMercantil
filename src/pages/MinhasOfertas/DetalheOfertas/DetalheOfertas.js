@@ -7,34 +7,40 @@ import storage from '@react-native-firebase/storage';
 import Styles from './style'
 import AuthContext from '../../../Contexts/Auth';
 import { ProdutosContext } from '../../../Contexts/ProdutoContext';
+import api from '../../../Services/api';
 
-export default function DetalheOfertas({ route, navigation }) {    
+export default function DetalheOfertas({ route, navigation }) {
     const { categorias } = useContext(ProdutosContext);
+    const { token } = useContext(AuthContext);
     const dados = route.params
-    const quantidade = dados.quantidade == 0 ? "EM FALTA" : dados.quantidade 
+    const quantidade = dados.quantidade == 0 ? "EM FALTA" : dados.quantidade
 
     const EncerraOferta = () => {
         console.log("vai encerrar");
-        navigation.navigate('Ofertas'); 
-
-    //     api.put(`v1/Produtos/${dados.id}`, {
-
-    //     }, { 
-    //         headers: {
-    //             'Authorization': `Bearer ${token}`
-    //         }
-    //     }).then(response => {
-    //         const { result } = response.data;
-    //         const emOferta = result.filter(oferta => oferta.oferta === true)
-    //         setOfertas({
-    //             data: emOferta,
-    //             page: ofertas.page,
-    //             loading: true
-    //         })    
-    //     }).catch(erro => {
-    //         console.log(erro);
-    //     });
-
+        // dados.getOfertas();
+        
+        api.put(`v1/Produtos/${dados.id}`, {
+            _Produto: dados._Produto,
+            codeBar: dados.codeBar,
+            marca: dados.marca,
+            unidade: dados.unidade,
+            fotoPng: dados.fotoPng,
+            quantidade: dados.quantidade,
+            preco: dados.preco,
+            oferta: false,
+            categoriaId: dados.categoriaId,
+            estabelecimentoId: dados.estabelecimentoId,
+        }, {
+            headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(response => {
+                    // navigation.navigate('Ofertas');
+                    navigation.navigate('DashBoard');
+                }).catch(erro => {
+            console.log(erro);
+        });
+        
     }
 
     return (
@@ -42,7 +48,7 @@ export default function DetalheOfertas({ route, navigation }) {
             <View style={Styles.box1}>
                 <View style={Styles.item1}>
                     <View style={Styles.item1_1}>
-                        <Text style={Styles.textCliente}>{dados._Produto.length > 16 ? `${dados._Produto.substring(0,16)}...` : dados._Produto }</Text>
+                        <Text style={Styles.textCliente}>{dados._Produto.length > 16 ? `${dados._Produto.substring(0, 16)}...` : dados._Produto}</Text>
                         <Text style={Styles.textPedido}>{dados.id}</Text>
                     </View>
                     <View style={Styles.item1_2}>
@@ -59,10 +65,10 @@ export default function DetalheOfertas({ route, navigation }) {
                 </View>
                 <View style={Styles.item3}>
                     <View style={Styles.item3_1}>
-                        <TextInput style={Styles.item3_1Input} value={dados.quantidade.toString()} />
+                        <TextInput style={Styles.item3_1Input} editable = {false} value={dados.quantidade.toString()} />
                     </View>
                     <View style={Styles.item3_2}>
-                        <TextInput style={Styles.item3_2Input} value={dados.preco}/>
+                        <TextInput style={Styles.item3_2Input} editable = {false} value={dados.preco} />
                     </View>
                 </View>
                 <View style={Styles.item4}>
@@ -72,7 +78,7 @@ export default function DetalheOfertas({ route, navigation }) {
                 </View>
                 <View style={Styles.item5}>
                     <View style={Styles.item5_1}>
-                        <TextInput style={Styles.item5_1Input} value={categorias.find(cat => cat.id === dados.categoriaId).nome} />                         
+                        <TextInput style={Styles.item5_1Input} editable = {false} value={categorias.find(cat => cat.id === dados.categoriaId).nome} />
                     </View>
                     <View style={Styles.item5_2}>
                         <TextInput style={Styles.item5_2Input} />
@@ -85,7 +91,7 @@ export default function DetalheOfertas({ route, navigation }) {
                 </View>
                 <View style={Styles.item7}>
                     <View style={Styles.item7_1}>
-                        <TextInput style={Styles.item7_1Input} value={dados._Produto.length > 16 ? `${dados._Produto.substring(16,64)}...` : dados._Produto }/>
+                        <TextInput style={Styles.item7_1Input} editable = {false} value={dados._Produto.length > 16 ? `${dados._Produto.substring(16, 64)}...` : dados._Produto} />
                     </View>
                 </View>
                 {/* desativei pois nao vejo necessidade de alterar o produto em minhas ofertas */}
@@ -106,12 +112,3 @@ export default function DetalheOfertas({ route, navigation }) {
         </KeyboardAwareScrollView>
     )
 }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         justifyContent: "center",
-//         alignItems: "center",
-//         backgroundColor: "#F5FCFF"
-//       },    
-// })

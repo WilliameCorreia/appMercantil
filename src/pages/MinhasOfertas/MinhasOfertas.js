@@ -43,8 +43,9 @@ export default function MinhasOfertas({ navigation }) {
 
     const _renderItem = ({ item }) => (
         <TouchableOpacity style={Styles.box1}
-        onPress={() => navigation.navigate('DetalheOfertas', item)}
+        onPress={() => navigation.navigate('DetalheOfertas', item )}
         >
+        {/* {item: item, getOfertas: ()=>getOfertas()} */}
             <View style={Styles.box1_1}>
                 <Text style={Styles.box1_1Text}>{item._Produto.length > 16 ? `${item._Produto.substring(0, 16)}...` : item._Produto}</Text>
                 <Text style={Styles.box1_1TextPedido}>{item.id.toString().length < 2 ? `#0${item.id}` : `#${item.id}`}</Text>
