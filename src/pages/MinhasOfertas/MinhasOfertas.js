@@ -13,7 +13,14 @@ export default function MinhasOfertas({ navigation }) {
     const [ofertas, setOfertas] = useState([]);
     const { Estabelecimento, token } = useContext(AuthContext);
 
+    const limpa = () => {
+        setPage(1);
+        setLoad(false);
+        setLastPage(false);
+        setOfertas([]);
+    }
     const getOfertas = () => {
+        // console.log("getOfertas")
         if (!lastPage) {
             setLoad(true);
             api.get(`v1/Produtos/${Estabelecimento.id}/${page}`, {
@@ -39,11 +46,11 @@ export default function MinhasOfertas({ navigation }) {
     useEffect(() => {
         getOfertas()
 
-    }, [])
+    }, [ofertas])
 
     const _renderItem = ({ item }) => (
         <TouchableOpacity style={Styles.box1}
-        onPress={() => navigation.navigate('DetalheOfertas', item )}
+        onPress={() =>  navigation.navigate('DetalheOfertas', [item, ()=> limpa()]  )}
         >
         {/* {item: item, getOfertas: ()=>getOfertas()} */}
             <View style={Styles.box1_1}>
@@ -67,7 +74,7 @@ export default function MinhasOfertas({ navigation }) {
     
     const RenderEmpty = () => {
         return (
-            <View style={{ justifyContent: "center", alignItems:"center", height: Dimensions.get('window').height  }}>
+            <View style={{ justifyContent: "center", alignItems:"center", height: Dimensions.get('window').height / 2  }}>
                 <Text  style={{fontSize: 22}}>Não existem produtos em oferta!</Text>
             </View>
         )

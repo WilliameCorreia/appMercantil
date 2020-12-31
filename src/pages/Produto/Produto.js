@@ -67,7 +67,7 @@ export default function Produto({ navigation, route, }) {
                     setMsnModal("Produto alterado com sucesso !");
                     setModalActive(true);
                     LoadCategorias();
-                }else{
+                } else {
                     setMsnModal("Erro ao alterar Produto !");
                     setModalActive(true);
                 }
@@ -80,6 +80,31 @@ export default function Produto({ navigation, route, }) {
             setMsnModal("Favor digitar um codigo de barras válido");
             setModalActive(true);
         }
+
+    }
+    const ColocaEmOferta = () => {
+
+        Api.put(`v1/Produtos/${produto.id}`, {
+            _Produto: produto._Produto,
+            codeBar: produto.codeBar,
+            marca: produto.marca,
+            unidade: produto.unidade,
+            fotoPng: produto.fotoPng,
+            quantidade: produto.quantidade,
+            preco: produto.preco,
+            oferta: true,
+            categoriaId: produto.categoriaId,
+            estabelecimentoId: produto.estabelecimentoId,
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(response => {
+            // navigation.navigate('Ofertas');
+            navigation.navigate('Ofertas');
+        }).catch(erro => {
+            console.log(erro);
+        });
 
     }
 
@@ -108,11 +133,11 @@ export default function Produto({ navigation, route, }) {
             validationSchema={FormSchema}
         >
             {({ values, handleChange, handleSubmit, errors }) =>
-                <KeyboardAwareScrollView style={Styles.container}>
-                    <ScrollView style={Styles.box1}>
+                <View style={Styles.container}>
+                    <KeyboardAwareScrollView style={Styles.box1}>
                         <View style={Styles.item1}>
                             <View style={Styles.item1_1}>
-                                <Text style={Styles.textCliente}>{values.produto}</Text>
+                                <Text style={Styles.textCliente}>{values.produto.length > 50 ? `${values.produto.substring(0, 50)}...` : values.produto}</Text>
                             </View>
                             <View style={Styles.item1_2}>
                                 <Image source={produto.fotoPng ? { uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/ImagensPng/png/${produto.fotoPng}` } : require("../../Assets/srcImage.png")} style={Styles.prodImg} />
@@ -188,8 +213,13 @@ export default function Produto({ navigation, route, }) {
                         <View>
                             <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} navigation />
                         </View>
-                    </ScrollView>
-                </KeyboardAwareScrollView>
+                    </KeyboardAwareScrollView>
+                    <View style={[Styles.box2]}>
+                        <TouchableOpacity disabled={produto.oferta} style={Styles.item9} onPress={ColocaEmOferta}>
+                            <Text style={Styles.item8_1Text} >{produto.oferta ? "produto já em oferta" : "Em Oferta"}</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             }
         </Formik>
     )
