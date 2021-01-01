@@ -10,13 +10,13 @@ import {
 
 import { FlatList } from 'react-native-gesture-handler';
 
-export default function listaProdutos({ Produtos, loading, navigation, LoadListaProdutos}) {
+export default function listaProdutos({ Produtos, loading, navigation, LoadListaProdutos, limpa}) {
 
     const _renderItem = ({ item }) => (
         <View>
             <TouchableOpacity
                 style={styles.cards}
-                onPress={() => navigation.navigate('Produto', item)}
+                onPress={() => navigation.navigate('Produto', [item, limpa])}
             >
                 <View style={styles.box}>
                     <View style={styles.box1}>

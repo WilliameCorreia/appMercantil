@@ -13,7 +13,7 @@ container: { flex: 1, padding: "4%" },
     textPedido: { fontFamily: 'Montserrat-Medium', fontSize: 16, marginLeft: 16, opacity: 0.3 },
     item1_2: { width: "45%", backgroundColor: '#fff', flexDirection: "column", justifyContent: "center", alignItems: "flex-end" },
     prodImg: { backgroundColor: "#fff", width: "50%", height: "65%", marginBottom: 8 },
-
+    
     item2: { height: windowHeight * 7, flexDirection: 'row', padding: "7%", paddingTop: "5%", borderTopWidth: 0.3 },
     item2_1: { width: "60%", backgroundColor: "#fff" },
     item2_1Text: { fontFamily: "Montserrat-Medium", fontSize: 15 },
@@ -66,11 +66,11 @@ container: { flex: 1, padding: "4%" },
         fontSize: 13, 
         fontFamily: "Montserrat-light",
     },
-
+    
     item6: { height: windowHeight * 4, flexDirection: 'row', padding: "7%", paddingTop: 0, paddingBottom: "2%" },
     item6_1: { width: "60%", backgroundColor: "#fff" },
     item6_1Text: { fontFamily: "Montserrat-Medium", fontSize: 15 },
-
+    
     item7: { height: windowHeight *10, flexDirection: 'row', paddingTop: 0, marginLeft: "5%" },
     item7_1: { width: "100%", backgroundColor: "#fff", paddingLeft: "2%" },
     item7_1Input: {
@@ -91,10 +91,12 @@ container: { flex: 1, padding: "4%" },
     item8_1Text: { marginTop: '2%', borderRadius: 25, width: "60%", backgroundColor: "#9C3F3A", textAlign: "center", padding: "2%", fontSize: 16, fontFamily: "Montserrat-SemiBold", color: "white" },
     
     item9: { width: "100%", height:"100%", backgroundColor: "#fff", justifyContent:"center", alignItems:"center"},
-
+    item9_1Text: { marginTop: '2%', borderRadius: 25, width: "80%", backgroundColor: "#ff0000", textAlign: "center", padding: "2%", fontSize: 16, fontFamily: "Montserrat-SemiBold", color: "white" },
+    
+    textLoad: { fontFamily: 'Montserrat-Medium', fontSize: windowWidth * 7, padding: 16, paddingBottom: 0, opacity: 0.3, textAlign:"center", margin: 20 },
 
     
-
+    
 
 })
 

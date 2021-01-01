@@ -28,6 +28,15 @@ export default function MeusProdutos({ route }) {
 
     const categoriaId = route.params;
 
+    const limpa = () => {
+        // setProdutos({
+        //     data: [],
+        //     page: 1,
+        //     loading: false,
+        // })
+        LoadListaProdutos()
+    }
+
 
     const LoadListaProdutos = async () => {
        
@@ -96,7 +105,7 @@ export default function MeusProdutos({ route }) {
                 />
                 <TouchableOpacity onPress={pesquisar} style={styles.btnPesquisar}><Text style={styles.textPesquisar}>Pesquisar</Text></TouchableOpacity>
             </View>
-            <ListaProdutos navigation={navigation} Produtos={produtos.data ? produtos.data : []} LoadListaProdutos loading={produtos.loading}/>
+            <ListaProdutos navigation={navigation} Produtos={produtos.data ? produtos.data : []} LoadListaProdutos loading={produtos.loading} limpa={limpa}/>
         </View>
     )
 }
