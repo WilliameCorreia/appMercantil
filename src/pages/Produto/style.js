@@ -93,7 +93,6 @@ container: { flex: 1, padding: "4%" },
     item9: { width: "100%", height:"100%", backgroundColor: "#fff", justifyContent:"center", alignItems:"center"},
     item9_1Text: { marginTop: '2%', borderRadius: 25, width: "80%", backgroundColor: "#ff0000", textAlign: "center", padding: "2%", fontSize: 16, fontFamily: "Montserrat-SemiBold", color: "white" },
     
-    textLoad: { fontFamily: 'Montserrat-Medium', fontSize: windowWidth * 7, padding: 16, paddingBottom: 0, opacity: 0.3, textAlign:"center", margin: 20 },
 
     
     

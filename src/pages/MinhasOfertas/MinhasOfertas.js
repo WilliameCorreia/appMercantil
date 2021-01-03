@@ -11,7 +11,7 @@ export default function MinhasOfertas({ navigation }) {
     const [load, setLoad] = useState(false)
     const [lastPage, setLastPage] = useState(false);
     const [ofertas, setOfertas] = useState([]);
-    const { Estabelecimento, token } = useContext(AuthContext);
+    const { Estabelecimento, token } = useContext(AuthContext);    
 
     const limpa = () => {
         setPage(1);

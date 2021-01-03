@@ -20,6 +20,7 @@ import MyModal from "../../Componentes/MyModal"
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { ProdutosContext } from '../../Contexts/ProdutoContext'
+import EsperaRequisicao from '../../Componentes/EsperaRequisicao';
 
 
 export default function Produto({ navigation, route, }) {
@@ -117,7 +118,9 @@ export default function Produto({ navigation, route, }) {
                 setMsnModal("PRODUTO INSERIDO Á LISTA DE OFERTAS COM SUCESSO!");
                 setModalActive(true);
                 route.params[1]();
-                navigation.navigate('MeusProdutos');
+                setTimeout(() => {
+                    navigation.navigate('MeusProdutos');
+                }, 3000);
             }).catch(erro => {
                 console.log(erro);
             });
@@ -265,7 +268,10 @@ export default function Produto({ navigation, route, }) {
                             </View>
                         </View>
                         :
-                        renderFooter()
+                        // renderFooter()
+                        EsperaRequisicao(
+                            <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} navigation />
+                        )
                 }
             </Formik>
         </>

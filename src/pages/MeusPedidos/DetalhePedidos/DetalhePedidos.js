@@ -24,7 +24,7 @@ export default function DetalhePedidos({ route }) {
             <View style={Styles.box1}>
                 <View style={Styles.item1}>
                     <View style={Styles.item1_1}>
-                        {console.log(dados)}
+                        {console.log(route.params.enderecos)}
                         <Text style={Styles.textCliente}>{dados.clientes.nome_Client.length > 16 ? `${dados.clientes.nome_Client.substring(0,16)}...` : dados.clientes.nome_Client}</Text>
                         <Text style={Styles.textPedido}>{`#${dados.cod_Pedido}`}</Text>
                     </View>
