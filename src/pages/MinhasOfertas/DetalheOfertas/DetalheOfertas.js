@@ -1,15 +1,12 @@
-import React, { useEffect, useState, useContext } from 'react'
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Image, Alert } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
-import storage from '@react-native-firebase/storage';
+import React, { useState, useContext } from 'react'
+import { Text, View, TouchableOpacity, TextInput } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import Styles from './style'
 import AuthContext from '../../../Contexts/Auth';
 import { ProdutosContext } from '../../../Contexts/ProdutoContext';
 import api from '../../../Services/api';
 import EsperaRequisicao from '../../../Componentes/EsperaRequisicao';
-import MyModal from '../../../Componentes/MyModal';
 
 export default function DetalheOfertas({ route, navigation }) {
     const { categorias } = useContext(ProdutosContext);
@@ -21,9 +18,6 @@ export default function DetalheOfertas({ route, navigation }) {
     const quantidade = dados[0].quantidade == 0 ? "EM FALTA" : dados[0].quantidade
 
     const EncerraOferta = () => {
-        // console.log(dados[1]);
-        // dados[0].getOfertas();
-        // alert.alert("hjsgjsg")
         setLoad(true);
 
         api.put(`v1/Produtos/${dados[0].id}`, {
@@ -126,7 +120,9 @@ export default function DetalheOfertas({ route, navigation }) {
             </KeyboardAwareScrollView>
             :
             EsperaRequisicao(
-                <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} navigation />
+                () => setModalActive,
+                modalActive,
+                msnModal
             )
     )
 }

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react'
+import React, { useState } from 'react'
 import {
     Text,
     View,
@@ -10,15 +10,13 @@ import {
 import MyModal from './MyModal'
 const windowWidth = Dimensions.get('window').width / 100
 
-// const [modalActive, setModalActive] = useState(false);
-// const [msnModal, setMsnModal] = useState('primeira passada');
 
-export default EsperaRequisicao = ( modal ) => {
+export default EsperaRequisicao = ( setModalActive, modalActive, msnModal  ) => {
     return (
         <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
             <Text style={Styles.textLoad}>Estamos Processando sua solicitação...</Text>
             <ActivityIndicator size="large" color="red" />
-            {modal}
+            <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} navigation />
         </View>
     )
 }

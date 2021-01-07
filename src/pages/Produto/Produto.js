@@ -5,13 +5,10 @@ import {
     TextInput,
     TouchableOpacity,
     Image,
-    ActivityIndicator,
-    Dimensions
+    ActivityIndicator
 } from 'react-native'
 
 import AuthContext from '../../Contexts/Auth'
-import { Picker } from '@react-native-community/picker'
-import { SearchBar } from 'react-native-elements';
 import Api from '../../Services/api'
 import { ValidaEan } from '../../Services/ValidarCodebar'
 import Styles from './style'
@@ -34,7 +31,6 @@ export default function Produto({ navigation, route, }) {
     const [load, setLoad] = useState(false);
 
     const { categoria, estabelecimento } = route.params[0];
-    // console.log(route.params[1])
 
 
 
@@ -270,7 +266,9 @@ export default function Produto({ navigation, route, }) {
                         :
                         // renderFooter()
                         EsperaRequisicao(
-                            <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} navigation />
+                            () => setModalActive,
+                            modalActive,
+                            msnModal
                         )
                 }
             </Formik>

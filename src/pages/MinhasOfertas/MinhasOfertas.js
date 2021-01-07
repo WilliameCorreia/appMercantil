@@ -7,11 +7,11 @@ import api from '../../Services/api.js';
 import AuthContext from '../../Contexts/Auth.js';
 
 export default function MinhasOfertas({ navigation }) {
-    const [page, setPage] = useState (1)
+    const [page, setPage] = useState(1)
     const [load, setLoad] = useState(false)
     const [lastPage, setLastPage] = useState(false);
-    const [ofertas, setOfertas] = useState([]);
-    const { Estabelecimento, token } = useContext(AuthContext);    
+    const [ofertas, setOfertas] = useState([""]);
+    const { Estabelecimento, token } = useContext(AuthContext);
 
     const limpa = () => {
         setPage(1);
@@ -29,12 +29,17 @@ export default function MinhasOfertas({ navigation }) {
                 }
             }).then(response => {
                 const { result } = response.data;
-                if (result.length < 1) {
+                const emOferta = result.filter(oferta => oferta.oferta === true)
+                if (emOferta.length < 1) {
                     setLastPage(true); setLoad(false);
-                } 
+                    ofertas.map(item => {
+                        if (item === "") {
+                            setOfertas([]);
+                        }
+                    })
+                }
                 else {
-                    const emOferta = result.filter(oferta => oferta.oferta === true)
-                    setOfertas(emOferta); setPage(page+1); setLoad(false);                  
+                    setOfertas(emOferta); setPage(page + 1); setLoad(false);
                 }
             }).catch(erro => {
                 console.log(erro);
@@ -49,20 +54,23 @@ export default function MinhasOfertas({ navigation }) {
     }, [ofertas])
 
     const _renderItem = ({ item }) => (
-        <TouchableOpacity style={Styles.box1}
-        onPress={() =>  navigation.navigate('DetalheOfertas', [item, ()=> limpa()]  )}
-        >
-        {/* {item: item, getOfertas: ()=>getOfertas()} */}
-            <View style={Styles.box1_1}>
-                <Text style={Styles.box1_1Text}>{item._Produto.length > 16 ? `${item._Produto.substring(0, 16)}...` : item._Produto}</Text>
-                <Text style={Styles.box1_1TextPedido}>{item.id.toString().length < 2 ? `#0${item.id}` : `#${item.id}`}</Text>
-            </View>
-            <View style={Styles.box1_2}>
-                <Image source={require("../../Assets/Ofertas.png")} style={Styles.box1_2Img} />
-            </View>
-        </TouchableOpacity>
+        item ?
+
+            <TouchableOpacity style={Styles.box1}
+                onPress={() => navigation.navigate('DetalheOfertas', [item, () => limpa()])}
+            >
+                <View style={Styles.box1_1}>
+                    <Text style={Styles.box1_1Text}>{item._Produto.length > 16 ? `${item._Produto.substring(0, 16)}...` : item._Produto}</Text>
+                    <Text style={Styles.box1_1TextPedido}>{item.id.toString().length < 2 ? `#0${item.id}` : `#${item.id}`}</Text>
+                </View>
+                <View style={Styles.box1_2}>
+                    <Image source={require("../../Assets/Ofertas.png")} style={Styles.box1_2Img} />
+                </View>
+            </TouchableOpacity>
+            :
+            <View style={{ justifyContent: "center", alignItems: "center", height: Dimensions.get('window').height / 2 }} />
     )
-    
+
     const renderFooter = () => {
         if (!load) return null;
         return (
@@ -71,15 +79,15 @@ export default function MinhasOfertas({ navigation }) {
             </View>
         )
     }
-    
+
     const RenderEmpty = () => {
         return (
-            <View style={{ justifyContent: "center", alignItems:"center", height: Dimensions.get('window').height / 2  }}>
-                <Text  style={{fontSize: 22}}>Não existem produtos em oferta!</Text>
+            <View style={{ justifyContent: "center", alignItems: "center", height: Dimensions.get('window').height / 2 }}>
+                <Text style={{ fontSize: 22 }}>Não existem produtos em oferta!</Text>
             </View>
         )
     }
-    
+
     return (
         <View style={Styles.container}>
             <FlatList
@@ -88,8 +96,8 @@ export default function MinhasOfertas({ navigation }) {
                 keyExtractor={item => item.codeBar}
                 onEndReached={() => getOfertas()}
                 onEndReachedThreshold={0.5}
-            ListFooterComponent={renderFooter}
-            ListEmptyComponent={RenderEmpty}
+                ListFooterComponent={renderFooter}
+                ListEmptyComponent={RenderEmpty}
             />
         </View>
     )
