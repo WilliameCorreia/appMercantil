@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Image } from 'react-native'
 
-import storage from '@react-native-firebase/storage';
 
 import Styles from './style.js'
 
@@ -11,10 +10,10 @@ export default function DetalhePedidos({ route }) {
 
 
     function somar() {
-        let total = "";
-        dados.produtos.map(
-            item => { total += item.preco }
-        )
+        let total = 0;
+        dados.produtos.map(item => {
+            total += +item.preco.replace(',', '.')
+        })
         return total
     }
 
@@ -25,7 +24,7 @@ export default function DetalhePedidos({ route }) {
                 <View style={Styles.item1}>
                     <View style={Styles.item1_1}>
                         {console.log(route.params.enderecos)}
-                        <Text style={Styles.textCliente}>{dados.clientes.nome_Client.length > 16 ? `${dados.clientes.nome_Client.substring(0,16)}...` : dados.clientes.nome_Client}</Text>
+                        <Text style={Styles.textCliente}>{dados.clientes.nome_Client.length > 16 ? `${dados.clientes.nome_Client.substring(0, 16)}...` : dados.clientes.nome_Client}</Text>
                         <Text style={Styles.textPedido}>{`#${dados.cod_Pedido}`}</Text>
                     </View>
                     <View style={Styles.item1_2}>

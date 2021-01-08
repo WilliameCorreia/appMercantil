@@ -61,10 +61,22 @@ const Styles = StyleSheet.create({
         fontFamily: "Montserrat-light",
         borderColor: "#b4b4b4"
     },
-    ultimo:{marginBottom:"10%"},
+    ultimo:{marginBottom:"7%"},
 
     item8_1: { width: "100%", backgroundColor: "#fff", alignItems: "center" },
     item8_1Text: { borderRadius: 25, width: "60%", backgroundColor: "#9C3F3A", textAlign: "center", padding: "2%", fontSize: 16, fontFamily: "Montserrat-SemiBold", color: "white" },
+    row: { flexDirection: "row", justifyContent: 'space-between' },
+    picker:{
+        elevation: 10,
+        backgroundColor: '#fff',
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom:"15%",
+        marginHorizontal:"2%",
+        width:"96%",
+    }
+
 })
 
 export default Styles

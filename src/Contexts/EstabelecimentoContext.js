@@ -8,6 +8,7 @@ export const EstabelecimentosContext = createContext();
 const EstabelecimentoProvider = ({ children }) => {
 
     const [Estabelecimento, setEstabelecimento] = useState([]);
+    const [Catestabelecimento, setCatestabelecimento] = useState([]);
     const { usuario, token } = useContext(AuthContext);
 
     
@@ -23,6 +24,18 @@ const EstabelecimentoProvider = ({ children }) => {
         }).catch(error => {
             console.log(error);
         })
+    }
+    const getCatestabelecimento = () => {
+        api.get("v1/TipoEstabelecimentos", {
+            headers:{
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(response => {
+            const { result } = response.data;
+            setCatestabelecimento(result)
+        }).catch(erro => {
+            console.log(erro);
+        });
     }
     const EditaFotoEstabelecimento = async (fotoName) => {
         api.put(`v1/Estabelecimentos/${Estabelecimento.id}`, {
@@ -49,12 +62,13 @@ const EstabelecimentoProvider = ({ children }) => {
 
     useEffect(() => {
         LoadEstabelecimentos();
+        getCatestabelecimento();
         return () => {
         }
     }, [])
 
     return (
-        <EstabelecimentosContext.Provider value={{Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento}} >
+        <EstabelecimentosContext.Provider value={{Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento, Catestabelecimento}} >
             {children}
         </EstabelecimentosContext.Provider>
     )

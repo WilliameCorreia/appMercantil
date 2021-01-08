@@ -1,6 +1,7 @@
 import React, { Component, useContext, useState, useRef } from 'react'
 import { Image, Text, View, TouchableWithoutFeedback, TextInput, TouchableOpacity, ScrollView } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { Picker } from '@react-native-community/picker'
 
 
 import Styles from './style'
@@ -26,8 +27,11 @@ import fs from 'react-native-fs';
 
 
 export default function usuario({ route }) {
+    const { token } = useContext(AuthContext);
     const { Estabelecimento, setEstabelecimento } = useContext(EstabelecimentosContext);
+    const { Catestabelecimento } = useContext(EstabelecimentosContext);
 
+    const [tipo_Estabelecimento, setTipo_Estabelecimento] = useState(Estabelecimento.tipo_Estabelecimento);
     const [modalActive, setModalActive] = useState(false);
     const [msnModal, setMsnModal] = useState('primeira passada');
 
@@ -46,27 +50,45 @@ export default function usuario({ route }) {
     const complemento = useRef();
 
     const registrarEstabelecimento = (values) => {
-        api.put("Estabelecimento", {
-            Id: Estabelecimento.id,
-            Token: Estabelecimento.token,
-            Email: Estabelecimento.email,
-            Estabelecimento: values.estabelecimentoR,
-            RazaoSocial: values.razaoSocial,
-            Cnpj: values.cnpj,
-            Ativo: true,
-            Telefones: values.telefone,
-            enderecos: values.enderecos
+        api.put(`v1/Estabelecimentos/${Estabelecimento.id}`, {
+            // Id: Estabelecimento.id,
+            token: Estabelecimento.token,
+            email: Estabelecimento.email,
+            _Estabelecimento: values.estabelecimentoR,
+            razaoSocial: values.razaoSocial,
+            cnpj: values.cnpj,
+            ativo: true,
+            telefones: values.telefone,
+            enderecos: values.enderecos,
+            fotoName: Estabelecimento.fotoName,
+            tipo_Estabelecimento: Catestabelecimento.find(cat => cat.tipoEstab_Id === tipo_Estabelecimento)
+
+            // Id: Estabelecimento.id,
+            // Token: Estabelecimento.token,
+            // Email: Estabelecimento.email,
+            // Estabelecimento: values.estabelecimentoR,
+            // RazaoSocial: values.razaoSocial,
+            // Cnpj: values.cnpj,
+            // Ativo: true,
+            // Telefones: values.telefone,
+            // enderecos: values.enderecos,
+            // tipo_Estabelecimento: Catestabelecimento.filter(cat => cat.tipoEstab_Id === tipo_Estabelecimento)
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         }).then(dados => {
             setMsnModal("Dados atualizados!");
-            setModalActive(true);
-            setEstabelecimento(dados.data)
+            setModalActive(true);         
+            setEstabelecimento(dados.data.result);
+            console.log(dados.data.result);
+            // console.log(Catestabelecimento.find(cat => cat.tipoEstab_Id === tipo_Estabelecimento));
         }).catch(errors => {
             console.log(errors);
         });
-        console.log(values)
     }
 
-    const Img =  function EscolherImagem() {
+    const Img = function EscolherImagem() {
         console.log("vai selecionar a imagem");
         //Ajusta quais opções estarão disponíveis para o usuário
         const options = {
@@ -95,7 +117,7 @@ export default function usuario({ route }) {
                     type: response.type
                 }
                 // uploadImageOnS3("appmercantilestabelecimento/images", file);
-                DeleteFile("appmercantilestabelecimento", "/images",  file, Estabelecimento.token);
+                DeleteFile("appmercantilestabelecimento", "/images", file, Estabelecimento.token);
                 console.log("deletou");
                 UploadFile("appmercantilestabelecimento/images", file, Estabelecimento.token)
             }
@@ -116,8 +138,15 @@ export default function usuario({ route }) {
         // endereco: yup.string().required('Campo obrigatório'),
         // numero: yup.string().required('Campo obrigatório'),
     })
-    function teste(values) {
-        console.log(values)
+    
+    function GetId(teste) {
+        let cat = ''
+        for (let item of Catestabelecimento) {
+            if (teste == item.tipoEstab_Id) {
+                cat = item.tipoEstab_Id
+            }
+        }
+        return cat
     }
 
     return (
@@ -137,8 +166,7 @@ export default function usuario({ route }) {
             }}
 
             onSubmit={(values, { resetForm }) => {
-                registrarEstabelecimento(values)
-                teste(values)
+                registrarEstabelecimento(values);
                 // resetForm();
             }}
             validationSchema={FormSchema}
@@ -149,10 +177,11 @@ export default function usuario({ route }) {
                     {/* <View style={Styles.box1}>
                         <TouchableOpacity onPress={() => EscolherImagem()}>
                             <Image style={Styles.img} source={require('../../Assets/person.png')} /> */}
-                            {/* <Image style={Styles.img} source={{ uri: 'https://appmercantilestabelecimento.s3.us-east-2.amazonaws.com/images/8rHnabDY3XMbq3l5Q9jsAh8mYam2.jpeg' }} /> */}
-                        {/* </TouchableOpacity>
+                    {/* <Image style={Styles.img} source={{ uri: 'https://appmercantilestabelecimento.s3.us-east-2.amazonaws.com/images/8rHnabDY3XMbq3l5Q9jsAh8mYam2.jpeg' }} /> */}
+                    {/* </TouchableOpacity>
                     </View> */}
                     < ScrollView style={Styles.box2}>
+                        {/* {console.log(Estabelecimento)} */}
                         <View style={Styles.item}>
                             <Text style={Styles.itemText}>Estabelecimento</Text>
                             <TextInput
@@ -197,7 +226,7 @@ export default function usuario({ route }) {
                             />
                             {errors.numero && <Text style={Styles.textErro}>{errors.numero}</Text>}
                         </View>
-                        <View style={Styles.item}>
+                        <View style={[Styles.item, { marginBottom: 0 }]}>
                             <Text style={Styles.itemText}>Telefone</Text>
                             <TextInput
                                 style={[Styles.itemInput, Styles.ultimo]}
@@ -207,6 +236,30 @@ export default function usuario({ route }) {
                                 placeholder='telefone'
                             />
                             {errors.numero && <Text style={Styles.textErro}>{errors.numero}</Text>}
+                        </View>
+                        <View style={[Styles.item]}>
+                            <Text style={Styles.itemText}>Tipo de Estabelecimento</Text>
+                            <View style={[Styles.picker, { margin: 0 }]}>
+                                <Picker
+                                    style={{ width: "60%", textAlign: 'center' }}
+                                    selectedValue={tipo_Estabelecimento}
+                                    // selectedValue={Estabelecimento.tipo_Estabelecimento}
+                                    itemStyle={{ textAlign: 'center' }}
+                                    // onValueChange={(itemValue, itemIndex) => setIdCat(itemValue)}
+                                    onValueChange={(itemValue, itemIndex) => setTipo_Estabelecimento(itemValue)}
+                                // mode="dropdown"
+                                >
+                                    {/* {console.log(Catestabelecimento.filter(cat => cat.tipoEstab_Id === 1))} */}
+                                    {/* {console.log(Catestabelecimento)} */}
+                                    <Picker.Item label={"Selecione"} />
+                                    {Catestabelecimento.map((item, itemIndex) =>
+
+                                        // console.log(item.tipoEstab_Id),
+                                        <Picker.Item label={item.nomeTipoEstab} value={item.tipoEstab_Id} key={itemIndex} />
+                                        // <Picker.Item label={item.nomeTipoEstab} value={item.tipoEstab_Id} />
+                                    )}
+                                </Picker>
+                            </View>
                         </View>
                     </ScrollView>
                     <View style={Styles.box3}>
