@@ -12,7 +12,7 @@ export default function DetalhePedidos({ route }) {
     function somar() {
         let total = 0;
         dados.produtos.map(item => {
-            total += +item.preco.replace(',', '.')
+            total += +item.preco.replace(',', '.') * (+item.quantidade);
         })
         return total
     }
