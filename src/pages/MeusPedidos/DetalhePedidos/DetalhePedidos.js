@@ -53,8 +53,8 @@ export default function DetalhePedidos({ route }) {
                     </View>
                 </View>
                 <View style={Styles.item4}>
-                    {dados.produtos.map(item =>
-                        <View style={Styles.item4_1}>
+                    {dados.produtos.map((item, index) =>
+                        <View style={Styles.item4_1} key={index}>
                             <View style={Styles.item4_1_A}>
                                 <Text style={Styles.item4_1_AText}>{item.quantidade}</Text>
                             </View>
