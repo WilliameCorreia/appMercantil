@@ -4,7 +4,7 @@ const windowHeight = Dimensions.get('window').height
 
 const Styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#fff', padding: "4%" },
-    box1: { height: "68%", backgroundColor: '#fff', elevation: 10 },
+    box1: { height: "80%", backgroundColor: '#fff', elevation: 10 },
     box2: { height: "28%", backgroundColor: '#fff', marginTop: "4%" },
 
     item1: { height: "20%", flexDirection: 'row', backgroundColor:'#fff', alignItems: 'center'},
@@ -23,7 +23,7 @@ const Styles = StyleSheet.create({
     ImgLoction: { width: "40%", height: "50%", marginTop: 8, marginLeft: 30 },
     item2_2: { width: "72%", backgroundColor: "#fff", marginLeft: "9%" },
     TextEndereco: { fontFamily: "Montserrat-Light", fontSize: 13 },
-    TextTelefone: { fontFamily: "Montserrat-Light", fontSize: 13, width: '80%' },
+    TextTelefone: { fontFamily: "Montserrat-Light", fontSize: 13, width: '80%', marginTop: "2%"},
 
     item3: { height: "15%", flexDirection: 'row', alignItems:"center", paddingLeft:20 },
     item3_1: { width: "15%", backgroundColor: "#fff", flexDirection:"row", justifyContent:"flex-start", marginRight:"8%" },

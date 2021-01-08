@@ -51,7 +51,6 @@ export default function usuario({ route }) {
 
     const registrarEstabelecimento = (values) => {
         api.put(`v1/Estabelecimentos/${Estabelecimento.id}`, {
-            // Id: Estabelecimento.id,
             token: Estabelecimento.token,
             email: Estabelecimento.email,
             _Estabelecimento: values.estabelecimentoR,
@@ -62,17 +61,6 @@ export default function usuario({ route }) {
             enderecos: values.enderecos,
             fotoName: Estabelecimento.fotoName,
             tipo_Estabelecimento: Catestabelecimento.find(cat => cat.tipoEstab_Id === tipo_Estabelecimento)
-
-            // Id: Estabelecimento.id,
-            // Token: Estabelecimento.token,
-            // Email: Estabelecimento.email,
-            // Estabelecimento: values.estabelecimentoR,
-            // RazaoSocial: values.razaoSocial,
-            // Cnpj: values.cnpj,
-            // Ativo: true,
-            // Telefones: values.telefone,
-            // enderecos: values.enderecos,
-            // tipo_Estabelecimento: Catestabelecimento.filter(cat => cat.tipoEstab_Id === tipo_Estabelecimento)
         }, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -82,7 +70,6 @@ export default function usuario({ route }) {
             setModalActive(true);         
             setEstabelecimento(dados.data.result);
             console.log(dados.data.result);
-            // console.log(Catestabelecimento.find(cat => cat.tipoEstab_Id === tipo_Estabelecimento));
         }).catch(errors => {
             console.log(errors);
         });
@@ -138,16 +125,6 @@ export default function usuario({ route }) {
         // endereco: yup.string().required('Campo obrigatório'),
         // numero: yup.string().required('Campo obrigatório'),
     })
-    
-    function GetId(teste) {
-        let cat = ''
-        for (let item of Catestabelecimento) {
-            if (teste == item.tipoEstab_Id) {
-                cat = item.tipoEstab_Id
-            }
-        }
-        return cat
-    }
 
     return (
         <Formik
