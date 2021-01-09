@@ -4,11 +4,41 @@ import { Picker } from '@react-native-community/picker'
 
 
 import Styles from './style.js'
+import statusPedidos from '../../../Services/statusPedidos.js'
 
 export default function DetalhePedidos({ route }) {
     const dados = route.params
 
-    console.log(dados.clientes.enderecos[0])
+    // console.log(dados.clientes.enderecos[0])
+    // console.log(dados[1])
+    let corStatus = ""
+
+    const verificaCor = (status) => {
+        switch (status) {
+            case "C":
+                corStatus = { backgroundColor: "green" }
+                break;
+            case "A":
+                corStatus = { backgroundColor: "orange" }
+                break;
+            case "cancelado":
+                return { backgroundColor: "red" }
+                break;
+            case "em separação":
+                return { backgroundColor: "orange" }
+                break;
+            case "a caminho":
+                return { backgroundColor: "blue" }
+                break;
+            case "entregue":
+                return { backgroundColor: "green" }
+                break;
+
+            default:
+                // return {}
+                break;
+        }
+    }
 
     const registrarEstabelecimento = (values) => {
         api.put(`v1/Estabelecimentos/${dados.cod_Pedido}/${dados.cod_ClientId}/${dados.estabelecimentoId}`, {
@@ -38,7 +68,7 @@ export default function DetalhePedidos({ route }) {
 
     function somar() {
         let total = 0;
-        dados.produtos.map(item => {
+        dados[0].produtos.map(item => {
             total += +item.preco.replace(',', '.') * (+item.quantidade);
         })
         return total
@@ -47,14 +77,15 @@ export default function DetalhePedidos({ route }) {
 
     return (
         <View style={Styles.container}>
+            {verificaCor(dados[0].status_Pedido)}
             <View style={Styles.box1}>
                 <View style={Styles.item1}>
                     <View style={Styles.item1_1}>
-                        <Text style={Styles.textCliente}>{dados.clientes.nome_Client.length > 16 ? `${dados.clientes.nome_Client.substring(0, 16)}...` : dados.clientes.nome_Client}</Text>
-                        <Text style={Styles.textPedido}>{`#${dados.cod_Pedido}`}</Text>
+                        <Text style={Styles.textCliente}>{dados[0].clientes.nome_Client.length > 16 ? `${dados[0].clientes.nome_Client.substring(0, 16)}...` : dados[0].clientes.nome_Client}</Text>
+                        <Text style={Styles.textPedido}>{`#${dados[0].cod_Pedido}`}</Text>
                     </View>
                     <View style={Styles.item1_2}>
-                        <Text style={Styles.StatusPedidoP}>{"cancelado"}</Text>
+                        <Text style={[Styles.StatusPedidoP, corStatus]}>{dados[1]}</Text>
                     </View>
                 </View>
                 <View style={Styles.item2}>
@@ -64,20 +95,20 @@ export default function DetalhePedidos({ route }) {
                     <View style={Styles.item2_2}>
                         <Text style={Styles.TextEndereco}>
                             {
-                            dados.clientes.enderecos[0].rua + 
+                            dados[0].clientes.enderecos[0].rua + 
                             ", " + 
-                            dados.clientes.enderecos[0].numero + 
+                            dados[0].clientes.enderecos[0].numero + 
                             " - " + 
-                            dados.clientes.enderecos[0].bairro +
+                            dados[0].clientes.enderecos[0].bairro +
                             " - " + 
-                            dados.clientes.enderecos[0].cidade + 
+                            dados[0].clientes.enderecos[0].cidade + 
                             " - " + 
-                            dados.clientes.enderecos[0].estado +
+                            dados[0].clientes.enderecos[0].estado +
                             " - cep - " + 
-                            dados.clientes.enderecos[0].cep
+                            dados[0].clientes.enderecos[0].cep
                             }
                             </Text>
-                        <Text style={Styles.TextTelefone}>{ dados.telefone? "TELEFONE - " + dados.telefone : "TELEFONE NÃO CADASTRADO"}</Text>
+                        <Text style={Styles.TextTelefone}>{ dados[0].telefone? "TELEFONE - " + dados[0].telefone : "TELEFONE NÃO CADASTRADO"}</Text>
                     </View>
                 </View>
                 <View style={Styles.item3}>
@@ -93,7 +124,7 @@ export default function DetalhePedidos({ route }) {
                     </View>
                 </View>
                 <View style={Styles.item4}>
-                    {dados.produtos.map((item, index) =>
+                    {dados[0].produtos.map((item, index) =>
                         <View style={Styles.item4_1} key={index}>
                             <View style={Styles.item4_1_A}>
                                 <Text style={Styles.item4_1_AText}>{item.quantidade}</Text>
@@ -135,12 +166,13 @@ export default function DetalhePedidos({ route }) {
                                     {/* {console.log(Catestabelecimento.filter(cat => cat.tipoEstab_Id === 1))} */}
                                     {/* {console.log(Catestabelecimento)} */}
                                     <Picker.Item label={"Selecione"} />
-                                    {/* {Catestabelecimento.map((item, itemIndex) =>
-
+                                    {/* {console.log(statusPedidos)} */}
+                                    {statusPedidos.map((item, itemIndex) =>
+                                    
                                         // console.log(item.tipoEstab_Id),
-                                        <Picker.Item label={item.nomeTipoEstab} value={item.tipoEstab_Id} key={itemIndex} />
+                                        <Picker.Item label={item.label} value={item.value} key={itemIndex} />
                                         // <Picker.Item label={item.nomeTipoEstab} value={item.tipoEstab_Id} />
-                                    )} */}
+                                    )}
                                 </Picker>
                             </View>
                         </View>
