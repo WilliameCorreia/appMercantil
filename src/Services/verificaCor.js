@@ -6,7 +6,7 @@ export default (status) => {
         case "A":
             return { backgroundColor: "orange" }
             break;
-        case "cancelado":
+        case "CAN":
             return { backgroundColor: "red" }
             break;
         case "em separação":
@@ -20,7 +20,7 @@ export default (status) => {
             break;
 
         default:
-            // return {}
+            return {}
             break;
     }
 }

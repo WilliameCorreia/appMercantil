@@ -12,7 +12,7 @@ export default [
         value: "A"
     },
     {
-        label: "EM SEPARAÇÃO",
-        value: "S"
+        label: "CANCELADO",
+        value: "CAN"
     },
 ]
