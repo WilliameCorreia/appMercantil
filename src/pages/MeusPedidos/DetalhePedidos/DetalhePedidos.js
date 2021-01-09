@@ -8,6 +8,7 @@ import statusPedidos from '../../../Services/statusPedidos.js'
 
 export default function DetalhePedidos({ route }) {
     const dados = route.params
+    const [StatusPedidoAtual, setStatusPedidoAtual] = useState(dados[0].status_Pedido)
 
     // console.log(dados.clientes.enderecos[0])
     // console.log(dados[1])
@@ -77,7 +78,7 @@ export default function DetalhePedidos({ route }) {
 
     return (
         <View style={Styles.container}>
-            {verificaCor(dados[0].status_Pedido)}
+            {verificaCor(StatusPedidoAtual)}
             <View style={Styles.box1}>
                 <View style={Styles.item1}>
                     <View style={Styles.item1_1}>
@@ -156,7 +157,7 @@ export default function DetalhePedidos({ route }) {
                             <View style={[Styles.picker, { margin: 0 }]}>
                                 <Picker
                                     style={{ width: "100%", textAlign: 'center' }}
-                                    // selectedValue={tipo_Estabelecimento}
+                                    selectedValue={StatusPedidoAtual}
                                     // selectedValue={Estabelecimento.tipo_Estabelecimento}
                                     itemStyle={{ textAlign: 'center' }}
                                     // onValueChange={(itemValue, itemIndex) => setIdCat(itemValue)}
