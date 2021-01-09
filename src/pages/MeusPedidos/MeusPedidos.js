@@ -5,6 +5,7 @@ import Styles from './style.js'
 import api from '../../Services/api.js';
 import AuthContext from '../../Contexts/Auth.js';
 import statusPedidos from '../../Services/statusPedidos.js';
+import verificaCor from '../../Services/verificaCor.js';
 
 export default function MeusPedidos({ navigation }) {
     const { token, Estabelecimento } = useContext(AuthContext);
@@ -15,36 +16,8 @@ export default function MeusPedidos({ navigation }) {
     let corStatus = ""
 
     const traduzSiglaStatus = (sigla) => {
-        
-        // return "não tinha"        
+               
         return statusPedidos.find( status => status.value === sigla ).label        
-    }
-
-    const verificaCor = (status) => {
-        switch (status) {
-            case "C":
-                corStatus = { backgroundColor: "green" }
-                break;
-            case "A":
-                corStatus = { backgroundColor: "orange" }
-                break;
-            case "cancelado":
-                return { backgroundColor: "red" }
-                break;
-            case "em separação":
-                return { backgroundColor: "orange" }
-                break;
-            case "a caminho":
-                return { backgroundColor: "blue" }
-                break;
-            case "entregue":
-                return { backgroundColor: "green" }
-                break;
-
-            default:
-                // return {}
-                break;
-        }
     }
 
 
@@ -67,22 +40,19 @@ export default function MeusPedidos({ navigation }) {
     useEffect(() => {
         getPedidos()
 
-    }, [])
+    }, [pedidos])
 
     return (
         <ScrollView style={Styles.container}>
             <View>
                 {pedidos.map((order, index) =>
                     <View key={index}>
-                    {verificaCor(order.status_Pedido)}
-                        {/* {console.log("-----------------------")}
-                        {console.log(order.status_Pedido)} */}
                         <TouchableOpacity style={Styles.item}
-                            onPress={() => navigation.navigate('DetalhePedidos', [order,traduzSiglaStatus(order.status_Pedido)])}
+                            onPress={() => navigation.navigate('DetalhePedidos', [order,traduzSiglaStatus, setPedidos])}
                         >
                             <View style={Styles.box1}>
                                 <Text style={[Styles.textGrande, Styles.cinza]}>{order.clientes.nome_Client.length > 16 ? `${order.clientes.nome_Client.substring(0, 16)}...` : order.clientes.nome_Client}</Text>
-                                <Text style={[Styles.status, Styles.textPequeno, corStatus]}>{traduzSiglaStatus(order.status_Pedido)}</Text>
+                                <Text style={[Styles.status, Styles.textPequeno, verificaCor(order.status_Pedido)]}>{traduzSiglaStatus(order.status_Pedido)}</Text>
                             </View>
                             <View style={Styles.box1}>
                                 <Text style={[Styles.textGrande, Styles.cinza]}>{order.cod_Pedido.toString().length < 2 ? `#0${order.cod_Pedido}` : `#${order.cod_Pedido}`}</Text>

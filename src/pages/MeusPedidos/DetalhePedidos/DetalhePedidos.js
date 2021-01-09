@@ -5,41 +5,19 @@ import { Picker } from '@react-native-community/picker'
 
 import Styles from './style.js'
 import statusPedidos from '../../../Services/statusPedidos.js'
+import verificaCor from '../../../Services/verificaCor.js'
 
-export default function DetalhePedidos({ route }) {
+export default function DetalhePedidos({ route, navigation }) {
     const dados = route.params
     const [StatusPedidoAtual, setStatusPedidoAtual] = useState(dados[0].status_Pedido)
 
-    // console.log(dados.clientes.enderecos[0])
-    // console.log(dados[1])
-    let corStatus = ""
+    let corStatus = verificaCor(StatusPedidoAtual)
 
-    const verificaCor = (status) => {
-        switch (status) {
-            case "C":
-                corStatus = { backgroundColor: "green" }
-                break;
-            case "A":
-                corStatus = { backgroundColor: "orange" }
-                break;
-            case "cancelado":
-                return { backgroundColor: "red" }
-                break;
-            case "em separação":
-                return { backgroundColor: "orange" }
-                break;
-            case "a caminho":
-                return { backgroundColor: "blue" }
-                break;
-            case "entregue":
-                return { backgroundColor: "green" }
-                break;
-
-            default:
-                // return {}
-                break;
-        }
-    }
+    const OnChangeStatus = (itemValue) => {
+        setStatusPedidoAtual(itemValue);
+        dados[2]([]);
+        // navigation.navigate('MeusPedidos');
+    }    
 
     const registrarEstabelecimento = (values) => {
         api.put(`v1/Estabelecimentos/${dados.cod_Pedido}/${dados.cod_ClientId}/${dados.estabelecimentoId}`, {
@@ -78,7 +56,6 @@ export default function DetalhePedidos({ route }) {
 
     return (
         <View style={Styles.container}>
-            {verificaCor(StatusPedidoAtual)}
             <View style={Styles.box1}>
                 <View style={Styles.item1}>
                     <View style={Styles.item1_1}>
@@ -86,7 +63,7 @@ export default function DetalhePedidos({ route }) {
                         <Text style={Styles.textPedido}>{`#${dados[0].cod_Pedido}`}</Text>
                     </View>
                     <View style={Styles.item1_2}>
-                        <Text style={[Styles.StatusPedidoP, corStatus]}>{dados[1]}</Text>
+                        <Text style={[Styles.StatusPedidoP, corStatus]}>{dados[1](StatusPedidoAtual)}</Text>
                     </View>
                 </View>
                 <View style={Styles.item2}>
@@ -96,20 +73,20 @@ export default function DetalhePedidos({ route }) {
                     <View style={Styles.item2_2}>
                         <Text style={Styles.TextEndereco}>
                             {
-                            dados[0].clientes.enderecos[0].rua + 
-                            ", " + 
-                            dados[0].clientes.enderecos[0].numero + 
-                            " - " + 
-                            dados[0].clientes.enderecos[0].bairro +
-                            " - " + 
-                            dados[0].clientes.enderecos[0].cidade + 
-                            " - " + 
-                            dados[0].clientes.enderecos[0].estado +
-                            " - cep - " + 
-                            dados[0].clientes.enderecos[0].cep
+                                dados[0].clientes.enderecos[0].rua +
+                                ", " +
+                                dados[0].clientes.enderecos[0].numero +
+                                " - " +
+                                dados[0].clientes.enderecos[0].bairro +
+                                " - " +
+                                dados[0].clientes.enderecos[0].cidade +
+                                " - " +
+                                dados[0].clientes.enderecos[0].estado +
+                                " - cep - " +
+                                dados[0].clientes.enderecos[0].cep
                             }
-                            </Text>
-                        <Text style={Styles.TextTelefone}>{ dados[0].telefone? "TELEFONE - " + dados[0].telefone : "TELEFONE NÃO CADASTRADO"}</Text>
+                        </Text>
+                        <Text style={Styles.TextTelefone}>{dados[0].telefone ? "TELEFONE - " + dados[0].telefone : "TELEFONE NÃO CADASTRADO"}</Text>
                     </View>
                 </View>
                 <View style={Styles.item3}>
@@ -153,30 +130,28 @@ export default function DetalhePedidos({ route }) {
                     <View style={Styles.item6_1}>
                         <Text style={Styles.item6_1Text}>STATUS</Text>
                     </View>
-                    <View style={Styles.item6_2}>                            
-                            <View style={[Styles.picker, { margin: 0 }]}>
-                                <Picker
-                                    style={{ width: "100%", textAlign: 'center' }}
-                                    selectedValue={StatusPedidoAtual}
-                                    // selectedValue={Estabelecimento.tipo_Estabelecimento}
-                                    itemStyle={{ textAlign: 'center' }}
-                                    // onValueChange={(itemValue, itemIndex) => setIdCat(itemValue)}
-                                    // onValueChange={(itemValue, itemIndex) => setTipo_Estabelecimento(itemValue)}
+                    <View style={Styles.item6_2}>
+                        <View style={[Styles.picker, { margin: 0 }]}>
+                            <Picker
+                                style={{ width: "100%", textAlign: 'center' }}
+                                selectedValue={StatusPedidoAtual}
+                                itemStyle={{ textAlign: 'center' }}
+                                onValueChange={(itemValue, itemIndex) => OnChangeStatus(itemValue)}
                                 mode="dropdown"
-                                >
-                                    {/* {console.log(Catestabelecimento.filter(cat => cat.tipoEstab_Id === 1))} */}
-                                    {/* {console.log(Catestabelecimento)} */}
-                                    <Picker.Item label={"Selecione"} />
-                                    {/* {console.log(statusPedidos)} */}
-                                    {statusPedidos.map((item, itemIndex) =>
-                                    
-                                        // console.log(item.tipoEstab_Id),
-                                        <Picker.Item label={item.label} value={item.value} key={itemIndex} />
-                                        // <Picker.Item label={item.nomeTipoEstab} value={item.tipoEstab_Id} />
-                                    )}
-                                </Picker>
-                            </View>
+                            >
+                                {/* {console.log(Catestabelecimento.filter(cat => cat.tipoEstab_Id === 1))} */}
+                                {/* {console.log(Catestabelecimento)} */}
+                                <Picker.Item label={"Selecione"} />
+                                {/* {console.log(statusPedidos)} */}
+                                {statusPedidos.map((item, itemIndex) =>
+
+                                    // console.log(item.tipoEstab_Id),
+                                    <Picker.Item label={item.label} value={item.value} key={itemIndex} />
+                                    // <Picker.Item label={item.nomeTipoEstab} value={item.tipoEstab_Id} />
+                                )}
+                            </Picker>
                         </View>
+                    </View>
                     {/* <View style={Styles.item6_2}>
                         <Text style={Styles.item6_2Text}>{dados.status}</Text>
                     </View> */}
