@@ -12,7 +12,7 @@ const Styles = StyleSheet.create({
     textCliente: { fontFamily: 'Montserrat-Medium', fontSize: 20, padding: 16, paddingBottom: 0, opacity:0.3 },
     textPedido: { fontFamily: 'Montserrat-Medium', fontSize: 16, marginLeft: 16, opacity:0.3 },
     item1_2: { width: "36%", backgroundColor: '#fff', flexDirection: "column", justifyContent: "center", alignItems: "flex-end" },
-    StatusPedidoP: { backgroundColor: "grey", width: "85%", textAlign: "center", color: "white", marginBottom: 8 },
+    StatusPedidoP: { backgroundColor: "grey", width: "100%", textAlign: "center", color: "white", marginBottom: 8, padding: "4%", fontSize: 16 },
 
     item2: {
         height: "20%", backgroundColor: '#fff',
