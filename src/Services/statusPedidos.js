@@ -1,18 +1,14 @@
 export default [
     {
-        label: "EM SEPARAÇÃO",
-        value: "S"
+        label: "ABERTO",
+        value: "A"
+    },
+    {
+        label: "EM ENTREGA",
+        value: "E"
     },
     {
         label: "CONCLUIDO",
         value: "C"
-    },
-    {
-        label: "EM ANDAMENTO",
-        value: "A"
-    },
-    {
-        label: "CANCELADO",
-        value: "CAN"
-    },
+    }
 ]

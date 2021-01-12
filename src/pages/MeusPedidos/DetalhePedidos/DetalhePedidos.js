@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, Image } from 'react-native'
 import { Picker } from '@react-native-community/picker'
 
@@ -6,40 +6,45 @@ import { Picker } from '@react-native-community/picker'
 import Styles from './style.js'
 import statusPedidos from '../../../Services/statusPedidos.js'
 import verificaCor from '../../../Services/verificaCor.js'
+import api from '../../../Services/api.js'
+import AuthContext from '../../../Contexts/Auth.js'
+
 
 export default function DetalhePedidos({ route, navigation }) {
+    const { token } = useContext(AuthContext);
     const dados = route.params
     const [StatusPedidoAtual, setStatusPedidoAtual] = useState(dados[0].status_Pedido)
 
     let corStatus = verificaCor(StatusPedidoAtual)
 
-    const OnChangeStatus = (itemValue) => {
-        setStatusPedidoAtual(itemValue);
-        dados[2]([]);
-        // navigation.navigate('MeusPedidos');
-    }    
-
-    const registrarEstabelecimento = (values) => {
-        api.put(`v1/Estabelecimentos/${dados.cod_Pedido}/${dados.cod_ClientId}/${dados.estabelecimentoId}`, {
-            // token: Estabelecimento.token,
-            // email: Estabelecimento.email,
-            // _Estabelecimento: values.estabelecimentoR,
-            // razaoSocial: values.razaoSocial,
-            // cnpj: values.cnpj,
-            // ativo: true,
-            // telefones: values.telefone,
-            // enderecos: values.enderecos,
-            // fotoName: Estabelecimento.fotoName,
-            // tipo_Estabelecimento: Catestabelecimento.find(cat => cat.tipoEstab_Id === tipo_Estabelecimento)
-        }, {
+    const EditaStatus = (itemValue) => {
+        // console.log(dados);
+        // console.log(`subiu na api ${itemValue}`);
+        api.put(`v1/Pedidos/UpdateStatusPedidos/${dados[0].cod_Pedido},${dados[0].cod_ClientId},${dados[0].estabelecimentoId}`,
+            {
+                // cod_Pedido: dados[0].cod_Pedido,
+                // cod_ClientId: dados[0].cod_ClientId,
+                valor_Total: 16.66,
+                dataHora_Pedido: "2021-01-12",
+                pedido_Concluido: false,
+                status_Pedido: itemValue,
+                // estabelecimentoId: dados[0].estabelecimentoId,
+                clientes: dados[0].clientes,
+                estabelecimentos: dados[0].estabelecimentos,
+                carrinhos: null
+            }, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
-        }).then(dados => {
-            setMsnModal("Dados atualizados!");
-            setModalActive(true);
-            setEstabelecimento(dados.data.result);
-            console.log(dados.data.result);
+        }).then(response => {
+            //altera o state de pedido com o status selecionado
+            setStatusPedidoAtual(response.data.result.status_Pedido);
+
+            //zera a lista de pedidos para que seja obrigatório buscar novamente
+            dados[2]([]);
+
+            // navigation.navigate('MeusPedidos');
+
         }).catch(errors => {
             console.log(errors);
         });
@@ -56,6 +61,7 @@ export default function DetalhePedidos({ route, navigation }) {
 
     return (
         <View style={Styles.container}>
+            {/* {console.log(dados[0].produtos)} */}
             <View style={Styles.box1}>
                 <View style={Styles.item1}>
                     <View style={Styles.item1_1}>
@@ -136,7 +142,7 @@ export default function DetalhePedidos({ route, navigation }) {
                                 style={{ width: "100%", textAlign: 'center' }}
                                 selectedValue={StatusPedidoAtual}
                                 itemStyle={{ textAlign: 'center' }}
-                                onValueChange={(itemValue, itemIndex) => OnChangeStatus(itemValue)}
+                                onValueChange={(itemValue, itemIndex) => EditaStatus(itemValue)}
                                 mode="dropdown"
                             >
                                 {/* {console.log(Catestabelecimento.filter(cat => cat.tipoEstab_Id === 1))} */}

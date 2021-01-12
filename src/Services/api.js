@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Alert } from 'react-native'
 
 const api = axios.create({
     baseURL: 'http://planetaentregas.com.br:4001/api/'
