@@ -31,7 +31,7 @@ export default function usuario({ route }) {
     const { Estabelecimento, setEstabelecimento } = useContext(EstabelecimentosContext);
     const { Catestabelecimento } = useContext(EstabelecimentosContext);
 
-    const [tipo_Estabelecimento, setTipo_Estabelecimento] = useState(Estabelecimento.tipo_Estabelecimento);
+    const [tipo_Estabelecimento, setTipo_Estabelecimento] = useState(Estabelecimento.tipoEstabelecimento?+Estabelecimento.tipoEstabelecimento:Estabelecimento.tipoEstabelecimento);
     const [modalActive, setModalActive] = useState(false);
     const [msnModal, setMsnModal] = useState('primeira passada');
 
@@ -162,7 +162,7 @@ export default function usuario({ route }) {
                     {/* </TouchableOpacity>
                     </View> */}
                     < ScrollView style={Styles.box2}>
-                        {/* {console.log(Catestabelecimento)} */}
+                        {/* {console.log(typeof( +Estabelecimento.tipoEstabelecimento))} */}
                         <View style={Styles.item}>
                             <Text style={Styles.itemText}>Estabelecimento</Text>
                             <TextInput
