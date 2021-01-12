@@ -50,6 +50,8 @@ export default function usuario({ route }) {
     const complemento = useRef();
 
     const registrarEstabelecimento = (values) => {
+        // console.log(Estabelecimento)
+        // console.log(tipo_Estabelecimento)
         api.put(`v1/Estabelecimentos/${Estabelecimento.id}`, {
             token: Estabelecimento.token,
             email: Estabelecimento.email,
@@ -57,6 +59,8 @@ export default function usuario({ route }) {
             razaoSocial: values.razaoSocial,
             cnpj: values.cnpj,
             ativo: true,
+            tipoEstabId: tipo_Estabelecimento,
+            tipoEstabelecimento: tipo_Estabelecimento.toString(),
             telefones: values.telefone,
             enderecos: values.enderecos,
             fotoName: Estabelecimento.fotoName,
@@ -69,7 +73,7 @@ export default function usuario({ route }) {
             setMsnModal("Dados atualizados!");
             setModalActive(true);         
             setEstabelecimento(dados.data.result);
-            console.log(dados.data.result);
+            // console.log(dados.data.result);
         }).catch(errors => {
             console.log(errors);
         });
@@ -158,7 +162,7 @@ export default function usuario({ route }) {
                     {/* </TouchableOpacity>
                     </View> */}
                     < ScrollView style={Styles.box2}>
-                        {/* {console.log(Estabelecimento)} */}
+                        {/* {console.log(Catestabelecimento)} */}
                         <View style={Styles.item}>
                             <Text style={Styles.itemText}>Estabelecimento</Text>
                             <TextInput
@@ -223,7 +227,7 @@ export default function usuario({ route }) {
                                     // selectedValue={Estabelecimento.tipo_Estabelecimento}
                                     itemStyle={{ textAlign: 'center' }}
                                     // onValueChange={(itemValue, itemIndex) => setIdCat(itemValue)}
-                                    onValueChange={(itemValue, itemIndex) => setTipo_Estabelecimento(itemValue)}
+                                    onValueChange={(itemValue, itemIndex) => setTipo_Estabelecimento(itemValue)} //setTipo_Estabelecimento(itemValue)}
                                 // mode="dropdown"
                                 >
                                     {/* {console.log(Catestabelecimento.filter(cat => cat.tipoEstab_Id === 1))} */}
