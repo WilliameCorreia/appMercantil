@@ -1,18 +1,18 @@
 export default (status) => {
     switch (status) {
         case "C":
-            return { backgroundColor: "green" }
+            return { backgroundColor: "grey" }
             break;
         case "A":
-            return { backgroundColor: "orange" }
+            return { backgroundColor: "green" }
             break;
         case "CAN":
             return { backgroundColor: "red" }
             break;
-        case "em separação":
+        case "S":
             return { backgroundColor: "orange" }
             break;
-        case "a caminho":
+        case "E":
             return { backgroundColor: "blue" }
             break;
         case "entregue":
