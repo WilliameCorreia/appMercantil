@@ -31,7 +31,7 @@ export default function DetalhePedidos({ route, navigation }) {
                 // estabelecimentoId: dados[0].estabelecimentoId,
                 clientes: dados[0].clientes,
                 estabelecimentos: dados[0].estabelecimentos,
-                carrinhos: null
+                carrinhos: dados[0].carrinhos
             }, {
             headers: {
                 'Authorization': `Bearer ${token}`
