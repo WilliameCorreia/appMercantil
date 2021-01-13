@@ -17,7 +17,11 @@ export default function MeusPedidos({ navigation }) {
 
     const traduzSiglaStatus = (sigla) => {
                
-        return statusPedidos.find( status => status.value === sigla ).label        
+        const retorno = statusPedidos.find( status => status.value === sigla );
+        if(!retorno){
+            return "null"
+        }  
+        return retorno.label
     }
 
 

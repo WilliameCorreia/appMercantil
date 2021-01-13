@@ -18,36 +18,38 @@ export default function DetalhePedidos({ route, navigation }) {
     let corStatus = verificaCor(StatusPedidoAtual)
 
     const EditaStatus = (itemValue) => {
-        // console.log(dados);
+        // console.log(itemValue);
         // console.log(`subiu na api ${itemValue}`);
-        api.put(`v1/Pedidos/UpdateStatusPedidos/${dados[0].cod_Pedido},${dados[0].cod_ClientId},${dados[0].estabelecimentoId}`,
-            {
-                // cod_Pedido: dados[0].cod_Pedido,
-                // cod_ClientId: dados[0].cod_ClientId,
-                valor_Total: 16.66,
-                dataHora_Pedido: "2021-01-12",
-                pedido_Concluido: false,
-                status_Pedido: itemValue,
-                // estabelecimentoId: dados[0].estabelecimentoId,
-                clientes: dados[0].clientes,
-                estabelecimentos: dados[0].estabelecimentos,
-                carrinhos: dados[0].carrinhos
-            }, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }).then(response => {
-            //altera o state de pedido com o status selecionado
-            setStatusPedidoAtual(response.data.result.status_Pedido);
+        if (itemValue) {
+            api.put(`v1/Pedidos/UpdateStatusPedidos/${dados[0].cod_Pedido},${dados[0].cod_ClientId},${dados[0].estabelecimentoId}`,
+                {
+                    // cod_Pedido: dados[0].cod_Pedido,
+                    // cod_ClientId: dados[0].cod_ClientId,
+                    valor_Total: 16.66,
+                    dataHora_Pedido: "2021-01-12",
+                    pedido_Concluido: false,
+                    status_Pedido: itemValue,
+                    // estabelecimentoId: dados[0].estabelecimentoId,
+                    clientes: dados[0].clientes,
+                    estabelecimentos: dados[0].estabelecimentos,
+                    carrinhos: dados[0].carrinhos
+                }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(response => {
+                //altera o state de pedido com o status selecionado
+                setStatusPedidoAtual(response.data.result.status_Pedido);
 
-            //zera a lista de pedidos para que seja obrigatório buscar novamente
-            dados[2]([]);
+                //zera a lista de pedidos para que seja obrigatório buscar novamente
+                dados[2]([]);
 
-            // navigation.navigate('MeusPedidos');
+                // navigation.navigate('MeusPedidos');
 
-        }).catch(errors => {
-            console.log(errors);
-        });
+            }).catch(errors => {
+                console.log(errors);
+            });
+        }
     }
 
     function somar() {
