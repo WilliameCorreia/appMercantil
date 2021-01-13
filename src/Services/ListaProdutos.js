@@ -82,7 +82,8 @@ const styles = StyleSheet.create({
     cards: {
         backgroundColor: '#ffff',
         margin: 15,
-        height: 160,
+        // height: 160,
+        minHeight: 210,
         elevation: 6
     },
     box1: {

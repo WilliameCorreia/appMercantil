@@ -8,10 +8,10 @@ const Styles = StyleSheet.create({
     box2: { height: "28%", backgroundColor: '#fff', marginTop: "4%" },
 
     item1: { height: "20%", flexDirection: 'row', backgroundColor:'#fff', alignItems: 'center'},
-    item1_1: { width: "60%", backgroundColor: '#fff', marginLeft: 8 },
+    item1_1: { width: "50%", backgroundColor: '#fff', marginLeft: 8 },
     textCliente: { fontFamily: 'Montserrat-Medium', fontSize: 20, padding: 16, paddingBottom: 0, opacity:0.3 },
     textPedido: { fontFamily: 'Montserrat-Medium', fontSize: 16, marginLeft: 16, opacity:0.3 },
-    item1_2: { width: "36%", backgroundColor: '#fff', flexDirection: "column", justifyContent: "center", alignItems: "flex-end" },
+    item1_2: { width: "45%", backgroundColor: '#fff', flexDirection: "column", justifyContent: "center", alignItems: "flex-end" },
     StatusPedidoP: { backgroundColor: "grey", width: "100%", textAlign: "center", color: "white", marginBottom: 8, padding: "4%", fontSize: 16 },
 
     item2: {
@@ -19,11 +19,11 @@ const Styles = StyleSheet.create({
         flexDirection: 'row', borderTopWidth: 0.3, borderBottomWidth: 0.3, borderColor:"#b4b4b4",
         paddingTop:10
     },
-    item2_1: { width: "18%", backgroundColor: "#fff" },
-    ImgLoction: { width: "40%", height: "50%", marginTop: 8, marginLeft: 30 },
-    item2_2: { width: "72%", backgroundColor: "#fff", marginLeft: "9%" },
-    TextEndereco: { fontFamily: "Montserrat-Light", fontSize: 13 },
-    TextTelefone: { fontFamily: "Montserrat-Light", fontSize: 13, width: '80%', marginTop: "2%"},
+    item2_1: { width: "40%", backgroundColor: '#fff', alignItems:"center" },
+    ImgLoction: { width: "45%", height: "80%", marginTop: 0 },
+    item2_2: { width: "60%", backgroundColor: '#fff', alignItems:"center" },
+    TextEndereco: { fontFamily: "Montserrat-Light", fontSize: 12 },
+    TextTelefone: { fontFamily: "Montserrat-Light", fontSize: 13, width: '100%', marginTop: "2%"},
 
     item3: { height: "15%", flexDirection: 'row', alignItems:"center", paddingLeft:20 },
     item3_1: { width: "15%", backgroundColor: "#fff", flexDirection:"row", justifyContent:"flex-start", marginRight:"8%" },
@@ -49,10 +49,10 @@ const Styles = StyleSheet.create({
     item5_2: { width: "50%", backgroundColor: '#fff', alignItems: "flex-end", height: "100%" },
     item5_2Text: { fontFamily: "Montserrat-SemiBold", fontSize: 17, marginRight:"12%" },
 
-    item6: { height: "50%", backgroundColor: 'yellow', flexDirection: 'row', elevation: 10 },
-    item6_1: { width: "50%", backgroundColor: '#fff' },
+    item6: { height: "50%", backgroundColor: '#fff', flexDirection: 'row', elevation: 10, justifyContent:"center", alignItems:"center" },
+    item6_1: { width: "40%", backgroundColor: '#fff', justifyContent:"center", alignItems:"center" },
     item6_1Text: { fontFamily: 'Montserrat-Medium', fontSize: 18, padding: "15%", opacity:0.3 },
-    item6_2: { width: "50%", backgroundColor: '#fff', flexDirection: "column", justifyContent: "center" },
+    item6_2: { width: "60%", backgroundColor: '#fff', flexDirection: "column", justifyContent: "center" },
     item6_2Text: { fontFamily: 'Montserrat-Medium', fontSize: 16, backgroundColor: "red", color: "white", padding: 3, width: "70%", textAlign: "center" },
     // item2:{flex:1},
     // item3:{flex:4}
