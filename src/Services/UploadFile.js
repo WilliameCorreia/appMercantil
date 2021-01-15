@@ -8,8 +8,15 @@ const UploadFile = async ( token, file, nomeProduto, tela) => {
     
     const base64 = await fs.readFile(file.uri, 'base64')
     if(tela === "Usuário"){
+            // console.log(token)
 
-        api.post(`v1/FileStreamUpload?nameFile=${nomeProduto}&urlContainerBlob=${"planeta-produtos/estabelecimento"}`, {
+        api.post(`v1/FileStreamUpload?nameFile=${nomeProduto}&urlContainerBlob=${"planeta-produtos/estabelecimento"}`,
+        // api.post(`/v1/FileStreamUpload`, 
+        {
+        //     Parameters: {
+        //         nameFile: nomeProduto,
+        //         urlContainerBlob: "planeta-produtos/estabelecimento"
+        //     },
             image : base64 
     
         }, {
@@ -17,7 +24,7 @@ const UploadFile = async ( token, file, nomeProduto, tela) => {
                 'Authorization': `Bearer ${token}`
             }
         }).then( response => {
-            console.log(response)
+            console.log(response.data)
         })
     }
     else if(tela === "produtos"){

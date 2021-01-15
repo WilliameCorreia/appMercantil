@@ -31,7 +31,7 @@ export default function usuario({ route }) {
     const { Estabelecimento, setEstabelecimento } = useContext(EstabelecimentosContext);
     const { Catestabelecimento } = useContext(EstabelecimentosContext);
 
-    const [tipo_Estabelecimento, setTipo_Estabelecimento] = useState(Estabelecimento.tipoEstabelecimento?+Estabelecimento.tipoEstabelecimento:Estabelecimento.tipoEstabelecimento);
+    const [tipo_Estabelecimento, setTipo_Estabelecimento] = useState(Estabelecimento.tipoEstabelecimento ? +Estabelecimento.tipoEstabelecimento : Estabelecimento.tipoEstabelecimento);
     const [modalActive, setModalActive] = useState(false);
     const [msnModal, setMsnModal] = useState('primeira passada');
 
@@ -60,20 +60,21 @@ export default function usuario({ route }) {
             cnpj: values.cnpj,
             ativo: true,
             tipoEstabId: tipo_Estabelecimento,
-            tipoEstabelecimento: tipo_Estabelecimento.toString(),
+            tipoEstabelecimento: tipo_Estabelecimento !== null ? tipo_Estabelecimento.toString() : null,
             telefones: values.telefone,
             enderecos: values.enderecos,
             fotoName: Estabelecimento.fotoName,
-            tipo_Estabelecimento: Catestabelecimento.find(cat => cat.tipoEstab_Id === tipo_Estabelecimento)
+            tipo_Estabelecimento: Catestabelecimento.find(cat => cat.tipoEstab_Id === tipo_Estabelecimento) || {}
         }, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then(dados => {
             setMsnModal("Dados atualizados!");
-            setModalActive(true);         
-            setEstabelecimento(dados.data.result);
-            // console.log(dados.data.result);
+            setModalActive(true);
+            if (dados.data.result) {
+                setEstabelecimento(dados.data.result);
+            }
         }).catch(errors => {
             console.log(errors);
         });
@@ -108,9 +109,9 @@ export default function usuario({ route }) {
                     type: response.type
                 }
                 // uploadImageOnS3("appmercantilestabelecimento/images", file);
-                DeleteFile("appmercantilestabelecimento", "/images", file, Estabelecimento.token);
+                // DeleteFile("appmercantilestabelecimento", "/images", file, Estabelecimento.token);
                 console.log("deletou");
-                UploadFile("appmercantilestabelecimento/images", file, Estabelecimento.token)
+                // UploadFile("appmercantilestabelecimento/images", file, Estabelecimento.token)
             }
         });
 
@@ -154,7 +155,8 @@ export default function usuario({ route }) {
         >
             {({ values, handleChange, handleSubmit, errors }) => (
                 <View style={Styles.container}>
-                    <ProfilePhoto>{Img.bind(this)}</ProfilePhoto>
+                    <ProfilePhoto></ProfilePhoto>
+                    {/* <ProfilePhoto>{Img.bind(this)}</ProfilePhoto> */}
                     {/* <View style={Styles.box1}>
                         <TouchableOpacity onPress={() => EscolherImagem()}>
                             <Image style={Styles.img} source={require('../../Assets/person.png')} /> */}

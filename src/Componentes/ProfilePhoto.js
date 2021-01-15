@@ -55,21 +55,23 @@ export default function ProfilePhoto() {
                 
                 setFoto(file) 
 
-
+                // console.log(token, file, Estabelecimento.token, "Usuário")
                 UploadFile( token, file, Estabelecimento.token, "Usuário")
-
+                
                 EditaFotoEstabelecimento(nameCerto1)
-
-
-
+                
+                
+                
             }
         });
 
     }
-
+    
     return (
         <View style={styles.box1}>
-            <TouchableOpacity onPress={() => EscolherImagem()}>              
+            {/* {console.log(Estabelecimento)} */}
+            <TouchableOpacity onPress={() => EscolherImagem()}>  
+                {/* <Image style={styles.img} source={{uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/estabelecimento/${Estabelecimento.fotoName}`}} /> */}
                 <Image style={styles.img} source={foto ?{ uri: foto.uri }: Estabelecimento.fotoName ?{ uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/estabelecimento/${Estabelecimento.fotoName}` }: require("../Assets/person.png")} />
             </TouchableOpacity>
         </View>

@@ -38,8 +38,10 @@ const EstabelecimentoProvider = ({ children }) => {
         });
     }
     const EditaFotoEstabelecimento = async (fotoName) => {
+        // console.log(Estabelecimento)
+        // console.log(fotoName)
         api.put(`v1/Estabelecimentos/${Estabelecimento.id}`, {
-            // Id: Estabelecimento.id,
+            Id: Estabelecimento.id,
             Token: Estabelecimento.token,
             Email: Estabelecimento.email,
             Estabelecimento: Estabelecimento.estabelecimento,
@@ -54,7 +56,9 @@ const EstabelecimentoProvider = ({ children }) => {
                 'Authorization': `Bearer ${token}`
             }
         }).then(dados => {
-            setEstabelecimento(dados.data)            
+            setEstabelecimento(dados.data)       
+            // console.log("**********************************************")     
+            // console.log(dados.data)     
         }).catch(error => {
             console.log(error);
         })
