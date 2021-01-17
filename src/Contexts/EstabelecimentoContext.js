@@ -1,4 +1,4 @@
-import React, { createContext, useState,useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 
 import api from '../Services/api'
 import AuthContext from '../Contexts/Auth'
@@ -11,15 +11,15 @@ const EstabelecimentoProvider = ({ children }) => {
     const [Catestabelecimento, setCatestabelecimento] = useState([]);
     const { usuario, token } = useContext(AuthContext);
 
-    
 
-    const LoadEstabelecimentos = async () => {       
+
+    const LoadEstabelecimentos = async () => {
         const GetEstabelecimento = await api.get(`v1/Estabelecimentos/Token/${usuario.uid}`, {
-            headers:{
+            headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then(response => {
-            const {result} =  response.data
+            const { result } = response.data
             setEstabelecimento(result)
         }).catch(error => {
             console.log(error);
@@ -27,7 +27,7 @@ const EstabelecimentoProvider = ({ children }) => {
     }
     const getCatestabelecimento = () => {
         api.get("v1/TipoEstabelecimentos", {
-            headers:{
+            headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then(response => {
@@ -40,28 +40,33 @@ const EstabelecimentoProvider = ({ children }) => {
     const EditaFotoEstabelecimento = async (fotoName) => {
         // console.log(Estabelecimento)
         // console.log(fotoName)
-        api.put(`v1/Estabelecimentos/${Estabelecimento.id}`, {
-            Id: Estabelecimento.id,
-            Token: Estabelecimento.token,
-            Email: Estabelecimento.email,
-            Estabelecimento: Estabelecimento.estabelecimento,
-            RazaoSocial: Estabelecimento.razaoSocial,
-            Cnpj: Estabelecimento.cnpj,
-            Ativo: true,
-            Telefones: Estabelecimento.telefone,
-            enderecos: Estabelecimento.enderecos,
-            fotoName: fotoName
-        }, {
-            headers:{
-                'Authorization': `Bearer ${token}`
-            }
-        }).then(dados => {
-            setEstabelecimento(dados.data)       
-            // console.log("**********************************************")     
-            // console.log(dados.data)     
-        }).catch(error => {
-            console.log(error);
-        })
+        if (Estabelecimento.fotoName !== fotoName) {
+            console.log("era diferente")
+            api.put(`v1/Estabelecimentos/${Estabelecimento.id}`, {
+                token: Estabelecimento.token,
+                email: Estabelecimento.email,
+                _Estabelecimento: Estabelecimento.estabelecimentoR,
+                razaoSocial: Estabelecimento.razaoSocial,
+                cnpj: Estabelecimento.cnpj,
+                ativo: true,
+                tipoEstabId: Estabelecimento.tipoEstabId,
+                tipoEstabelecimento: Estabelecimento.tipoEstabelecimento,
+                telefones: Estabelecimento.telefone,
+                enderecos: Estabelecimento.enderecos,
+                fotoName: fotoName,
+                tipo_Estabelecimento: Estabelecimento.tipo_Estabelecimento
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(dados => {
+                setEstabelecimento(dados.data.result)
+                // console.log("**********************************************")     
+                // console.log(dados.data.result)     
+            }).catch(error => {
+                console.log(error);
+            })
+        }
     }
 
     useEffect(() => {
@@ -72,7 +77,7 @@ const EstabelecimentoProvider = ({ children }) => {
     }, [])
 
     return (
-        <EstabelecimentosContext.Provider value={{Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento, Catestabelecimento}} >
+        <EstabelecimentosContext.Provider value={{ Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento, Catestabelecimento }} >
             {children}
         </EstabelecimentosContext.Provider>
     )

@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, View, Image, Text, TouchableOpacity, Alert } from 'react-native'
 
 import auth from '@react-native-firebase/auth';
+import SomenteImageP from './SomenteImageP';
 
 export default function DrawerContent({ navigation }) {
 
@@ -39,6 +40,7 @@ export default function DrawerContent({ navigation }) {
                 <View style={styles.item}>
                     <TouchableOpacity style={styles.opacity} onPress={() => navigation.navigate('Usuario')}>
                         <Image style={styles.imgIcone} source={require('../Assets/user.png')} />
+                        {/* <SomenteImageP /> */}
                         <Text style={styles.text}>perfil</Text>
                     </TouchableOpacity>
                 </View>

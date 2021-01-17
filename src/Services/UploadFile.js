@@ -24,7 +24,7 @@ const UploadFile = async ( token, file, nomeProduto, tela) => {
                 'Authorization': `Bearer ${token}`
             }
         }).then( response => {
-            console.log(response)
+            // console.log(response)
         })
     }
     else if(tela === "produtos"){

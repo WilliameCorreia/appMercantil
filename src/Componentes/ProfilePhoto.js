@@ -9,6 +9,7 @@ import ImagePicker from 'react-native-image-picker';
 import UploadFile from '../Services/UploadFile'
 import DeleteFile from '../Services/DeleteFile'
 import AuthContext from '../Contexts/Auth'
+import SomenteImageP from './SomenteImageP'
 
 
 export default function ProfilePhoto(props) {
@@ -57,10 +58,10 @@ export default function ProfilePhoto(props) {
                 setFoto(file) 
 
                 // console.log(token, file, Estabelecimento.token, "Usuário")
-                // UploadFile( token, file, Estabelecimento.token, "Usuário")
+                UploadFile( token, file, Estabelecimento.token, "Usuário")
                 
-                // EditaFotoEstabelecimento(nameCerto1)
-                props.children("foto")
+                EditaFotoEstabelecimento(nameCerto1)
+                // props.children("foto")
                 // console.log(props.children)
                 
                 
@@ -72,8 +73,9 @@ export default function ProfilePhoto(props) {
     
     return (
         <View style={styles.box1}>
-            <TouchableOpacity onPress={() => EscolherImagem()}>  
-                <Image style={styles.img} source={foto ?{ uri: foto.uri }: Estabelecimento.fotoName ?{ uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/estabelecimento/${Estabelecimento.fotoName}?${new Date()}` }: require("../Assets/person.png")} />
+            <TouchableOpacity onPress={() => EscolherImagem()}>
+                <SomenteImageP foto={foto} Estabelecimento={Estabelecimento}/>  
+                {/* <Image style={styles.img} source={foto ?{ uri: foto.uri }: Estabelecimento.fotoName ?{ uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/estabelecimento/${Estabelecimento.fotoName}?${new Date()}` }: require("../Assets/person.png")} /> */}
             </TouchableOpacity>
         </View>
     )
