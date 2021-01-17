@@ -50,34 +50,36 @@ export default function usuario({ route }) {
     const complemento = useRef();
 
     const registrarEstabelecimento = (values) => {
-        // console.log(Estabelecimento)
-        // console.log(tipo_Estabelecimento)
-        api.put(`v1/Estabelecimentos/${Estabelecimento.id}`, {
-            token: Estabelecimento.token,
-            email: Estabelecimento.email,
-            _Estabelecimento: values.estabelecimentoR,
-            razaoSocial: values.razaoSocial,
-            cnpj: values.cnpj,
-            ativo: true,
-            tipoEstabId: tipo_Estabelecimento,
-            tipoEstabelecimento: tipo_Estabelecimento !== null ? tipo_Estabelecimento.toString() : null,
-            telefones: values.telefone,
-            enderecos: values.enderecos,
-            fotoName: Estabelecimento.fotoName,
-            tipo_Estabelecimento: Catestabelecimento.find(cat => cat.tipoEstab_Id === tipo_Estabelecimento) || {}
-        }, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }).then(dados => {
-            setMsnModal("Dados atualizados!");
-            setModalActive(true);
-            if (dados.data.result) {
-                setEstabelecimento(dados.data.result);
-            }
-        }).catch(errors => {
-            console.log(errors);
-        });
+        if(values === "foto"){
+            console.log(values)
+        }else{
+            api.put(`v1/Estabelecimentos/${Estabelecimento.id}`, {
+                token: Estabelecimento.token,
+                email: Estabelecimento.email,
+                _Estabelecimento: values.estabelecimentoR,
+                razaoSocial: values.razaoSocial,
+                cnpj: values.cnpj,
+                ativo: true,
+                tipoEstabId: tipo_Estabelecimento,
+                tipoEstabelecimento: tipo_Estabelecimento !== null ? tipo_Estabelecimento.toString() : null,
+                telefones: values.telefone,
+                enderecos: values.enderecos,
+                fotoName: Estabelecimento.fotoName,
+                tipo_Estabelecimento: Catestabelecimento.find(cat => cat.tipoEstab_Id === tipo_Estabelecimento) || {}
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(dados => {
+                setMsnModal("Dados atualizados!");
+                setModalActive(true);
+                if (dados.data.result) {
+                    setEstabelecimento(dados.data.result);
+                }
+            }).catch(errors => {
+                console.log(errors);
+            });
+        }
     }
 
     const Img = function EscolherImagem() {
@@ -155,7 +157,7 @@ export default function usuario({ route }) {
         >
             {({ values, handleChange, handleSubmit, errors }) => (
                 <View style={Styles.container}>
-                    <ProfilePhoto></ProfilePhoto>
+                    <ProfilePhoto>{registrarEstabelecimento}</ProfilePhoto>
                     {/* <ProfilePhoto>{Img.bind(this)}</ProfilePhoto> */}
                     {/* <View style={Styles.box1}>
                         <TouchableOpacity onPress={() => EscolherImagem()}>

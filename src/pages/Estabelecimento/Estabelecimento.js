@@ -12,7 +12,7 @@ import AuthContext from '../../Contexts/Auth'
 
 export default function Estabelecimento({ navigation}) {
 
-    const {usuario, signIn, setTest, token } = useContext(AuthContext);
+    const {usuario, signIn, setAtorizacao, token } = useContext(AuthContext);
 
     console.log(usuario);
     //modal
@@ -50,7 +50,7 @@ export default function Estabelecimento({ navigation}) {
             typeof(dados.data)
             if(dados.data){
                 setMsnModal("Dados cadastrados com sucesso ! aguarde a ativação da sua conta");
-                setTest(true)
+                setAtorizacao(true)
             }else{
                 setMsnModal("Estabelecimento já cadastrado!");
             }

@@ -13,16 +13,18 @@ export const AuthProvider = ({ children }) => {
     const [loading, SetLoading] = useState(true);
     const [Estabelecimento, setEstabelecimento] = useState(false);
     const [token, setToken] = useState("");
+    const [Atorizacao, setAtorizacao] = useState(false);
 
 
 
-    /* function Reload(params) {
-        setTest(!params)
-    } */
+    // function Reload(params) {
+    //     setAtorizacao(!params)
+    // }
 
     async function signIn(user) {
         setTimeout(() => {
             if (user) {
+                // console.log(user)
                 GetEstabelecimento(user);
             } else {
                 SetLoading(false)
@@ -57,11 +59,12 @@ export const AuthProvider = ({ children }) => {
                 if (Boolean(result)) {
                     setEstabelecimento(result)
                 } else {
-                    setEstabelecimento(Boolean(estabelecimento));
+                    setEstabelecimento(Boolean(Estabelecimento));
                 }
                 SetUsuario({ email, uid })
             }).catch(
                 erro => {
+                    console.log(erro)
                     Alert.alert("não estabelecer conexão com a base de dados");
                     SetLoading(false)
                 }
@@ -73,7 +76,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         getAuth();
         const subscriber = auth().onUserChanged(signIn);
-    }, [token]);
+    }, [token, Atorizacao]);
 
     // useEffect(() => {
     //     const subscriber = auth().onUserChanged(signIn);
@@ -82,7 +85,7 @@ export const AuthProvider = ({ children }) => {
 
     
     return (
-        <AuthContext.Provider value={{ signed: Boolean(usuario.email), signIn, usuario, loading, Estabelecimento, token }}>
+        <AuthContext.Provider value={{ signed: Boolean(usuario.email), signIn, usuario, loading, Estabelecimento, token, setAtorizacao }}>
             {children}
         </AuthContext.Provider>
     )

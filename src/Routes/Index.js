@@ -14,8 +14,8 @@ const Routes = () => {
     return (
 
         signed ?
-
             <ProdutosProvider>
+                {/* {console.log("logado")} */}
                 <EstabelecimentoProvider>
                     <RouteDrawer />
                 </EstabelecimentoProvider>
@@ -23,7 +23,9 @@ const Routes = () => {
 
             :
 
-            <Route />
+            <Route >
+                {/* {console.log("não logado")} */}
+            </Route>
     )
 }
 

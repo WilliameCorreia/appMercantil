@@ -11,10 +11,11 @@ import DeleteFile from '../Services/DeleteFile'
 import AuthContext from '../Contexts/Auth'
 
 
-export default function ProfilePhoto() {
+export default function ProfilePhoto(props) {
     const { token } = useContext(AuthContext);
     const { Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento } = useContext(EstabelecimentosContext);    
     const [foto, setFoto] = useState(null);
+    
 
     function EscolherImagem() {
         console.log("vai selecionar a imagem");
@@ -56,9 +57,11 @@ export default function ProfilePhoto() {
                 setFoto(file) 
 
                 // console.log(token, file, Estabelecimento.token, "Usuário")
-                UploadFile( token, file, Estabelecimento.token, "Usuário")
+                // UploadFile( token, file, Estabelecimento.token, "Usuário")
                 
-                EditaFotoEstabelecimento(nameCerto1)
+                // EditaFotoEstabelecimento(nameCerto1)
+                props.children("foto")
+                // console.log(props.children)
                 
                 
                 
@@ -69,10 +72,8 @@ export default function ProfilePhoto() {
     
     return (
         <View style={styles.box1}>
-            {/* {console.log(Estabelecimento)} */}
             <TouchableOpacity onPress={() => EscolherImagem()}>  
-                {/* <Image style={styles.img} source={{uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/estabelecimento/${Estabelecimento.fotoName}`}} /> */}
-                <Image style={styles.img} source={foto ?{ uri: foto.uri }: Estabelecimento.fotoName ?{ uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/estabelecimento/${Estabelecimento.fotoName}` }: require("../Assets/person.png")} />
+                <Image style={styles.img} source={foto ?{ uri: foto.uri }: Estabelecimento.fotoName ?{ uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/estabelecimento/${Estabelecimento.fotoName}?${new Date()}` }: require("../Assets/person.png")} />
             </TouchableOpacity>
         </View>
     )
