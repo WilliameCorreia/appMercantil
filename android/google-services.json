@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "405458419435",
+    "firebase_url": "https://projetomercantil.firebaseio.com",
+    "project_id": "projetomercantil",
+    "storage_bucket": "projetomercantil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405458419435:android:3c21a640d9d0a9036c08ae",
+        "android_client_info": {
+          "package_name": "com.appmercantil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "405458419435-im43hgtbgfl23evjs3e0pv7hp9br8409.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appmercantil",
+            "certificate_hash": "66a42ba1434e930486e8fc8ff5de25580b7e50a4"
+          }
+        },
+        {
+          "client_id": "405458419435-hh0j3hri4sug6intvgieabviuu54bb28.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiFklQ5ZmcbZ2BSMvlR4Qh7bEPjBdZSJk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "405458419435-hh0j3hri4sug6intvgieabviuu54bb28.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
