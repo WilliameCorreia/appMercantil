@@ -33,6 +33,7 @@ export default function NewProduto({ navigation, route }) {
     const [modalActive, setModalActive] = useState(false);
     const [msnModal, setMsnModal] = useState('primeira passada');
 
+    const [ImgProduto, setImgProduto] = useState(null);
     const [produto, setProduto] = useState({
         Produto: '',
         Quantidade: '',
@@ -41,11 +42,10 @@ export default function NewProduto({ navigation, route }) {
         Codbar: '',
         FotoPng: ''
     });
-    const [ImgProduto, setImgProduto] = useState(null);
     let tipo = null;
     if (ImgProduto != null) {
         tipo = ImgProduto.type.replace('image/', '')
-    }else{
+    } else {
         tipo = 'png'
     }
 
@@ -79,7 +79,7 @@ export default function NewProduto({ navigation, route }) {
         if (ValidaEan(codbar)) {
             setCodvalida(false)
             const produto = Api.get(`v1/ProdutosDb/Filtercodbar/${codbar}`, {
-                headers:{
+                headers: {
                     'Authorization': `Bearer ${token}`
                 }
             }).then(response => {
@@ -112,7 +112,7 @@ export default function NewProduto({ navigation, route }) {
 
     const getCategorias = () => {
         Api.get("v1/Categorias", {
-            headers:{
+            headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then(response => {
@@ -130,11 +130,11 @@ export default function NewProduto({ navigation, route }) {
     // }
 
     const adicionarProduto = () => {
-        console.log("**********Adicionando Produto********")
+        console.log("**********Adicionando Produto********")        
         let foto = null;
-        if(!produto.fotoPng){
+        if (!produto.fotoPng) {
             foto = produto.Codbar + '.' + 'png'
-        }else{
+        } else {
             //caso o produto já possua foto o valor de ImgProduto é setado como null
             //para que nao seja enviado um novo uploa e assim substitua o arquivo na amazon
             ImgProduto = null;
@@ -150,7 +150,7 @@ export default function NewProduto({ navigation, route }) {
                 fotoPng: foto,
                 estabelecimentoId: Estabelecimento.id
             }, {
-                headers:{
+                headers: {
                     'Authorization': `Bearer ${token}`
                 }
             }).then(response => {
@@ -158,7 +158,7 @@ export default function NewProduto({ navigation, route }) {
                 //só envia a imagem do produto para amazon caso o usuário
                 //já tenha escolhido a foto
                 if (ImgProduto) {
-                    UploadFile( token, ImgProduto, result.value.codeBar, "produtos")
+                    UploadFile(token, ImgProduto, result.value.codeBar, "produtos")
                 }
 
                 // console.log(response.data.codeBar)
@@ -183,7 +183,7 @@ export default function NewProduto({ navigation, route }) {
 
     const VerificarProduto = async (codbar) => {
         Api.get(`v1/Produtos/codbar/${codbar}/${Estabelecimento.id}`, {
-            headers:{
+            headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then(response => {
@@ -223,7 +223,21 @@ export default function NewProduto({ navigation, route }) {
     return (
         <KeyboardAwareScrollView style={Styles.container}>
             <View style={Styles.box1}>
-                <FotoProduto produto={produto} ImgProduto={setImgProduto} />
+                <FotoProduto localizacao={"novoProduto"} produto={produto} ImgProduto={setImgProduto} estilo={
+                    {
+                        container: {
+
+                            width: "40%",
+                            height: "90%",
+                            backgroundColor: '#fff'
+                        },
+                        prodImg: {
+                            width: "60%",
+                            height: "100%",
+
+                        }
+                    }
+                } />
                 <View style={Styles.Codbar}>
                     <TouchableOpacity style={Styles.codbarItem} onPress={() => navigation.navigate('Mycamera', getProduto)}>
                         <Image source={require('../../Assets/codbar.png')} style={Styles.codbarImg} />

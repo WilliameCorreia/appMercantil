@@ -29,7 +29,7 @@ export default function DrawerContent({ navigation, Estabelecimento }) {
         <View style={styles.container}>
             <View style={styles.box1}>
                 {/* <Image style={styles.img} source={require('../Assets/person.png')} /> */}
-                <SomenteImageP Estabelecimento={Estabelecimento} />
+                <SomenteImageP Estabelecimento={Estabelecimento} carrega={true} />
             </View>
             <View style={styles.box2}>
                 <View style={styles.item}>

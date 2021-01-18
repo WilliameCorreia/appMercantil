@@ -16,7 +16,6 @@ export default function ProfilePhoto(props) {
     const { token } = useContext(AuthContext);
     const { Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento } = useContext(EstabelecimentosContext);
     const [foto, setFoto] = useState(null);
-    // const [Velocidade, setVelocidade] = useState(new Date().getMinutes());
 
 
     function EscolherImagem() {

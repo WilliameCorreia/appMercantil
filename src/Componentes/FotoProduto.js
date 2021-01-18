@@ -1,9 +1,18 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { StyleSheet, Image, TouchableOpacity } from 'react-native'
 import ImagePicker from 'react-native-image-picker';
+import UploadFile from '../Services/UploadFile';
+import AuthContext from '../Contexts/Auth';
 
-export default function FotoProduto(props) { //produto, ImgProduto
-    const [FotoPng, setFotoPng] = useState('');    
+let novoProdutoEstilo;
+
+
+export default function FotoProduto(props) {
+    const { token } = useContext(AuthContext);
+    const { estilo, localizacao, produto } = props
+    novoProdutoEstilo = estilo
+    const [FotoPng, setFotoPng] = useState('');  
+
     function EscolherImagem() {
         const options = {
             title: "Defina Foto do Produto",
@@ -15,7 +24,7 @@ export default function FotoProduto(props) { //produto, ImgProduto
             }
         }
         ImagePicker.showImagePicker(options, (response) => {
-            console.log('resultado do seletor de imagem', response);
+            console.log('resultado do seletor de imagem');
 
             if (response.didCancel) {
                 console.log('operação cancelada pelo usuário');
@@ -43,31 +52,45 @@ export default function FotoProduto(props) { //produto, ImgProduto
                 setFotoPng(file)
                 // props.ImgProduto = file
 
-                console.log(props.ImgProduto)
-                props.ImgProduto(file)
+                // console.log(props.ImgProduto)
+                // props.ImgProduto(file)
                 // props.ImgProduto = "agr foi"
                 // console.log(props.ImgProduto)
 
+                if(localizacao==="novoProduto"){
+                    // console.log("novo produto")
+                    // console.log(props.ImgProduto)
+                    props.ImgProduto(file)
+                }else{
+                    // console.log(props.setEdicaoFoto)
+                    props.setEdicaoFoto([token, file, produto.codBar, "produtos", produto.fotoPng])
+                    // UploadFile(token, file, produto.codBar, "produtos", produto.fotoPng)
+                    // console.log(produto.codBar)
+                }
             }
         });
     }
     return (
-        <TouchableOpacity style={styles.container} onPress={() => EscolherImagem()}>            
-            <Image source={ props.produto.FotoPng ? { uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/ImagensPng/png/${props.produto.FotoPng}` } : FotoPng.name ? { uri: FotoPng.uri  } : require("../Assets/srcImage.png") } style={styles.prodImg} />            
+        <TouchableOpacity style={styles.container} onPress={() => EscolherImagem()}>
+            {/* {console.log(props.produto.fotoPng)}             */}
+            <Image source={ FotoPng.name ? { uri: FotoPng.uri  } : produto.fotoPng ? { uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/ImagensPng/png/${produto.fotoPng}?${new Date()}` } : require("../Assets/srcImage.png") } style={styles.prodImg} />            
+            {/* <Image source={ props.produto.fotoPng ? { uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/ImagensPng/png/${props.produto.fotoPng}` } : FotoPng.name ? { uri: FotoPng.uri  } : require("../Assets/srcImage.png") } style={styles.prodImg} />             */}
         </TouchableOpacity>
     )
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create(novoProdutoEstilo?novoProdutoEstilo:{
     container: {
         
-        width: "40%",
-        height: "90%",                
-        backgroundColor: '#fff'
+        width: "100%",
+        height: "80%",                
+        backgroundColor: '#fff',
+        justifyContent:"center",
+        alignItems:"center"
     },
     prodImg: {
-        width: "60%",
-        height: "100%",
+        width: 120,
+        height: 120,
         
     }
 })

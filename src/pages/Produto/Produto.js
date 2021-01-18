@@ -4,7 +4,7 @@ import {
     View,
     TextInput,
     TouchableOpacity,
-    Image,
+    Alert,
     ActivityIndicator
 } from 'react-native'
 
@@ -18,11 +18,14 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { ProdutosContext } from '../../Contexts/ProdutoContext'
 import EsperaRequisicao from '../../Componentes/EsperaRequisicao';
+import FotoProduto from '../../Componentes/FotoProduto'
+import UploadFile from '../../Services/UploadFile'
+import { Picker } from '@react-native-community/picker'
 
 
 export default function Produto({ navigation, route, }) {
 
-    const { LoadCategorias } = useContext(ProdutosContext);
+    const { LoadCategorias, categorias } = useContext(ProdutosContext);
 
     const { Estabelecimento, token } = useContext(AuthContext);
 
@@ -31,11 +34,13 @@ export default function Produto({ navigation, route, }) {
     const [load, setLoad] = useState(false);
 
     const { categoria, estabelecimento } = route.params[0];
-
-
-
-
+    const [EdicaoFoto, setEdicaoFoto] = useState(null);
+    
+    
+    
+    
     const produto = route.params[0];
+    const [CatInterna, setCatInterna] = useState(produto.categoriaId);
 
     const produtor = useRef();
     const quantidade = useRef();
@@ -47,14 +52,14 @@ export default function Produto({ navigation, route, }) {
     const ProdutoUpdate = (values) => {
         if (ValidaEan(values.codBar)) {
             Api.put(`v1/Produtos/${produto.id}`, {
-                // Id: produto.id,                
                 _Produto: values.produto,
                 quantidade: parseInt(values.quantidade),
                 preco: values.preco,
-                categoriaId: parseInt(values.categoriaId),
+                categoriaId: CatInterna,
                 codeBar: values.codBar,
                 fotoPng: values.fotoPng,
-                estabelecimentoId: Estabelecimento.id
+                estabelecimentoId: Estabelecimento.id,
+                oferta: produto.oferta
             }, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -65,6 +70,12 @@ export default function Produto({ navigation, route, }) {
                     setMsnModal("Produto alterado com sucesso !");
                     setModalActive(true);
                     LoadCategorias();
+                    if (EdicaoFoto) {
+                        UploadFile(EdicaoFoto[0], EdicaoFoto[1], EdicaoFoto[2], EdicaoFoto[3], EdicaoFoto[4])
+                    }
+                    //  else {
+                    //     Alert.alert("Por algum motivo não foi possivel atualizar a foto do produto!")
+                    // }
                 } else {
                     setMsnModal("Erro ao alterar Produto !");
                     setModalActive(true);
@@ -183,7 +194,8 @@ export default function Produto({ navigation, route, }) {
                                         <Text style={Styles.textCliente}>{values.produto.length > 40 ? `${values.produto.substring(0, 40)}...` : values.produto}</Text>
                                     </View>
                                     <View style={Styles.item1_2}>
-                                        <Image source={produto.fotoPng ? { uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/ImagensPng/png/${produto.fotoPng}` } : require("../../Assets/srcImage.png")} style={Styles.prodImg} />
+                                        <FotoProduto produto={values} localizacao={"produto"} setEdicaoFoto={setEdicaoFoto} />
+                                        {/* <Image source={produto.fotoPng ? { uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/ImagensPng/png/${produto.fotoPng}` } : require("../../Assets/srcImage.png")} style={Styles.prodImg} /> */}
                                     </View>
                                 </View>
                                 <View style={Styles.item2}>
@@ -220,15 +232,21 @@ export default function Produto({ navigation, route, }) {
                                         <Text style={Styles.item4_1Text}>CATEGORIA</Text>
                                     </View>
                                 </View>
-                                <View style={Styles.item5}>
-                                    <View style={Styles.item5_1}>
-                                        <TextInput
-                                            style={Styles.item5_1Input}
-                                            value={values.categoria}
-                                            ref={categoriaId}
-                                            onChangeText={handleChange("categoriaId")}
-                                        />
-                                        {errors.categoria && <Text style={Styles.textErro}>{errors.categoria}</Text>}
+                                <View style={[Styles.item5]}>
+                                    {console.log(produto)}
+                                    <View style={Styles.picker}>
+                                        <Picker
+                                            style={{ width: "70%", textAlign: 'center' }}
+                                            selectedValue={categorias.find(cat => cat.id === CatInterna).id}
+                                            itemStyle={{ textAlign: 'center' }}
+                                            onValueChange={(itemValue, itemIndex) => itemValue?setCatInterna(itemValue):""}
+                                            mode="dropdown"
+                                        >
+                                            <Picker.Item label={"Selecione"} />
+                                            {categorias.map(item =>
+                                                <Picker.Item label={item.nome} value={item.id} />
+                                            )}
+                                        </Picker>
                                     </View>
                                 </View>
                                 <View style={Styles.item6}>

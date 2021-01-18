@@ -26,7 +26,7 @@ export default function listaProdutos({ Produtos, loading, navigation, LoadLista
                     </View>
                     <View style={styles.box2}>
                         <Image
-                            style={styles.prodImg} source={{ uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/ImagensPng/png/${item.fotoPng}` }}
+                            style={styles.prodImg} source={{ uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/ImagensPng/png/${item.fotoPng}?${new Date()}` }}
                             PlaceholderContent={<ActivityIndicator />}
                         />
                         <Text style={styles.dispon}>DISPONIVEL</Text>

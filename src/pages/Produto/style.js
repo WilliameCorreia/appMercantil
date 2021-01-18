@@ -53,7 +53,7 @@ container: { flex: 1, padding: "4%" },
     item4_1: { width: "60%", backgroundColor: "#fff" },
     item4_1Text: { fontFamily: "Montserrat-Medium", fontSize: 15 },
 
-    item5: {height: windowHeight * 8, flexDirection: 'row', paddingTop: 0, marginLeft: "5%", marginBottom: "4%" },
+    item5: { flexDirection: 'row', paddingTop: 0, marginLeft: "5%", marginBottom: 0 },
     item5_1: { width: "100%", backgroundColor: "#fff", paddingLeft: "2%" },
     item5_1Input: {
         elevation: 6,
@@ -85,18 +85,26 @@ container: { flex: 1, padding: "4%" },
         fontFamily: "Montserrat-light",
         color: 'black'
     },
-
+    
     item8: { height: windowHeight * 8, flexDirection: 'row'},
     item8_1: { width: "100%", backgroundColor: "#fff", alignItems: "center" },
     item8_1Text: { marginTop: '2%', borderRadius: 25, width: "60%", backgroundColor: "#9C3F3A", textAlign: "center", padding: "2%", fontSize: 16, fontFamily: "Montserrat-SemiBold", color: "white" },
     
     item9: { width: "100%", height:"100%", backgroundColor: "#fff", justifyContent:"center", alignItems:"center"},
     item9_1Text: { marginTop: '2%', borderRadius: 25, width: "80%", backgroundColor: "#ff0000", textAlign: "center", padding: "2%", fontSize: 16, fontFamily: "Montserrat-SemiBold", color: "white" },
+    picker:{
+        elevation: 10,
+        backgroundColor: '#fff',
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom:"10%",
+        width:"90%",
+    }
     
-
     
     
-
+    
 })
 
 export default Styles
