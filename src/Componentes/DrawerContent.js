@@ -4,7 +4,7 @@ import { StyleSheet, View, Image, Text, TouchableOpacity, Alert } from 'react-na
 import auth from '@react-native-firebase/auth';
 import SomenteImageP from './SomenteImageP';
 
-export default function DrawerContent({ navigation }) {
+export default function DrawerContent({ navigation, Estabelecimento }) {
 
     const logout = () => {
         Alert.alert('Mensagem', 'Deseja Realmente sair?', [
@@ -28,7 +28,8 @@ export default function DrawerContent({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.box1}>
-                <Image style={styles.img} source={require('../Assets/person.png')} />
+                {/* <Image style={styles.img} source={require('../Assets/person.png')} /> */}
+                <SomenteImageP Estabelecimento={Estabelecimento} />
             </View>
             <View style={styles.box2}>
                 <View style={styles.item}>
@@ -40,7 +41,6 @@ export default function DrawerContent({ navigation }) {
                 <View style={styles.item}>
                     <TouchableOpacity style={styles.opacity} onPress={() => navigation.navigate('Usuario')}>
                         <Image style={styles.imgIcone} source={require('../Assets/user.png')} />
-                        {/* <SomenteImageP /> */}
                         <Text style={styles.text}>perfil</Text>
                     </TouchableOpacity>
                 </View>

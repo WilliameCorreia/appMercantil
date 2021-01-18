@@ -157,7 +157,7 @@ export default function usuario({ route }) {
         >
             {({ values, handleChange, handleSubmit, errors }) => (
                 <View style={Styles.container}>
-                    <ProfilePhoto>{registrarEstabelecimento}</ProfilePhoto>
+                    <ProfilePhoto />
                     {/* <ProfilePhoto>{Img.bind(this)}</ProfilePhoto> */}
                     {/* <View style={Styles.box1}>
                         <TouchableOpacity onPress={() => EscolherImagem()}>

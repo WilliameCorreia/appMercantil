@@ -14,9 +14,10 @@ import SomenteImageP from './SomenteImageP'
 
 export default function ProfilePhoto(props) {
     const { token } = useContext(AuthContext);
-    const { Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento } = useContext(EstabelecimentosContext);    
+    const { Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento } = useContext(EstabelecimentosContext);
     const [foto, setFoto] = useState(null);
-    
+    // const [Velocidade, setVelocidade] = useState(new Date().getMinutes());
+
 
     function EscolherImagem() {
         console.log("vai selecionar a imagem");
@@ -47,34 +48,37 @@ export default function ProfilePhoto(props) {
                     type: response.type
                 }
 
-                
+
                 let nome = file.name.split(".", 1)
                 let nameCerto = nome[0]
                 let tipo = "png"
                 // let tipo = file.type.replace('image/', '')
                 let nameCerto1 = Estabelecimento.token + '.png'
 
-                
-                setFoto(file) 
+
 
                 // console.log(token, file, Estabelecimento.token, "Usuário")
-                UploadFile( token, file, Estabelecimento.token, "Usuário")
-                
-                EditaFotoEstabelecimento(nameCerto1)
+                // setVelocidade(new Date())
+                setFoto(file)
+                UploadFile(token, file, Estabelecimento.token, "Usuário", Estabelecimento.fotoName)
+
+                if (!Estabelecimento.fotoName) {
+                    EditaFotoEstabelecimento(nameCerto1)
+                }
                 // props.children("foto")
                 // console.log(props.children)
-                
-                
-                
+
+
+
             }
         });
 
     }
-    
+
     return (
         <View style={styles.box1}>
             <TouchableOpacity onPress={() => EscolherImagem()}>
-                <SomenteImageP foto={foto} Estabelecimento={Estabelecimento}/>  
+                <SomenteImageP foto={foto} Estabelecimento={Estabelecimento} />
                 {/* <Image style={styles.img} source={foto ?{ uri: foto.uri }: Estabelecimento.fotoName ?{ uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/estabelecimento/${Estabelecimento.fotoName}?${new Date()}` }: require("../Assets/person.png")} /> */}
             </TouchableOpacity>
         </View>
