@@ -1,6 +1,6 @@
 export function ValidaEan(numero) {
 
-    console.log("entrou validar=> " + numero.length)
+    // 
 
     let numlen = numero.length;
 
@@ -18,7 +18,7 @@ export function ValidaEan(numero) {
         cc = ((1000 - sum) % 10);
         ca = numero.substring(12);
         if (cc == ca) {
-            console.log("EAN-13 válido");
+            // 
             return true;
         }
         else {
@@ -29,7 +29,7 @@ export function ValidaEan(numero) {
 
     if(numlen == 14){
 
-        console.log("entrou validar 14 => " + numero.length)
+        
 
         let factor = 3;
         let sum = 0;
@@ -43,7 +43,7 @@ export function ValidaEan(numero) {
 		cc = ((1000 - sum) % 10);
 		ca = numero.substring(13);
 		if(cc == ca){
-            console.log("EAN-14 válido");
+            
             return true
 		}
 		else{
@@ -54,7 +54,7 @@ export function ValidaEan(numero) {
     
     if(numlen == 8){
 
-        console.log("entrou validar 08 => " + numero.length)
+        
 
         let factor = 3;
         let sum = 0;
@@ -68,7 +68,7 @@ export function ValidaEan(numero) {
 		cc = ((1000 - sum) % 10);
 		ca = numero.substring(7);
 		if(cc == ca){
-            console.log("EAN-8 válido");
+            
             return true
 		}
 		else{
@@ -79,7 +79,7 @@ export function ValidaEan(numero) {
     
     if(numlen == 12){
 
-        console.log("entrou validar 12 => " + numero.length)
+        
 
         let factor = 3;
         let sum = 0;
@@ -93,7 +93,7 @@ export function ValidaEan(numero) {
 		cc = ((1000 - sum) % 10);
 		ca = numero.substring(11);
 		if(cc == ca){
-            console.log("EAN-12 válido");
+            
             return true
 		}
 		else{

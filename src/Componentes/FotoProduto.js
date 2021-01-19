@@ -9,9 +9,9 @@ let novoProdutoEstilo;
 
 export default function FotoProduto(props) {
     const { token } = useContext(AuthContext);
-    const { estilo, localizacao, produto } = props
+    const { estilo, localizacao, produto, setImgProduto } = props
     novoProdutoEstilo = estilo
-    const [FotoPng, setFotoPng] = useState('');  
+    const [FotoPng, setFotoPng] = useState({});  
 
     function EscolherImagem() {
         const options = {
@@ -58,21 +58,15 @@ export default function FotoProduto(props) {
                 // console.log(props.ImgProduto)
 
                 if(localizacao==="novoProduto"){
-                    // console.log("novo produto")
-                    // console.log(props.ImgProduto)
-                    props.ImgProduto(file)
+                    setImgProduto(file)
                 }else{
-                    // console.log(props.setEdicaoFoto)
                     props.setEdicaoFoto([token, file, produto.codBar, "produtos", produto.fotoPng])
-                    // UploadFile(token, file, produto.codBar, "produtos", produto.fotoPng)
-                    // console.log(produto.codBar)
                 }
             }
         });
     }
     return (
         <TouchableOpacity style={styles.container} onPress={() => EscolherImagem()}>
-            {/* {console.log(props.produto.fotoPng)}             */}
             <Image source={ FotoPng.name ? { uri: FotoPng.uri  } : produto.fotoPng ? { uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/ImagensPng/png/${produto.fotoPng}?${new Date()}` } : require("../Assets/srcImage.png") } style={styles.prodImg} />            
             {/* <Image source={ props.produto.fotoPng ? { uri: `https://planetaentregas.blob.core.windows.net/planeta-produtos/ImagensPng/png/${props.produto.fotoPng}` } : FotoPng.name ? { uri: FotoPng.uri  } : require("../Assets/srcImage.png") } style={styles.prodImg} />             */}
         </TouchableOpacity>

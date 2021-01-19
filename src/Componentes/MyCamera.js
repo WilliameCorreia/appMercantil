@@ -17,16 +17,18 @@ export default function MyCamera({ navigation }) {
     const [barcodeRead, setBarcodeReader] = useState(false);
     const { token } = useContext(AuthContext);
 
-    const getProduto = (codbar) => {
-        Api.get(`v1/ProdutosDb/codbar/${codbar}`, {
+    const getProdutoLocal = (codbar) => {
+        Api.get(`v1/ProdutosDb/Filtercodbar/${codbar}`, {
             headers:{
                 'Authorization': `Bearer ${token}`
             }
         }).then(response => {
+            // console.log(response.data)
             const { result } = response.data;
             if (result) {
                 let item = result;
                 navigation.navigate('NovoProduto', {produto:item})
+                // console.log(result)
             } else {
                 setMsnModal("Produto não encontrado!" + codbar);
                 setModalActive(true);
@@ -38,16 +40,18 @@ export default function MyCamera({ navigation }) {
     }
 
     const barcodesRecognized = (barcodes) => {
+        // console.log(barcodes.data)
         let { data, type } = barcodes;
 
         if (type !== undefined && type !== "UNKNOWN_FORMAT") {
 
-            console.log(data);
-            console.log(type);
+            // console.log(data);
+            // console.log(type);
 
             if (ValidaEan(data)) {
+                // console.log("codigo valido")
                 setBarcodeReader(true);
-                getProduto(data);
+                getProdutoLocal(data);
             }else{
                 setMsnModal("Codigo de Barras Inválido");
                 setModalActive(true);
