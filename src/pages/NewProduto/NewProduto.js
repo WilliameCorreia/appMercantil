@@ -68,6 +68,7 @@ export default function NewProduto({ navigation, route }) {
                 })
                 // console.log(route.params.produto)
             }
+            // else if()
         } catch (error) {
             console.log(error)
         }
@@ -93,7 +94,7 @@ export default function NewProduto({ navigation, route }) {
                         Preco: result.preco_Medio,
                         CategoriaId: result.categoria,
                         Codbar: result.codbar,
-                        FotoPng: result.foto_Png
+                        fotoPng: result.foto_Png
                     });
                     setSearchLoad(false)
                 } else {
@@ -133,85 +134,56 @@ export default function NewProduto({ navigation, route }) {
 
     const adicionarProduto = () => {
         console.log("**********Adicionando Produto********")
-        let foto = null;
-        if (!produto.fotoPng) {
+        let foto = produto.fotoPng;
+        if(ImgProduto){
             foto = produto.Codbar + '.' + 'png'
-        } else {
-            //caso o produto já possua foto o valor de ImgProduto é setado como null
-            //para que nao seja enviado um novo uploa e assim substitua o arquivo na amazon
-            ImgProduto = null;
-            foto = produto.fotoPng
         }
+        // if (!produto.fotoPng) {
+        //     foto = produto.Codbar + '.' + 'png'
+        // } 
+        // else {
+        //     //caso o produto já possua foto o valor de ImgProduto é setado como null
+        //     //para que nao seja enviado um novo uploa e assim substitua o arquivo na amazon
+        //     // ImgProduto = null;
+        //     foto = produto.fotoPng
+        //     console.log(foto)
+        // }
         if (ValidaEan(produto.Codbar)) {
-            if (ImgProduto) {
 
-                Api.post("v1/Produtos", {
-                    _Produto: produto.Produto,
-                    quantidade: parseInt(produto.Quantidade),
-                    preco: produto.Preco,
-                    categoriaId: GetId(produto.CategoriaId),
-                    codeBar: produto.Codbar,
-                    fotoPng: foto,
-                    estabelecimentoId: Estabelecimento.id
-                }, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                }).then(response => {
-                    const { result } = response.data;
-                    //só envia a imagem do produto para amazon caso o usuário
-                    //já tenha escolhido a foto
-                    if (ImgProduto) {
-                        UploadFile(token, ImgProduto, result.value.codeBar, "produtos")
-                    }
+            Api.post("v1/Produtos", {
+                _Produto: produto.Produto,
+                quantidade: parseInt(produto.Quantidade),
+                preco: produto.Preco,
+                categoriaId: GetId(produto.CategoriaId),
+                codeBar: produto.Codbar,
+                fotoPng: foto,
+                estabelecimentoId: Estabelecimento.id
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(response => {
+                const { result } = response.data;
+                //só envia a imagem do produto para amazon caso o usuário
+                //já tenha escolhido a foto
+                if (ImgProduto) {
+                    UploadFile(token, ImgProduto, result.value.codeBar, "produtos")
+                }
 
-                    // console.log(response.data.codeBar)
+                // console.log(response.data.codeBar)
 
-                    //UploadFile("appmercantilimagens", "/ImagensPng/png", ImgProduto, response.data.Codbar, "produtos")
+                //UploadFile("appmercantilimagens", "/ImagensPng/png", ImgProduto, response.data.Codbar, "produtos")
 
-                    //UploadFile("appmercantilestabelecimento/images", file, response.data.Codbar)
-                    setMsnModal("Produto cadastrado com sucesso !");
-                    setModalActive(true);
-                    setProduto({ Produto: '', Quantidade: '', Preco: '', CategoriaId: '', Codbar: '', FotoPng: '' })
-                }).catch(erro => {
-                    setMsnModal("Erro ao cadastrar o Produto !" + erro);
-                    setModalActive(true);
-                    console.log(erro);
-                })
-            } else {
-                Api.post("v1/Produtos", {
-                    _Produto: produto.Produto,
-                    quantidade: parseInt(produto.Quantidade),
-                    preco: produto.Preco,
-                    categoriaId: GetId(produto.CategoriaId),
-                    codeBar: produto.Codbar,
-                    estabelecimentoId: Estabelecimento.id
-                }, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                }).then(response => {
-                    const { result } = response.data;
-                    //só envia a imagem do produto para amazon caso o usuário
-                    //já tenha escolhido a foto
-                    if (ImgProduto) {
-                        UploadFile(token, ImgProduto, result.value.codeBar, "produtos")
-                    }
+                //UploadFile("appmercantilestabelecimento/images", file, response.data.Codbar)
+                setMsnModal("Produto cadastrado com sucesso !");
+                setModalActive(true);
+                setProduto({ Produto: '', Quantidade: '', Preco: '', CategoriaId: '', Codbar: '', FotoPng: '' })
+            }).catch(erro => {
+                setMsnModal("Erro ao cadastrar o Produto !" + erro);
+                setModalActive(true);
+                console.log(erro);
+            })
 
-                    // console.log(response.data.codeBar)
-
-                    //UploadFile("appmercantilimagens", "/ImagensPng/png", ImgProduto, response.data.Codbar, "produtos")
-
-                    //UploadFile("appmercantilestabelecimento/images", file, response.data.Codbar)
-                    setMsnModal("Produto cadastrado com sucesso !");
-                    setModalActive(true);
-                    setProduto({ Produto: '', Quantidade: '', Preco: '', CategoriaId: '', Codbar: '', FotoPng: '' })
-                }).catch(erro => {
-                    setMsnModal("Erro ao cadastrar o Produto !" + erro);
-                    setModalActive(true);
-                    console.log(erro);
-                })
-            }
         } else {
             setMsnModal("Favor digitar um codigo de barras válido");
             setModalActive(true);
@@ -227,10 +199,11 @@ export default function NewProduto({ navigation, route }) {
         }).then(response => {
             const { result } = response.data;
             if (result) {
-                setMsnModal("Produto já Cadastrado ");
+                setMsnModal("Não é possível adicionar o produto pois já está Cadastrado em seu estabelecimento!");
                 setModalActive(true);
             } else {
-                adicionarProduto();
+            adicionarProduto();
+            console.log("vai adicionar agora")
             }
         }).catch(erro => {
             setMsnModal("Erro ao consultar produto " + erro);
