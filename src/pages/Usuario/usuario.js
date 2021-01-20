@@ -16,7 +16,7 @@ import api from '../../Services/api'
 import UploadFile from '../../Services/UploadFile'
 import DeleteFile from '../../Services/DeleteFile'
 
-import ImagePicker from 'react-native-image-picker';
+// import ImagePicker from 'react-native-image-picker';
 
 
 import { EstabelecimentosContext } from '../../Contexts/EstabelecimentoContext'

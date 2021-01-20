@@ -4,7 +4,7 @@ const windowWidth = Dimensions.get('window').width / 100
 const windowHeight = Dimensions.get('window').height / 100
 
 import { EstabelecimentosContext } from '../Contexts/EstabelecimentoContext'
-import ImagePicker from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 import UploadFile from '../Services/UploadFile'
 import DeleteFile from '../Services/DeleteFile'
@@ -31,7 +31,9 @@ export default function ProfilePhoto(props) {
             }
         }
 
-        ImagePicker.showImagePicker(options, (response) => {
+        // console.log(launchImageLibrary)
+
+        launchImageLibrary(options, (response) => {
             // console.log('resultado do seletor de imagem', response);
 
             if (response.didCancel) {

@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react'
 import { StyleSheet, Image, TouchableOpacity } from 'react-native'
-import ImagePicker from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 import UploadFile from '../Services/UploadFile';
 import AuthContext from '../Contexts/Auth';
 
@@ -23,7 +23,7 @@ export default function FotoProduto(props) {
                 path: 'images',
             }
         }
-        ImagePicker.showImagePicker(options, (response) => {
+        launchImageLibrary(options, (response) => {
             console.log('resultado do seletor de imagem');
 
             if (response.didCancel) {
