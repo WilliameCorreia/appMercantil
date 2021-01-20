@@ -7,13 +7,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff"
     },
     box1: {
-        flex: 1,
+        flex: 2,
         marginTop: 20,
         marginLeft: 20,
         marginRight: 20
     },
     box2: {
-        flex: 3,
+        flex: 4,
         marginLeft: 20,
         marginRight: 20,
         flexDirection: 'row',

@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     img: {
         height: '100%',
         width: DEVICE_WIDTH,
-        resizeMode: 'stretch'
+        resizeMode: 'center'
     },
     circleDiv: {
         position: "absolute",
