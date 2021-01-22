@@ -19,6 +19,7 @@ import MyModal from "../../Componentes/MyModal"
 import UploadFile from '../../Services/UploadFile'
 
 import FotoProduto from '../../Componentes/FotoProduto'
+import { ProdutosContext } from '../../Contexts/ProdutoContext';
 
 
 export default function NewProduto({ navigation, route }) {
@@ -27,7 +28,10 @@ export default function NewProduto({ navigation, route }) {
 
     const { Estabelecimento, token } = useContext(AuthContext);
 
-    const [categorias, setCategorias] = useState([]);
+    const { LoadCategorias, categorias } = useContext(ProdutosContext);
+
+    const [Cac, setCac] = useState(categorias.filter(c => c.tipoEstabId === Estabelecimento.tipoEstabId))
+    console.log(categorias)
 
     const [searchLoad, setSearchLoad] = useState(false);
     const [search, setSearch] = useState(false);
@@ -52,7 +56,7 @@ export default function NewProduto({ navigation, route }) {
     }
 
     useEffect(() => {
-        getCategorias();
+        LoadCategorias();
         try {
             if (route.params) {
                 let { produto } = route.params
@@ -113,18 +117,7 @@ export default function NewProduto({ navigation, route }) {
         }
     }
 
-    const getCategorias = () => {
-        Api.get("v1/Categorias", {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }).then(response => {
-            const { result } = response.data;
-            setCategorias(result)
-        }).catch(erro => {
-            console.log(erro);
-        });
-    }
+    
 
     // const teste = () =>{
     //     if (ImgProduto) {
@@ -313,7 +306,7 @@ export default function NewProduto({ navigation, route }) {
                             mode="dropdown"
                         >
                             <Picker.Item label={"Selecione"} />
-                            {categorias.map(item =>
+                            {Cac.map(item =>
                                 <Picker.Item label={item.nome} value={item.id} />
                             )}
                         </Picker>

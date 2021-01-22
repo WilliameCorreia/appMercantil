@@ -134,6 +134,7 @@ const Styles = StyleSheet.create({
         borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: "4%"
     }
 })
 
