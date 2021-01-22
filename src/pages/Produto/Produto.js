@@ -26,9 +26,11 @@ import { Picker } from '@react-native-community/picker'
 export default function Produto({ navigation, route, }) {
 
     const { LoadCategorias, categorias } = useContext(ProdutosContext);
-
+    
     const { Estabelecimento, token } = useContext(AuthContext);
-
+    
+    const [Categorias, setCategorias] = useState(categorias.filter(c => c.tipoEstabId === Estabelecimento.tipoEstabId))
+    
     const [modalActive, setModalActive] = useState(false);
     const [msnModal, setMsnModal] = useState('primeira passada');
     const [load, setLoad] = useState(false);
@@ -237,13 +239,13 @@ export default function Produto({ navigation, route, }) {
                                     <View style={Styles.picker}>
                                         <Picker
                                             style={{ width: "70%", textAlign: 'center' }}
-                                            selectedValue={categorias.find(cat => cat.id === CatInterna).id}
+                                            selectedValue={Categorias.find(cat => cat.id === CatInterna).id}
                                             itemStyle={{ textAlign: 'center' }}
                                             onValueChange={(itemValue, itemIndex) => itemValue?setCatInterna(itemValue):""}
                                             mode="dropdown"
                                         >
                                             <Picker.Item label={"Selecione"} />
-                                            {categorias.map(item =>
+                                            {Categorias.map(item =>
                                                 <Picker.Item label={item.nome} value={item.id} />
                                             )}
                                         </Picker>

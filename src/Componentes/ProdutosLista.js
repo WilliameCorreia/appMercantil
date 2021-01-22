@@ -1,21 +1,25 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Dimensions } from 'react-native'
 
 
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 import { Image } from 'react-native-elements';
 import { ProdutosContext } from '../Contexts/ProdutoContext'
+import { EstabelecimentosContext } from '../Contexts/EstabelecimentoContext'
 
 export default function ProdutosLista( { navigation } ) {
 
     const { categorias } = useContext(ProdutosContext)
+    const { Estabelecimento } = useContext(EstabelecimentosContext)
+    const [Categorias, setCategorias] = useState(categorias.filter(c => c.tipoEstabId === Estabelecimento.tipoEstabId))
+    // console.log(Estabelecimento.tipoEstabId)
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             {Array(10).fill(
-                <ShimmerPlaceHolder style={styles.uriShimmer} autoRun={true} visible={categorias.length != 0} />
+                <ShimmerPlaceHolder style={styles.uriShimmer} autoRun={true} visible={Categorias.length != 0} />
             )}
-            {categorias.map(item => {
+            {Categorias.map(item => {
                 return (
                     <TouchableOpacity
                         style={styles.btnCategoria}
