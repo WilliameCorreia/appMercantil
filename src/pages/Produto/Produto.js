@@ -52,6 +52,10 @@ export default function Produto({ navigation, route, }) {
     const codBar = useRef();
 
     const ProdutoUpdate = (values) => {
+        let nomeFoto = null
+        if(EdicaoFoto){
+            nomeFoto = `${values.codBar}.png`
+        }
         if (ValidaEan(values.codBar)) {
             Api.put(`v1/Produtos/${produto.id}`, {
                 _Produto: values.produto,
@@ -59,7 +63,7 @@ export default function Produto({ navigation, route, }) {
                 preco: values.preco,
                 categoriaId: CatInterna,
                 codeBar: values.codBar,
-                fotoPng: values.fotoPng,
+                fotoPng: nomeFoto,
                 estabelecimentoId: Estabelecimento.id,
                 oferta: produto.oferta
             }, {
@@ -72,7 +76,8 @@ export default function Produto({ navigation, route, }) {
                     setMsnModal("Produto alterado com sucesso !");
                     setModalActive(true);
                     LoadCategorias();
-                    if (EdicaoFoto) {
+                    if (EdicaoFoto) {                        
+                        // console.log(EdicaoFoto[4])
                         UploadFile(EdicaoFoto[0], EdicaoFoto[1], EdicaoFoto[2], EdicaoFoto[3], EdicaoFoto[4])
                     }
                     //  else {
@@ -235,7 +240,6 @@ export default function Produto({ navigation, route, }) {
                                     </View>
                                 </View>
                                 <View style={[Styles.item5]}>
-                                    {console.log(produto)}
                                     <View style={Styles.picker}>
                                         <Picker
                                             style={{ width: "70%", textAlign: 'center' }}

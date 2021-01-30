@@ -6,7 +6,7 @@ import { Alert } from 'react-native'
 
 
 const UploadFile = async (token, file, nomeProduto, tela, deletar) => {
-
+    
     const base64 = await fs.readFile(file.uri, 'base64')
 
     function upload() {
@@ -28,6 +28,10 @@ const UploadFile = async (token, file, nomeProduto, tela, deletar) => {
         }
         else if (tela === "produtos") {
             console.log("vai enviar a foto do produto")
+            // console.log("*******************************")
+    // console.log(token, file, nomeProduto, tela, deletar)
+
+        
             api.post(`v1/FileStreamUpload?nameFile=${nomeProduto}&urlContainerBlob=${"planeta-produtos/ImagensPng/png"}`, {
                 image: base64
                 
@@ -38,7 +42,9 @@ const UploadFile = async (token, file, nomeProduto, tela, deletar) => {
             }).then(response => {
                 // console.log(response)
                 Alert.alert("Foto do produto Atualizada com sucesso!")
-            })
+            }).catch(erro => {
+                console.log(erro);
+            });
         }
     }
 
