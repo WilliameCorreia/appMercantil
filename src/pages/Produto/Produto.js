@@ -53,8 +53,12 @@ export default function Produto({ navigation, route, }) {
 
     const ProdutoUpdate = (values) => {
         let nomeFoto = null
-        if(EdicaoFoto){
-            nomeFoto = `${values.codBar}.png`
+        if(!values.fotoPng){
+            if(EdicaoFoto){
+                nomeFoto = `${values.codBar}.png`
+            }
+        }else{
+            nomeFoto = values.fotoPng
         }
         if (ValidaEan(values.codBar)) {
             Api.put(`v1/Produtos/${produto.id}`, {
