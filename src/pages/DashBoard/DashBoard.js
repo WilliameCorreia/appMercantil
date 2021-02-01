@@ -6,6 +6,7 @@ import storage from '@react-native-firebase/storage';
 import { Button } from 'react-native-elements'
 import styles from './style'
 import CarroselImage from '../../Componentes/CarroselImage'
+import MudaStatusFuncionamento from '../MudaStatusFuncionamento/MudaStatusFuncionamento';
 
 const reference = storage().ref('/Propagandas');
 
@@ -109,6 +110,7 @@ export default function DashBoard({ navigation }) {
                     />
                 </View>
             </View>
+            <MudaStatusFuncionamento />
         </View>
     )
 }

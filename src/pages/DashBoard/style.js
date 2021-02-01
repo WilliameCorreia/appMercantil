@@ -20,9 +20,17 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: 'center',
     },
+    box3: {
+        flex: 4,
+        marginLeft: 20,
+        marginRight: 20,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+    },
     btn: {
         width: (Dimensions.get('window').width / 40 * 17),
-        height: (Dimensions.get('window').height /4),
+        height: (Dimensions.get('window').height /100 * 22),
         backgroundColor: '#fff',
     },
     cont_btn: {
