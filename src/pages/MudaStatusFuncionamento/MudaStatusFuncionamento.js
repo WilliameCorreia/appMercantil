@@ -12,8 +12,12 @@ export default function MudaStatusFuncionamento() {
     const [fechado, setFechado] = useState();
 
     useEffect(() => {
-        setFechado(estabelecimentoFechado)
-    }, [estabelecimentoFechado])
+        if(estabelecimentoFechado){
+            setFechado(estabelecimentoFechado)
+        }else{
+            setFechado('s')
+        }
+    }, [Estabelecimento])
 
     function modificaFuncionamento(status){
         api.put(`v1/Estabelecimentos/EstabelecimentoFechado/${Estabelecimento.id}`, {
@@ -36,7 +40,6 @@ export default function MudaStatusFuncionamento() {
             }
         }).then(dados => {
             if (dados.data.result) {
-                console.log(dados.data.result.estabelecimentoFechado)
                 setFechado(dados.data.result.estabelecimentoFechado)
             }
         }).catch(errors => {
@@ -71,7 +74,7 @@ export default function MudaStatusFuncionamento() {
 
 const Styles = StyleSheet.create({
     picker: {
-        elevation: 10,
+        elevation: 5,
         backgroundColor: '#fff',
         borderRadius: 30,
         // justifyContent: 'space-between' ,

@@ -1,7 +1,9 @@
-import React, { Component, useContext, useState, useRef } from 'react'
-import { Image, Text, View, TouchableWithoutFeedback, TextInput, TouchableOpacity, ScrollView } from 'react-native'
+import React, { Component, useContext, useState, useRef, useEffect } from 'react'
+import { Image, Text, View, Dimensions, TextInput, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Picker } from '@react-native-community/picker'
+
+const windowHeight = Dimensions.get('window').height / 100
 
 
 import Styles from './style'
@@ -24,6 +26,7 @@ import { EstabelecimentosContext } from '../../Contexts/EstabelecimentoContext'
 import S3 from 'aws-sdk/clients/s3';
 import { decode } from 'base64-arraybuffer';
 import fs from 'react-native-fs';
+import CadastroEndereco from '../Cadastro/CadastroEndereco/CadastroEndereco'
 
 
 export default function usuario({ route }) {
@@ -34,6 +37,29 @@ export default function usuario({ route }) {
     const [tipo_Estabelecimento, setTipo_Estabelecimento] = useState(Estabelecimento.tipoEstabelecimento ? +Estabelecimento.tipoEstabelecimento : Estabelecimento.tipoEstabelecimento);
     const [modalActive, setModalActive] = useState(false);
     const [msnModal, setMsnModal] = useState('primeira passada');
+    const [_endereco, set_endereco] = useState(Estabelecimento.enderecos);
+    const [_enderecoE, set_enderecoE] = useState(<ActivityIndicator />);
+    const [enderecoLoad, setEnderecoLoad] = useState(false);
+
+    // useEffect(() => {
+    //     if(typeof (_endereco) !== "object" && enderecoLoad){
+    //         setTimeout(() => {
+    //             setEnderecoLoad(false);
+                
+    //         }, 3000);
+    //     }
+    // }, [enderecoLoad])
+
+    useEffect(() => {
+        if (typeof (_endereco) === "object") {
+            set_enderecoE(<Text style={[Styles.itemText, { textAlign: "center", marginLeft: 0 }]}>{`${_endereco.rua}, ${_endereco.numero}, ${_endereco.bairro}, ${_endereco.cidade} - ${_endereco.estado} - ${_endereco.cep}`}</Text>)
+        } else {
+            // set_enderecoE(<ActivityIndicator />)
+            // setTimeout(() => {
+                set_enderecoE(<Text style={[Styles.itemText, { textAlign: "center", marginLeft: 0 }]}>Nenhum endereço cadastrado!</Text>)
+            // }, 3000);
+        }
+    }, [_endereco])
 
     //campos de cadastro
     const razaoSocial = useRef();
@@ -50,9 +76,9 @@ export default function usuario({ route }) {
     const complemento = useRef();
 
     const registrarEstabelecimento = (values) => {
-        if(values === "foto"){
+        if (values === "foto") {
             console.log(values)
-        }else{
+        } else {
             api.put(`v1/Estabelecimentos/${Estabelecimento.id}`, {
                 token: Estabelecimento.token,
                 email: Estabelecimento.email,
@@ -63,8 +89,10 @@ export default function usuario({ route }) {
                 tipoEstabId: tipo_Estabelecimento,
                 tipoEstabelecimento: tipo_Estabelecimento !== null ? tipo_Estabelecimento.toString() : null,
                 telefones: values.telefone,
-                enderecos: values.enderecos,
+                enderecos: "",
+                // enderecos: _endereco,
                 fotoName: Estabelecimento.fotoName,
+                estabelecimentoFechado: Estabelecimento.estabelecimentoFechado,
                 tipo_Estabelecimento: Catestabelecimento.find(cat => cat.tipoEstab_Id === tipo_Estabelecimento) || {}
             }, {
                 headers: {
@@ -139,7 +167,7 @@ export default function usuario({ route }) {
                 estabelecimentoR: Estabelecimento._Estabelecimento,
                 cnpj: Estabelecimento.cnpj,
                 razaoSocial: Estabelecimento.razaoSocial,
-                enderecos: Estabelecimento.enderecos,
+                enderecos: _endereco,
                 telefone: Estabelecimento.telefones,
                 // cep: '',
                 // cidade: '',
@@ -200,17 +228,6 @@ export default function usuario({ route }) {
                             />
                             {errors.numero && <Text style={Styles.textErro}>{errors.numero}</Text>}
                         </View>
-                        <View style={Styles.item}>
-                            <Text style={Styles.itemText}>Endereço</Text>
-                            <TextInput
-                                style={Styles.itemInput}
-                                ref={enderecos}
-                                value={values.enderecos}
-                                onChangeText={handleChange('enderecos')}
-                                placeholder='enderecos'
-                            />
-                            {errors.numero && <Text style={Styles.textErro}>{errors.numero}</Text>}
-                        </View>
                         <View style={[Styles.item, { marginBottom: 0 }]}>
                             <Text style={Styles.itemText}>Telefone</Text>
                             <TextInput
@@ -245,6 +262,23 @@ export default function usuario({ route }) {
                                     )}
                                 </Picker>
                             </View>
+                        </View>
+                        <View style={[Styles.item, {  backgroundColor: 'white', marginBottom: windowHeight * 6, marginLeft: "2%" }]}>
+                            <Text style={[Styles.itemText, { textAlign: "center", marginLeft: 0 }]}>Endereço</Text>
+                            {enderecoLoad?<ActivityIndicator />: _enderecoE}
+                            {/* <Text style={[Styles.itemText, { textAlign: "center", marginLeft: 0 }]}>{_enderecoE}</Text> */}
+                            <TouchableOpacity style={Styles.btnGeolocalizacao} onPress={() => CadastroEndereco(set_endereco, setEnderecoLoad)}>
+                                <Text style={Styles.btnGeolocalizacaoText} >Obter localização</Text>
+                            </TouchableOpacity>
+                            {/* <TextInput
+                                style={Styles.itemInput}
+                                ref={enderecos}
+                                value={_endereco.rua}
+                                onChangeText={handleChange('enderecos')}
+                                placeholder='enderecos'
+                                editable={false}
+                            /> */}
+                            {errors.numero && <Text style={Styles.textErro}>{errors.numero}</Text>}
                         </View>
                     </ScrollView>
                     <View style={Styles.box3}>
