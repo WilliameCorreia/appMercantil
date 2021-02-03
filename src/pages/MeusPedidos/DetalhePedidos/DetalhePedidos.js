@@ -43,6 +43,7 @@ export default function DetalhePedidos({ route, navigation }) {
 
                 //zera a lista de pedidos para que seja obrigatório buscar novamente
                 dados[2]([]);
+                // dados[2](true);
 
                 // navigation.navigate('MeusPedidos');
 

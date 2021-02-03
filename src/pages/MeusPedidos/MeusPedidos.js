@@ -12,7 +12,6 @@ export default function MeusPedidos({ navigation }) {
 
     // const [corStatus, setCorStatus] = useState("")
     const [pedidos, setPedidos] = useState([])
-
     let corStatus = ""
 
     const traduzSiglaStatus = (sigla) => {
@@ -42,24 +41,25 @@ export default function MeusPedidos({ navigation }) {
     }
 
     useEffect(() => {
-        getPedidos()
+        if (pedidos.length < 1) {
+            getPedidos();
+        }
 
-    }, [])
+    }, [pedidos])
 
     return (
         <ScrollView style={Styles.container}>
             <View>
                 {pedidos.sort(function (a, b) {
                     return new Date(a.dataHora_Pedido) - new Date(b.dataHora_Pedido)
-                }).reverse().sort(function (a, b) {
-                    if(a.status_Pedido==="A" && b.status_Pedido!=="A"){
+                }).sort(function (a, b) {
+                    if (a.status_Pedido === "C" && b.status_Pedido !== "C") {
                         return -1
-                    }else{
+                    } else {
                         return 1
                     }
-                }).map((order, index) =>
+                }).reverse().map((order, index) =>
                     <View key={index}>
-                        {console.log(order.dataHora_Pedido)}
                         <TouchableOpacity style={Styles.item}
                             onPress={() => navigation.navigate('DetalhePedidos', [order, traduzSiglaStatus, setPedidos])}
                         >
@@ -69,6 +69,9 @@ export default function MeusPedidos({ navigation }) {
                             </View>
                             <View style={Styles.box1}>
                                 <Text style={[Styles.textGrande, Styles.cinza]}>{order.cod_Pedido.toString().length < 2 ? `#0${order.cod_Pedido}` : `#${order.cod_Pedido}`}</Text>
+                                <Text style={[Styles.textGrande, Styles.cinza]}>
+                                    {`${new Date(order.dataHora_Pedido).getDate()}/${new Date(order.dataHora_Pedido).getMonth() + 1}/${new Date(order.dataHora_Pedido).getFullYear()} - ${new Date(order.dataHora_Pedido).toISOString().replace('.000Z', '').split('T')[1]}`}
+                                </Text>
                             </View>
                         </TouchableOpacity>
                     </View>
