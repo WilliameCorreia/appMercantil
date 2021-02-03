@@ -64,7 +64,7 @@ export default function DetalhePedidos({ route, navigation }) {
 
     return (
         <View style={Styles.container}>
-            {/* {console.log(dados[0].produtos)} */}
+            {/* {console.log(dados[0].clientes)} */}
             <View style={Styles.box1}>
                 <View style={Styles.item1}>
                     <View style={Styles.item1_1}>
@@ -95,7 +95,7 @@ export default function DetalhePedidos({ route, navigation }) {
                                 dados[0].clientes.enderecos[0].cep
                             }
                         </Text>
-                        <Text style={Styles.TextTelefone}>{dados[0].telefone ? "TELEFONE - " + dados[0].telefone : "TELEFONE NÃO CADASTRADO"}</Text>
+                        <Text style={Styles.TextTelefone}>{dados[0].clientes.telefone ? "TELEFONE - " + dados[0].clientes.telefone : "TELEFONE NÃO CADASTRADO"}</Text>
                     </View>
                 </View>
                 <View style={Styles.item3}>
