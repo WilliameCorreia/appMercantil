@@ -38,27 +38,19 @@ export default function usuario({ route }) {
     const [modalActive, setModalActive] = useState(false);
     const [msnModal, setMsnModal] = useState('primeira passada');
     const [_endereco, set_endereco] = useState(Estabelecimento.enderecos);
-    const [_enderecoE, set_enderecoE] = useState(<ActivityIndicator />);
+    const [_enderecoE, set_enderecoE] = useState();
     const [enderecoLoad, setEnderecoLoad] = useState(false);
 
-    // useEffect(() => {
-    //     if(typeof (_endereco) !== "object" && enderecoLoad){
-    //         setTimeout(() => {
-    //             setEnderecoLoad(false);
-                
-    //         }, 3000);
-    //     }
-    // }, [enderecoLoad])
 
     useEffect(() => {
-        if (typeof (_endereco) === "object") {
-            set_enderecoE(<Text style={[Styles.itemText, { textAlign: "center", marginLeft: 0 }]}>{`${_endereco.rua}, ${_endereco.numero}, ${_endereco.bairro}, ${_endereco.cidade} - ${_endereco.estado} - ${_endereco.cep}`}</Text>)
-        } else {
-            // set_enderecoE(<ActivityIndicator />)
-            // setTimeout(() => {
+            if (_endereco.includes("{") && _endereco.length > 0) {
+                    let c = JSON.parse(_endereco);
+                    if (c) {
+                        set_enderecoE(<Text style={[Styles.itemText, { textAlign: "center", marginLeft: 0 }]}>{`${c.rua}, ${c.numero}, ${c.bairro}, ${c.cidade} - ${c.estado} - ${c.cep}`}</Text>)
+                    }
+            } else {
                 set_enderecoE(<Text style={[Styles.itemText, { textAlign: "center", marginLeft: 0 }]}>Nenhum endereço cadastrado!</Text>)
-            // }, 3000);
-        }
+            }
     }, [_endereco])
 
     //campos de cadastro
@@ -89,8 +81,7 @@ export default function usuario({ route }) {
                 tipoEstabId: tipo_Estabelecimento,
                 tipoEstabelecimento: tipo_Estabelecimento !== null ? tipo_Estabelecimento.toString() : null,
                 telefones: values.telefone,
-                enderecos: "",
-                // enderecos: _endereco,
+                enderecos: _endereco,
                 fotoName: Estabelecimento.fotoName,
                 estabelecimentoFechado: Estabelecimento.estabelecimentoFechado,
                 tipo_Estabelecimento: Catestabelecimento.find(cat => cat.tipoEstab_Id === tipo_Estabelecimento) || {}
@@ -263,21 +254,13 @@ export default function usuario({ route }) {
                                 </Picker>
                             </View>
                         </View>
-                        <View style={[Styles.item, {  backgroundColor: 'white', marginBottom: windowHeight * 6, marginLeft: "2%" }]}>
+                        <View style={[Styles.item, { backgroundColor: 'white', marginBottom: windowHeight * 6, marginLeft: "2%" }]}>
                             <Text style={[Styles.itemText, { textAlign: "center", marginLeft: 0 }]}>Endereço</Text>
-                            {enderecoLoad?<ActivityIndicator />: _enderecoE}
-                            {/* <Text style={[Styles.itemText, { textAlign: "center", marginLeft: 0 }]}>{_enderecoE}</Text> */}
+                            {enderecoLoad ? <ActivityIndicator color={"red"} style={{ marginBottom: 3 }} /> : _enderecoE}
+                            {/* {console.log(typeof( _endereco))} */}
                             <TouchableOpacity style={Styles.btnGeolocalizacao} onPress={() => CadastroEndereco(set_endereco, setEnderecoLoad)}>
                                 <Text style={Styles.btnGeolocalizacaoText} >Obter localização</Text>
                             </TouchableOpacity>
-                            {/* <TextInput
-                                style={Styles.itemInput}
-                                ref={enderecos}
-                                value={_endereco.rua}
-                                onChangeText={handleChange('enderecos')}
-                                placeholder='enderecos'
-                                editable={false}
-                            /> */}
                             {errors.numero && <Text style={Styles.textErro}>{errors.numero}</Text>}
                         </View>
                     </ScrollView>

@@ -38,7 +38,7 @@ export default function CadastroEndereco(set_endereco, setEnderecoLoad) {
                         //     numero: '',
                         // });
                     }
-                    set_endereco(endereco);
+                    set_endereco(JSON.stringify(endereco));
                     setEnderecoLoad(false);
                     // props(`${endereco.rua}, ${endereco.numero}, ${endereco.bairro}, ${endereco.cidade} - ${endereco.estado} - ${endereco.cep}`);
                 })

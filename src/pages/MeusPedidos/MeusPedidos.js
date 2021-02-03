@@ -9,18 +9,18 @@ import verificaCor from '../../Services/verificaCor.js';
 
 export default function MeusPedidos({ navigation }) {
     const { token, Estabelecimento } = useContext(AuthContext);
-    
+
     // const [corStatus, setCorStatus] = useState("")
     const [pedidos, setPedidos] = useState([])
-    
+
     let corStatus = ""
 
     const traduzSiglaStatus = (sigla) => {
-               
-        const retorno = statusPedidos.find( status => status.value === sigla );
-        if(!retorno){
+
+        const retorno = statusPedidos.find(status => status.value === sigla);
+        if (!retorno) {
             return "null"
-        }  
+        }
         return retorno.label
     }
 
@@ -44,15 +44,24 @@ export default function MeusPedidos({ navigation }) {
     useEffect(() => {
         getPedidos()
 
-    }, [pedidos])
+    }, [])
 
     return (
         <ScrollView style={Styles.container}>
             <View>
-                {pedidos.map((order, index) =>
+                {pedidos.sort(function (a, b) {
+                    return new Date(a.dataHora_Pedido) - new Date(b.dataHora_Pedido)
+                }).reverse().sort(function (a, b) {
+                    if(a.status_Pedido==="A" && b.status_Pedido!=="A"){
+                        return -1
+                    }else{
+                        return 1
+                    }
+                }).map((order, index) =>
                     <View key={index}>
+                        {console.log(order.dataHora_Pedido)}
                         <TouchableOpacity style={Styles.item}
-                            onPress={() => navigation.navigate('DetalhePedidos', [order,traduzSiglaStatus, setPedidos])}
+                            onPress={() => navigation.navigate('DetalhePedidos', [order, traduzSiglaStatus, setPedidos])}
                         >
                             <View style={Styles.box1}>
                                 <Text style={[Styles.textGrande, Styles.cinza]}>{order.clientes.nome_Client.length > 16 ? `${order.clientes.nome_Client.substring(0, 16)}...` : order.clientes.nome_Client}</Text>
