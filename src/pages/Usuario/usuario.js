@@ -43,14 +43,16 @@ export default function usuario({ route }) {
 
 
     useEffect(() => {
+        if (_endereco) {
             if (_endereco.includes("{") && _endereco.length > 0) {
-                    let c = JSON.parse(_endereco);
-                    if (c) {
-                        set_enderecoE(<Text style={[Styles.itemText, { textAlign: "center", marginLeft: 0 }]}>{`${c.rua}, ${c.numero}, ${c.bairro}, ${c.cidade} - ${c.estado} - ${c.cep}`}</Text>)
-                    }
-            } else {
-                set_enderecoE(<Text style={[Styles.itemText, { textAlign: "center", marginLeft: 0 }]}>Nenhum endereço cadastrado!</Text>)
+                let c = JSON.parse(_endereco);
+                if (c) {
+                    set_enderecoE(<Text style={[Styles.itemText, { textAlign: "center", marginLeft: 0 }]}>{`${c.rua}, ${c.numero}, ${c.bairro}, ${c.cidade} - ${c.estado} - ${c.cep}`}</Text>)
+                }
             }
+        }else {
+            set_enderecoE(<Text style={[Styles.itemText, { textAlign: "center", marginLeft: 0 }]}>Nenhum endereço cadastrado!</Text>)
+        }
     }, [_endereco])
 
     //campos de cadastro
