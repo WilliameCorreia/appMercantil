@@ -40,7 +40,7 @@ const Styles = StyleSheet.create({
     item4_1_AText: { textAlign: "center" },
     item4_1_B: { width: "58%", backgroundColor: "#fff" },
     item4_1_BText: { textAlign: "left" },
-    item4_1_C: { width: "10%", backgroundColor: "#fff" },
+    item4_1_C: { width: "15%", backgroundColor: "#fff" },
     item4_1_CText: { textAlign: "left" },
 
     item5: { height: "6%", backgroundColor: '#fff', flexDirection: 'row', paddingVertical:10 },

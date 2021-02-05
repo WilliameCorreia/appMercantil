@@ -54,17 +54,20 @@ export default function DetalhePedidos({ route, navigation }) {
     }
 
     function somar() {
-        let total = 0;
-        dados[0].produtos.map(item => {
-            total += +item.preco.replace(',', '.') * (+item.quantidade);
-        })
-        return total
+        // console.log("**************")
+        // console.log( dados[0].valor_Total.toFixed(2).replace('.', ','))
+        // console.log(dados[0].produtos)
+        // console.log(dados[0].carrinhos)
+        // let total = 0;
+        // dados[0].produtos.map(item => {
+        //     total += +item.preco.replace(',', '.') * (+item.quantidade);
+        // })
+        return dados[0].valor_Total.toFixed(2).replace('.', ',')
     }
 
 
     return (
         <View style={Styles.container}>
-            {/* {console.log(dados[0].clientes)} */}
             <View style={Styles.box1}>
                 <View style={Styles.item1}>
                     <View style={Styles.item1_1}>
@@ -111,18 +114,21 @@ export default function DetalhePedidos({ route, navigation }) {
                     </View>
                 </View>
                 <View style={Styles.item4}>
-                    {dados[0].produtos.map((item, index) =>
+                    {/* {dados[0].produtos.map((produto_, index) => */}
+                    {dados[0].carrinhos.map((c, index) =>(
+                        
                         <View style={Styles.item4_1} key={index}>
                             <View style={Styles.item4_1_A}>
-                                <Text style={Styles.item4_1_AText}>{item.quantidade}</Text>
+                                <Text style={Styles.item4_1_AText}>{c.quantidade}</Text>
                             </View>
                             <View style={Styles.item4_1_B}>
-                                <Text style={Styles.item4_1_BText}>{item._Produto}</Text>
+                                <Text style={Styles.item4_1_BText}>{dados[0].produtos.find(p => p.id === c.produtosId)._Produto.length>25?dados[0].produtos.find(p => p.id === c.produtosId)._Produto.substring(0, 25)+"...":dados[0].produtos.find(p => p.id === c.produtosId)._Produto}</Text>
                             </View>
                             <View style={Styles.item4_1_C}>
-                                <Text style={Styles.item4_1_CText}>{item.preco}</Text>
+                                <Text style={Styles.item4_1_CText}>{dados[0].produtos.find(p => p.id === c.produtosId).preco}</Text>
                             </View>
                         </View>
+                        )
                     )}
                 </View>
                 <View style={Styles.item5}>
