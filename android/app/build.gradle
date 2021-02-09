@@ -1,3 +1,14 @@
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/' } // Gradle Plugin Portal 
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.9, 0.99.99]'
+    }
+}
+
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
@@ -132,10 +143,12 @@ android {
         applicationId "com.appmercantil"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 15
-        versionName "2.5"
+        versionCode 16
+        versionName "2.6"
         multiDexEnabled true
         missingDimensionStrategy 'react-native-camera', 'general'
+        manifestPlaceholders = [onesignal_app_id: '59bd77cc-736c-4d0c-a4f0-2991c74577f8',
+                                onesignal_google_project_number: "REMOTE"]
     }
     splits {
         abi {
@@ -247,3 +260,4 @@ apply from: file("../../node_modules/@react-native-community/cli-platform-androi
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 apply plugin: 'com.google.gms.google-services'
+// com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

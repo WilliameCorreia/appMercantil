@@ -7,6 +7,7 @@ import AuthContext from '../../Contexts/Auth.js';
 import statusPedidos from '../../Services/statusPedidos.js';
 import verificaCor from '../../Services/verificaCor.js';
 import { date } from 'yup';
+// import {OneSignal} from 'react-native-onesignal';
 
 export default function MeusPedidos({ navigation }) {
     const { token, Estabelecimento } = useContext(AuthContext);
@@ -43,15 +44,26 @@ export default function MeusPedidos({ navigation }) {
             const { result } = response.data;
             if (result.length !== pedidos.length) {
                 setPedidos(result);
-                setTimeout(() => {
-                    setLoad(false);
-                }, 2000);
+            }
+            if (load) {
+                setLoad(false);
             }
         }).catch(erro => {
             console.log(erro);
         });
 
     }
+    useEffect(() => {
+        // console.log(OneSignal)
+        // OneSignal.setAppId("59bd77cc-736c-4d0c-a4f0-2991c74577f8");
+        // OneSignal.setLogLevel(6, 0);
+        // OneSignal.setRequiresUserPrivacyConsent(false);
+        // OneSignal.promptForPushNotificationsWithUserResponse(response => {
+        //     console.log("Prompt response:", response);})
+        // OneSignal.init("59bd77cc-736c-4d0c-a4f0-2991c74577f8");
+        // OneSignal.addEventListener('opened', onOpened);
+        // return () => OneSignal.removeEventListener('opened', onOpened);
+    }, [])
 
     useEffect(() => {
         setTimeout(() => {
@@ -62,8 +74,13 @@ export default function MeusPedidos({ navigation }) {
     useEffect(() => {
         if (pedidos.length < 1) {
             getPedidos();
-        }
+        }        
     }, [pedidos])
+
+    function onOpened(resultado) {
+        console.log('Message: ', resultado.notification.payload.body);
+        console.log('openResult: ', resultado);
+    }
 
     if (load) {
         return (
