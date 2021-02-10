@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 
 import api from '../Services/api'
 import AuthContext from '../Contexts/Auth'
+import oneSiganl from 'react-native-onesignal'
 
 export const EstabelecimentosContext = createContext();
 
@@ -75,6 +76,13 @@ const EstabelecimentoProvider = ({ children }) => {
         return () => {
         }
     }, [])
+    useEffect(() => {
+        if(Estabelecimento.id){
+            oneSiganl.setExternalUserId(Estabelecimento.id.toString());
+        }else{
+            oneSiganl.removeExternalUserId();
+        }
+    }, [Estabelecimento])
 
     return (
         <EstabelecimentosContext.Provider value={{ Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento, Catestabelecimento }} >

@@ -10,6 +10,7 @@ import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
+import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
