@@ -68,7 +68,9 @@ const styles = StyleSheet.create({
     textBtn:{
         justifyContent: 'center',
         alignItems: 'center',
+        // textAlign:"center",
         margin: 10,
+        // width:"40%"
     },
     text2:{
         color: '#fff',

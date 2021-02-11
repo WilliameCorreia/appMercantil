@@ -117,10 +117,12 @@ export default function login({ navigation }) {
                     <Text style={styles.text}>Entrar</Text>
                 </TouchableOpacity>
                 <StatusBar backgroundColor={'#FF7223'} barStyle='dark-content' />
-                <TouchableOpacity onPress={() => { navigation.navigate('Cadastro') }} style={styles.textBtn}>
-                    <Text style={styles.text2}>Ainda não possui conta ?</Text>
-                    <Text style={styles.text2}>Cadastre-se</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate('RecuperacaoSenha') }} style={styles.textBtn}>
+                        <Text style={styles.text2}>Esqueci minha senha</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate('Cadastro') }} style={styles.textBtn}>
+                        <Text style={styles.text2}>Cadastre-se</Text>
+                    </TouchableOpacity>
             </View>
             <View style={styles.box3}>
                 <MyModal activeModal={modalActive} mensagem={msnModal} mudarEstado={setModalActive} />

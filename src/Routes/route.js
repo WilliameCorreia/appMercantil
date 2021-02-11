@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Home from '../pages/Home/Home'
 import Login from '../pages/Login/Login'
 import Cadastro from '../pages/Cadastro/Cadastro'
+import RecuperacaoSenha from '../pages/RecuperacaoSenha/RecuperacaoSenha'
 import MyHeader from '../Componentes/MyHeader'
 import MyBackButton from '../Componentes/MyBackButton'
 
@@ -21,7 +22,7 @@ function Route() {
                     const title = options.headerTitle !== undefined ? options.headerTitle : options.title !== undefined
                         ? options.title : scene.route.name;
                     const backColor = options.headerStyle.backgroundColor
-                    console.log(backColor)
+                    // console.log(backColor)
                     return (
                         <MyHeader
                             title={title}
@@ -46,6 +47,11 @@ function Route() {
                 name='Cadastro'
                 component={Cadastro}
                 options={{ headerStyle: { backgroundColor: '#F23132' }, title: 'CADASTRO' }}
+            />
+            <Stack.Screen
+                name='RecuperacaoSenha'
+                component={RecuperacaoSenha}
+                options={{ headerStyle: { backgroundColor: '#F23132' }, title: 'Recuperar senha', }}
             />
         </Stack.Navigator>
     )
