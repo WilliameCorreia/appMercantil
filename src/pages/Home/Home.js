@@ -1,13 +1,19 @@
-import React, { useState, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Text, View, ImageBackground, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 
 import styles from './style'
 
 import AuthContext from '../../Contexts/Auth'
+import oneSiganl from 'react-native-onesignal'
 
 export default function Home({ navigation }) {
 
     const { loading } = useContext(AuthContext)
+
+    useEffect(() => {
+        oneSiganl.setExternalUserId("vazio");
+        oneSiganl.removeExternalUserId();
+    }, [])
 
     return (
         <ImageBackground source={require('../../Assets/backHome.jpeg')} style={styles.container}>

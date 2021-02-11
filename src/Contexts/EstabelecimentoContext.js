@@ -78,11 +78,14 @@ const EstabelecimentoProvider = ({ children }) => {
     }, [])
     useEffect(() => {
         if(Estabelecimento.id){
+            console.log(Estabelecimento.id.toString())
             oneSiganl.setExternalUserId(Estabelecimento.id.toString());
-        }else{
-            oneSiganl.removeExternalUserId();
         }
-    }, [Estabelecimento, usuario])
+        // else{
+        //     oneSiganl.setExternalUserId("vazio");
+        //     oneSiganl.removeExternalUserId();
+        // }
+    }, [Estabelecimento])
 
     return (
         <EstabelecimentosContext.Provider value={{ Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento, Catestabelecimento }} >
