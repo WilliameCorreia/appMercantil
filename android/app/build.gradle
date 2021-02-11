@@ -143,8 +143,8 @@ android {
         applicationId "com.appmercantil"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 16
-        versionName "2.6"
+        versionCode 17
+        versionName "2.7"
         multiDexEnabled true
         missingDimensionStrategy 'react-native-camera', 'general'
         manifestPlaceholders = [onesignal_app_id: '59bd77cc-736c-4d0c-a4f0-2991c74577f8',

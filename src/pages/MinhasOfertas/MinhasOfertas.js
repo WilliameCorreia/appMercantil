@@ -29,17 +29,27 @@ export default function MinhasOfertas({ navigation }) {
                 }
             }).then(response => {
                 const { result } = response.data;
+                let _ofertas = ofertas;
                 const emOferta = result.filter(oferta => oferta.oferta === true)
                 if (emOferta.length < 1) {
                     setLastPage(true); setLoad(false);
                     ofertas.map(item => {
+                        console.log(item)
                         if (item === "") {
                             setOfertas([]);
                         }
                     })
                 }
                 else {
-                    setOfertas(emOferta); setPage(page + 1); setLoad(false);
+                    if(_ofertas[0]===""){
+                        _ofertas = []
+                    }
+                    emOferta.map(o => {
+                        _ofertas.push(o);
+                    })
+                    setOfertas(_ofertas);
+                    setPage(page + 1);
+                    setLoad(false);
                 }
             }).catch(erro => {
                 console.log(erro);

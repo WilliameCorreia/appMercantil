@@ -82,7 +82,7 @@ const EstabelecimentoProvider = ({ children }) => {
         }else{
             oneSiganl.removeExternalUserId();
         }
-    }, [Estabelecimento])
+    }, [Estabelecimento, usuario])
 
     return (
         <EstabelecimentosContext.Provider value={{ Estabelecimento, setEstabelecimento, EditaFotoEstabelecimento, Catestabelecimento }} >
